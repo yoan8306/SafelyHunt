@@ -16,6 +16,7 @@
 		5F1CF318286B1F2C00A0429D /* SafelyHuntTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CF317286B1F2C00A0429D /* SafelyHuntTests.swift */; };
 		5F1CF331286B1FB500A0429D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */; };
 		5F1CF332286B1FB500A0429D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */; };
+		5F77E8A6286F275A005A7F0B /* AreasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F77E8A5286F275A005A7F0B /* AreasTests.swift */; };
 		5FF4C81A286D6B1C000A0F26 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C819286D6B1C000A0F26 /* SPAlert */; };
 		5FF4C81D286D6C38000A0F26 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C81C286D6C38000A0F26 /* FirebaseAnalytics */; };
 		5FF4C81F286D6C38000A0F26 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C81E286D6C38000A0F26 /* FirebaseAppCheck */; };
@@ -64,6 +65,7 @@
 		5F1CF317286B1F2C00A0429D /* SafelyHuntTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafelyHuntTests.swift; sourceTree = "<group>"; };
 		5F1CF31D286B1F2C00A0429D /* SafelyHuntUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafelyHuntUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5F77E8A5286F275A005A7F0B /* AreasTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreasTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				5F1CF317286B1F2C00A0429D /* SafelyHuntTests.swift */,
+				5F77E8A5286F275A005A7F0B /* AreasTests.swift */,
 			);
 			path = SafelyHuntTests;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F77E8A6286F275A005A7F0B /* AreasTests.swift in Sources */,
 				5F1CF318286B1F2C00A0429D /* SafelyHuntTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

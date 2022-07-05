@@ -42,6 +42,8 @@ class ViewController: UIViewController {
         }
         
         ref.child(database).child(userList).child(name).setValue(name)
+        ref.child(database).child(userList).child(name).child("latitude").setValue("34")
+        ref.child(database).child(userList).child(name).child("Longitude").setValue("34")
         textFieldName.text = ""
     }
     

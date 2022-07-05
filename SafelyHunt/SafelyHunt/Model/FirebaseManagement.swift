@@ -16,20 +16,21 @@ class FirebaseManagement {
     
     func createUser(email: String, password: String, callBack: @escaping (Result<AuthDataResult, Error>) -> Void) {
         
-        DispatchQueue.main.async {
+       
             self.firebaseAuth.createUser(withEmail: email, password: password) { authResult, error in
-                guard let result = authResult, error == nil else {
-                    callBack(.failure(error ?? FirebaseError.createAccountError))
-                    return
+                DispatchQueue.main.async {
+                    guard let result = authResult, error == nil else {
+                        callBack(.failure(error ?? FirebaseError.createAccountError))
+                        return
+                    }
+                    callBack(.success(result))
+                    if self.firebaseAuth.currentUser != nil {
+                        //             self.firebaseAuth.currentUser?.sendEmailVerification(beforeUpdatingEmail: email)
+                        self.firebaseAuth.currentUser?.sendEmailVerification()
+                        print(self.firebaseAuth.currentUser?.email ?? "my address email")
+                    }
+                    
                 }
-                callBack(.success(result))
-                if self.firebaseAuth.currentUser != nil {
-//                    self.firebaseAuth.currentUser?.sendEmailVerification(beforeUpdatingEmail: email)
-                    self.firebaseAuth.currentUser?.sendEmailVerification()
-                   print(self.firebaseAuth.currentUser?.email ?? "my address email")
-                }
-               
-            }
         }
     }
 }

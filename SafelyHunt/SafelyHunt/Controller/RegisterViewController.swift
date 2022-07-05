@@ -33,6 +33,8 @@ class RegisterViewController: UIViewController {
                 switch result {
                 case .success(let user):
                     self?.presentNativeAlertSuccess(alertMessage: "User \(user.user.email ?? email) id created")
+                    let vc = jdslfg.storyboard
+                    self.navigationController?.setViewControllers(<#T##viewControllers: [UIViewController]##[UIViewController]#>, animated: <#T##Bool#>)
 //                    self?.dissmissViewController()
                 case .failure(let error):
                     self?.presentAlertError(alertMessage: error.localizedDescription)

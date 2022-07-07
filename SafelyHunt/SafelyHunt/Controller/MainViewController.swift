@@ -17,11 +17,9 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        FirebaseManagement.shared.checkUserLogged(controller: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        FirebaseManagement.shared.removeStateChangeLoggedListen()
     }
 }

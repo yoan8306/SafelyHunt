@@ -9,52 +9,71 @@ import Foundation
 import FirebaseAuth
 
 class FirebaseManagement {
-   static let shared = FirebaseManagement()
+    // MARK: - properties
+    static let shared = FirebaseManagement()
     weak var handle: AuthStateDidChangeListenerHandle?
-    
-  private let firebaseAuth: FirebaseAuth.Auth = .auth()
+    private let firebaseAuth: FirebaseAuth.Auth = .auth()
     private init() {}
     
-    func checkUserLogged(controller: UIViewController) {
-        handle = Auth.auth().addStateDidChangeListener { auth, user in
+    
+    // MARK: - Functions
+    func checkUserLogged(controller: UITabBarController) {
+        handle = firebaseAuth.addStateDidChangeListener { auth, user in
             if ((user) != nil) {
-                print("User logged in")
-                try? FirebaseAuth.Auth.auth().signOut()
-            } else {
-                print("Not Logged in")
-                let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
+                self.transfertToMainStarter(controller: controller)
                 
-                guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "LoginNavigation") as? UINavigationController else {
-                    return
-                }
-                loginViewController.modalPresentationStyle = .fullScreen
-                controller.present(loginViewController, animated: true)
+            } else {
+                self.transfertToLogin(controller: controller)
             }
         }
     }
     
     func removeStateChangeLoggedListen() {
-        Auth.auth().removeStateDidChangeListener(self.handle!)
+        firebaseAuth.removeStateDidChangeListener(self.handle!)
     }
     
     func createUser(email: String, password: String, callBack: @escaping (Result<AuthDataResult, Error>) -> Void) {
         
-       
-            self.firebaseAuth.createUser(withEmail: email, password: password) { authResult, error in
-                DispatchQueue.main.async {
-                    guard let result = authResult, error == nil else {
-                        callBack(.failure(error ?? FirebaseError.createAccountError))
-                        return
-                    }
-                    callBack(.success(result))
-//                    if self.firebaseAuth.currentUser != nil {
-//                        self.firebaseAuth.currentUser?.sendEmailVerification()
-//                        print(self.firebaseAuth.currentUser?.email ?? "my address email")
-//                    }
+        self.firebaseAuth.createUser(withEmail: email, password: password) { authResult, error in
+            DispatchQueue.main.async {
+                guard let result = authResult, error == nil else {
+                    callBack(.failure(error ?? FirebaseError.createAccountError))
+                    return
                 }
+                callBack(.success(result))
+                //                    if self.firebaseAuth.currentUser != nil {
+                //                        self.firebaseAuth.currentUser?.sendEmailVerification()
+                //                        print(self.firebaseAuth.currentUser?.email ?? "my address email")
+                //                    }
+            }
         }
     }
     
+    func disconnectCurrentUser() {
+        try? firebaseAuth.signOut()
+    }
     
+    // MARK: - Privates functions
+    private func transfertToMainStarter(controller: UITabBarController) {
+        let mainStarterStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let mainStarterViewController = mainStarterStoryboard.instantiateViewController(withIdentifier: "MainStarter") as? MainStarterViewController else {
+            return
+        }
+        
+        mainStarterViewController.modalPresentationStyle = .fullScreen
+        removeStateChangeLoggedListen()
+        controller.tabBarController?.setViewControllers([mainStarterViewController], animated: true)
+    }
+    
+    private func transfertToLogin(controller: UITabBarController) {
+        let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
+        
+        guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "LoginNavigation") as? UINavigationController else {
+            return
+        }
+        loginViewController.modalPresentationStyle = .fullScreen
+        removeStateChangeLoggedListen()
+        controller.present(loginViewController, animated: true)
+    }
     
 }

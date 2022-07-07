@@ -16,6 +16,8 @@
 		5F1CF331286B1FB500A0429D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */; };
 		5F1CF332286B1FB500A0429D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */; };
 		5F77E8A6286F275A005A7F0B /* AreasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F77E8A5286F275A005A7F0B /* AreasTests.swift */; };
+		5F78B6BF2876D306003C58B5 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6BE2876D306003C58B5 /* SplashScreenViewController.swift */; };
+		5F78B6C12876D47A003C58B5 /* MainStarterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */; };
 		5FBA01492874517200D70715 /* Areas.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5FBA01472874517200D70715 /* Areas.xcdatamodeld */; };
 		5FBA014B287453F800D70715 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FBA014A287453F800D70715 /* Main.storyboard */; };
 		5FBA014D2874CC4A00D70715 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBA014C2874CC4A00D70715 /* MainViewController.swift */; };
@@ -73,6 +75,8 @@
 		5F1CF31D286B1F2C00A0429D /* SafelyHuntUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafelyHuntUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F77E8A5286F275A005A7F0B /* AreasTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreasTests.swift; sourceTree = "<group>"; };
+		5F78B6BE2876D306003C58B5 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
+		5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStarterViewController.swift; sourceTree = "<group>"; };
 		5FBA01482874517200D70715 /* Areas.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Areas.xcdatamodel; sourceTree = "<group>"; };
 		5FBA014A287453F800D70715 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5FBA014C2874CC4A00D70715 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -180,6 +184,8 @@
 				5FBEF945287306C80023E5A5 /* LoginViewController.swift */,
 				5FBEF947287306DD0023E5A5 /* RegisterViewController.swift */,
 				5FBA014C2874CC4A00D70715 /* MainViewController.swift */,
+				5F78B6BE2876D306003C58B5 /* SplashScreenViewController.swift */,
+				5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -378,7 +384,9 @@
 				5FBEF948287306DD0023E5A5 /* RegisterViewController.swift in Sources */,
 				5FBEF952287380050023E5A5 /* UIViewController_Alert.swift in Sources */,
 				5FBEF94F287375050023E5A5 /* FirebaseError.swift in Sources */,
+				5F78B6BF2876D306003C58B5 /* SplashScreenViewController.swift in Sources */,
 				5FBA01492874517200D70715 /* Areas.xcdatamodeld in Sources */,
+				5F78B6C12876D47A003C58B5 /* MainStarterViewController.swift in Sources */,
 				5F1CF305286B1F2900A0429D /* ViewController.swift in Sources */,
 				5F1CF301286B1F2900A0429D /* AppDelegate.swift in Sources */,
 				5F1CF303286B1F2900A0429D /* SceneDelegate.swift in Sources */,

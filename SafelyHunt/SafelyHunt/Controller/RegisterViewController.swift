@@ -47,6 +47,7 @@ class RegisterViewController: UIViewController {
         guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "Login") as? LoginViewController else {
             return
         }
+        FirebaseManagement.shared.disconnectCurrentUser()
         navigationController?.setViewControllers([loginViewController], animated: true)
     }
 

@@ -8,7 +8,7 @@
 import Foundation
 
 enum FirebaseError: Error {
-    case createAccountError, emailAlreadyExist
+    case createAccountError, emailAlreadyExist,signIn, resetPassword
     
     var detail: String {
         switch self {
@@ -16,6 +16,10 @@ enum FirebaseError: Error {
             return "Error during create account"
         case .emailAlreadyExist:
             return "This email already exist"
+        case .signIn:
+            return "Authentification failed"
+        case .resetPassword:
+            return "Error during reset your password"
         }
     }
 }

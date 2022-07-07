@@ -32,14 +32,14 @@ class FirebaseManagement {
         firebaseAuth.removeStateDidChangeListener(self.handle!)
     }
     
-    func createUser(email: String, password: String, callBack: @escaping (Result<AuthDataResult, Error>) -> Void) {
-        
+    func createUser(email: String, password: String, firstName: String, lastName: String, callBack: @escaping (Result<AuthDataResult, Error>) -> Void) {
         self.firebaseAuth.createUser(withEmail: email, password: password) { authResult, error in
             DispatchQueue.main.async {
                 guard let result = authResult, error == nil else {
                     callBack(.failure(error ?? FirebaseError.createAccountError))
                     return
                 }
+//                self.firebaseAuth.currentUser?.createProfileChangeRequest().displayName = "\(lastName), \(firstName)"
                 callBack(.success(result))
                 //                    if self.firebaseAuth.currentUser != nil {
                 //                        self.firebaseAuth.currentUser?.sendEmailVerification()
@@ -47,10 +47,37 @@ class FirebaseManagement {
                 //                    }
             }
         }
+        
+    }
+    
+    func signInUser(email: String?, password: String?, callBack: @escaping (Result<AuthDataResult, Error>) -> Void) {
+        guard let email = email, let password = password else {
+            callBack(.failure(FirebaseError.signIn))
+            return
+        }
+        
+        self.firebaseAuth.signIn(withEmail: email, password: password) { authResult, error in
+            DispatchQueue.main.async {
+                guard let authResult = authResult, error == nil else {
+                    callBack(.failure(error ?? FirebaseError.signIn))
+                    return
+                }
+                callBack(.success(authResult))
+            }
+        }
     }
     
     func disconnectCurrentUser() {
         try? firebaseAuth.signOut()
+    }
+    
+    func resetPassword(email: String, callBack: @escaping (Result<String, Error>) -> Void) {
+        firebaseAuth.sendPasswordReset(withEmail: email) { error in
+            if error == nil {
+                callBack(.success("Email send"))
+            }
+            callBack(.failure(error ?? FirebaseError.resetPassword))
+        }
     }
     
     // MARK: - Privates functions

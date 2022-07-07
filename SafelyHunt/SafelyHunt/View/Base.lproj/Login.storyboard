@@ -144,6 +144,9 @@
                                 <state key="normal" title="Log in">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="logInActionButton" destination="Zt0-lv-8N8" eventType="touchUpInside" id="a0x-EQ-6fa"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXf-Xf-CBi">
                                 <rect key="frame" x="60" y="239" width="200" height="40"/>
@@ -152,7 +155,13 @@
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Forget password"/>
+                                <connections>
+                                    <segue destination="fJG-aZ-M4A" kind="show" id="IOF-Ig-7VC"/>
+                                </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="y6F-oG-RM2">
+                                <rect key="frame" x="60" y="174" width="200" height="40"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HIH-7D-Rw1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -163,10 +172,14 @@
                             <constraint firstItem="HIH-7D-Rw1" firstAttribute="trailing" secondItem="s51-eu-qdl" secondAttribute="trailing" constant="60" id="Dsa-AU-CNZ"/>
                             <constraint firstItem="HIH-7D-Rw1" firstAttribute="trailing" secondItem="jMg-Am-C07" secondAttribute="trailing" constant="30" id="GoZ-NQ-6cJ"/>
                             <constraint firstItem="s51-eu-qdl" firstAttribute="leading" secondItem="HIH-7D-Rw1" secondAttribute="leading" constant="60" id="Q7c-8q-7Ib"/>
+                            <constraint firstItem="y6F-oG-RM2" firstAttribute="trailing" secondItem="s51-eu-qdl" secondAttribute="trailing" id="ZYi-r0-rz9"/>
+                            <constraint firstItem="y6F-oG-RM2" firstAttribute="bottom" secondItem="s51-eu-qdl" secondAttribute="bottom" id="bIz-Th-6OV"/>
                             <constraint firstItem="hXf-Xf-CBi" firstAttribute="leading" secondItem="s51-eu-qdl" secondAttribute="leading" id="bVP-W6-cTe"/>
+                            <constraint firstItem="y6F-oG-RM2" firstAttribute="leading" secondItem="s51-eu-qdl" secondAttribute="leading" id="eVR-QD-t1B"/>
                             <constraint firstItem="jMg-Am-C07" firstAttribute="leading" secondItem="HIH-7D-Rw1" secondAttribute="leading" constant="30" id="j9N-CR-Ofj"/>
                             <constraint firstItem="jMg-Am-C07" firstAttribute="centerX" secondItem="XxW-8t-vFE" secondAttribute="centerX" id="ouC-Ke-OXF"/>
                             <constraint firstItem="s51-eu-qdl" firstAttribute="top" secondItem="jMg-Am-C07" secondAttribute="bottom" constant="10" id="qBt-nB-GmO"/>
+                            <constraint firstItem="y6F-oG-RM2" firstAttribute="top" secondItem="s51-eu-qdl" secondAttribute="top" id="s9E-JC-m5Q"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Log in" id="ul3-9L-3AQ">
@@ -176,6 +189,12 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="activityIndicator" destination="y6F-oG-RM2" id="fRs-0R-K9d"/>
+                        <outlet property="emailTextField" destination="p8s-qR-kwB" id="1im-bg-BhC"/>
+                        <outlet property="logInButton" destination="s51-eu-qdl" id="aU0-0P-4GW"/>
+                        <outlet property="passwordTextField" destination="xbP-TP-91o" id="en6-xy-fPU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6aB-ex-HYs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -189,7 +208,17 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lUR-Gu-twu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3089" y="70"/>
+            <point key="canvasLocation" x="3070" y="-200"/>
+        </scene>
+        <!--ResetPassword-->
+        <scene sceneID="Bn7-Xy-vQ8">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ResetPassword" id="fJG-aZ-M4A" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Bl2-Nj-Snx"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BvC-Pg-DxY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3376" y="145"/>
         </scene>
     </scenes>
     <resources>

@@ -33,7 +33,7 @@ class RegisterViewController: UIViewController {
                 switch result {
                 case .success(let user):
                     self?.presentNativeAlertSuccess(alertMessage: "User \(user.user.email ?? email) id created")
-//                    self?.dissmissViewController()
+                    self?.goToLoginController()
                 case .failure(let error):
                     self?.presentAlertError(alertMessage: error.localizedDescription)
                 }
@@ -41,9 +41,15 @@ class RegisterViewController: UIViewController {
         }
     }
     
-//    private func dissmissViewController() {
-//        dismiss(animated: true)
-//    }
+    private func goToLoginController() {
+        let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
+        
+        guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "Login") as? LoginViewController else {
+            return
+        }
+        FirebaseManagement.shared.disconnectCurrentUser()
+        navigationController?.setViewControllers([loginViewController], animated: true)
+    }
 
     private func checkPassword() -> Bool {
         if passwordTextField.text == confirmPasswordTextField.text {

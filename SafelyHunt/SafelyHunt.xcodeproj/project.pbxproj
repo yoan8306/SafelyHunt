@@ -10,13 +10,23 @@
 		5F1CF301286B1F2900A0429D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CF300286B1F2900A0429D /* AppDelegate.swift */; };
 		5F1CF303286B1F2900A0429D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CF302286B1F2900A0429D /* SceneDelegate.swift */; };
 		5F1CF305286B1F2900A0429D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CF304286B1F2900A0429D /* ViewController.swift */; };
-		5F1CF308286B1F2900A0429D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF306286B1F2900A0429D /* Main.storyboard */; };
+		5F1CF308286B1F2900A0429D /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF306286B1F2900A0429D /* Login.storyboard */; };
 		5F1CF30A286B1F2B00A0429D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF309286B1F2B00A0429D /* Assets.xcassets */; };
 		5F1CF30D286B1F2C00A0429D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF30B286B1F2B00A0429D /* LaunchScreen.storyboard */; };
-		5F1CF318286B1F2C00A0429D /* SafelyHuntTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CF317286B1F2C00A0429D /* SafelyHuntTests.swift */; };
 		5F1CF331286B1FB500A0429D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */; };
 		5F1CF332286B1FB500A0429D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */; };
 		5F77E8A6286F275A005A7F0B /* AreasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F77E8A5286F275A005A7F0B /* AreasTests.swift */; };
+		5F78B6BF2876D306003C58B5 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6BE2876D306003C58B5 /* SplashScreenViewController.swift */; };
+		5F78B6C12876D47A003C58B5 /* MainStarterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */; };
+		5FBA01492874517200D70715 /* Areas.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5FBA01472874517200D70715 /* Areas.xcdatamodeld */; };
+		5FBA014B287453F800D70715 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FBA014A287453F800D70715 /* Main.storyboard */; };
+		5FBA014D2874CC4A00D70715 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBA014C2874CC4A00D70715 /* MainViewController.swift */; };
+		5FBEF946287306C80023E5A5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF945287306C80023E5A5 /* LoginViewController.swift */; };
+		5FBEF948287306DD0023E5A5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF947287306DD0023E5A5 /* RegisterViewController.swift */; };
+		5FBEF94B2873073A0023E5A5 /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FBEF9492873073A0023E5A5 /* Register.storyboard */; };
+		5FBEF94D2873706D0023E5A5 /* FirebaseManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF94C2873706D0023E5A5 /* FirebaseManagement.swift */; };
+		5FBEF94F287375050023E5A5 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF94E287375050023E5A5 /* FirebaseError.swift */; };
+		5FBEF952287380050023E5A5 /* UIViewController_Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF951287380050023E5A5 /* UIViewController_Alert.swift */; };
 		5FF4C81A286D6B1C000A0F26 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C819286D6B1C000A0F26 /* SPAlert */; };
 		5FF4C81D286D6C38000A0F26 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C81C286D6C38000A0F26 /* FirebaseAnalytics */; };
 		5FF4C81F286D6C38000A0F26 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C81E286D6C38000A0F26 /* FirebaseAppCheck */; };
@@ -57,15 +67,25 @@
 		5F1CF300286B1F2900A0429D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F1CF302286B1F2900A0429D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5F1CF304286B1F2900A0429D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		5F1CF307286B1F2900A0429D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5F1CF307286B1F2900A0429D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		5F1CF309286B1F2B00A0429D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F1CF30C286B1F2B00A0429D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F1CF30E286B1F2C00A0429D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F1CF313286B1F2C00A0429D /* SafelyHuntTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafelyHuntTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5F1CF317286B1F2C00A0429D /* SafelyHuntTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafelyHuntTests.swift; sourceTree = "<group>"; };
 		5F1CF31D286B1F2C00A0429D /* SafelyHuntUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafelyHuntUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F77E8A5286F275A005A7F0B /* AreasTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreasTests.swift; sourceTree = "<group>"; };
+		5F78B6BE2876D306003C58B5 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
+		5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStarterViewController.swift; sourceTree = "<group>"; };
+		5FBA01482874517200D70715 /* Areas.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Areas.xcdatamodel; sourceTree = "<group>"; };
+		5FBA014A287453F800D70715 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		5FBA014C2874CC4A00D70715 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		5FBEF945287306C80023E5A5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		5FBEF947287306DD0023E5A5 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		5FBEF94A2873073A0023E5A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SafelyHunt/View/Base.lproj/Register.storyboard; sourceTree = "<group>"; };
+		5FBEF94C2873706D0023E5A5 /* FirebaseManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManagement.swift; sourceTree = "<group>"; };
+		5FBEF94E287375050023E5A5 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
+		5FBEF951287380050023E5A5 /* UIViewController_Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController_Alert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +151,7 @@
 		5F1CF2FF286B1F2900A0429D /* SafelyHunt */ = {
 			isa = PBXGroup;
 			children = (
+				5FBEF95028737FDC0023E5A5 /* Extension */,
 				5FCDFFB9286CE595002D83DD /* SupportingFiles */,
 				5FCDFFB8286CE584002D83DD /* Model */,
 				5FCDFFB7286CE57A002D83DD /* View */,
@@ -143,16 +164,28 @@
 		5F1CF316286B1F2C00A0429D /* SafelyHuntTests */ = {
 			isa = PBXGroup;
 			children = (
-				5F1CF317286B1F2C00A0429D /* SafelyHuntTests.swift */,
 				5F77E8A5286F275A005A7F0B /* AreasTests.swift */,
 			);
 			path = SafelyHuntTests;
+			sourceTree = "<group>";
+		};
+		5FBEF95028737FDC0023E5A5 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				5FBEF951287380050023E5A5 /* UIViewController_Alert.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		5FCDFFB6286CE56C002D83DD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				5F1CF304286B1F2900A0429D /* ViewController.swift */,
+				5FBEF945287306C80023E5A5 /* LoginViewController.swift */,
+				5FBEF947287306DD0023E5A5 /* RegisterViewController.swift */,
+				5FBA014C2874CC4A00D70715 /* MainViewController.swift */,
+				5F78B6BE2876D306003C58B5 /* SplashScreenViewController.swift */,
+				5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -160,8 +193,10 @@
 		5FCDFFB7286CE57A002D83DD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5FBEF9492873073A0023E5A5 /* Register.storyboard */,
 				5F1CF30B286B1F2B00A0429D /* LaunchScreen.storyboard */,
-				5F1CF306286B1F2900A0429D /* Main.storyboard */,
+				5F1CF306286B1F2900A0429D /* Login.storyboard */,
+				5FBA014A287453F800D70715 /* Main.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -169,6 +204,9 @@
 		5FCDFFB8286CE584002D83DD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5FBEF94C2873706D0023E5A5 /* FirebaseManagement.swift */,
+				5FBEF94E287375050023E5A5 /* FirebaseError.swift */,
+				5FBA01472874517200D70715 /* Areas.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -313,7 +351,9 @@
 				5F1CF30D286B1F2C00A0429D /* LaunchScreen.storyboard in Resources */,
 				5F1CF331286B1FB500A0429D /* GoogleService-Info.plist in Resources */,
 				5F1CF30A286B1F2B00A0429D /* Assets.xcassets in Resources */,
-				5F1CF308286B1F2900A0429D /* Main.storyboard in Resources */,
+				5F1CF308286B1F2900A0429D /* Login.storyboard in Resources */,
+				5FBEF94B2873073A0023E5A5 /* Register.storyboard in Resources */,
+				5FBA014B287453F800D70715 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,9 +379,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FBEF946287306C80023E5A5 /* LoginViewController.swift in Sources */,
+				5FBEF94D2873706D0023E5A5 /* FirebaseManagement.swift in Sources */,
+				5FBEF948287306DD0023E5A5 /* RegisterViewController.swift in Sources */,
+				5FBEF952287380050023E5A5 /* UIViewController_Alert.swift in Sources */,
+				5FBEF94F287375050023E5A5 /* FirebaseError.swift in Sources */,
+				5F78B6BF2876D306003C58B5 /* SplashScreenViewController.swift in Sources */,
+				5FBA01492874517200D70715 /* Areas.xcdatamodeld in Sources */,
+				5F78B6C12876D47A003C58B5 /* MainStarterViewController.swift in Sources */,
 				5F1CF305286B1F2900A0429D /* ViewController.swift in Sources */,
 				5F1CF301286B1F2900A0429D /* AppDelegate.swift in Sources */,
 				5F1CF303286B1F2900A0429D /* SceneDelegate.swift in Sources */,
+				5FBA014D2874CC4A00D70715 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +399,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F77E8A6286F275A005A7F0B /* AreasTests.swift in Sources */,
-				5F1CF318286B1F2C00A0429D /* SafelyHuntTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,12 +425,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		5F1CF306286B1F2900A0429D /* Main.storyboard */ = {
+		5F1CF306286B1F2900A0429D /* Login.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				5F1CF307286B1F2900A0429D /* Base */,
 			);
-			name = Main.storyboard;
+			name = Login.storyboard;
 			sourceTree = "<group>";
 		};
 		5F1CF30B286B1F2B00A0429D /* LaunchScreen.storyboard */ = {
@@ -391,6 +439,14 @@
 				5F1CF30C286B1F2B00A0429D /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		5FBEF9492873073A0023E5A5 /* Register.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5FBEF94A2873073A0023E5A5 /* Base */,
+			);
+			name = Register.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -446,7 +502,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -500,7 +556,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -786,6 +842,19 @@
 			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		5FBA01472874517200D70715 /* Areas.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5FBA01482874517200D70715 /* Areas.xcdatamodel */,
+			);
+			currentVersion = 5FBA01482874517200D70715 /* Areas.xcdatamodel */;
+			path = Areas.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5F1CF2F5286B1F2900A0429D /* Project object */;
 }

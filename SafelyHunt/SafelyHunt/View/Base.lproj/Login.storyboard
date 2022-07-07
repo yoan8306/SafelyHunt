@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1mI-uG-1Q5">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -93,7 +93,7 @@
         <!--Navigation-->
         <scene sceneID="B3a-F9-pvc">
             <objects>
-                <navigationController modalPresentationStyle="fullScreen" id="1mI-uG-1Q5" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LoginNavigation" modalPresentationStyle="fullScreen" id="1mI-uG-1Q5" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Navigation" id="IMa-TZ-fbA"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uWu-sl-vgy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -113,7 +113,7 @@
         <!--Log in-->
         <scene sceneID="gno-pm-CAy">
             <objects>
-                <viewController id="Zt0-lv-8N8" customClass="LoginViewController" customModule="SafelyHunt" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Login" id="Zt0-lv-8N8" customClass="LoginViewController" customModule="SafelyHunt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XxW-8t-vFE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

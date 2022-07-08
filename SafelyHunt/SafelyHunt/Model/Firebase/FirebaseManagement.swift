@@ -17,16 +17,14 @@ class FirebaseManagement {
     
     
     // MARK: - Functions
-    func checkUserLogged() -> Bool {
-        var userIsLogged = false
+    func checkUserLogged(callBack: @escaping (Result<Bool, Error>) -> Void) {
         handle = firebaseAuth.addStateDidChangeListener { auth, user in
             if ((user) != nil) {
-                userIsLogged = true
+                callBack(.success(true))
             } else {
-              userIsLogged = false
+                callBack(.failure(FirebaseError.signIn))
             }
         }
-    return userIsLogged
     }
     
     func removeStateChangeLoggedListen() {

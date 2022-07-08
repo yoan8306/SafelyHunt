@@ -53,13 +53,13 @@ class LoginViewController: UIViewController {
 
     
     private func transfertToMainStarter() {
-        let splashScreen = UIStoryboard(name: "Main", bundle: nil)
-        guard let splashScreenViewController = splashScreen.instantiateViewController(withIdentifier: "SplashScreenStoryboard") as? SplashScreenViewController else {
+        let tabbarMain = UIStoryboard(name: "TabbarMain", bundle: nil)
+        guard let mainStarter = tabbarMain.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {
             return
         }
         
-        splashScreenViewController.modalPresentationStyle = .fullScreen
-        self.present(splashScreenViewController, animated: true)
+        mainStarter.modalPresentationStyle = .fullScreen
+        self.present(mainStarter, animated: true)
     }
     
     private func activityIndicator(shown: Bool) {

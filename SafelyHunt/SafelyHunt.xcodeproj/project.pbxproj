@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F14AD1F2878284C0039002A /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14AD1E2878284C0039002A /* UserDefaultKeys.swift */; };
+		5F14AD21287829470039002A /* MainStarterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14AD20287829470039002A /* MainStarterData.swift */; };
+		5F14AD2328783B050039002A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F14AD2228783B050039002A /* Main.storyboard */; };
 		5F1CF301286B1F2900A0429D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CF300286B1F2900A0429D /* AppDelegate.swift */; };
 		5F1CF303286B1F2900A0429D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CF302286B1F2900A0429D /* SceneDelegate.swift */; };
 		5F1CF305286B1F2900A0429D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CF304286B1F2900A0429D /* ViewController.swift */; };
@@ -22,7 +25,7 @@
 		5F78B6C72876F13F003C58B5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6C62876F13F003C58B5 /* SettingsViewController.swift */; };
 		5F78B6CA2876FE0A003C58B5 /* ResetPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F78B6C82876FE0A003C58B5 /* ResetPassword.storyboard */; };
 		5F78B6CC2876FE6A003C58B5 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6CB2876FE6A003C58B5 /* ResetPasswordViewController.swift */; };
-		5FBA014B287453F800D70715 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FBA014A287453F800D70715 /* Main.storyboard */; };
+		5FBA014B287453F800D70715 /* TabbarMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FBA014A287453F800D70715 /* TabbarMain.storyboard */; };
 		5FBEF946287306C80023E5A5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF945287306C80023E5A5 /* LoginViewController.swift */; };
 		5FBEF948287306DD0023E5A5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF947287306DD0023E5A5 /* RegisterViewController.swift */; };
 		5FBEF94B2873073A0023E5A5 /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FBEF9492873073A0023E5A5 /* Register.storyboard */; };
@@ -65,6 +68,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5F14AD1E2878284C0039002A /* UserDefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
+		5F14AD20287829470039002A /* MainStarterData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStarterData.swift; sourceTree = "<group>"; };
+		5F14AD2228783B050039002A /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5F1CF2FD286B1F2900A0429D /* SafelyHunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafelyHunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F1CF300286B1F2900A0429D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F1CF302286B1F2900A0429D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,7 +89,7 @@
 		5F78B6C62876F13F003C58B5 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5F78B6C92876FE0A003C58B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SafelyHunt/View/Base.lproj/ResetPassword.storyboard; sourceTree = "<group>"; };
 		5F78B6CB2876FE6A003C58B5 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
-		5FBA014A287453F800D70715 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		5FBA014A287453F800D70715 /* TabbarMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabbarMain.storyboard; sourceTree = "<group>"; };
 		5FBEF945287306C80023E5A5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5FBEF947287306DD0023E5A5 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		5FBEF94A2873073A0023E5A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SafelyHunt/View/Base.lproj/Register.storyboard; sourceTree = "<group>"; };
@@ -133,6 +139,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F14AD1D287827F20039002A /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				5FBEF94C2873706D0023E5A5 /* FirebaseManagement.swift */,
+				5FBEF94E287375050023E5A5 /* FirebaseError.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		5F14AD242878406B0039002A /* SignIn-SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				5F78B6BE2876D306003C58B5 /* SplashScreenViewController.swift */,
+				5FBEF945287306C80023E5A5 /* LoginViewController.swift */,
+				5FBEF947287306DD0023E5A5 /* RegisterViewController.swift */,
+				5F78B6CB2876FE6A003C58B5 /* ResetPasswordViewController.swift */,
+			);
+			path = "SignIn-SignUp";
+			sourceTree = "<group>";
+		};
+		5F14AD25287840C80039002A /* SignIn-SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				5F1CF306286B1F2900A0429D /* Login.storyboard */,
+				5F78B6C82876FE0A003C58B5 /* ResetPassword.storyboard */,
+				5FBEF9492873073A0023E5A5 /* Register.storyboard */,
+				5F14AD2228783B050039002A /* Main.storyboard */,
+			);
+			path = "SignIn-SignUp";
+			sourceTree = "<group>";
+		};
 		5F1CF2F4286B1F2900A0429D = {
 			isa = PBXGroup;
 			children = (
@@ -184,13 +221,10 @@
 		5FCDFFB6286CE56C002D83DD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5F14AD242878406B0039002A /* SignIn-SignUp */,
 				5F1CF304286B1F2900A0429D /* ViewController.swift */,
-				5F78B6BE2876D306003C58B5 /* SplashScreenViewController.swift */,
-				5FBEF945287306C80023E5A5 /* LoginViewController.swift */,
-				5FBEF947287306DD0023E5A5 /* RegisterViewController.swift */,
 				5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */,
 				5F78B6C62876F13F003C58B5 /* SettingsViewController.swift */,
-				5F78B6CB2876FE6A003C58B5 /* ResetPasswordViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -198,11 +232,9 @@
 		5FCDFFB7286CE57A002D83DD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5F14AD25287840C80039002A /* SignIn-SignUp */,
 				5F1CF30B286B1F2B00A0429D /* LaunchScreen.storyboard */,
-				5F1CF306286B1F2900A0429D /* Login.storyboard */,
-				5F78B6C82876FE0A003C58B5 /* ResetPassword.storyboard */,
-				5FBEF9492873073A0023E5A5 /* Register.storyboard */,
-				5FBA014A287453F800D70715 /* Main.storyboard */,
+				5FBA014A287453F800D70715 /* TabbarMain.storyboard */,
 				5F78B6C42876E8BC003C58B5 /* MainStarter.storyboard */,
 			);
 			path = View;
@@ -211,8 +243,9 @@
 		5FCDFFB8286CE584002D83DD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5FBEF94C2873706D0023E5A5 /* FirebaseManagement.swift */,
-				5FBEF94E287375050023E5A5 /* FirebaseError.swift */,
+				5F14AD1D287827F20039002A /* Firebase */,
+				5F14AD1E2878284C0039002A /* UserDefaultKeys.swift */,
+				5F14AD20287829470039002A /* MainStarterData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -360,8 +393,9 @@
 				5F1CF308286B1F2900A0429D /* Login.storyboard in Resources */,
 				5F78B6C52876E8BC003C58B5 /* MainStarter.storyboard in Resources */,
 				5F78B6CA2876FE0A003C58B5 /* ResetPassword.storyboard in Resources */,
+				5F14AD2328783B050039002A /* Main.storyboard in Resources */,
 				5FBEF94B2873073A0023E5A5 /* Register.storyboard in Resources */,
-				5FBA014B287453F800D70715 /* Main.storyboard in Resources */,
+				5FBA014B287453F800D70715 /* TabbarMain.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,8 +424,10 @@
 				5FBEF946287306C80023E5A5 /* LoginViewController.swift in Sources */,
 				5FBEF94D2873706D0023E5A5 /* FirebaseManagement.swift in Sources */,
 				5FBEF948287306DD0023E5A5 /* RegisterViewController.swift in Sources */,
+				5F14AD1F2878284C0039002A /* UserDefaultKeys.swift in Sources */,
 				5F78B6CC2876FE6A003C58B5 /* ResetPasswordViewController.swift in Sources */,
 				5FBEF952287380050023E5A5 /* UIViewController_Alert.swift in Sources */,
+				5F14AD21287829470039002A /* MainStarterData.swift in Sources */,
 				5FBEF94F287375050023E5A5 /* FirebaseError.swift in Sources */,
 				5F78B6BF2876D306003C58B5 /* SplashScreenViewController.swift in Sources */,
 				5F78B6C12876D47A003C58B5 /* MainStarterViewController.swift in Sources */,

@@ -17,13 +17,12 @@ class FirebaseManagement {
     
     
     // MARK: - Functions
-    func checkUserLogged(controller: UITabBarController) {
+    func checkUserLogged(callBack: @escaping (Result<Bool, Error>) -> Void) {
         handle = firebaseAuth.addStateDidChangeListener { auth, user in
             if ((user) != nil) {
-                self.transfertToMainStarter(controller: controller)
-                
+                callBack(.success(true))
             } else {
-                self.transfertToLogin(controller: controller)
+                callBack(.failure(FirebaseError.signIn))
             }
         }
     }
@@ -39,15 +38,9 @@ class FirebaseManagement {
                     callBack(.failure(error ?? FirebaseError.createAccountError))
                     return
                 }
-//                self.firebaseAuth.currentUser?.createProfileChangeRequest().displayName = "\(lastName), \(firstName)"
                 callBack(.success(result))
-                //                    if self.firebaseAuth.currentUser != nil {
-                //                        self.firebaseAuth.currentUser?.sendEmailVerification()
-                //                        print(self.firebaseAuth.currentUser?.email ?? "my address email")
-                //                    }
             }
         }
-        
     }
     
     func signInUser(email: String?, password: String?, callBack: @escaping (Result<AuthDataResult, Error>) -> Void) {
@@ -79,28 +72,4 @@ class FirebaseManagement {
             callBack(.failure(error ?? FirebaseError.resetPassword))
         }
     }
-    
-    // MARK: - Privates functions
-    private func transfertToMainStarter(controller: UITabBarController) {
-        let mainStarterStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let mainStarterViewController = mainStarterStoryboard.instantiateViewController(withIdentifier: "MainStarter") as? MainStarterViewController else {
-            return
-        }
-        
-        mainStarterViewController.modalPresentationStyle = .fullScreen
-        removeStateChangeLoggedListen()
-        controller.tabBarController?.setViewControllers([mainStarterViewController], animated: true)
-    }
-    
-    private func transfertToLogin(controller: UITabBarController) {
-        let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
-        
-        guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "LoginNavigation") as? UINavigationController else {
-            return
-        }
-        loginViewController.modalPresentationStyle = .fullScreen
-        removeStateChangeLoggedListen()
-        controller.present(loginViewController, animated: true)
-    }
-    
 }

@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Splash Screen View Controller-->
+        <!--Tab Bar Controller-->
         <scene sceneID="Kns-xO-PrD">
             <objects>
-                <tabBarController storyboardIdentifier="SplashScreenStoryboard" id="qTo-3F-dtq" customClass="SplashScreenViewController" customModule="SafelyHunt" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabbarMain" id="qTo-3F-dtq" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="69q-Ya-u54">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

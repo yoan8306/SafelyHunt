@@ -23,22 +23,14 @@ class RegisterViewController: UIViewController {
 
     }
     
+    
+    
     @IBAction func registerAction() {
-      
         if checkPassword() {
             guard let firstName = firstNameTextField.text, !firstName.isEmpty, let lastName = lastNameTextField.text, !lastName.isEmpty, let email = emailAddressTextField.text, !email.isEmpty, let password = passwordTextField.text else {
                 return
             }
-            FirebaseManagement.shared.createUser(email: email, password: password, firstName: firstName, lastName: lastName) { [weak self] result in
-                switch result {
-                case .success(let user):
-                    self?.presentNativeAlertSuccess(alertMessage: "User \(user.user.displayName ?? email) is created")
-                    
-                    self?.goToLoginController()
-                case .failure(let error):
-                    self?.presentAlertError(alertMessage: error.localizedDescription)
-                }
-            }
+            createUser(email, password, firstName, lastName)
         }
     }
     
@@ -57,6 +49,19 @@ class RegisterViewController: UIViewController {
             return true
         }
         return false
+    }
+    
+    private func createUser(_ email: String, _ password: String, _ firstName: String, _ lastName: String) {
+        FirebaseManagement.shared.createUser(email: email, password: password, firstName: firstName, lastName: lastName) { [weak self] result in
+            switch result {
+            case .success(let user):
+                self?.presentNativeAlertSuccess(alertMessage: "User \(user.user.displayName ?? email) is created")
+                self?.goToLoginController()
+                
+            case .failure(let error):
+                self?.presentAlertError(alertMessage: error.localizedDescription)
+            }
+        }
     }
     
 }

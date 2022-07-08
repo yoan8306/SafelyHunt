@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="85s-eW-G3B">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -14,10 +14,67 @@
             <objects>
                 <viewController storyboardIdentifier="MainStarter" id="85s-eW-G3B" customClass="MainStarterViewController" customModule="SafelyHunt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iPI-ga-kwn">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5M0-mE-ypI">
+                                <rect key="frame" x="0.0" y="30" width="320" height="258"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellStarter" textLabel="05s-DJ-2c7" detailTextLabel="wob-iR-OKx" style="IBUITableViewCellStyleSubtitle" id="KfZ-MG-8nw">
+                                        <rect key="frame" x="0.0" y="44.5" width="320" height="49.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KfZ-MG-8nw" id="joJ-2k-j4q">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Select area hunt" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="05s-DJ-2c7">
+                                                    <rect key="frame" x="16" y="7.5" width="105.5" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" id="wob-iR-OKx">
+                                                    <rect key="frame" x="16" y="27" width="40.5" height="13.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="11"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="85s-eW-G3B" id="9L9-iS-Vh4"/>
+                                    <outlet property="delegate" destination="85s-eW-G3B" id="hJ8-fl-D7L"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23p-M0-DBx">
+                                <rect key="frame" x="60" y="488" width="200" height="45"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="I08-Et-nfn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Start monitoring">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="XFk-5Z-EaC"/>
-                        <color key="backgroundColor" systemColor="systemBrownColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="23p-M0-DBx" firstAttribute="leading" secondItem="XFk-5Z-EaC" secondAttribute="leading" constant="60" id="9lJ-HU-4gL"/>
+                            <constraint firstItem="XFk-5Z-EaC" firstAttribute="trailing" secondItem="23p-M0-DBx" secondAttribute="trailing" constant="60" id="Cpe-Pg-glZ"/>
+                            <constraint firstItem="5M0-mE-ypI" firstAttribute="top" secondItem="XFk-5Z-EaC" secondAttribute="top" constant="30" id="Mik-dC-EUZ"/>
+                            <constraint firstItem="XFk-5Z-EaC" firstAttribute="bottom" secondItem="23p-M0-DBx" secondAttribute="bottom" constant="35" id="hvE-3R-zhM"/>
+                            <constraint firstItem="5M0-mE-ypI" firstAttribute="leading" secondItem="XFk-5Z-EaC" secondAttribute="leading" id="nI2-G5-aXs"/>
+                            <constraint firstItem="XFk-5Z-EaC" firstAttribute="trailing" secondItem="5M0-mE-ypI" secondAttribute="trailing" id="thz-gH-TtH"/>
+                            <constraint firstItem="XFk-5Z-EaC" firstAttribute="bottom" secondItem="5M0-mE-ypI" secondAttribute="bottom" constant="280" id="zSI-b3-PQP"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="Awt-rT-zLj"/>
                 </viewController>
@@ -27,8 +84,11 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

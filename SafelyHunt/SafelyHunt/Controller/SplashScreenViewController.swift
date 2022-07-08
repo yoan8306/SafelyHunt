@@ -13,9 +13,42 @@ class SplashScreenViewController: UITabBarController {
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        FirebaseManagement.shared.checkUserLogged(controller: self)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(false)
+        if FirebaseManagement.shared.checkUserLogged() {
+            transfertToMainStarter()
+        } else {
+            transfertToLogin()
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(false)
+        FirebaseManagement.shared.removeStateChangeLoggedListen()
+
+    }
+    
+    private func transfertToMainStarter() {
+        let mainStarterStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        guard let mainStarterViewController = mainStarterStoryboard.instantiateViewController(withIdentifier: "MainStarter") as? MainStarterViewController else {
+            return
+        }
+        
+        mainStarterViewController.modalPresentationStyle = .fullScreen
+        self.tabBarController?.setViewControllers([mainStarterViewController], animated: true)
+    }
+    
+    private func transfertToLogin() {
+    
+        let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
+        
+        guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "LoginNavigation") as? UINavigationController else {
+            return
+        }
+        
+        loginViewController.modalPresentationStyle = .fullScreen
+        self.present(loginViewController, animated: true)
     }
     
 }

@@ -12,11 +12,11 @@ class MainStarterViewController: UIViewController {
     let mainStarter = MainStarterData().mainStarter
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-
-
+    
+    
 }
 
 extension MainStarterViewController: UITableViewDataSource {
@@ -29,20 +29,30 @@ extension MainStarterViewController: UITableViewDataSource {
         let title = mainStarter[indexPath.row]
         
         if #available(iOS 14.0, *) {
-        
             var content = cell.defaultContentConfiguration()
             content.text = title
-            if indexPath.row == 0 {
+            switch indexPath.row {
+            case 0:
                 content.secondaryText = UserDefaultKeys.areaSelected
+            case 1:
+                content.secondaryText = "\(UserDefaultKeys.radiusAlert) m"
+            default:
+                break
             }
            
             cell.contentConfiguration = content
         } else {
             cell.textLabel?.text = title
-            if indexPath.row == 0 {
-            cell.detailTextLabel?.text = UserDefaultKeys.areaSelected
+            switch indexPath.row {
+            case 0:
+                cell.detailTextLabel?.text = UserDefaultKeys.areaSelected
+            case 1:
+                cell.detailTextLabel?.text = "\(UserDefaultKeys.radiusAlert) m"
+            default:
+                break
             }
+            
         }
-       return cell
+        return cell
     }
 }

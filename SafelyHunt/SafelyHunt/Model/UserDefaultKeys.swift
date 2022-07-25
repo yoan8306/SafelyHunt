@@ -9,7 +9,8 @@ import Foundation
 
 class UserDefaultKeys {
     private struct Keys {
-        static let areaSelected: String = "No selection"
+        static let areaSelected = "AreaSelected"
+        static let radiusAlert = "RadiusAlert"
     }
     
     static var areaSelected: String {
@@ -18,6 +19,15 @@ class UserDefaultKeys {
         }
         set {
             UserDefaults.standard.set(newValue, forKey: Keys.areaSelected)
+        }
+    }
+    
+    static var radiusAlert: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: Keys.radiusAlert)
+        }
+        set {
+            UserDefaults.standard.integer(forKey: Keys.radiusAlert)
         }
     }
     

@@ -31,7 +31,7 @@ class FirebaseManagement {
         firebaseAuth.removeStateDidChangeListener(self.handle!)
     }
     
-    func createUser(email: String, password: String, firstName: String, lastName: String, callBack: @escaping (Result<AuthDataResult, Error>) -> Void) {
+    func createUser(email: String, password: String, displayName: String, callBack: @escaping (Result<AuthDataResult, Error>) -> Void) {
         self.firebaseAuth.createUser(withEmail: email, password: password) { authResult, error in
             DispatchQueue.main.async {
                 guard let result = authResult, error == nil else {
@@ -49,7 +49,7 @@ class FirebaseManagement {
             return
         }
         
-        self.firebaseAuth.signIn(withEmail: email, password: password) { authResult, error in
+        firebaseAuth.signIn(withEmail: email, password: password) { authResult, error in
             DispatchQueue.main.async {
                 guard let authResult = authResult, error == nil else {
                     callBack(.failure(error ?? FirebaseError.signIn))
@@ -62,6 +62,20 @@ class FirebaseManagement {
     
     func disconnectCurrentUser() {
         try? firebaseAuth.signOut()
+    }
+    
+    func updateProfile(displayName: String, callBack: @escaping (Result<Auth,Error>) -> Void) {
+        let changeRequest = FirebaseAuth.Auth.auth().currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = displayName
+        changeRequest?.commitChanges(completion: { error in
+            DispatchQueue.main.async {
+                guard error == nil else {
+                    callBack(.failure(error ?? FirebaseError.signIn))
+                    return
+                }
+                callBack(.success(self.firebaseAuth))
+            }
+        })
     }
     
     func resetPassword(email: String, callBack: @escaping (Result<String, Error>) -> Void) {

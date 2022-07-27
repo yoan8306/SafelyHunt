@@ -37,7 +37,6 @@ class LoginViewController: UIViewController {
         FirebaseManagement.shared.signInUser(email: email, password: password) { [weak self] authResult in
             switch authResult {
             case .success(let userSignIn):
-                self?.presentAlertSuccess(alertMessage: "Welcome \(userSignIn.user.displayName ?? "")")
                 self?.transfertToMainStarter()
                 self?.activityIndicator(shown: false)
                 

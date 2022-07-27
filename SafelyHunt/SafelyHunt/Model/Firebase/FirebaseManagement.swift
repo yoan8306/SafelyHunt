@@ -7,14 +7,19 @@
 import UIKit
 import Foundation
 import FirebaseAuth
+import Firebase
+import MapKit
 
+// MARK: - Authentification
 class FirebaseManagement {
+
     // MARK: - properties
     static let shared = FirebaseManagement()
     weak var handle: AuthStateDidChangeListenerHandle?
+    private let database = Database.database().reference()
     private let firebaseAuth: FirebaseAuth.Auth = .auth()
-    private init() {}
     
+    private init() {}
     
     // MARK: - Functions
     func checkUserLogged(callBack: @escaping (Result<Bool, Error>) -> Void) {
@@ -84,6 +89,24 @@ class FirebaseManagement {
                 callBack(.success("Email send"))
             }
             callBack(.failure(error ?? FirebaseError.resetPassword))
+        }
+    }
+}
+
+// MARK: - Database
+extension FirebaseManagement {
+    
+    func insertArea(user: User, coordinate: [CLLocationCoordinate2D], nameArea: String, date: Int) {
+        var index = 0
+        database.child("Database").child("users_list").child(user.uid).child("area_list").child(nameArea).setValue([
+        "date": String(date)])
+    
+        for point in coordinate {
+            database.child("Database").child("users_list").child(user.uid).child("area_list").child(nameArea).child("coordinate\(index)").setValue([
+                "latitude": point.latitude,
+                "longitude": point.longitude
+            ])
+            index += 1
         }
     }
 }

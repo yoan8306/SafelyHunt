@@ -6,17 +6,31 @@
 //
 
 import UIKit
+import FirebaseAuth
+import MapKit
 
 class MainStarterViewController: UIViewController {
-    
+    let user = FirebaseAuth.Auth.auth().currentUser
     let mainStarter = MainStarterData().mainStarter
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let user = user else {
+            return
+        }
         
-        // Do any additional setup after loading the view.
+        let dateNow = Date()
+        let dateStamp: TimeInterval = dateNow.timeIntervalSince1970
+        var pointList: [CLLocationCoordinate2D] = []
+        for _ in 0...5 {
+            let latitude = Double.random(in: 0.0..<200)
+            let longitude = Double.random(in: 0.0..<200)
+            let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            pointList.append(coordinate)
+        }
+        
+        FirebaseManagement.shared.insertArea(user: user, coordinate: pointList, nameArea: "SecondZone", date: Int(dateStamp))
     }
-    
-    
 }
 
 extension MainStarterViewController: UITableViewDataSource {

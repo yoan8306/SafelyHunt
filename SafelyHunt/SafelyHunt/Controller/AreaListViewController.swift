@@ -6,24 +6,53 @@
 //
 
 import UIKit
+import AVFoundation
+import FirebaseAuth
 
 class AreaListViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    var areaList: [[String:String]] = [[:]] {
+        didSet {
+            areaListTableView.reloadData()
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBOutlet weak var areaListTableView: UITableView!
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        guard let user = FirebaseAuth.Auth.auth().currentUser else {
+            return
+        }
+        FirebaseManagement.shared.getAreaList(user: user) { fetchArea in
+            switch fetchArea {
+            case .success(let listArea):
+                self.areaList = listArea
+            case .failure(let error):
+                self.presentAlertError(alertMessage: error.localizedDescription)
+            }
+        }
     }
-    */
 
 }
+
+extension AreaListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return areaList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let nameArea = areaList[indexPath.row].keys.description
+        let dateCreate = areaList[indexPath.row].values.description
+        cell.textLabel?.text = nameArea
+        cell.detailTextLabel?.text = dateCreate
+        return cell
+    }
+}
+
+extension AreaListViewController: UITableViewDelegate {
+    
+}
+
+

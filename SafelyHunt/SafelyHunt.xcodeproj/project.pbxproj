@@ -47,7 +47,7 @@
 		5FF4C835286D6C38000A0F26 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C834286D6C38000A0F26 /* FirebasePerformance */; };
 		5FF4C837286D6C38000A0F26 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C836286D6C38000A0F26 /* FirebaseRemoteConfig */; };
 		5FF4C839286D6C38000A0F26 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C838286D6C38000A0F26 /* FirebaseStorage */; };
-		5FFCF67E288EB46C009D9AE8 /* AreaList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FFCF67D288EB46C009D9AE8 /* AreaList.storyboard */; };
+		5FFCF67E288EB46C009D9AE8 /* AreasList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FFCF67D288EB46C009D9AE8 /* AreasList.storyboard */; };
 		5FFCF681288EB481009D9AE8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FFCF67F288EB481009D9AE8 /* Launch Screen.storyboard */; };
 		5FFCF683288EB7CF009D9AE8 /* AreaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFCF682288EB7CF009D9AE8 /* AreaListViewController.swift */; };
 /* End PBXBuildFile section */
@@ -97,7 +97,7 @@
 		5FBEF94C2873706D0023E5A5 /* FirebaseManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManagement.swift; sourceTree = "<group>"; };
 		5FBEF94E287375050023E5A5 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		5FBEF951287380050023E5A5 /* UIViewController_Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController_Alert.swift; sourceTree = "<group>"; };
-		5FFCF67D288EB46C009D9AE8 /* AreaList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AreaList.storyboard; sourceTree = "<group>"; };
+		5FFCF67D288EB46C009D9AE8 /* AreasList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AreasList.storyboard; sourceTree = "<group>"; };
 		5FFCF680288EB481009D9AE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5FFCF682288EB7CF009D9AE8 /* AreaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -240,7 +240,7 @@
 				5F14AD25287840C80039002A /* SignIn-SignUp */,
 				5FBA014A287453F800D70715 /* TabbarMain.storyboard */,
 				5F78B6C42876E8BC003C58B5 /* MainStarter.storyboard */,
-				5FFCF67D288EB46C009D9AE8 /* AreaList.storyboard */,
+				5FFCF67D288EB46C009D9AE8 /* AreasList.storyboard */,
 				5FFCF67F288EB481009D9AE8 /* Launch Screen.storyboard */,
 			);
 			path = View;
@@ -393,7 +393,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FFCF67E288EB46C009D9AE8 /* AreaList.storyboard in Resources */,
+				5FFCF67E288EB46C009D9AE8 /* AreasList.storyboard in Resources */,
 				5F1CF331286B1FB500A0429D /* GoogleService-Info.plist in Resources */,
 				5F1CF30A286B1F2B00A0429D /* Assets.xcassets in Resources */,
 				5F1CF308286B1F2900A0429D /* Login.storyboard in Resources */,

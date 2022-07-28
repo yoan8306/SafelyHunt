@@ -15,21 +15,22 @@ class MainStarterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let user = user else {
-            return
-        }
+//        guard let user = user else {
+//            return
+//        }
         
-        let dateNow = Date()
-        let dateStamp: TimeInterval = dateNow.timeIntervalSince1970
-        var pointList: [CLLocationCoordinate2D] = []
-        for _ in 0...5 {
-            let latitude = Double.random(in: 0.0..<200)
-            let longitude = Double.random(in: 0.0..<200)
-            let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            pointList.append(coordinate)
-        }
+//        let dateNow = Date()
+//        let dateStamp: TimeInterval = dateNow.timeIntervalSince1970
+//        let dateToTimeStamp = Int(dateStamp)
+//        var coordinate: [CLLocationCoordinate2D] = []
+//        for _ in 0...5 {
+//            let latitude: Double = .random(in: 0...200)
+//            let longitude: Double = .random(in: 0...200)
+//            coordinate.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+//        }
+//
+//        FirebaseManagement.shared.insertArea(user: user, coordinate: coordinate, nameArea: "MyFirstZone", date: dateToTimeStamp)
         
-        FirebaseManagement.shared.insertArea(user: user, coordinate: pointList, nameArea: "SecondZone", date: Int(dateStamp))
     }
 }
 
@@ -42,6 +43,12 @@ extension MainStarterViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellStarter", for: indexPath)
         let title = mainStarter[indexPath.row]
         
+        configureCell(cell, title, indexPath)
+        return cell
+    }
+    
+    private func configureCell(_ cell: UITableViewCell, _ title: String, _ indexPath: IndexPath) {
+        
         if #available(iOS 14.0, *) {
             var content = cell.defaultContentConfiguration()
             content.text = title
@@ -53,8 +60,8 @@ extension MainStarterViewController: UITableViewDataSource {
             default:
                 break
             }
-           
             cell.contentConfiguration = content
+            
         } else {
             cell.textLabel?.text = title
             switch indexPath.row {
@@ -65,8 +72,30 @@ extension MainStarterViewController: UITableViewDataSource {
             default:
                 break
             }
-            
         }
-        return cell
     }
+    
+}
+
+extension MainStarterViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            transfertToAreaListViewController()
+        default:
+            break
+        }
+    }
+    
+    private func transfertToAreaListViewController() {
+        let areaListStoryboard = UIStoryboard(name: "AreasList", bundle: nil)
+        
+        guard let areaListViewController = areaListStoryboard.instantiateViewController(withIdentifier: "NavigationAreaList") as? UINavigationController else {
+            return
+        }
+        
+        areaListViewController.modalPresentationStyle = .automatic
+        self.present(areaListViewController, animated: true)
+    }
+    
 }

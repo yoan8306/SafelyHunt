@@ -19,6 +19,7 @@ class SplashScreenViewController: UIViewController {
             switch userIsLogged {
             case .success(_):
                 self.transfertToMainStarter()
+//                self.goToViewTest()
             case .failure(_):
                 self.transfertToLogin()
             }
@@ -39,6 +40,15 @@ class SplashScreenViewController: UIViewController {
         
         mainStarterViewController.modalPresentationStyle = .fullScreen
         self.present(mainStarterViewController, animated: true)
+    }
+    
+    private func goToViewTest() {
+        let viewTest = UIStoryboard(name: "Login", bundle: nil)
+        
+        guard let vc = viewTest.instantiateViewController(withIdentifier: "viewTest") as? ViewController else {
+            return
+        }
+        self.present(vc, animated: true)
     }
     
     private func transfertToLogin() {

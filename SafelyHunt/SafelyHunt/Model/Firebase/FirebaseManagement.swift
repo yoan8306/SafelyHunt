@@ -9,6 +9,7 @@ import Foundation
 import FirebaseAuth
 import Firebase
 import MapKit
+import CoreAudio
 
 // MARK: - Authentification
 class FirebaseManagement {
@@ -99,14 +100,40 @@ extension FirebaseManagement {
     func insertArea(user: User, coordinate: [CLLocationCoordinate2D], nameArea: String, date: Int) {
         var index = 0
         database.child("Database").child("users_list").child(user.uid).child("area_list").child(nameArea).setValue([
-        "date": String(date)])
-    
+            "name": nameArea,
+            "date": String(date)
+        ])
+       
         for point in coordinate {
-            database.child("Database").child("users_list").child(user.uid).child("area_list").child(nameArea).child("coordinate\(index)").setValue([
+            database.child("Database").child("users_list").child(user.uid).child("area_list").child(nameArea).child("coordinate").child("coordinate\(index)").setValue([
                 "latitude": point.latitude,
                 "longitude": point.longitude
             ])
             index += 1
         }
+    }
+    
+    func getAreaList(user: User, callBack: @escaping (Result<[[String: String]], Error>) -> Void)  {
+        var areaList: [[String: String]] = [[:]]
+        database.child("Database").child("users_list").child("\(user.uid)").child("area_list").getData(completion: { error, snapshot in
+            
+            guard let snapshot = snapshot, error == nil else {
+                return
+            }
+                areaList.removeAll()
+                if let data = snapshot.children.allObjects as? [DataSnapshot] {
+                    for element in data {
+                        let list = element.value as? NSDictionary
+                        let name = list?["name"]
+                        let date = list?["date"]
+                        if let name = name as? String, let date = date as? String {
+                            areaList.append([name: date])
+                        }
+                }
+                    callBack(.success(areaList))
+                } else {
+                    callBack(.failure(FirebaseError.signIn))
+                }
+        })
     }
 }

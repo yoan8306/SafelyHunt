@@ -25,7 +25,7 @@
             </objects>
             <point key="canvasLocation" x="-881" y="56"/>
         </scene>
-        <!--Area List-->
+        <!--Areas List-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController storyboardIdentifier="AreasList" id="Y6W-OH-hqX" customClass="AreaListViewController" customModule="SafelyHunt" customModuleProvider="target" sceneMemberID="viewController">
@@ -37,12 +37,28 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="KsJ-jM-bmb">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="4y9-zg-flE" detailTextLabel="icq-cm-NFm" style="IBUITableViewCellStyleSubtitle" id="KsJ-jM-bmb">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KsJ-jM-bmb" id="Lfc-vW-n1j">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4y9-zg-flE">
+                                                    <rect key="frame" x="20" y="6" width="25" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="icq-cm-NFm">
+                                                    <rect key="frame" x="20" y="22.5" width="40.5" height="13.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -61,10 +77,13 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="nEj-tY-2tR" secondAttribute="bottom" id="xlX-Rf-yfW"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Area List" id="jo3-Z5-mMh">
+                    <navigationItem key="navigationItem" title="Areas List" id="jo3-Z5-mMh">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="sBk-Q7-oqJ"/>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="areaListTableView" destination="nEj-tY-2tR" id="zaG-UB-kZk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

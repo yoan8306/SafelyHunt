@@ -19,23 +19,23 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="ehH-Rn-fhJ" kind="relationship" relationship="viewControllers" id="QS2-DZ-aAe"/>
+                        <segue destination="ehH-Rn-fhJ" kind="relationship" relationship="viewControllers" id="0zu-Ka-43c"/>
                         <segue destination="k7g-R9-izV" kind="relationship" relationship="viewControllers" id="gEG-FJ-1Nz"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0kL-Zn-ek0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-463" y="-106"/>
+            <point key="canvasLocation" x="-208" y="-686"/>
         </scene>
-        <!--MainStarter-->
+        <!--NavigationMain-->
         <scene sceneID="GX6-RW-eTp">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="MainStarter" storyboardName="MainStarter" referencedIdentifier="MainStarter" id="ehH-Rn-fhJ" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardIdentifier="MainStarter" storyboardName="MainStarter" referencedIdentifier="NavigationMain" id="ehH-Rn-fhJ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="OQo-cV-nLa"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZeG-TB-vGa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="843" y="-369"/>
+            <point key="canvasLocation" x="-613" y="-67"/>
         </scene>
         <!--Item 2-->
         <scene sceneID="d09-gW-k3W">
@@ -73,7 +73,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aqf-eK-sFs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="842" y="322"/>
+            <point key="canvasLocation" x="302" y="261"/>
         </scene>
     </scenes>
     <resources>

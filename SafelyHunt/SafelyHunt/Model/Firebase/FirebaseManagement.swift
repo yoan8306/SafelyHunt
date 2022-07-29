@@ -13,7 +13,7 @@ import CoreAudio
 
 // MARK: - Authentification
 class FirebaseManagement {
-
+    
     // MARK: - properties
     static let shared = FirebaseManagement()
     weak var handle: AuthStateDidChangeListenerHandle?
@@ -99,13 +99,14 @@ extension FirebaseManagement {
     
     func insertArea(user: User, coordinate: [CLLocationCoordinate2D], nameArea: String, date: Int) {
         var index = 0
-        database.child("Database").child("users_list").child(user.uid).child("area_list").child(nameArea).setValue([
+        let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list")
+        databaseArea.child(nameArea).setValue([
             "name": nameArea,
             "date": String(date)
         ])
-       
+        
         for point in coordinate {
-            database.child("Database").child("users_list").child(user.uid).child("area_list").child(nameArea).child("coordinate").child("coordinate\(index)").setValue([
+            databaseArea.child(nameArea).child("coordinate").child("coordinate\(index)").setValue([
                 "latitude": point.latitude,
                 "longitude": point.longitude
             ])
@@ -115,25 +116,30 @@ extension FirebaseManagement {
     
     func getAreaList(user: User, callBack: @escaping (Result<[[String: String]], Error>) -> Void)  {
         var areaList: [[String: String]] = [[:]]
-        database.child("Database").child("users_list").child("\(user.uid)").child("area_list").getData(completion: { error, snapshot in
-            
+        let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list")
+        
+        databaseArea.getData(completion: { error, snapshot in
             guard let snapshot = snapshot, error == nil else {
+                callBack(.failure(error ?? FirebaseError.noAreaRecordedFound))
                 return
             }
-                areaList.removeAll()
-                if let data = snapshot.children.allObjects as? [DataSnapshot] {
-                    for element in data {
-                        let list = element.value as? NSDictionary
-                        let name = list?["name"]
-                        let date = list?["date"]
-                        if let name = name as? String, let date = date as? String {
-                            areaList.append([name: date])
-                        }
+            
+            guard let data = snapshot.children.allObjects as? [DataSnapshot] else {
+                callBack(.failure(FirebaseError.noAreaRecordedFound))
+                return
+            }
+            
+            areaList.removeAll()
+
+            for element in data {
+                let list = element.value as? NSDictionary
+                let name = list?["name"]
+                let date = list?["date"]
+                if let name = name as? String, let date = date as? String {
+                    areaList.append([name: date])
                 }
-                    callBack(.success(areaList))
-                } else {
-                    callBack(.failure(FirebaseError.signIn))
-                }
+            }
+            callBack(.success(areaList))
         })
     }
 }

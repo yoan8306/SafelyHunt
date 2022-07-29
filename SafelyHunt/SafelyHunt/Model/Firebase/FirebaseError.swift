@@ -8,7 +8,7 @@
 import Foundation
 
 enum FirebaseError: Error {
-    case createAccountError, emailAlreadyExist,signIn, resetPassword
+    case createAccountError, emailAlreadyExist,signIn, resetPassword, noAreaRecordedFound
     
     var detail: String {
         switch self {
@@ -20,6 +20,8 @@ enum FirebaseError: Error {
             return "Authentification failed"
         case .resetPassword:
             return "Error during reset your password"
+        case .noAreaRecordedFound:
+            return "You doesn't have area recorded. \nClick on + for add an area"
         }
     }
 }

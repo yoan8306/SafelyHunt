@@ -13,25 +13,33 @@ class MainStarterViewController: UIViewController {
     let user = FirebaseAuth.Auth.auth().currentUser
     let mainStarter = MainStarterData().mainStarter
     
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        guard let user = user else {
-//            return
-//        }
-        
-//        let dateNow = Date()
-//        let dateStamp: TimeInterval = dateNow.timeIntervalSince1970
-//        let dateToTimeStamp = Int(dateStamp)
-//        var coordinate: [CLLocationCoordinate2D] = []
-//        for _ in 0...5 {
-//            let latitude: Double = .random(in: 0...200)
-//            let longitude: Double = .random(in: 0...200)
-//            coordinate.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-//        }
+        guard let user = user else {
+                  return
+              }
+              
+//              let dateNow = Date()
+//              let dateStamp: TimeInterval = dateNow.timeIntervalSince1970
+//              let dateToTimeStamp = Int(dateStamp)
+//              var coordinate: [CLLocationCoordinate2D] = []
+//              for _ in 0...5 {
+//                  let latitude: Double = .random(in: 0...200)
+//                  let longitude: Double = .random(in: 0...200)
+//                  coordinate.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+//              }
 //
-//        FirebaseManagement.shared.insertArea(user: user, coordinate: coordinate, nameArea: "MyFirstZone", date: dateToTimeStamp)
+//              FirebaseManagement.shared.insertArea(user: user, coordinate: coordinate, nameArea: "MyFirstZone", date: dateToTimeStamp)
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
 }
 
 extension MainStarterViewController: UITableViewDataSource {
@@ -54,14 +62,13 @@ extension MainStarterViewController: UITableViewDataSource {
             content.text = title
             switch indexPath.row {
             case 0:
-                content.secondaryText = UserDefaultKeys.areaSelected
+                content.secondaryText = UserDefaults.standard.string(forKey: UserDefaultKeys.areaSelected)
             case 1:
-                content.secondaryText = "\(UserDefaultKeys.radiusAlert) m"
+                content.secondaryText = "\(UserDefaults.standard.string(forKey: String(UserDefaultKeys.radiusAlert)) ?? "0") m"
             default:
                 break
             }
             cell.contentConfiguration = content
-            
         } else {
             cell.textLabel?.text = title
             switch indexPath.row {
@@ -90,12 +97,12 @@ extension MainStarterViewController: UITableViewDelegate {
     private func transfertToAreaListViewController() {
         let areaListStoryboard = UIStoryboard(name: "AreasList", bundle: nil)
         
-        guard let areaListViewController = areaListStoryboard.instantiateViewController(withIdentifier: "NavigationAreaList") as? UINavigationController else {
+        guard let areaListViewController = areaListStoryboard.instantiateViewController(withIdentifier: "AreasList") as? AreaListViewController else {
             return
         }
         
-        areaListViewController.modalPresentationStyle = .automatic
-        self.present(areaListViewController, animated: true)
+        areaListViewController.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(areaListViewController, animated: true)
     }
     
 }

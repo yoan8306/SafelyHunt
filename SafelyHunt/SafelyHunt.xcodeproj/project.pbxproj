@@ -15,7 +15,6 @@
 		5F1CF305286B1F2900A0429D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CF304286B1F2900A0429D /* ViewController.swift */; };
 		5F1CF308286B1F2900A0429D /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF306286B1F2900A0429D /* Login.storyboard */; };
 		5F1CF30A286B1F2B00A0429D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF309286B1F2B00A0429D /* Assets.xcassets */; };
-		5F1CF30D286B1F2C00A0429D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF30B286B1F2B00A0429D /* LaunchScreen.storyboard */; };
 		5F1CF331286B1FB500A0429D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */; };
 		5F1CF332286B1FB500A0429D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */; };
 		5F77E8A6286F275A005A7F0B /* AreasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F77E8A5286F275A005A7F0B /* AreasTests.swift */; };
@@ -25,6 +24,7 @@
 		5F78B6C72876F13F003C58B5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6C62876F13F003C58B5 /* SettingsViewController.swift */; };
 		5F78B6CA2876FE0A003C58B5 /* ResetPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F78B6C82876FE0A003C58B5 /* ResetPassword.storyboard */; };
 		5F78B6CC2876FE6A003C58B5 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6CB2876FE6A003C58B5 /* ResetPasswordViewController.swift */; };
+		5F7F698128932C1000562FDA /* AreaCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */; };
 		5FBA014B287453F800D70715 /* TabbarMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FBA014A287453F800D70715 /* TabbarMain.storyboard */; };
 		5FBEF946287306C80023E5A5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF945287306C80023E5A5 /* LoginViewController.swift */; };
 		5FBEF948287306DD0023E5A5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF947287306DD0023E5A5 /* RegisterViewController.swift */; };
@@ -32,6 +32,8 @@
 		5FBEF94D2873706D0023E5A5 /* FirebaseManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF94C2873706D0023E5A5 /* FirebaseManagement.swift */; };
 		5FBEF94F287375050023E5A5 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF94E287375050023E5A5 /* FirebaseError.swift */; };
 		5FBEF952287380050023E5A5 /* UIViewController_Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF951287380050023E5A5 /* UIViewController_Alert.swift */; };
+		5FC7538E2894063900BC3DB7 /* Maps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FC7538D2894063900BC3DB7 /* Maps.storyboard */; };
+		5FC75390289408E600BC3DB7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7538F289408E600BC3DB7 /* MapViewController.swift */; };
 		5FF4C81A286D6B1C000A0F26 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C819286D6B1C000A0F26 /* SPAlert */; };
 		5FF4C81D286D6C38000A0F26 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C81C286D6C38000A0F26 /* FirebaseAnalytics */; };
 		5FF4C81F286D6C38000A0F26 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C81E286D6C38000A0F26 /* FirebaseAppCheck */; };
@@ -48,6 +50,9 @@
 		5FF4C835286D6C38000A0F26 /* FirebasePerformance in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C834286D6C38000A0F26 /* FirebasePerformance */; };
 		5FF4C837286D6C38000A0F26 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C836286D6C38000A0F26 /* FirebaseRemoteConfig */; };
 		5FF4C839286D6C38000A0F26 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C838286D6C38000A0F26 /* FirebaseStorage */; };
+		5FFCF67E288EB46C009D9AE8 /* AreasList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FFCF67D288EB46C009D9AE8 /* AreasList.storyboard */; };
+		5FFCF681288EB481009D9AE8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FFCF67F288EB481009D9AE8 /* Launch Screen.storyboard */; };
+		5FFCF683288EB7CF009D9AE8 /* AreaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFCF682288EB7CF009D9AE8 /* AreaListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,7 +82,6 @@
 		5F1CF304286B1F2900A0429D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5F1CF307286B1F2900A0429D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		5F1CF309286B1F2B00A0429D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		5F1CF30C286B1F2B00A0429D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F1CF30E286B1F2C00A0429D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F1CF313286B1F2C00A0429D /* SafelyHuntTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafelyHuntTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F1CF31D286B1F2C00A0429D /* SafelyHuntUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafelyHuntUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +93,7 @@
 		5F78B6C62876F13F003C58B5 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5F78B6C92876FE0A003C58B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SafelyHunt/View/Base.lproj/ResetPassword.storyboard; sourceTree = "<group>"; };
 		5F78B6CB2876FE6A003C58B5 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaCellTableViewCell.swift; sourceTree = "<group>"; };
 		5FBA014A287453F800D70715 /* TabbarMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabbarMain.storyboard; sourceTree = "<group>"; };
 		5FBEF945287306C80023E5A5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5FBEF947287306DD0023E5A5 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +101,11 @@
 		5FBEF94C2873706D0023E5A5 /* FirebaseManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManagement.swift; sourceTree = "<group>"; };
 		5FBEF94E287375050023E5A5 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		5FBEF951287380050023E5A5 /* UIViewController_Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController_Alert.swift; sourceTree = "<group>"; };
+		5FC7538D2894063900BC3DB7 /* Maps.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Maps.storyboard; sourceTree = "<group>"; };
+		5FC7538F289408E600BC3DB7 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		5FFCF67D288EB46C009D9AE8 /* AreasList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AreasList.storyboard; sourceTree = "<group>"; };
+		5FFCF680288EB481009D9AE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
+		5FFCF682288EB7CF009D9AE8 /* AreaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +235,8 @@
 				5F1CF304286B1F2900A0429D /* ViewController.swift */,
 				5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */,
 				5F78B6C62876F13F003C58B5 /* SettingsViewController.swift */,
+				5FFCF682288EB7CF009D9AE8 /* AreaListViewController.swift */,
+				5FC7538F289408E600BC3DB7 /* MapViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -233,9 +245,12 @@
 			isa = PBXGroup;
 			children = (
 				5F14AD25287840C80039002A /* SignIn-SignUp */,
-				5F1CF30B286B1F2B00A0429D /* LaunchScreen.storyboard */,
 				5FBA014A287453F800D70715 /* TabbarMain.storyboard */,
 				5F78B6C42876E8BC003C58B5 /* MainStarter.storyboard */,
+				5FFCF67D288EB46C009D9AE8 /* AreasList.storyboard */,
+				5FFCF67F288EB481009D9AE8 /* Launch Screen.storyboard */,
+				5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */,
+				5FC7538D2894063900BC3DB7 /* Maps.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -387,13 +402,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F1CF30D286B1F2C00A0429D /* LaunchScreen.storyboard in Resources */,
+				5FFCF67E288EB46C009D9AE8 /* AreasList.storyboard in Resources */,
 				5F1CF331286B1FB500A0429D /* GoogleService-Info.plist in Resources */,
 				5F1CF30A286B1F2B00A0429D /* Assets.xcassets in Resources */,
 				5F1CF308286B1F2900A0429D /* Login.storyboard in Resources */,
 				5F78B6C52876E8BC003C58B5 /* MainStarter.storyboard in Resources */,
+				5FFCF681288EB481009D9AE8 /* Launch Screen.storyboard in Resources */,
 				5F78B6CA2876FE0A003C58B5 /* ResetPassword.storyboard in Resources */,
 				5F14AD2328783B050039002A /* Main.storyboard in Resources */,
+				5FC7538E2894063900BC3DB7 /* Maps.storyboard in Resources */,
 				5FBEF94B2873073A0023E5A5 /* Register.storyboard in Resources */,
 				5FBA014B287453F800D70715 /* TabbarMain.storyboard in Resources */,
 			);
@@ -423,6 +440,8 @@
 			files = (
 				5FBEF946287306C80023E5A5 /* LoginViewController.swift in Sources */,
 				5FBEF94D2873706D0023E5A5 /* FirebaseManagement.swift in Sources */,
+				5F7F698128932C1000562FDA /* AreaCellTableViewCell.swift in Sources */,
+				5FFCF683288EB7CF009D9AE8 /* AreaListViewController.swift in Sources */,
 				5FBEF948287306DD0023E5A5 /* RegisterViewController.swift in Sources */,
 				5F14AD1F2878284C0039002A /* UserDefaultKeys.swift in Sources */,
 				5F78B6CC2876FE6A003C58B5 /* ResetPasswordViewController.swift in Sources */,
@@ -435,6 +454,7 @@
 				5F1CF301286B1F2900A0429D /* AppDelegate.swift in Sources */,
 				5F1CF303286B1F2900A0429D /* SceneDelegate.swift in Sources */,
 				5F78B6C72876F13F003C58B5 /* SettingsViewController.swift in Sources */,
+				5FC75390289408E600BC3DB7 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,14 +497,6 @@
 			name = Login.storyboard;
 			sourceTree = "<group>";
 		};
-		5F1CF30B286B1F2B00A0429D /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5F1CF30C286B1F2B00A0429D /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 		5F78B6C82876FE0A003C58B5 /* ResetPassword.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -499,6 +511,14 @@
 				5FBEF94A2873073A0023E5A5 /* Base */,
 			);
 			name = Register.storyboard;
+			sourceTree = "<group>";
+		};
+		5FFCF67F288EB481009D9AE8 /* Launch Screen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5FFCF680288EB481009D9AE8 /* Base */,
+			);
+			name = "Launch Screen.storyboard";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -629,7 +649,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SafelyHunt/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -658,7 +678,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SafelyHunt/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

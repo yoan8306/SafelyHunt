@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--MyTitle-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="MapView" id="Y6W-OH-hqX" customClass="MapViewController" customModule="SafelyHunt" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="DdS-4n-brd">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Lw-Hc-2Nm">
+                                <rect key="frame" x="255" y="424.5" width="45" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="pDu-9U-rIX"/>
+                                    <constraint firstAttribute="width" constant="45" id="qeD-mx-S1Z"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" backgroundImage="location.circle" catalog="system"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="DdS-4n-brd" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="6aY-KL-Y3r"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="1Lw-Hc-2Nm" secondAttribute="bottom" constant="50" id="AnB-mD-Se8"/>
+                            <constraint firstItem="DdS-4n-brd" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="L0J-dG-dEi"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="DdS-4n-brd" secondAttribute="bottom" id="LEn-1T-tnE"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="DdS-4n-brd" secondAttribute="trailing" id="ZBz-nR-nYD"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="1Lw-Hc-2Nm" secondAttribute="trailing" constant="20" id="pAO-HD-NLo"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="MyTitle" id="4a2-nG-jdr">
+                        <barButtonItem key="rightBarButtonItem" image="pencil.circle" catalog="system" id="sJp-u3-otX"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="myNavigationItem" destination="4a2-nG-jdr" id="jiN-NI-mq8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="120" y="48.591549295774648"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="location.circle" catalog="system" width="32" height="32"/>
+        <image name="pencil.circle" catalog="system" width="32" height="32"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

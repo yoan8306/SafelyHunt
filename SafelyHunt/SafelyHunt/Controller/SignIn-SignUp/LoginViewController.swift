@@ -10,21 +10,20 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController {
     
+    var signInMail: String = ""
+    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        emailTextField.text = signInMail
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        emailTextField.text = FirebaseAuth.Auth.auth().currentUser?.email
-
     }
     
     @IBAction func logInActionButton() {
@@ -35,17 +34,16 @@ class LoginViewController: UIViewController {
             return
         }
         
-        FirebaseManagement.shared.signInUser(email: email, password: password) { authResult in
+        FirebaseManagement.shared.signInUser(email: email, password: password) { [weak self] authResult in
             switch authResult {
             case .success(let userSignIn):
-                print(userSignIn.user.providerID)
-                self.transfertToMainStarter()
-                self.activityIndicator(shown: false)
+                self?.transfertToMainStarter()
+                self?.activityIndicator(shown: false)
                 
             case .failure(let error):
                 FirebaseManagement.shared.disconnectCurrentUser()
-                self.presentAlertError(alertMessage: error.localizedDescription)
-                self.activityIndicator(shown: false)
+                self?.presentAlertError(alertMessage: error.localizedDescription)
+                self?.activityIndicator(shown: false)
             }
         }
     }
@@ -53,8 +51,8 @@ class LoginViewController: UIViewController {
 
     
     private func transfertToMainStarter() {
-        let tabbarMain = UIStoryboard(name: "TabbarMain", bundle: nil)
-        guard let mainStarter = tabbarMain.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {
+        let tabBarMain = UIStoryboard(name: "TabbarMain", bundle: nil)
+        guard let mainStarter = tabBarMain.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {
             return
         }
         

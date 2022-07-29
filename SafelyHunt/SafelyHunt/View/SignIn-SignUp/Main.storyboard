@@ -18,18 +18,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="tcf-W6-XY0">
-                                <rect key="frame" x="177" y="418" width="60" height="60"/>
+                                <rect key="frame" x="177" y="318.5" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="1S8-WI-uXW"/>
                                     <constraint firstAttribute="width" constant="60" id="kaq-Lt-JIH"/>
                                 </constraints>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SafelyHunt" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sAa-yO-IbA">
+                                <rect key="frame" x="0.0" y="277" width="414" height="43"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="sAa-yO-IbA" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="bottom" multiplier="1/3" id="0lj-cP-sfH"/>
+                            <constraint firstItem="sAa-yO-IbA" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Flc-Y4-9Vu"/>
                             <constraint firstItem="tcf-W6-XY0" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="UPP-w1-TZH"/>
-                            <constraint firstItem="tcf-W6-XY0" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="h56-M8-cBA"/>
+                            <constraint firstItem="tcf-W6-XY0" firstAttribute="centerY" secondItem="sAa-yO-IbA" secondAttribute="centerY" constant="50" id="h56-M8-cBA"/>
+                            <constraint firstItem="sAa-yO-IbA" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="zqf-7X-p1G"/>
                         </constraints>
                     </view>
                 </viewController>

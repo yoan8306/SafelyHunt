@@ -6,27 +6,44 @@
 //
 
 import UIKit
+import MapKit
 
 class MapViewController: UIViewController {
-
-
+    
+    var locationManager = CLLocationManager()
+    
+    @IBOutlet weak var locationButton: UIButton!
+    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var myNavigationItem: UINavigationItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        initializeMapView()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func locationButtonAction() {
+        mapView.setUserTrackingMode(.followWithHeading, animated: true)
+        locationManager.allowsBackgroundLocationUpdates = true
     }
-    */
 
+}
+
+extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
+    private func initializeMapView() {
+        mapView.delegate = self
+        mapView.showsUserLocation = true
+        mapView.isZoomEnabled = true
+        mapView.showsCompass = true
+        locationManager.requestWhenInUseAuthorization()
+
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+            locationManager.startUpdatingHeading()
+        }
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        mapView.setUserTrackingMode(.follow, animated: true)
+    }
+    
 }

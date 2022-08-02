@@ -94,7 +94,18 @@ extension AreaListViewController: UITableViewDelegate {
             areaSelected = key
         }
         defaults.set(areaSelected, forKey: UserDefaultKeys.areaSelected)
+        transferToMapViewController()
     }
+    
+    private func transferToMapViewController() {
+        let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
+        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
+            return
+        }
+        mapViewController.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(mapViewController, animated: true)
+    }
+    
 }
 
 

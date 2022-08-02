@@ -31,5 +31,4 @@ class Area {
         
         FirebaseManagement.shared.insertArea(user: user, coordinate: coordinateArea, nameArea: nameArea, date: dateToTimeStamp)
     }
-    
 }

@@ -7,12 +7,14 @@
 
 import UIKit
 import MapKit
+import FirebaseAuth
 
 class MapViewController: UIViewController {
 // MARK: - Properties
     var locationManager = CLLocationManager()
     var modeEditingMap = false
     var createArea = Area()
+    
 
 // MARK: - IBOutlet
     @IBOutlet weak var popUpLabel: UILabel!
@@ -31,6 +33,7 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         initializeMapView()
         setPopUpMessageNameArea()
+        drawAreaSelected()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -63,11 +66,16 @@ class MapViewController: UIViewController {
         modeEditingMap = false
         popUpAreaNameUiView.isHidden = false
     }
+    
+    deinit {
+        turnOffEditingMode()
+    }
 
 // MARK: - IBAction
     @IBAction func pencilButtonAction(_ sender: UIBarButtonItem) {
         if !modeEditingMap {
             navigationController?.navigationBar.backgroundColor = .red
+            mapView.removeOverlays(mapView.overlays)
             mapView.isUserInteractionEnabled = false
             modeEditingMap  = true
         } else {
@@ -94,7 +102,6 @@ class MapViewController: UIViewController {
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if modeEditingMap {
             if overlay is MKPolyline {
                 let polylineRenderer = MKPolylineRenderer(overlay: overlay)
                 polylineRenderer.strokeColor = UIColor.darkGray
@@ -107,9 +114,10 @@ class MapViewController: UIViewController {
                 polygonView.alpha = 0.3
                 return polygonView
             }
-        }
+        
         return MKPolylineRenderer(overlay: overlay)
     }
+
     private func setPopUpMessageNameArea() {
         popUpAreaNameUiView.layer.cornerRadius = 8
         popUpAreaNameUiView.isHidden = true
@@ -119,11 +127,35 @@ class MapViewController: UIViewController {
         popUpAreaNameUiView.isHidden = true
         nameAreaTextField.resignFirstResponder()
         createArea.coordinateArea = []
-        let overlays = mapView.overlays
-        mapView.removeOverlays(overlays)
+        mapView.removeOverlays(mapView.overlays)
         mapView.isUserInteractionEnabled = true
         navigationController?.navigationBar.backgroundColor = .white
         modeEditingMap = false
+    }
+    
+    private func drawAreaSelected() {
+        var overlay: [String: MKOverlay] = [:]
+        overlay.removeAll()
+        guard let user = FirebaseAuth.Auth.auth().currentUser else {
+            return
+        }
+        guard let nameArea = UserDefaults.standard.string(forKey: UserDefaultKeys.areaSelected) else {
+            return
+        }
+        FirebaseManagement.shared.getArea(nameArea: nameArea, user: user) { result in
+            switch result {
+            case .success(let coordinate):
+                overlay["polyLine"] = MKPolyline(coordinates: coordinate, count: coordinate.count)
+                overlay["polygone"] = MKPolygon(coordinates: coordinate, count: coordinate.count)
+                guard let polyLine = overlay["polyLine"], let polygone = overlay["polygone"] else {
+                    return
+                }
+                self.mapView.addOverlay(polyLine)
+                self.mapView.addOverlay(polygone)
+            case .failure(_):
+                return
+            }
+        }
     }
     
 }

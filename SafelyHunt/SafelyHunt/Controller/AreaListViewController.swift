@@ -37,6 +37,7 @@ class AreaListViewController: UIViewController {
         guard let mapViewController = mapsStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return
         }
+        UserDefaults.standard.set("", forKey: UserDefaultKeys.areaSelected)
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.myNavigationItem.title = "Draw your new area"
         navigationController?.pushViewController(mapViewController, animated: true)
@@ -95,6 +96,28 @@ extension AreaListViewController: UITableViewDelegate {
         }
         defaults.set(areaSelected, forKey: UserDefaultKeys.areaSelected)
         transferToMapViewController()
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let user = FirebaseAuth.Auth.auth().currentUser else {
+        return
+        }
+        if editingStyle == .delete {
+            var areaName = ""
+            for (key,_) in areaList[indexPath.row] {
+                areaName = key
+            }
+            FirebaseManagement.shared.removeArea(name: areaName, user: user) { [weak self] result in
+                switch result {
+                case .success(_):
+                    self?.getAreaList()
+                    self?.presentNativeAlertSuccess(alertMessage: "Area Deleting")
+                case.failure(let error):
+                    self?.getAreaList()
+                    self?.presentAlertError(alertTitle: "Error", alertMessage: error.localizedDescription, buttonTitle: "Dissmiss", alertStyle: .cancel)
+                }
+            }
+        }
     }
     
     private func transferToMapViewController() {

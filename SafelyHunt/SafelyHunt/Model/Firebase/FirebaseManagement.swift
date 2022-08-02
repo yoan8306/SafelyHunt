@@ -144,10 +144,16 @@ extension FirebaseManagement {
         })
     }
     
-    func getArea(nameArea: String, user: User, callBack: @escaping (Result<[CLLocationCoordinate2D], Error>) -> Void) {
+    func getArea(nameArea: String?, user: User, callBack: @escaping (Result<[CLLocationCoordinate2D], Error>) -> Void) {
         let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list")
         var coordinateArea: [CLLocationCoordinate2D] = []
         var dictCoordinateArea: [Int: CLLocationCoordinate2D] = [:]
+        
+        guard let nameArea = nameArea, !nameArea.isEmpty else {
+            callBack(.failure(FirebaseError.noAreaRecordedFound))
+            return
+        }
+        
         dictCoordinateArea.removeAll()
         
         databaseArea.child(nameArea).child("coordinate").getData { error, dataSnapshot in
@@ -178,6 +184,17 @@ extension FirebaseManagement {
             }
             
             callBack(.success(coordinateArea))
+        }
+    }
+    
+    func removeArea(name:String, user: User, callBack: @escaping(Result<DatabaseReference, Error>)->Void) {
+        let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list").child(name)
+        databaseArea.removeValue { error, success in
+            guard error == nil else {
+                callBack(.failure(error ?? FirebaseError.errorDeletingArea))
+                return
+            }
+            callBack(.success(success))
         }
     }
 }

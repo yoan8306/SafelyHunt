@@ -17,21 +17,6 @@ class MainStarterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let user = user else {
-                  return
-              }
-              
-//              let dateNow = Date()
-//              let dateStamp: TimeInterval = dateNow.timeIntervalSince1970
-//              let dateToTimeStamp = Int(dateStamp)
-//              var coordinate: [CLLocationCoordinate2D] = []
-//              for _ in 0...5 {
-//                  let latitude: Double = .random(in: 0...200)
-//                  let longitude: Double = .random(in: 0...200)
-//                  coordinate.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-//              }
-//
-//              FirebaseManagement.shared.insertArea(user: user, coordinate: coordinate, nameArea: "MyFirstZone", date: dateToTimeStamp)
         
     }
     
@@ -88,13 +73,13 @@ extension MainStarterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            transfertToAreaListViewController()
+            transferToAreaListViewController()
         default:
             break
         }
     }
     
-    private func transfertToAreaListViewController() {
+    private func transferToAreaListViewController() {
         let areaListStoryboard = UIStoryboard(name: "AreasList", bundle: nil)
         
         guard let areaListViewController = areaListStoryboard.instantiateViewController(withIdentifier: "AreasList") as? AreaListViewController else {
@@ -103,6 +88,16 @@ extension MainStarterViewController: UITableViewDelegate {
         
         areaListViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(areaListViewController, animated: true)
+    }
+    
+    private func transferToMapForSetradiusAlert() {
+        let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
+        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
+            return
+        }
+        
+        mapViewController.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(mapViewController, animated: true)
     }
     
 }

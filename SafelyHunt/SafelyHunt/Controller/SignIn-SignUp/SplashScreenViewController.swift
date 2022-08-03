@@ -42,15 +42,6 @@ class SplashScreenViewController: UIViewController {
         self.present(mainStarterViewController, animated: true)
     }
     
-    private func goToViewTest() {
-        let viewTest = UIStoryboard(name: "Login", bundle: nil)
-        
-        guard let vc = viewTest.instantiateViewController(withIdentifier: "viewTest") as? ViewController else {
-            return
-        }
-        self.present(vc, animated: true)
-    }
-    
     private func transfertToLogin() {
     
         let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)

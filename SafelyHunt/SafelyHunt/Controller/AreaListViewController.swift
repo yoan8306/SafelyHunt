@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 import FirebaseAuth
+import SwiftUI
 
 class AreaListViewController: UIViewController {
     // MARK: - Properties
@@ -39,12 +40,11 @@ class AreaListViewController: UIViewController {
         guard let mapViewController = mapsStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return
         }
-        UserDefaults.standard.set("", forKey: UserDefaultKeys.areaSelected)
         mapViewController.modalPresentationStyle = .fullScreen
-        mapViewController.myNavigationItem.title = "Draw your new area"
+        mapViewController.myNavigationItem.title = "Position map for draw area"
         navigationController?.pushViewController(mapViewController, animated: true)
-        
     }
+    
     
 // MARK: - Private functions
     private func getAreaList() {
@@ -69,22 +69,23 @@ extension AreaListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cellSelected = false
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? AreaCellTableViewCell else {
             let cell = UITableViewCell()
             return cell
         }
         
-        cell.configureCell(infoArea: areaList[indexPath.row])
         guard let areaSelected = areaSelected else {
             return cell
         }
         for (key, _) in areaList[indexPath.row] {
             if areaSelected == key {
-                cell.accessoryType = .checkmark
+               cellSelected = true
             }else {
-                cell.accessoryType = .none
+                cellSelected = false
             }
         }
+        cell.configureCell(infoArea: areaList[indexPath.row], cellSelected: cellSelected)
         return cell
     }
 }
@@ -97,7 +98,7 @@ extension AreaListViewController: UITableViewDelegate {
             areaSelected = key
         }
         defaults.set(areaSelected, forKey: UserDefaultKeys.areaSelected)
-        transferToMapViewController()
+        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -105,15 +106,23 @@ extension AreaListViewController: UITableViewDelegate {
             return
         }
         if editingStyle == .delete {
-            answerDelete(indexPAth: indexPath, user: user)
+            askDelete(indexPath: indexPath, user: user)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        var nameArea = ""
+        for (key,_) in areaList[indexPath.row] {
+            nameArea = key
+        }
+        transferToMapViewController(nameAreaSelected: nameArea)
     }
 
 // MARK: - private func tableView
-    private func answerDelete (indexPAth: IndexPath, user: User) {
+    private func askDelete (indexPath: IndexPath, user: User) {
         let alertVC = UIAlertController(title: "Delete area", message: "Are you sure you want delete this area", preferredStyle: .actionSheet)
         let deletingAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-            self.deleteArea(indexPAth, user)
+            self.deleteArea(indexPath, user)
         }
         let dismiss = UIAlertAction(title: "Cancel", style: .default, handler: nil)
         alertVC.addAction(deletingAction)
@@ -138,15 +147,16 @@ extension AreaListViewController: UITableViewDelegate {
         }
     }
     
-    private func transferToMapViewController() {
+    private func transferToMapViewController(nameAreaSelected: String) {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return
         }
+        mapViewController.editingArea = true
+        mapViewController.nameAreaSelected = nameAreaSelected
         mapViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(mapViewController, animated: true)
     }
-    
 }
 
 

@@ -176,6 +176,10 @@ extension FirebaseManagement {
                     dictCoordinateArea[index] = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                 }
             }
+            if dictCoordinateArea.count <= 0 {
+                callBack(.failure(FirebaseError.noAreaRecordedFound))
+                return
+            }
             
             let sortedArray = dictCoordinateArea.sorted( by: { $0.key < $1.key})
             for dict in  0..<dictCoordinateArea.count {

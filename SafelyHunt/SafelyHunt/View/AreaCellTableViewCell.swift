@@ -11,7 +11,6 @@ class AreaCellTableViewCell: UITableViewCell {
     
     @IBOutlet weak var areaNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,10 +19,10 @@ class AreaCellTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-            accessoryType = selected ? .checkmark : .none
+        accessoryType = .detailButton
     }
-    
-    func configureCell(infoArea: [String:String]) {
+
+    func configureCell(infoArea: [String:String], cellSelected: Bool) {
         for (nameArea, dateCreate) in infoArea {
             areaNameLabel.text = nameArea
             guard let double = Double(dateCreate) else {
@@ -41,7 +40,7 @@ class AreaCellTableViewCell: UITableViewCell {
                 dateLabel.text = DateFormatter.localizedString(from: myDate, dateStyle: .medium, timeStyle: .medium)
             }
         }
-        setLabel()
+        setLabel(cellSelected: cellSelected)
     }
     
     private func numberDayBetween(from: Date, to : Date) -> Int {
@@ -53,10 +52,16 @@ class AreaCellTableViewCell: UITableViewCell {
         return numbersDays
     }
     
-    private func setLabel() {
+    private func setLabel(cellSelected: Bool) {
         areaNameLabel.font = .boldSystemFont(ofSize: 12)
         dateLabel.font = .italicSystemFont(ofSize: 10)
         dateLabel.textColor = .gray
+        if cellSelected {
+            areaNameLabel.textColor = .red
+            dateLabel.textColor = .red
+        } else {
+            areaNameLabel.textColor = .black
+            dateLabel.textColor = .black
+        }
     }
-
 }

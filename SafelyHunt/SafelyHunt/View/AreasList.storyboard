@@ -21,32 +21,36 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="4y9-zg-flE" detailTextLabel="icq-cm-NFm" style="IBUITableViewCellStyleSubtitle" id="KsJ-jM-bmb" customClass="AreaCellTableViewCell" customModule="SafelyHunt" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="KsJ-jM-bmb" customClass="AreaCellTableViewCell" customModule="SafelyHunt" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KsJ-jM-bmb" id="Lfc-vW-n1j">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4y9-zg-flE">
-                                                    <rect key="frame" x="20" y="6" width="25" height="14.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UQh-Pb-p9t">
+                                                    <rect key="frame" x="20" y="5" width="41" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="icq-cm-NFm">
-                                                    <rect key="frame" x="20" y="22.5" width="40.5" height="13.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cc5-3D-nEJ">
+                                                    <rect key="frame" x="20" y="29" width="41.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Cc5-3D-nEJ" firstAttribute="leading" secondItem="UQh-Pb-p9t" secondAttribute="leading" id="6pQ-iq-ft8"/>
+                                                <constraint firstItem="Cc5-3D-nEJ" firstAttribute="top" secondItem="UQh-Pb-p9t" secondAttribute="bottom" constant="3" id="bwk-u7-QGn"/>
+                                                <constraint firstItem="UQh-Pb-p9t" firstAttribute="leading" secondItem="Lfc-vW-n1j" secondAttribute="leading" constant="20" id="lft-VI-3Kl"/>
+                                                <constraint firstItem="UQh-Pb-p9t" firstAttribute="top" secondItem="Lfc-vW-n1j" secondAttribute="top" constant="5" id="yc0-ZX-aIx"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="areaNameLabel" destination="4y9-zg-flE" id="TfS-MB-a7T"/>
-                                            <outlet property="dateLabel" destination="icq-cm-NFm" id="p4M-35-YaM"/>
+                                            <outlet property="areaNameLabel" destination="UQh-Pb-p9t" id="Caz-NI-n2E"/>
+                                            <outlet property="dateLabel" destination="Cc5-3D-nEJ" id="8Sq-bw-wsm"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

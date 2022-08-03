@@ -34,6 +34,7 @@
 		5FBEF952287380050023E5A5 /* UIViewController_Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF951287380050023E5A5 /* UIViewController_Alert.swift */; };
 		5FC7538E2894063900BC3DB7 /* Maps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FC7538D2894063900BC3DB7 /* Maps.storyboard */; };
 		5FC75390289408E600BC3DB7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7538F289408E600BC3DB7 /* MapViewController.swift */; };
+		5FC753922894892B00BC3DB7 /* Area.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC753912894892B00BC3DB7 /* Area.swift */; };
 		5FF4C81A286D6B1C000A0F26 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C819286D6B1C000A0F26 /* SPAlert */; };
 		5FF4C81D286D6C38000A0F26 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C81C286D6C38000A0F26 /* FirebaseAnalytics */; };
 		5FF4C81F286D6C38000A0F26 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C81E286D6C38000A0F26 /* FirebaseAppCheck */; };
@@ -103,6 +104,7 @@
 		5FBEF951287380050023E5A5 /* UIViewController_Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController_Alert.swift; sourceTree = "<group>"; };
 		5FC7538D2894063900BC3DB7 /* Maps.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Maps.storyboard; sourceTree = "<group>"; };
 		5FC7538F289408E600BC3DB7 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		5FC753912894892B00BC3DB7 /* Area.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Area.swift; sourceTree = "<group>"; };
 		5FFCF67D288EB46C009D9AE8 /* AreasList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AreasList.storyboard; sourceTree = "<group>"; };
 		5FFCF680288EB481009D9AE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5FFCF682288EB7CF009D9AE8 /* AreaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaListViewController.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				5F14AD1D287827F20039002A /* Firebase */,
 				5F14AD1E2878284C0039002A /* UserDefaultKeys.swift */,
 				5F14AD20287829470039002A /* MainStarterData.swift */,
+				5FC753912894892B00BC3DB7 /* Area.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				5F1CF301286B1F2900A0429D /* AppDelegate.swift in Sources */,
 				5F1CF303286B1F2900A0429D /* SceneDelegate.swift in Sources */,
 				5F78B6C72876F13F003C58B5 /* SettingsViewController.swift in Sources */,
+				5FC753922894892B00BC3DB7 /* Area.swift in Sources */,
 				5FC75390289408E600BC3DB7 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -648,6 +652,7 @@
 				DEVELOPMENT_TEAM = NLCUCTBNY2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SafelyHunt/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow position for get alert when you outside area";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -677,6 +682,7 @@
 				DEVELOPMENT_TEAM = NLCUCTBNY2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SafelyHunt/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow position for get alert when you outside area";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

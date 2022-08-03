@@ -107,6 +107,7 @@ extension FirebaseManagement {
         
         for point in coordinate {
             databaseArea.child(nameArea).child("coordinate").child("coordinate\(index)").setValue([
+                "index" : index,
                 "latitude": point.latitude,
                 "longitude": point.longitude
             ])
@@ -141,5 +142,63 @@ extension FirebaseManagement {
             }
             callBack(.success(areaList))
         })
+    }
+    
+    func getArea(nameArea: String?, user: User, callBack: @escaping (Result<[CLLocationCoordinate2D], Error>) -> Void) {
+        let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list")
+        var coordinateArea: [CLLocationCoordinate2D] = []
+        var dictCoordinateArea: [Int: CLLocationCoordinate2D] = [:]
+        
+        guard let nameArea = nameArea, !nameArea.isEmpty else {
+            callBack(.failure(FirebaseError.noAreaRecordedFound))
+            return
+        }
+        
+        dictCoordinateArea.removeAll()
+        
+        databaseArea.child(nameArea).child("coordinate").getData { error, dataSnapshot in
+            guard let snapshot = dataSnapshot, error == nil else {
+                callBack(.failure(error ?? FirebaseError.noAreaRecordedFound))
+                return
+            }
+            
+            guard let data = snapshot.children.allObjects as? [DataSnapshot] else {
+                callBack(.failure(FirebaseError.noAreaRecordedFound))
+                return
+            }
+            
+            for element in data {
+                let coordinateElement = element.value as? NSDictionary
+                let latitude = coordinateElement?["latitude"]
+                let longitude = coordinateElement?["longitude"]
+                let index = coordinateElement?["index"]
+                if let latitude = latitude as? Double, let longitude = longitude as? Double, let index = index as? Int {
+                    dictCoordinateArea[index] = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                }
+            }
+            if dictCoordinateArea.count <= 0 {
+                callBack(.failure(FirebaseError.noAreaRecordedFound))
+                return
+            }
+            
+            let sortedArray = dictCoordinateArea.sorted( by: { $0.key < $1.key})
+            for dict in  0..<dictCoordinateArea.count {
+               let list = sortedArray[dict]
+                coordinateArea.append(list.value)
+            }
+            
+            callBack(.success(coordinateArea))
+        }
+    }
+    
+    func removeArea(name:String, user: User, callBack: @escaping(Result<DatabaseReference, Error>)->Void) {
+        let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list").child(name)
+        databaseArea.removeValue { error, success in
+            guard error == nil else {
+                callBack(.failure(error ?? FirebaseError.errorDeletingArea))
+                return
+            }
+            callBack(.success(success))
+        }
     }
 }

@@ -10,7 +10,7 @@ import AVFoundation
 import FirebaseAuth
 
 class AreaListViewController: UIViewController {
-// MARK: - Properties
+    // MARK: - Properties
     var areaList: [[String:String]] = [[:]] {
         didSet {
             areaListTableView.reloadData()
@@ -19,10 +19,10 @@ class AreaListViewController: UIViewController {
     var areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.areaSelected)
     
     
-// MARK: - IBOutlet
+    // MARK: - IBOutlet
     @IBOutlet weak var areaListTableView: UITableView!
-
-// MARK: - Life Cycle
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -31,6 +31,8 @@ class AreaListViewController: UIViewController {
         super.viewWillAppear(animated)
         getAreaList()
     }
+
+// MARK: - IBAction
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
         let mapsStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         
@@ -71,7 +73,7 @@ extension AreaListViewController: UITableViewDataSource {
             let cell = UITableViewCell()
             return cell
         }
-    
+        
         cell.configureCell(infoArea: areaList[indexPath.row])
         guard let areaSelected = areaSelected else {
             return cell
@@ -100,22 +102,38 @@ extension AreaListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard let user = FirebaseAuth.Auth.auth().currentUser else {
-        return
+            return
         }
         if editingStyle == .delete {
-            var areaName = ""
-            for (key,_) in areaList[indexPath.row] {
-                areaName = key
-            }
-            FirebaseManagement.shared.removeArea(name: areaName, user: user) { [weak self] result in
-                switch result {
-                case .success(_):
-                    self?.getAreaList()
-                    self?.presentNativeAlertSuccess(alertMessage: "Area Deleting")
-                case.failure(let error):
-                    self?.getAreaList()
-                    self?.presentAlertError(alertTitle: "Error", alertMessage: error.localizedDescription, buttonTitle: "Dissmiss", alertStyle: .cancel)
-                }
+            answerDelete(indexPAth: indexPath, user: user)
+        }
+    }
+
+// MARK: - private func tableView
+    private func answerDelete (indexPAth: IndexPath, user: User) {
+        let alertVC = UIAlertController(title: "Delete area", message: "Are you sure you want delete this area", preferredStyle: .actionSheet)
+        let deletingAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            self.deleteArea(indexPAth, user)
+        }
+        let dismiss = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        alertVC.addAction(deletingAction)
+        alertVC.addAction(dismiss)
+        present(alertVC, animated: true, completion: nil)
+    }
+    
+    private func deleteArea(_ indexPath: IndexPath, _ user: User) {
+        var areaName = ""
+        for (key,_) in areaList[indexPath.row] {
+            areaName = key
+        }
+        FirebaseManagement.shared.removeArea(name: areaName, user: user) { [weak self] result in
+            switch result {
+            case .success(_):
+                self?.getAreaList()
+                self?.presentNativeAlertSuccess(alertMessage: "Area Deleting")
+            case.failure(let error):
+                self?.getAreaList()
+                self?.presentAlertError(alertTitle: "Error", alertMessage: error.localizedDescription, buttonTitle: "Dismiss", alertStyle: .cancel)
             }
         }
     }

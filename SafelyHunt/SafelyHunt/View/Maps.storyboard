@@ -23,6 +23,33 @@
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="8O4-eg-EKc"/>
                                 </connections>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aYO-R1-nip">
+                                <rect key="frame" x="20" y="10" width="280" height="60"/>
+                                <subviews>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="500" minValue="0.0" maxValue="1500" translatesAutoresizingMaskIntoConstraints="NO" id="XSi-ap-yg3">
+                                        <rect key="frame" x="-2" y="15" width="284" height="31"/>
+                                        <color key="minimumTrackTintColor" red="0.0" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="sliderAction" destination="Y6W-OH-hqX" eventType="valueChanged" id="iMP-G1-j1h"/>
+                                        </connections>
+                                    </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0VL-KW-Rxn">
+                                        <rect key="frame" x="0.0" y="37" width="34.5" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="XSi-ap-yg3" firstAttribute="leading" secondItem="aYO-R1-nip" secondAttribute="leading" id="Grt-iS-CtD"/>
+                                    <constraint firstItem="0VL-KW-Rxn" firstAttribute="leading" secondItem="aYO-R1-nip" secondAttribute="leading" id="UYU-62-Zgh"/>
+                                    <constraint firstItem="XSi-ap-yg3" firstAttribute="centerY" secondItem="aYO-R1-nip" secondAttribute="centerY" id="WXc-9v-Kz4"/>
+                                    <constraint firstAttribute="trailing" secondItem="XSi-ap-yg3" secondAttribute="trailing" id="kVn-h8-m9z"/>
+                                    <constraint firstAttribute="height" constant="60" id="xfy-hn-Lpe"/>
+                                    <constraint firstItem="0VL-KW-Rxn" firstAttribute="centerY" secondItem="aYO-R1-nip" secondAttribute="centerY" constant="15" id="zJl-md-rB5"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Lw-Hc-2Nm">
                                 <rect key="frame" x="265" y="474.5" width="35" height="34"/>
                                 <constraints>
@@ -103,33 +130,6 @@
                                     <constraint firstAttribute="trailing" secondItem="xvk-WE-2PC" secondAttribute="trailing" id="nsc-b0-T3u"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aYO-R1-nip">
-                                <rect key="frame" x="20" y="0.0" width="280" height="60"/>
-                                <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="500" minValue="0.0" maxValue="1500" translatesAutoresizingMaskIntoConstraints="NO" id="XSi-ap-yg3">
-                                        <rect key="frame" x="-2" y="15" width="284" height="31"/>
-                                        <color key="minimumTrackTintColor" red="0.0" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <action selector="sliderAction" destination="Y6W-OH-hqX" eventType="valueChanged" id="iMP-G1-j1h"/>
-                                        </connections>
-                                    </slider>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0VL-KW-Rxn">
-                                        <rect key="frame" x="0.0" y="37" width="34.5" height="16"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="XSi-ap-yg3" firstAttribute="leading" secondItem="aYO-R1-nip" secondAttribute="leading" id="Grt-iS-CtD"/>
-                                    <constraint firstItem="0VL-KW-Rxn" firstAttribute="leading" secondItem="aYO-R1-nip" secondAttribute="leading" id="UYU-62-Zgh"/>
-                                    <constraint firstItem="XSi-ap-yg3" firstAttribute="centerY" secondItem="aYO-R1-nip" secondAttribute="centerY" id="WXc-9v-Kz4"/>
-                                    <constraint firstAttribute="trailing" secondItem="XSi-ap-yg3" secondAttribute="trailing" id="kVn-h8-m9z"/>
-                                    <constraint firstAttribute="height" constant="60" id="xfy-hn-Lpe"/>
-                                    <constraint firstItem="0VL-KW-Rxn" firstAttribute="centerY" secondItem="aYO-R1-nip" secondAttribute="centerY" constant="15" id="zJl-md-rB5"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -140,7 +140,7 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="1Lw-Hc-2Nm" secondAttribute="bottom" constant="10" id="AnB-mD-Se8"/>
                             <constraint firstItem="DdS-4n-brd" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="L0J-dG-dEi"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="DdS-4n-brd" secondAttribute="bottom" id="LEn-1T-tnE"/>
-                            <constraint firstItem="aYO-R1-nip" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Orl-df-eUn"/>
+                            <constraint firstItem="aYO-R1-nip" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="Orl-df-eUn"/>
                             <constraint firstItem="aYO-R1-nip" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="UNU-lr-V4g"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="DdS-4n-brd" secondAttribute="trailing" id="ZBz-nR-nYD"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="1Lw-Hc-2Nm" secondAttribute="trailing" constant="20" id="pAO-HD-NLo"/>
@@ -149,13 +149,7 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="MyTitle" id="4a2-nG-jdr">
-                        <barButtonItem key="rightBarButtonItem" image="pencil.circle" catalog="system" id="sJp-u3-otX">
-                            <connections>
-                                <action selector="pencilButtonAction:" destination="Y6W-OH-hqX" id="nh4-N3-kLG"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="MyTitle" id="4a2-nG-jdr"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="cancelButton" destination="oAv-SP-K10" id="z0g-i1-wlY"/>
@@ -178,7 +172,6 @@
     </scenes>
     <resources>
         <image name="location.circle" catalog="system" width="32" height="32"/>
-        <image name="pencil.circle" catalog="system" width="32" height="32"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -50,7 +50,7 @@ class MapViewController: UIViewController {
         }
         if let touch = touches.first {
             let coordinate = mapView.convert(touch.location(in: mapView), toCoordinateFrom: mapView)
-            createArea.coordinateArea.append(coordinate)
+            createArea.coordinatesPoints.append(coordinate)
         }
     }
     
@@ -60,7 +60,7 @@ class MapViewController: UIViewController {
         }
         if let touch = touches.first {
             let coordinate = mapView.convert(touch.location(in: mapView), toCoordinateFrom: mapView)
-            createArea.coordinateArea.append(coordinate)
+            createArea.coordinatesPoints.append(coordinate)
             mapView.addOverlay(createArea.createPolyLine())
         }
     }
@@ -108,7 +108,9 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func sliderAction() {
-        radiusLabel.text = "\(slider.value) m"
+        radiusLabel.text = "\(Int(slider.value)) m"
+        insertRadius()
+        UserDefaults.standard.set(slider.value, forKey: UserDefaultKeys.Keys.radiusAlert)
     }
     
     
@@ -121,7 +123,7 @@ class MapViewController: UIViewController {
     private func turnOffEditingMode() {
         popUpAreaNameUiView.isHidden = true
         nameAreaTextField.resignFirstResponder()
-        createArea.coordinateArea = []
+        createArea.coordinatesPoints = []
         mapView.isUserInteractionEnabled = true
         navigationController?.navigationBar.backgroundColor = .white
         editingArea = false
@@ -158,6 +160,16 @@ class MapViewController: UIViewController {
             }
         }
     }
+    
+    private func insertRadius() {
+        mapView.removeOverlays(mapView.overlays)
+        guard let userPosition = locationManager.location?.coordinate else {
+            return
+        }
+        let radius = CLLocationDistance(slider.value)
+        mapView.addOverlay(createArea.createCircle(userPosition: userPosition, radius: radius))
+    }
+    
 }
 
 // MARK: - MapView delegate, CLLocation delegate
@@ -167,10 +179,14 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             navigationItem.rightBarButtonItem = pencil
         }
         if editingRadius {
+            slider.value = UserDefaults.standard.float(forKey: UserDefaultKeys.Keys.radiusAlert)
+            radiusLabel.text = "\(Int(slider.value)) m"
+            insertRadius()
             sliderUiView.isHidden = false
+        } else {
+            sliderUiView.isHidden = true
         }
 
-        sliderUiView.isHidden = true
         editingArea = false
 
         mapView.delegate = self
@@ -191,17 +207,24 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolyline {
-            let polylineRenderer = MKPolylineRenderer(overlay: overlay)
-            polylineRenderer.strokeColor = UIColor.darkGray
-            polylineRenderer.lineWidth = 1
-            return polylineRenderer
+            let polyLineRenderer = MKPolylineRenderer(overlay: overlay)
+            polyLineRenderer.strokeColor = UIColor.darkGray
+            polyLineRenderer.lineWidth = 1
+            return polyLineRenderer
             
         } else if overlay is MKPolygon {
             let polygonView = MKPolygonRenderer(overlay: overlay)
-            polygonView.fillColor = .magenta
+            polygonView.fillColor = .red
             polygonView.alpha = 0.3
             
             return polygonView
+        } else if overlay is MKCircle {
+            let circleView = MKCircleRenderer(overlay: overlay)
+            circleView.fillColor = .red
+            circleView.strokeColor = UIColor.blue
+            circleView.lineWidth = 1
+            circleView.alpha = 0.3
+            return circleView
         }
         
         return MKPolylineRenderer(overlay: overlay)

@@ -10,15 +10,18 @@ import MapKit
 import FirebaseAuth
 
 class Area {
-    var coordinateArea : [CLLocationCoordinate2D] = []
-    
+    var coordinatesPoints : [CLLocationCoordinate2D] = []
     
     func createPolyLine() -> MKOverlay {
-     MKPolyline(coordinates: coordinateArea, count: coordinateArea.count)
+     MKPolyline(coordinates: coordinatesPoints, count: coordinatesPoints.count)
     }
     
     func createPolygon() -> MKOverlay {
-        MKPolygon(coordinates: coordinateArea, count: coordinateArea.count)
+        MKPolygon(coordinates: coordinatesPoints, count: coordinatesPoints.count)
+    }
+    
+    func createCircle(userPosition: CLLocationCoordinate2D, radius:CLLocationDistance) -> MKOverlay {
+        MKCircle(center: userPosition, radius: radius)
     }
     
     func transfertAreaToFireBase(nameArea: String?) {
@@ -29,6 +32,6 @@ class Area {
         let dateStamp: TimeInterval = dateNow.timeIntervalSince1970
         let dateToTimeStamp = Int(dateStamp)
         
-        FirebaseManagement.shared.insertArea(user: user, coordinate: coordinateArea, nameArea: nameArea, date: dateToTimeStamp)
+        FirebaseManagement.shared.insertArea(user: user, coordinate: coordinatesPoints, nameArea: nameArea, date: dateToTimeStamp)
     }
 }

@@ -47,9 +47,9 @@ extension MainStarterViewController: UITableViewDataSource {
             content.text = title
             switch indexPath.row {
             case 0:
-                content.secondaryText = UserDefaults.standard.string(forKey: UserDefaultKeys.areaSelected)
+                content.secondaryText = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
             case 1:
-                content.secondaryText = "\(UserDefaults.standard.string(forKey: String(UserDefaultKeys.radiusAlert)) ?? "0") m"
+                content.secondaryText = "\(UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.radiusAlert) ?? "0") m"
             default:
                 break
             }
@@ -74,6 +74,8 @@ extension MainStarterViewController: UITableViewDelegate {
         switch indexPath.row {
         case 0:
             transferToAreaListViewController()
+        case 1:
+            transferToMapForSetRadiusAlert()
         default:
             break
         }
@@ -90,12 +92,12 @@ extension MainStarterViewController: UITableViewDelegate {
         navigationController?.pushViewController(areaListViewController, animated: true)
     }
     
-    private func transferToMapForSetradiusAlert() {
+    private func transferToMapForSetRadiusAlert() {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return
         }
-        
+        mapViewController.editingRadius = true
         mapViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(mapViewController, animated: true)
     }

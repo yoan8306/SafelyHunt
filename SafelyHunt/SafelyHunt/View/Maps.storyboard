@@ -27,14 +27,14 @@
                                 <rect key="frame" x="20" y="10" width="280" height="60"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="500" minValue="0.0" maxValue="1500" translatesAutoresizingMaskIntoConstraints="NO" id="XSi-ap-yg3">
-                                        <rect key="frame" x="-2" y="15" width="284" height="31"/>
+                                        <rect key="frame" x="-2" y="0.0" width="284" height="31"/>
                                         <color key="minimumTrackTintColor" red="0.0" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="sliderAction" destination="Y6W-OH-hqX" eventType="valueChanged" id="iMP-G1-j1h"/>
                                         </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0VL-KW-Rxn">
-                                        <rect key="frame" x="0.0" y="37" width="34.5" height="16"/>
+                                        <rect key="frame" x="0.0" y="30" width="34.5" height="16"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -42,12 +42,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="XSi-ap-yg3" firstAttribute="top" secondItem="aYO-R1-nip" secondAttribute="top" id="FPt-hq-vGN"/>
                                     <constraint firstItem="XSi-ap-yg3" firstAttribute="leading" secondItem="aYO-R1-nip" secondAttribute="leading" id="Grt-iS-CtD"/>
                                     <constraint firstItem="0VL-KW-Rxn" firstAttribute="leading" secondItem="aYO-R1-nip" secondAttribute="leading" id="UYU-62-Zgh"/>
-                                    <constraint firstItem="XSi-ap-yg3" firstAttribute="centerY" secondItem="aYO-R1-nip" secondAttribute="centerY" id="WXc-9v-Kz4"/>
+                                    <constraint firstItem="0VL-KW-Rxn" firstAttribute="top" secondItem="XSi-ap-yg3" secondAttribute="bottom" id="YHl-O2-2ct"/>
                                     <constraint firstAttribute="trailing" secondItem="XSi-ap-yg3" secondAttribute="trailing" id="kVn-h8-m9z"/>
                                     <constraint firstAttribute="height" constant="60" id="xfy-hn-Lpe"/>
-                                    <constraint firstItem="0VL-KW-Rxn" firstAttribute="centerY" secondItem="aYO-R1-nip" secondAttribute="centerY" constant="15" id="zJl-md-rB5"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Lw-Hc-2Nm">

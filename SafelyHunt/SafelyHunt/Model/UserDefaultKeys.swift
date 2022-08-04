@@ -22,12 +22,12 @@ class UserDefaultKeys {
         }
     }
     
-    static var radiusAlert: Float {
+    static var radiusAlert: Int {
         get {
-            return UserDefaults.standard.float(forKey: Keys.radiusAlert)
+            return UserDefaults.standard.integer(forKey: Keys.radiusAlert)
         }
         set {
-            UserDefaults.standard.float(forKey: Keys.radiusAlert)
+            UserDefaults.standard.integer(forKey: Keys.radiusAlert)
         }
     }
     

@@ -110,7 +110,7 @@ class MapViewController: UIViewController {
     @IBAction func sliderAction() {
         radiusLabel.text = "\(Int(slider.value)) m"
         insertRadius()
-        UserDefaults.standard.set(slider.value, forKey: UserDefaultKeys.Keys.radiusAlert)
+        UserDefaults.standard.set(Int(slider.value), forKey: UserDefaultKeys.Keys.radiusAlert)
     }
     
     
@@ -143,7 +143,7 @@ class MapViewController: UIViewController {
                 overlay["polyLine"] = MKPolyline(coordinates: coordinate, count: coordinate.count)
                 overlay["polygone"] = MKPolygon(coordinates: coordinate, count: coordinate.count)
 
-                guard let polyLine = overlay["polyLine"], let polygone = overlay["polygone"] else {
+                guard let polyLine = overlay["polyLine"], let polygon = overlay["polygone"] else {
                     return
                 }
 
@@ -153,7 +153,7 @@ class MapViewController: UIViewController {
                     self.mapView.setRegion(region, animated: true)
                 }
                 self.mapView.addOverlay(polyLine)
-                self.mapView.addOverlay(polygone)
+                self.mapView.addOverlay(polygon)
                 
             case .failure(_):
                 return
@@ -179,9 +179,10 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             navigationItem.rightBarButtonItem = pencil
         }
         if editingRadius {
-            slider.value = UserDefaults.standard.float(forKey: UserDefaultKeys.Keys.radiusAlert)
+            slider.value = Float(UserDefaults.standard.integer(forKey:UserDefaultKeys.Keys.radiusAlert))
             radiusLabel.text = "\(Int(slider.value)) m"
             insertRadius()
+            sliderUiView.backgroundColor = nil
             sliderUiView.isHidden = false
         } else {
             sliderUiView.isHidden = true

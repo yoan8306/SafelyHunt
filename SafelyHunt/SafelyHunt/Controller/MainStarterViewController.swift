@@ -58,9 +58,9 @@ extension MainStarterViewController: UITableViewDataSource {
             cell.textLabel?.text = title
             switch indexPath.row {
             case 0:
-                cell.detailTextLabel?.text = UserDefaultKeys.areaSelected
+                cell.detailTextLabel?.text = UserDefaultKeys.Keys.areaSelected
             case 1:
-                cell.detailTextLabel?.text = "\(UserDefaultKeys.radiusAlert) m"
+                cell.detailTextLabel?.text = "\(UserDefaultKeys.Keys.radiusAlert) m"
             default:
                 break
             }

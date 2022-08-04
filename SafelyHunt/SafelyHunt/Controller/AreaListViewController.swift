@@ -17,7 +17,7 @@ class AreaListViewController: UIViewController {
             areaListTableView.reloadData()
         }
     }
-    var areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.areaSelected)
+    var areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
     
     
     // MARK: - IBOutlet
@@ -97,7 +97,7 @@ extension AreaListViewController: UITableViewDelegate {
         for (key, _) in areaList[indexPath.row] {
             areaSelected = key
         }
-        defaults.set(areaSelected, forKey: UserDefaultKeys.areaSelected)
+        defaults.set(areaSelected, forKey: UserDefaultKeys.Keys.areaSelected)
         tableView.reloadData()
     }
     

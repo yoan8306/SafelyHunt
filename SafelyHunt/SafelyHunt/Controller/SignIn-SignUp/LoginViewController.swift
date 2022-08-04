@@ -36,8 +36,8 @@ class LoginViewController: UIViewController {
         
         FirebaseManagement.shared.signInUser(email: email, password: password) { [weak self] authResult in
             switch authResult {
-            case .success(let userSignIn):
-                self?.transfertToMainStarter()
+            case .success(_):
+                self?.transferToMainStarter()
                 self?.activityIndicator(shown: false)
                 
             case .failure(let error):
@@ -50,7 +50,7 @@ class LoginViewController: UIViewController {
     
 
     
-    private func transfertToMainStarter() {
+    private func transferToMainStarter() {
         let tabBarMain = UIStoryboard(name: "TabbarMain", bundle: nil)
         guard let mainStarter = tabBarMain.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {
             return

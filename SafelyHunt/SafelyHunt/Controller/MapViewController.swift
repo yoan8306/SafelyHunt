@@ -11,6 +11,7 @@ import FirebaseAuth
 
 class MapViewController: UIViewController {
     // MARK: - Properties
+    var hunter = Hunter()
     var locationManager = CLLocationManager()
     var editingArea = false
     var editingRadius = false
@@ -78,13 +79,26 @@ class MapViewController: UIViewController {
     // MARK: - IBAction
   @objc func pencilButtonAction() {
         if !editingArea {
+            let test = Monitoring()
+            guard let user = hunter.meHunter.user else {
+                return
+            }
+            guard let userPostion = locationManager.location?.coordinate else {
+                return
+            }
+            test.updatePosition(user: user, userPostion: userPostion)
+            
+            
             navigationController?.navigationBar.backgroundColor = .red
             mapView.removeOverlays(mapView.overlays)
             mapView.isUserInteractionEnabled = false
             editingArea  = true
             myNavigationItem.title = "Draw area with finger"
             
+            
         } else {
+            let test = Monitoring()
+            test.getPosition()
             turnOffEditingMode()
         }
     }
@@ -199,7 +213,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//            locationManager.startUpdatingLocation()
+            locationManager.startUpdatingLocation()
             locationManager.startUpdatingHeading()
         }
         locationManager.desiredAccuracy = kCLLocationAccuracyBest

@@ -12,11 +12,7 @@ import SwiftUI
 
 class AreaListViewController: UIViewController {
     // MARK: - Properties
-    var areaList: [[String:String]] = [[:]] {
-        didSet {
-            areaListTableView.reloadData()
-        }
-    }
+    var hunter = Hunter()
     var areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
     
     
@@ -40,6 +36,8 @@ class AreaListViewController: UIViewController {
         guard let mapViewController = mapsStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return
         }
+        mapViewController.hunter = hunter
+        mapViewController.editingArea = true
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.myNavigationItem.title = "Position map for draw area"
         navigationController?.pushViewController(mapViewController, animated: true)
@@ -48,13 +46,14 @@ class AreaListViewController: UIViewController {
     
 // MARK: - Private functions
     private func getAreaList() {
-        guard let user = FirebaseAuth.Auth.auth().currentUser else {
+        guard let user = hunter.meHunter.user else {
             return
         }
         FirebaseManagement.shared.getAreaList(user: user) { [weak self] fetchArea in
             switch fetchArea {
             case .success(let listArea):
-                self?.areaList = listArea
+                self?.hunter.meHunter.areaList = listArea
+                self?.areaListTableView.reloadData()
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
             }
@@ -65,7 +64,7 @@ class AreaListViewController: UIViewController {
 // MARK: - TableViewDataSource
 extension AreaListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return areaList.count
+        return hunter.myAreaList().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -78,14 +77,14 @@ extension AreaListViewController: UITableViewDataSource {
         guard let areaSelected = areaSelected else {
             return cell
         }
-        for (key, _) in areaList[indexPath.row] {
+        for (key, _) in hunter.myAreaList()[indexPath.row] {
             if areaSelected == key {
                cellSelected = true
             }else {
                 cellSelected = false
             }
         }
-        cell.configureCell(infoArea: areaList[indexPath.row], cellSelected: cellSelected)
+        cell.configureCell(infoArea: hunter.myAreaList()[indexPath.row], cellSelected: cellSelected)
         return cell
     }
 }
@@ -94,7 +93,7 @@ extension AreaListViewController: UITableViewDataSource {
 extension AreaListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let defaults = UserDefaults.standard
-        for (key, _) in areaList[indexPath.row] {
+        for (key, _) in hunter.myAreaList()[indexPath.row] {
             areaSelected = key
         }
         defaults.set(areaSelected, forKey: UserDefaultKeys.Keys.areaSelected)
@@ -102,7 +101,7 @@ extension AreaListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard let user = FirebaseAuth.Auth.auth().currentUser else {
+        guard let user = hunter.meHunter.user else {
             return
         }
         if editingStyle == .delete {
@@ -112,7 +111,8 @@ extension AreaListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         var nameArea = ""
-        for (key,_) in areaList[indexPath.row] {
+        
+        for (key,_) in hunter.myAreaList()[indexPath.row] {
             nameArea = key
         }
         transferToMapViewController(nameAreaSelected: nameArea)
@@ -132,7 +132,8 @@ extension AreaListViewController: UITableViewDelegate {
     
     private func deleteArea(_ indexPath: IndexPath, _ user: User) {
         var areaName = ""
-        for (key,_) in areaList[indexPath.row] {
+
+        for (key,_) in hunter.myAreaList()[indexPath.row] {
             areaName = key
         }
         FirebaseManagement.shared.removeArea(name: areaName, user: user) { [weak self] result in
@@ -152,6 +153,7 @@ extension AreaListViewController: UITableViewDelegate {
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return
         }
+        mapViewController.hunter = hunter
         mapViewController.editingArea = true
         mapViewController.nameAreaSelected = nameAreaSelected
         mapViewController.modalPresentationStyle = .fullScreen

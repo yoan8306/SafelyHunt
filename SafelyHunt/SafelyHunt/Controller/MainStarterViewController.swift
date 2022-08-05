@@ -12,12 +12,13 @@ import MapKit
 class MainStarterViewController: UIViewController {
     let user = FirebaseAuth.Auth.auth().currentUser
     let mainStarter = MainStarterData().mainStarter
+    var hunter = Hunter()
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        hunter.meHunter.user = user
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,7 +88,7 @@ extension MainStarterViewController: UITableViewDelegate {
         guard let areaListViewController = areaListStoryboard.instantiateViewController(withIdentifier: "AreasList") as? AreaListViewController else {
             return
         }
-        
+        areaListViewController.hunter.meHunter.user = hunter.meHunter.user
         areaListViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(areaListViewController, animated: true)
     }

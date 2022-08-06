@@ -216,7 +216,7 @@ extension FirebaseManagement {
         ])
     }
     
-    func getPositionUser(callBack: @escaping(Result<[Hunter], Error>)->Void) {
+    func getPositionUsers(callBack: @escaping (Result<[Hunter], Error>)->Void) {
         let databaseAllPositions = database.child("Database").child("position_user")
         var hunters: [Hunter] = []
         databaseAllPositions.getData { error, snapshot in
@@ -239,19 +239,20 @@ extension FirebaseManagement {
                 if element.key != userId {
                     let dictElement = element.value as? NSDictionary
                     
-                    guard let name = dictElement?["name"] as? String, let latitude = dictElement?["latitude"] as? Double, let longitude = dictElement?["longitude"] as? Double, let date = dictElement?["date"] as? Int else {
-                        return
-                    }
+                    let name = dictElement?["name"] as? String
+                    let latitude = dictElement?["latitude"] as? Double
+                    let longitude = dictElement?["longitude"] as? Double
+                    let dateString = dictElement?["date"] as? String
+                      let date = Int(dateString ?? "0")
                     let hunter = Hunter()
                     hunter.meHunter.displayName = name
                     hunter.meHunter.longitude = longitude
                     hunter.meHunter.latitude = latitude
                     hunter.meHunter.date = date
                     hunters.append(hunter)
-                    
                 }
-                
             }
+            callBack(.success(hunters))
         }
     }
     

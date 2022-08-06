@@ -19,7 +19,7 @@ class Monitoring {
     }
     
     func getPosition() {
-        FirebaseManagement.shared.getPositionUser { _ in
+        FirebaseManagement.shared.getPositionUsers { _ in
             
         }
     }

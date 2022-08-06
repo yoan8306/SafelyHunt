@@ -18,12 +18,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="DdS-4n-brd">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <connections>
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="8O4-eg-EKc"/>
                                 </connections>
                             </mapView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aYO-R1-nip">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aYO-R1-nip">
                                 <rect key="frame" x="20" y="10" width="280" height="60"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="500" minValue="0.0" maxValue="1500" translatesAutoresizingMaskIntoConstraints="NO" id="XSi-ap-yg3">
@@ -63,7 +63,7 @@
                                     <action selector="locationButtonAction" destination="Y6W-OH-hqX" eventType="touchUpInside" id="qhd-69-kz0"/>
                                 </connections>
                             </button>
-                            <view alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="77p-Us-BpL">
+                            <view hidden="YES" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="77p-Us-BpL">
                                 <rect key="frame" x="40" y="134.5" width="240" height="110"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="xvk-WE-2PC">
@@ -130,16 +130,29 @@
                                     <constraint firstAttribute="trailing" secondItem="xvk-WE-2PC" secondAttribute="trailing" id="nsc-b0-T3u"/>
                                 </constraints>
                             </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPK-CH-eVp">
+                                <rect key="frame" x="20" y="474" width="40" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="KDk-Sg-oK8"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="play.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="monitoringAction" destination="Y6W-OH-hqX" eventType="touchUpInside" id="h0r-y7-joJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="77p-Us-BpL" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="40" id="4cE-Lk-moe"/>
+                            <constraint firstItem="1Lw-Hc-2Nm" firstAttribute="bottom" secondItem="xPK-CH-eVp" secondAttribute="bottom" id="6Db-nK-IBp"/>
+                            <constraint firstItem="xPK-CH-eVp" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="6Dp-5G-JE4"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="aYO-R1-nip" secondAttribute="trailing" constant="20" id="6Hv-qN-rka"/>
                             <constraint firstItem="DdS-4n-brd" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="6aY-KL-Y3r"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="1Lw-Hc-2Nm" secondAttribute="bottom" constant="10" id="AnB-mD-Se8"/>
                             <constraint firstItem="DdS-4n-brd" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="L0J-dG-dEi"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="DdS-4n-brd" secondAttribute="bottom" id="LEn-1T-tnE"/>
+                            <constraint firstAttribute="bottom" secondItem="DdS-4n-brd" secondAttribute="bottom" id="LEn-1T-tnE"/>
                             <constraint firstItem="aYO-R1-nip" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="Orl-df-eUn"/>
                             <constraint firstItem="aYO-R1-nip" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="UNU-lr-V4g"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="DdS-4n-brd" secondAttribute="trailing" id="ZBz-nR-nYD"/>
@@ -155,6 +168,7 @@
                         <outlet property="cancelButton" destination="oAv-SP-K10" id="z0g-i1-wlY"/>
                         <outlet property="locationButton" destination="1Lw-Hc-2Nm" id="Bz6-IQ-xZ1"/>
                         <outlet property="mapView" destination="DdS-4n-brd" id="rsF-Y5-Adr"/>
+                        <outlet property="monitoringButton" destination="xPK-CH-eVp" id="CGN-Yc-Jno"/>
                         <outlet property="myNavigationItem" destination="4a2-nG-jdr" id="jiN-NI-mq8"/>
                         <outlet property="nameAreaTextField" destination="QBL-ne-hsg" id="bgw-vb-asv"/>
                         <outlet property="popUpAreaNameUiView" destination="77p-Us-BpL" id="0uB-aB-yFV"/>
@@ -172,6 +186,7 @@
     </scenes>
     <resources>
         <image name="location.circle" catalog="system" width="32" height="32"/>
+        <image name="play.fill" catalog="system" width="32" height="32"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -81,6 +81,9 @@
                                 <state key="normal" title="Start monitoring">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="startMonitoringButton:" destination="85s-eW-G3B" eventType="touchUpInside" id="fHL-1Q-JKj"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XFk-5Z-EaC"/>

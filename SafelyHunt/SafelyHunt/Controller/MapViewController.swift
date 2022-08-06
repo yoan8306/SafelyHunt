@@ -13,10 +13,12 @@ class MapViewController: UIViewController {
     // MARK: - Properties
     var hunter = Hunter()
     var locationManager = CLLocationManager()
+    var mapMode: MapMode = .monitoring
     var editingArea = false
-    var editingRadius = false
     var createArea = Area()
     var nameAreaSelected = ""
+    var timer: Timer?
+    var counter = 0
     lazy var pencil: UIBarButtonItem = {
         UIBarButtonItem(image: UIImage(systemName: "pencil.circle"), style: .plain, target: self, action: #selector(pencilButtonAction))
     }()
@@ -34,6 +36,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var validateButton: UIButton!
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var monitoringButton: UIButton!
     
     
     
@@ -41,8 +44,8 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeMapView()
-        setPopUpMessageNameArea()
         drawAreaSelected()
+        mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -79,23 +82,11 @@ class MapViewController: UIViewController {
     // MARK: - IBAction
   @objc func pencilButtonAction() {
         if !editingArea {
-            let test = Monitoring()
-            guard let user = hunter.meHunter.user else {
-                return
-            }
-            guard let userPostion = locationManager.location?.coordinate else {
-                return
-            }
-            test.updatePosition(user: user, userPostion: userPostion)
-            
-            
             navigationController?.navigationBar.backgroundColor = .red
             mapView.removeOverlays(mapView.overlays)
             mapView.isUserInteractionEnabled = false
             editingArea  = true
             myNavigationItem.title = "Draw area with finger"
-            
-            
         } else {
             let test = Monitoring()
             test.getPosition()
@@ -127,6 +118,17 @@ class MapViewController: UIViewController {
         UserDefaults.standard.set(Int(slider.value), forKey: UserDefaultKeys.Keys.radiusAlert)
     }
     
+    @IBAction func monitoringAction() {
+        let imageStop = UIImage(systemName: "stop.circle")
+        let imageStart = UIImage(systemName: "play.fill")
+        if !hunter.monitoring {
+            monitoringButton.setImage(imageStop, for: .normal)
+            monitoring()
+        } else {
+            timer?.invalidate()
+            monitoringButton.setImage(imageStart, for: .normal)
+        }
+    }
     
 // MARK: - Private func
     private func setPopUpMessageNameArea() {
@@ -155,19 +157,20 @@ class MapViewController: UIViewController {
             switch result {
             case .success(let coordinate):
                 overlay["polyLine"] = MKPolyline(coordinates: coordinate, count: coordinate.count)
-                overlay["polygone"] = MKPolygon(coordinates: coordinate, count: coordinate.count)
+                overlay["polygon"] = MKPolygon(coordinates: coordinate, count: coordinate.count)
 
-                guard let polyLine = overlay["polyLine"], let polygon = overlay["polygone"] else {
+                guard let polyLine = overlay["polyLine"], let polygon = overlay["polygon"] else {
                     return
                 }
-
-                if let center = overlay["polygone"]?.coordinate {
+                self.mapView.addOverlay(polyLine)
+                self.mapView.addOverlay(polygon)
+                
+                //define center map zoom
+                if let center = overlay["polygon"]?.coordinate, self.mapMode == .editingArea {
                     let span = MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta: 0.025)
                     let region = MKCoordinateRegion(center: center, span: span)
                     self.mapView.setRegion(region, animated: true)
                 }
-                self.mapView.addOverlay(polyLine)
-                self.mapView.addOverlay(polygon)
                 
             case .failure(_):
                 return
@@ -189,21 +192,21 @@ class MapViewController: UIViewController {
 // MARK: - MapView delegate, CLLocation delegate
 extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     private func initializeMapView() {
-        if editingArea {
+        switch mapMode {
+        case .editingArea:
             navigationItem.rightBarButtonItem = pencil
-        }
-        if editingRadius {
+        case .editingRadius:
             slider.value = Float(UserDefaults.standard.integer(forKey:UserDefaultKeys.Keys.radiusAlert))
             radiusLabel.text = "\(Int(slider.value)) m"
             insertRadius()
             sliderUiView.backgroundColor = nil
             sliderUiView.isHidden = false
-        } else {
-            sliderUiView.isHidden = true
+        case .monitoring:
+            monitoringButton.isHidden = false
         }
-
+        setPopUpMessageNameArea()
         editingArea = false
-
+        
         mapView.delegate = self
         mapView.showsUserLocation = true
         mapView.isZoomEnabled = true
@@ -244,6 +247,10 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         
         return MKPolylineRenderer(overlay: overlay)
     }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        hunter.meHunter.latitude = locations.first?.coordinate.latitude
+        hunter.meHunter.longitude = locations.first?.coordinate.longitude
+    }
 }
 
 // MARK: - Textfield delegate
@@ -253,3 +260,55 @@ extension MapViewController: UITextFieldDelegate {
         return true
     }
 }
+    
+// MARK: - Monitoring
+extension MapViewController {
+        private func monitoring() {
+            locationManager.startUpdatingLocation()
+            timer = Timer.scheduledTimer(timeInterval: 15, target: self,
+                                         selector: #selector(getPositionOthersHunter), userInfo: nil, repeats: true)
+        }
+    
+    @objc func getPositionOthersHunter() {
+        
+        guard let latitude = locationManager.location?.coordinate.latitude, let longitude = locationManager.location?.coordinate.longitude else {
+            return
+        }
+        let myPosition = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                
+        hunter.updatePosition(userPostion: myPosition)
+            FirebaseManagement.shared.getPositionUsers {[weak self] result in
+                switch result {
+                case .success(let hunters):
+                    self?.mapView.removeAnnotations((self?.mapView.annotations)!)
+                    self?.counter = 0
+                    self?.hunter.others = hunters
+                    self?.hunter.getHuntersInRadiusAlert()
+                    guard let huntersInRadius = self?.hunter.hunterInRadiusAlert else {
+                        return
+                    }
+                    
+                    if huntersInRadius.count > 0 {
+                        for hunter in huntersInRadius {
+                            guard let latitude = hunter.meHunter.latitude, let longitude = hunter.meHunter.longitude else {
+                                return
+                            }
+                            let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                            let showHunter = PlaceHunters(title: hunter.meHunter.displayName ?? "no name", coordinate: coordinate, subtitle: Date().relativeDate(dateInt: hunter.meHunter.date ?? 0))
+                            self?.mapView.addAnnotation(showHunter)
+                            
+                        }
+                    }
+                    
+                case .failure(_):
+                    print("")
+                    self?.counter = 0
+                }
+            }
+        }
+    
+    
+    
+    
+}
+

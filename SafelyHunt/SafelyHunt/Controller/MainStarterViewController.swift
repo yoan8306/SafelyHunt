@@ -26,6 +26,24 @@ class MainStarterViewController: UIViewController {
         tableView.reloadData()
     }
     
+    @IBAction func startMonitoringButton(_ sender: UIButton) {
+        transferToMapViewController()
+    }
+    
+    private func transferToMapViewController() {
+        let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
+        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController, let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) else {
+            return
+        }
+        
+        mapViewController.hunter = hunter
+        mapViewController.mapMode = .monitoring
+        mapViewController.nameAreaSelected = areaSelected
+        mapViewController.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(mapViewController, animated: true)
+    }
+    
+    
 }
 
 extension MainStarterViewController: UITableViewDataSource {
@@ -98,9 +116,8 @@ extension MainStarterViewController: UITableViewDelegate {
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return
         }
-        mapViewController.editingRadius = true
+        mapViewController.mapMode = .editingRadius
         mapViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(mapViewController, animated: true)
     }
-    
 }

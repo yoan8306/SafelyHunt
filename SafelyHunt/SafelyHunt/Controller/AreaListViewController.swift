@@ -37,7 +37,7 @@ class AreaListViewController: UIViewController {
             return
         }
         mapViewController.hunter = hunter
-        mapViewController.editingArea = true
+        mapViewController.mapMode = .editingArea
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.myNavigationItem.title = "Position map for draw area"
         navigationController?.pushViewController(mapViewController, animated: true)
@@ -130,6 +130,10 @@ extension AreaListViewController: UITableViewDelegate {
         present(alertVC, animated: true, completion: nil)
     }
     
+    /// delete area selected
+    /// - Parameters:
+    ///   - indexPath: cell area detect
+    ///   - user: user signIn
     private func deleteArea(_ indexPath: IndexPath, _ user: User) {
         var areaName = ""
 
@@ -154,7 +158,7 @@ extension AreaListViewController: UITableViewDelegate {
             return
         }
         mapViewController.hunter = hunter
-        mapViewController.editingArea = true
+        mapViewController.mapMode = .editingArea
         mapViewController.nameAreaSelected = nameAreaSelected
         mapViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(mapViewController, animated: true)

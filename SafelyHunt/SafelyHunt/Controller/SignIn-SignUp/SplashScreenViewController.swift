@@ -8,7 +8,7 @@
 import UIKit
 
 class SplashScreenViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -18,10 +18,10 @@ class SplashScreenViewController: UIViewController {
         FirebaseManagement.shared.checkUserLogged { userIsLogged in
             switch userIsLogged {
             case .success(_):
-                self.transfertToMainStarter()
+                self.transferToMainStarter()
 //                self.goToViewTest()
             case .failure(_):
-                self.transfertToLogin()
+                self.transferToLogin()
             }
         }
     }
@@ -31,7 +31,7 @@ class SplashScreenViewController: UIViewController {
         FirebaseManagement.shared.removeStateChangeLoggedListen()
     }
     
-    private func transfertToMainStarter() {
+    private func transferToMainStarter() {
         let mainStarterStoryboard = UIStoryboard(name: "TabbarMain", bundle: nil)
         
         guard let mainStarterViewController = mainStarterStoryboard.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {
@@ -42,7 +42,7 @@ class SplashScreenViewController: UIViewController {
         self.present(mainStarterViewController, animated: true)
     }
     
-    private func transfertToLogin() {
+    private func transferToLogin() {
     
         let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
         

@@ -12,18 +12,37 @@ import MapKit
 class MainStarterViewController: UIViewController {
     let user = FirebaseAuth.Auth.auth().currentUser
     let mainStarter = MainStarterData().mainStarter
+    var hunter = Hunter()
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        hunter.meHunter.user = user
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
+    
+    @IBAction func startMonitoringButton(_ sender: UIButton) {
+        transferToMapViewController()
+    }
+    
+    private func transferToMapViewController() {
+        let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
+        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController, let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) else {
+            return
+        }
+        
+        mapViewController.hunter = hunter
+        mapViewController.mapMode = .monitoring
+        mapViewController.nameAreaSelected = areaSelected
+        mapViewController.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(mapViewController, animated: true)
+    }
+    
     
 }
 
@@ -47,9 +66,9 @@ extension MainStarterViewController: UITableViewDataSource {
             content.text = title
             switch indexPath.row {
             case 0:
-                content.secondaryText = UserDefaults.standard.string(forKey: UserDefaultKeys.areaSelected)
+                content.secondaryText = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
             case 1:
-                content.secondaryText = "\(UserDefaults.standard.string(forKey: String(UserDefaultKeys.radiusAlert)) ?? "0") m"
+                content.secondaryText = "\(UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.radiusAlert) ?? "0") m"
             default:
                 break
             }
@@ -58,9 +77,9 @@ extension MainStarterViewController: UITableViewDataSource {
             cell.textLabel?.text = title
             switch indexPath.row {
             case 0:
-                cell.detailTextLabel?.text = UserDefaultKeys.areaSelected
+                cell.detailTextLabel?.text = UserDefaultKeys.Keys.areaSelected
             case 1:
-                cell.detailTextLabel?.text = "\(UserDefaultKeys.radiusAlert) m"
+                cell.detailTextLabel?.text = "\(UserDefaultKeys.Keys.radiusAlert) m"
             default:
                 break
             }
@@ -74,6 +93,8 @@ extension MainStarterViewController: UITableViewDelegate {
         switch indexPath.row {
         case 0:
             transferToAreaListViewController()
+        case 1:
+            transferToMapForSetRadiusAlert()
         default:
             break
         }
@@ -85,19 +106,18 @@ extension MainStarterViewController: UITableViewDelegate {
         guard let areaListViewController = areaListStoryboard.instantiateViewController(withIdentifier: "AreasList") as? AreaListViewController else {
             return
         }
-        
+        areaListViewController.hunter.meHunter.user = hunter.meHunter.user
         areaListViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(areaListViewController, animated: true)
     }
     
-    private func transferToMapForSetradiusAlert() {
+    private func transferToMapForSetRadiusAlert() {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return
         }
-        
+        mapViewController.mapMode = .editingRadius
         mapViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(mapViewController, animated: true)
     }
-    
 }

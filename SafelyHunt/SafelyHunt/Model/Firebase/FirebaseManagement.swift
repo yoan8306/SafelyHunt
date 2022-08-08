@@ -94,12 +94,13 @@ class FirebaseManagement {
     }
 }
 
-// MARK: - Database
+// MARK: - Database Area
 extension FirebaseManagement {
     
     func insertArea(user: User, coordinate: [CLLocationCoordinate2D], nameArea: String, date: Int) {
         var index = 0
         let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list")
+        
         databaseArea.child(nameArea).setValue([
             "name": nameArea,
             "date": String(date)
@@ -176,6 +177,7 @@ extension FirebaseManagement {
                     dictCoordinateArea[index] = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                 }
             }
+            
             if dictCoordinateArea.count <= 0 {
                 callBack(.failure(FirebaseError.noAreaRecordedFound))
                 return
@@ -201,4 +203,57 @@ extension FirebaseManagement {
             callBack(.success(success))
         }
     }
+}
+
+// MARK: - UserPosition
+extension FirebaseManagement {
+    func insertMyPosition(userPosition: CLLocationCoordinate2D, user: User, date: Int) {
+        database.child("Database").child("position_user").child(user.uid).setValue([
+            "name": user.displayName ?? "no name",
+            "date": String(date),
+            "latitude": userPosition.latitude,
+            "longitude": userPosition.longitude
+        ])
+    }
+    
+    func getPositionUsers(callBack: @escaping (Result<[Hunter], Error>)-> Void) {
+        let databaseAllPositions = database.child("Database").child("position_user")
+        var hunters: [Hunter] = []
+        databaseAllPositions.getData { error, snapshot in
+            guard error == nil, snapshot != nil else  {
+                callBack(.failure(error ?? FirebaseError.noAreaRecordedFound))
+                return
+            }
+            guard let dataSnapshot = snapshot?.children.allObjects else {
+                return
+            }
+            
+            guard let data = dataSnapshot as? [DataSnapshot] else {
+                return
+            }
+            guard let userId = self.firebaseAuth.currentUser?.uid else {
+                return
+            }
+            
+            for element in data {
+                if element.key != userId {
+                    let dictElement = element.value as? NSDictionary
+                    
+                    let name = dictElement?["name"] as? String
+                    let latitude = dictElement?["latitude"] as? Double
+                    let longitude = dictElement?["longitude"] as? Double
+                    let dateString = dictElement?["date"] as? String
+                      let date = Int(dateString ?? "0")
+                    let hunter = Hunter()
+                    hunter.meHunter.displayName = name
+                    hunter.meHunter.longitude = longitude
+                    hunter.meHunter.latitude = latitude
+                    hunter.meHunter.date = date
+                    hunters.append(hunter)
+                }
+            }
+            callBack(.success(hunters))
+        }
+    }
+    
 }

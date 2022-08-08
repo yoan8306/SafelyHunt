@@ -11,11 +11,14 @@ import FirebaseAuth
 
 class MapViewController: UIViewController {
     // MARK: - Properties
+    var monitoring = Monitoring()
+    var hunter = Hunter()
     var locationManager = CLLocationManager()
+    var mapMode: MapMode = .monitoring
     var editingArea = false
-    var editingRadius = false
     var createArea = Area()
     var nameAreaSelected = ""
+    var timer: Timer?
     lazy var pencil: UIBarButtonItem = {
         UIBarButtonItem(image: UIImage(systemName: "pencil.circle"), style: .plain, target: self, action: #selector(pencilButtonAction))
     }()
@@ -33,6 +36,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var validateButton: UIButton!
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var monitoringButton: UIButton!
     
     
     
@@ -40,8 +44,8 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeMapView()
-        setPopUpMessageNameArea()
         drawAreaSelected()
+        mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -50,7 +54,7 @@ class MapViewController: UIViewController {
         }
         if let touch = touches.first {
             let coordinate = mapView.convert(touch.location(in: mapView), toCoordinateFrom: mapView)
-            createArea.coordinateArea.append(coordinate)
+            createArea.coordinatesPoints.append(coordinate)
         }
     }
     
@@ -60,7 +64,7 @@ class MapViewController: UIViewController {
         }
         if let touch = touches.first {
             let coordinate = mapView.convert(touch.location(in: mapView), toCoordinateFrom: mapView)
-            createArea.coordinateArea.append(coordinate)
+            createArea.coordinatesPoints.append(coordinate)
             mapView.addOverlay(createArea.createPolyLine())
         }
     }
@@ -83,7 +87,6 @@ class MapViewController: UIViewController {
             mapView.isUserInteractionEnabled = false
             editingArea  = true
             myNavigationItem.title = "Draw area with finger"
-            
         } else {
             turnOffEditingMode()
         }
@@ -108,9 +111,23 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func sliderAction() {
-        radiusLabel.text = "\(slider.value) m"
+        radiusLabel.text = "\(Int(slider.value)) m"
+        insertRadius()
+        UserDefaults.standard.set(Int(slider.value), forKey: UserDefaultKeys.Keys.radiusAlert)
     }
     
+    @IBAction func monitoringAction() {
+        let imageStop = UIImage(systemName: "stop.circle")
+        let imageStart = UIImage(systemName: "play.fill")
+        if !hunter.monitoring {
+            monitoringButton.setImage(imageStop, for: .normal)
+            monitoringOn()
+            hunter.monitoring = !hunter.monitoring
+        } else {
+            timer?.invalidate()
+            monitoringButton.setImage(imageStart, for: .normal)
+        }
+    }
     
 // MARK: - Private func
     private func setPopUpMessageNameArea() {
@@ -121,7 +138,7 @@ class MapViewController: UIViewController {
     private func turnOffEditingMode() {
         popUpAreaNameUiView.isHidden = true
         nameAreaTextField.resignFirstResponder()
-        createArea.coordinateArea = []
+        createArea.coordinatesPoints = []
         mapView.isUserInteractionEnabled = true
         navigationController?.navigationBar.backgroundColor = .white
         editingArea = false
@@ -139,40 +156,72 @@ class MapViewController: UIViewController {
             switch result {
             case .success(let coordinate):
                 overlay["polyLine"] = MKPolyline(coordinates: coordinate, count: coordinate.count)
-                overlay["polygone"] = MKPolygon(coordinates: coordinate, count: coordinate.count)
+                overlay["polygon"] = MKPolygon(coordinates: coordinate, count: coordinate.count)
 
-                guard let polyLine = overlay["polyLine"], let polygone = overlay["polygone"] else {
+                guard let polyLine = overlay["polyLine"], let polygon = overlay["polygon"] else {
                     return
                 }
-
-                if let center = overlay["polygone"]?.coordinate {
+                self.mapView.addOverlay(polyLine)
+                self.mapView.addOverlay(polygon)
+                
+                //define center map zoom
+                if let center = overlay["polygon"]?.coordinate, self.mapMode == .editingArea {
                     let span = MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta: 0.025)
                     let region = MKCoordinateRegion(center: center, span: span)
                     self.mapView.setRegion(region, animated: true)
                 }
-                self.mapView.addOverlay(polyLine)
-                self.mapView.addOverlay(polygone)
                 
             case .failure(_):
                 return
             }
         }
     }
+    
+    
+    
+    private func insertRadius() {
+        removeRadiusOverlay()
+        
+        guard let userPosition = locationManager.location?.coordinate else {
+            return
+        }
+        
+        let radius = CLLocationDistance(UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert))
+        mapView.addOverlay(createArea.createCircle(userPosition: userPosition, radius: radius))
+    }
+    
+    private func removeRadiusOverlay() {
+        var overlay: MKOverlay?
+        for element in  mapView.overlays {
+            if element is MKCircle {
+                overlay = element
+            }
+        }
+        if let overlay = overlay {
+            mapView.removeOverlay(overlay)
+        }
+    }
+    
 }
 
 // MARK: - MapView delegate, CLLocation delegate
 extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     private func initializeMapView() {
-        if editingArea {
+        switch mapMode {
+        case .editingArea:
             navigationItem.rightBarButtonItem = pencil
-        }
-        if editingRadius {
+        case .editingRadius:
+            slider.value = Float(UserDefaults.standard.integer(forKey:UserDefaultKeys.Keys.radiusAlert))
+            radiusLabel.text = "\(Int(slider.value)) m"
+            insertRadius()
+            sliderUiView.backgroundColor = nil
             sliderUiView.isHidden = false
+        case .monitoring:
+            monitoringButton.isHidden = false
         }
-
-        sliderUiView.isHidden = true
+        setPopUpMessageNameArea()
         editingArea = false
-
+        
         mapView.delegate = self
         mapView.showsUserLocation = true
         mapView.isZoomEnabled = true
@@ -182,29 +231,42 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//            locationManager.startUpdatingLocation()
+            locationManager.startUpdatingLocation()
             locationManager.startUpdatingHeading()
         }
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         mapView.setUserTrackingMode(.follow, animated: true)
     }
+    
+   
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolyline {
-            let polylineRenderer = MKPolylineRenderer(overlay: overlay)
-            polylineRenderer.strokeColor = UIColor.darkGray
-            polylineRenderer.lineWidth = 1
-            return polylineRenderer
+            let polyLineRenderer = MKPolylineRenderer(overlay: overlay)
+            polyLineRenderer.strokeColor = UIColor.darkGray
+            polyLineRenderer.lineWidth = 1
+            return polyLineRenderer
             
         } else if overlay is MKPolygon {
             let polygonView = MKPolygonRenderer(overlay: overlay)
-            polygonView.fillColor = .magenta
+            polygonView.fillColor = .red
             polygonView.alpha = 0.3
             
             return polygonView
+        } else if overlay is MKCircle {
+            let circleView = MKCircleRenderer(overlay: overlay)
+            circleView.fillColor = .red
+            circleView.strokeColor = UIColor.blue
+            circleView.lineWidth = 1
+            circleView.alpha = 0.3
+            return circleView
         }
         
         return MKPolylineRenderer(overlay: overlay)
+    }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        hunter.meHunter.latitude = locations.first?.coordinate.latitude
+        hunter.meHunter.longitude = locations.first?.coordinate.longitude
     }
 }
 
@@ -215,3 +277,87 @@ extension MapViewController: UITextFieldDelegate {
         return true
     }
 }
+    
+// MARK: - Monitoring
+extension MapViewController {
+        private func monitoringOn() {
+            locationManager.startUpdatingLocation()
+            timer = Timer.scheduledTimer(timeInterval: 15, target: self,
+                                         selector: #selector(getPositionOthersHunter), userInfo: nil, repeats: true)
+        }
+    
+   
+    
+    @objc func getPositionOthersHunter() {
+        monitoring.CheckUserIsRadiusAlert(hunterSignIn: hunter) { [weak self] result in
+            switch result {
+            case .success(_):
+                
+                self?.mapView.removeAnnotations((self?.mapView.annotations)!)
+                self?.insertRadius()
+                guard let arrayHunters = self?.monitoring.listHuntersInRadiusAlert else {
+                    return
+                }
+                
+                self?.insertHunterInMap(arrayHunters)
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+        //        guard let latitude = locationManager.location?.coordinate.latitude, let longitude = locationManager.location?.coordinate.longitude else {
+        //            return
+        //        }
+        //        let myPosition = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        
+        //        hunter.updatePosition(userPostion: myPosition)
+        //            FirebaseManagement.shared.getPositionUsers {[weak self] result in
+        //                switch result {
+        //                case .success(let hunters):
+        //                    self?.mapView.removeAnnotations((self?.mapView.annotations)!)
+        //                    self?.insertRadius()
+        //
+        //
+        //                    self?.hunter.others = hunters
+        //                    self?.hunter.getHuntersInRadiusAlert()
+        //                    guard let huntersInRadius = self?.hunter.hunterInRadiusAlert else {
+        //                        return
+        //                    }
+        //
+        //                    if huntersInRadius.count > 0 {
+        //                        for hunter in huntersInRadius {
+        //                            guard let latitude = hunter.meHunter.latitude, let longitude = hunter.meHunter.longitude else {
+        //                                return
+        //                            }
+        //                            let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        //                            let showHunter = PlaceHunters(title: hunter.meHunter.displayName ?? "no name", coordinate: coordinate, subtitle: "Last view \(Date().relativeDate(dateInt: hunter.meHunter.date ?? 0))")
+        //                            self?.mapView.addAnnotation(showHunter)
+        //                            self?.mapView.register(AnnotationHuntersView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+        //                        }
+        //                    }
+        //
+        //                case .failure(_):
+        //                    print("")
+        //                }
+        //            }
+    }
+    
+    private func insertHunterInMap(_ arrayHunters: [Hunter]) {
+        if arrayHunters.count > 0 {
+            for hunter in arrayHunters {
+                guard let latitude = hunter.meHunter.latitude, let longitude = hunter.meHunter.longitude else {
+                    return
+                }
+                let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                let showHunter = PlaceHunters(title: hunter.meHunter.displayName ?? "no name", coordinate: coordinate, subtitle: "Last view \(Date().relativeDate(dateInt: hunter.meHunter.date ?? 0))")
+                mapView.addAnnotation(showHunter)
+                mapView.register(AnnotationHuntersView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+            }
+        } else {
+            removeRadiusOverlay()
+            mapView.removeAnnotations(mapView.annotations)
+        }
+    }
+}
+

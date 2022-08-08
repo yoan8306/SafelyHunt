@@ -8,9 +8,9 @@
 import Foundation
 
 class UserDefaultKeys {
-    private struct Keys {
+    struct Keys {
         static let areaSelected = "AreaSelected"
-        static let radiusAlert = "RadiusAlert"
+        static let radiusAlert = "Radius alert"
     }
     
     static var areaSelected: String {

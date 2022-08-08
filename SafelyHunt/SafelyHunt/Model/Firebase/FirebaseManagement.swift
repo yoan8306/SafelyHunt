@@ -216,7 +216,7 @@ extension FirebaseManagement {
         ])
     }
     
-    func getPositionUsers(callBack: @escaping (Result<[Hunter], Error>)->Void) {
+    func getPositionUsers(callBack: @escaping (Result<[Hunter], Error>)-> Void) {
         let databaseAllPositions = database.child("Database").child("position_user")
         var hunters: [Hunter] = []
         databaseAllPositions.getData { error, snapshot in

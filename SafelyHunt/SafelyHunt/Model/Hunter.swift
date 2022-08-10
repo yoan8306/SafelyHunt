@@ -11,17 +11,9 @@ import MapKit
 
 class Hunter {
     var meHunter = HunterDTO()
-    var hunterInRadiusAlert : [Hunter] = []
-    var others: [Hunter] = []
-    var monitoring = false
-    
-    func myAreaList() ->[[String:String]] {
-        guard let areaList = meHunter.areaList else {
-            return [[:]]
-        }
-        return areaList
-    }
-    
+    var monitoring = Monitoring()
+    var area = Area()
+
     func updatePosition(userPostion: CLLocationCoordinate2D) {
         guard let user = meHunter.user else {
             return
@@ -31,29 +23,9 @@ class Hunter {
         let dateToTimeStamp = Int(dateStamp)
         meHunter.latitude = userPostion.latitude
         meHunter.longitude = userPostion.longitude
-        
+
         FirebaseManagement.shared.insertMyPosition(userPosition: userPostion, user: user, date: dateToTimeStamp)
     }
-    
-     func getHuntersInRadiusAlert() {
-        hunterInRadiusAlert = []
-        let radiusAlert = UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert)
-        for hunter in others {
-            let latitude = hunter.meHunter.latitude ?? 0
-            let longitude = hunter.meHunter.longitude ?? 0
-            let positionTheOther = CLLocation(latitude: latitude, longitude: longitude)
-            let myLatitude = meHunter.latitude ?? 0
-            let myLongitude = meHunter.longitude ?? 0
-            let myPosition = CLLocation(latitude: myLatitude, longitude: myLongitude)
-            let distance = myPosition.distance(from: positionTheOther)
-            if Int(distance) < radiusAlert {
-                hunterInRadiusAlert.append(hunter)
-            }
-        }
-    }
-    
-    
-    
 }
 
 

@@ -30,7 +30,7 @@
                                         <rect key="frame" x="-2" y="0.0" width="284" height="31"/>
                                         <color key="minimumTrackTintColor" red="0.0" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <action selector="sliderAction" destination="Y6W-OH-hqX" eventType="valueChanged" id="iMP-G1-j1h"/>
+                                            <action selector="sliderAction" destination="Y6W-OH-hqX" eventType="valueChanged" id="5uY-ah-xdj"/>
                                         </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0VL-KW-Rxn">
@@ -185,8 +185,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="location.circle" catalog="system" width="32" height="32"/>
-        <image name="play.fill" catalog="system" width="32" height="32"/>
+        <image name="location.circle" catalog="system" width="128" height="121"/>
+        <image name="play.fill" catalog="system" width="116" height="128"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -28,14 +28,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UQh-Pb-p9t">
-                                                    <rect key="frame" x="20" y="5" width="41" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UQh-Pb-p9t">
+                                                    <rect key="frame" x="20" y="5" width="0.0" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cc5-3D-nEJ">
-                                                    <rect key="frame" x="20" y="29" width="41.5" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cc5-3D-nEJ">
+                                                    <rect key="frame" x="20" y="8" width="0.0" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -59,13 +59,20 @@
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="5IY-nx-Ij0"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="JHm-bX-BrD">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="nEj-tY-2tR" secondAttribute="trailing" id="6bj-d6-9GB"/>
+                            <constraint firstItem="JHm-bX-BrD" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="A8n-1i-rIn"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="JHm-bX-BrD" secondAttribute="trailing" id="ISh-vY-LYL"/>
                             <constraint firstItem="nEj-tY-2tR" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="RSs-In-wxq"/>
                             <constraint firstItem="nEj-tY-2tR" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Zee-Ky-RXb"/>
+                            <constraint firstItem="JHm-bX-BrD" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="oBd-4W-kp5"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="JHm-bX-BrD" secondAttribute="bottom" id="u91-hx-Q6X"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="nEj-tY-2tR" secondAttribute="bottom" id="xlX-Rf-yfW"/>
                         </constraints>
                     </view>
@@ -78,12 +85,13 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="JHm-bX-BrD" id="Svy-Je-vgd"/>
                         <outlet property="areaListTableView" destination="nEj-tY-2tR" id="zaG-UB-kZk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-26" y="56"/>
+            <point key="canvasLocation" x="-26.086956521739133" y="55.580357142857139"/>
         </scene>
     </scenes>
     <resources>

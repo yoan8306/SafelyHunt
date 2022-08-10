@@ -17,16 +17,17 @@ class AreaListViewController: UIViewController {
     
     
     // MARK: - IBOutlet
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var areaListTableView: UITableView!
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        getAreaList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getAreaList()
     }
 
 // MARK: - IBAction
@@ -46,6 +47,7 @@ class AreaListViewController: UIViewController {
     
 // MARK: - Private functions
     private func getAreaList() {
+        activityIndicator.isHidden = false
         guard let user = hunter.meHunter.user else {
             return
         }
@@ -54,8 +56,10 @@ class AreaListViewController: UIViewController {
             case .success(let listArea):
                 self?.hunter.meHunter.areaList = listArea
                 self?.areaListTableView.reloadData()
+                self?.activityIndicator.isHidden = true
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
+                self?.activityIndicator.isHidden = true
             }
         }
     }
@@ -64,7 +68,10 @@ class AreaListViewController: UIViewController {
 // MARK: - TableViewDataSource
 extension AreaListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return hunter.myAreaList().count
+        guard let areaList = hunter.meHunter.areaList?.count else {
+            return 0
+        }
+        return areaList
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -77,14 +84,19 @@ extension AreaListViewController: UITableViewDataSource {
         guard let areaSelected = areaSelected else {
             return cell
         }
-        for (key, _) in hunter.myAreaList()[indexPath.row] {
+        
+        guard let areaList = hunter.meHunter.areaList else {
+            return cell
+        }
+        
+        for (key, _) in areaList[indexPath.row] {
             if areaSelected == key {
                cellSelected = true
             }else {
                 cellSelected = false
             }
         }
-        cell.configureCell(infoArea: hunter.myAreaList()[indexPath.row], cellSelected: cellSelected)
+        cell.configureCell(infoArea: areaList[indexPath.row], cellSelected: cellSelected)
         return cell
     }
 }
@@ -93,7 +105,12 @@ extension AreaListViewController: UITableViewDataSource {
 extension AreaListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let defaults = UserDefaults.standard
-        for (key, _) in hunter.myAreaList()[indexPath.row] {
+        
+        guard let areaList = hunter.meHunter.areaList else {
+            return
+        }
+        
+        for (key, _) in areaList[indexPath.row] {
             areaSelected = key
         }
         defaults.set(areaSelected, forKey: UserDefaultKeys.Keys.areaSelected)
@@ -111,8 +128,11 @@ extension AreaListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         var nameArea = ""
+        guard let areaList = hunter.meHunter.areaList else {
+            return
+        }
         
-        for (key,_) in hunter.myAreaList()[indexPath.row] {
+        for (key,_) in areaList[indexPath.row] {
             nameArea = key
         }
         transferToMapViewController(nameAreaSelected: nameArea)
@@ -136,8 +156,11 @@ extension AreaListViewController: UITableViewDelegate {
     ///   - user: user signIn
     private func deleteArea(_ indexPath: IndexPath, _ user: User) {
         var areaName = ""
+        guard let areaList = hunter.meHunter.areaList else {
+            return
+        }
 
-        for (key,_) in hunter.myAreaList()[indexPath.row] {
+        for (key,_) in areaList[indexPath.row] {
             areaName = key
         }
         FirebaseManagement.shared.removeArea(name: areaName, user: user) { [weak self] result in

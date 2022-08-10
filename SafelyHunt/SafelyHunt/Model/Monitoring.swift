@@ -14,14 +14,12 @@ class Monitoring {
     var monitoringIsOn = false
     var alerted = false
     
-    
-    
     func CheckUserIsRadiusAlert(hunterSignIn: Hunter?, callback: @escaping(Result<Bool, Error>) -> Void) {
         guard let hunterSignIn = hunterSignIn else {
             callback(.failure(FirebaseError.signIn))
             return
         }
-        
+
         FirebaseManagement.shared.getPositionUsers { result in
             switch result {
             case .success(let hunters):
@@ -34,7 +32,7 @@ class Monitoring {
             }
         }
     }
-    
+
     private func addHuntersIntoList(huntersList: [Hunter], hunterSignIn: Hunter) {
         guard let user = FirebaseAuth.Auth.auth().currentUser else {
             return
@@ -46,12 +44,11 @@ class Monitoring {
         FirebaseManagement.shared.insertMyPosition(userPosition: CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude), user: user , date: Int(Date().timeIntervalSince1970))
         
         self.listHuntersInRadiusAlert = []
-        
+
         for hunter in huntersList {
             let latitude = hunter.meHunter.latitude ?? 0
             let longitude = hunter.meHunter.longitude ?? 0
             let positionTheOther = CLLocation(latitude: latitude, longitude: longitude)
-            
             let distance = myPosition.distance(from: positionTheOther)
             
             if Int(distance) < UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert) {
@@ -59,12 +56,12 @@ class Monitoring {
             }
         }
     }
-    
+
     private func giveAlertHuntersInRadiusAlert() {
         if listHuntersInRadiusAlert.count > 0, monitoringIsOn {
             alerted = true
         }
         alerted = false
     }
-    
+
 }

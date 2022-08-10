@@ -19,5 +19,4 @@ extension Date {
     func dateToTimeStamp()-> Int {
         Int(self.timeIntervalSince1970)
     }
-    
 }

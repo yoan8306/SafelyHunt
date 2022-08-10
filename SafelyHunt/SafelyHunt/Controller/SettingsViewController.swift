@@ -17,6 +17,7 @@ class SettingsViewController: UIViewController {
     
     @IBAction func disonnectButton() {
         FirebaseManagement.shared.disconnectCurrentUser()
+        
     }
 
 }

@@ -98,7 +98,7 @@
                             <constraint firstItem="XFk-5Z-EaC" firstAttribute="bottom" secondItem="5M0-mE-ypI" secondAttribute="bottom" constant="280" id="zSI-b3-PQP"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="Awt-rT-zLj"/>
+                    <tabBarItem key="tabBarItem" title="" image="map.fill" catalog="system" id="Awt-rT-zLj"/>
                     <navigationItem key="navigationItem" title="Main" id="dtv-ce-Lop"/>
                     <connections>
                         <outlet property="tableView" destination="5M0-mE-ypI" id="1gk-db-5sA"/>
@@ -110,6 +110,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="map.fill" catalog="system" width="128" height="110"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

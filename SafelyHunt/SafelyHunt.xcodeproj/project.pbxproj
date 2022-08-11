@@ -18,7 +18,6 @@
 		5F14AD2328783B050039002A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F14AD2228783B050039002A /* Main.storyboard */; };
 		5F1CF301286B1F2900A0429D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CF300286B1F2900A0429D /* AppDelegate.swift */; };
 		5F1CF303286B1F2900A0429D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CF302286B1F2900A0429D /* SceneDelegate.swift */; };
-		5F1CF305286B1F2900A0429D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CF304286B1F2900A0429D /* ViewController.swift */; };
 		5F1CF308286B1F2900A0429D /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF306286B1F2900A0429D /* Login.storyboard */; };
 		5F1CF30A286B1F2B00A0429D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF309286B1F2B00A0429D /* Assets.xcassets */; };
 		5F1CF331286B1FB500A0429D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */; };
@@ -79,7 +78,6 @@
 		5F1CF2FD286B1F2900A0429D /* SafelyHunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafelyHunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F1CF300286B1F2900A0429D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F1CF302286B1F2900A0429D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5F1CF304286B1F2900A0429D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5F1CF307286B1F2900A0429D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		5F1CF309286B1F2B00A0429D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F1CF30E286B1F2C00A0429D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -240,7 +238,6 @@
 			isa = PBXGroup;
 			children = (
 				5F14AD242878406B0039002A /* SignIn-SignUp */,
-				5F1CF304286B1F2900A0429D /* ViewController.swift */,
 				5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */,
 				5F78B6C62876F13F003C58B5 /* SettingsViewController.swift */,
 				5FFCF682288EB7CF009D9AE8 /* AreaListViewController.swift */,
@@ -460,7 +457,6 @@
 				5FBEF94F287375050023E5A5 /* FirebaseError.swift in Sources */,
 				5F78B6BF2876D306003C58B5 /* SplashScreenViewController.swift in Sources */,
 				5F78B6C12876D47A003C58B5 /* MainStarterViewController.swift in Sources */,
-				5F1CF305286B1F2900A0429D /* ViewController.swift in Sources */,
 				5F1CF301286B1F2900A0429D /* AppDelegate.swift in Sources */,
 				5F1CF303286B1F2900A0429D /* SceneDelegate.swift in Sources */,
 				5F78B6C72876F13F003C58B5 /* SettingsViewController.swift in Sources */,

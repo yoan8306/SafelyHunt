@@ -31,13 +31,13 @@
         <scene sceneID="GX6-RW-eTp">
             <objects>
                 <viewControllerPlaceholder storyboardIdentifier="MainStarter" storyboardName="MainStarter" referencedIdentifier="NavigationMain" id="ehH-Rn-fhJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="OQo-cV-nLa"/>
+                    <tabBarItem key="tabBarItem" title="" image="map.fill" catalog="system" id="OQo-cV-nLa"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZeG-TB-vGa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-613" y="-67"/>
         </scene>
-        <!--Item 2-->
+        <!--Settings View Controller-->
         <scene sceneID="d09-gW-k3W">
             <objects>
                 <viewController id="k7g-R9-izV" customClass="SettingsViewController" customModule="SafelyHunt" customModuleProvider="target" sceneMemberID="viewController">
@@ -69,7 +69,7 @@
                             <constraint firstItem="cfh-rN-Gzs" firstAttribute="leading" secondItem="yky-lX-nS5" secondAttribute="leading" constant="50" id="hvI-c1-3Gi"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="SQz-Ed-7iP"/>
+                    <tabBarItem key="tabBarItem" image="person.circle.fill" catalog="system" id="SQz-Ed-7iP"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aqf-eK-sFs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -77,6 +77,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="map.fill" catalog="system" width="128" height="110"/>
+        <image name="person.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

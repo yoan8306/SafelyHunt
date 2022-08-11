@@ -353,7 +353,7 @@ extension MapViewController {
                     return
                 }
                 let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                let showHunter = PlaceHunters(title: hunter.meHunter.displayName ?? "no name", coordinate: coordinate, subtitle: "Last view \(Date().relativeDate(dateInt: hunter.meHunter.date ?? 0))")
+                let showHunter = PlaceHunters(title: hunter.meHunter.displayName ?? "no name", coordinate: coordinate, subtitle: "Last view \(Date().getTime(dateInt: hunter.meHunter.date ?? 0))")
                 mapView.addAnnotation(showHunter)
                 mapView.register(AnnotationHuntersView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
             }

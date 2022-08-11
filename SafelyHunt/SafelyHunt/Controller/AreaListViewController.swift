@@ -14,6 +14,7 @@ class AreaListViewController: UIViewController {
     // MARK: - Properties
     var hunter = Hunter()
     var areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
+    @objc var refreshControl = UIRefreshControl()
     
     
     // MARK: - IBOutlet
@@ -23,20 +24,27 @@ class AreaListViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        getAreaList()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+        areaListTableView.addSubview(refreshControl)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        getAreaList()
     }
 
 // MARK: - IBAction
+    @objc func refreshTable() {
+        getAreaList()
+    }
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
         let mapsStoryboard = UIStoryboard(name: "Maps", bundle: nil)
-        
+
         guard let mapViewController = mapsStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return
         }
+
         mapViewController.hunter = hunter
         mapViewController.mapMode = .editingArea
         mapViewController.modalPresentationStyle = .fullScreen
@@ -51,12 +59,15 @@ class AreaListViewController: UIViewController {
         guard let user = hunter.meHunter.user else {
             return
         }
+
         FirebaseManagement.shared.getAreaList(user: user) { [weak self] fetchArea in
             switch fetchArea {
             case .success(let listArea):
                 self?.hunter.meHunter.areaList = listArea
                 self?.areaListTableView.reloadData()
+                self?.refreshControl.endRefreshing()
                 self?.activityIndicator.isHidden = true
+
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
                 self?.activityIndicator.isHidden = true
@@ -68,34 +79,26 @@ class AreaListViewController: UIViewController {
 // MARK: - TableViewDataSource
 extension AreaListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let areaList = hunter.meHunter.areaList?.count else {
-            return 0
-        }
-        return areaList
+        return hunter.meHunter.areaList?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cellSelected = false
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? AreaCellTableViewCell else {
-            let cell = UITableViewCell()
-            return cell
-        }
         
-        guard let areaSelected = areaSelected else {
-            return cell
-        }
-        
-        guard let areaList = hunter.meHunter.areaList else {
-            return cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? AreaCellTableViewCell,
+              let areaSelected = areaSelected,
+              let areaList = hunter.meHunter.areaList else {
+            return UITableViewCell()
         }
         
         for (key, _) in areaList[indexPath.row] {
             if areaSelected == key {
-               cellSelected = true
+                cellSelected = true
             }else {
                 cellSelected = false
             }
         }
+
         cell.configureCell(infoArea: areaList[indexPath.row], cellSelected: cellSelected)
         return cell
     }
@@ -104,8 +107,6 @@ extension AreaListViewController: UITableViewDataSource {
 // MARK: - TableView Delegate
 extension AreaListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let defaults = UserDefaults.standard
-        
         guard let areaList = hunter.meHunter.areaList else {
             return
         }
@@ -113,7 +114,8 @@ extension AreaListViewController: UITableViewDelegate {
         for (key, _) in areaList[indexPath.row] {
             areaSelected = key
         }
-        defaults.set(areaSelected, forKey: UserDefaultKeys.Keys.areaSelected)
+
+        UserDefaults.standard.set(areaSelected, forKey: UserDefaultKeys.Keys.areaSelected)
         tableView.reloadData()
     }
     
@@ -121,6 +123,7 @@ extension AreaListViewController: UITableViewDelegate {
         guard let user = hunter.meHunter.user else {
             return
         }
+
         if editingStyle == .delete {
             askDelete(indexPath: indexPath, user: user)
         }
@@ -131,10 +134,11 @@ extension AreaListViewController: UITableViewDelegate {
         guard let areaList = hunter.meHunter.areaList else {
             return
         }
-        
+
         for (key,_) in areaList[indexPath.row] {
             nameArea = key
         }
+
         transferToMapViewController(nameAreaSelected: nameArea)
     }
 
@@ -163,6 +167,7 @@ extension AreaListViewController: UITableViewDelegate {
         for (key,_) in areaList[indexPath.row] {
             areaName = key
         }
+
         FirebaseManagement.shared.removeArea(name: areaName, user: user) { [weak self] result in
             switch result {
             case .success(_):

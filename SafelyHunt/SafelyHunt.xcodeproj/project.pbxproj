@@ -25,6 +25,9 @@
 		5F46BEF5289E9E2400D1E020 /* PlaceHunters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46BEF4289E9E2400D1E020 /* PlaceHunters.swift */; };
 		5F46BEF7289E9EEA00D1E020 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46BEF6289E9EEA00D1E020 /* CustomAnnotationView.swift */; };
 		5F46BEF9289EF23A00D1E020 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46BEF8289EF23A00D1E020 /* DateExtension.swift */; };
+		5F62872A28A522B600AD51E2 /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F62872928A522B600AD51E2 /* LocalNotification.swift */; };
+		5F62872D28A5230F00AD51E2 /* orchestralEmergency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5F62872B28A5230E00AD51E2 /* orchestralEmergency.mp3 */; };
+		5F62872E28A5230F00AD51E2 /* orchestralEmergency.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5F62872C28A5230E00AD51E2 /* orchestralEmergency.caf */; };
 		5F77E8A6286F275A005A7F0B /* AreasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F77E8A5286F275A005A7F0B /* AreasTests.swift */; };
 		5F78B6BF2876D306003C58B5 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6BE2876D306003C58B5 /* SplashScreenViewController.swift */; };
 		5F78B6C12876D47A003C58B5 /* MainStarterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */; };
@@ -87,6 +90,9 @@
 		5F46BEF4289E9E2400D1E020 /* PlaceHunters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHunters.swift; sourceTree = "<group>"; };
 		5F46BEF6289E9EEA00D1E020 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		5F46BEF8289EF23A00D1E020 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		5F62872928A522B600AD51E2 /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
+		5F62872B28A5230E00AD51E2 /* orchestralEmergency.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = orchestralEmergency.mp3; sourceTree = "<group>"; };
+		5F62872C28A5230E00AD51E2 /* orchestralEmergency.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = orchestralEmergency.caf; sourceTree = "<group>"; };
 		5F77E8A5286F275A005A7F0B /* AreasTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreasTests.swift; sourceTree = "<group>"; };
 		5F78B6BE2876D306003C58B5 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStarterViewController.swift; sourceTree = "<group>"; };
@@ -271,6 +277,7 @@
 				5F79FCE8289BF911009F6AE9 /* Hunter.swift */,
 				5F0B730A289D04440034CB48 /* HunterDTO.swift */,
 				5F46BEF4289E9E2400D1E020 /* PlaceHunters.swift */,
+				5F62872928A522B600AD51E2 /* LocalNotification.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -279,6 +286,8 @@
 			isa = PBXGroup;
 			children = (
 				5F1CF300286B1F2900A0429D /* AppDelegate.swift */,
+				5F62872C28A5230E00AD51E2 /* orchestralEmergency.caf */,
+				5F62872B28A5230E00AD51E2 /* orchestralEmergency.mp3 */,
 				5F1CF302286B1F2900A0429D /* SceneDelegate.swift */,
 				5F1CF30E286B1F2C00A0429D /* Info.plist */,
 				5F1CF309286B1F2B00A0429D /* Assets.xcassets */,
@@ -403,6 +412,7 @@
 			files = (
 				5FFCF67E288EB46C009D9AE8 /* AreasList.storyboard in Resources */,
 				5F1CF331286B1FB500A0429D /* GoogleService-Info.plist in Resources */,
+				5F62872E28A5230F00AD51E2 /* orchestralEmergency.caf in Resources */,
 				5F1CF30A286B1F2B00A0429D /* Assets.xcassets in Resources */,
 				5F1CF308286B1F2900A0429D /* Login.storyboard in Resources */,
 				5F78B6C52876E8BC003C58B5 /* MainStarter.storyboard in Resources */,
@@ -412,6 +422,7 @@
 				5FC7538E2894063900BC3DB7 /* Maps.storyboard in Resources */,
 				5FBEF94B2873073A0023E5A5 /* Register.storyboard in Resources */,
 				5FBA014B287453F800D70715 /* TabbarMain.storyboard in Resources */,
+				5F62872D28A5230F00AD51E2 /* orchestralEmergency.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +462,7 @@
 				5FBEF948287306DD0023E5A5 /* RegisterViewController.swift in Sources */,
 				5F14AD1F2878284C0039002A /* UserDefaultKeys.swift in Sources */,
 				5F0B730B289D04440034CB48 /* HunterDTO.swift in Sources */,
+				5F62872A28A522B600AD51E2 /* LocalNotification.swift in Sources */,
 				5F78B6CC2876FE6A003C58B5 /* ResetPasswordViewController.swift in Sources */,
 				5FBEF952287380050023E5A5 /* UIViewController_Alert.swift in Sources */,
 				5F14AD21287829470039002A /* MainStarterData.swift in Sources */,

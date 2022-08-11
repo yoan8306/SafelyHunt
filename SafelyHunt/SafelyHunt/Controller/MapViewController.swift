@@ -18,6 +18,7 @@ class MapViewController: UIViewController {
     var nameAreaSelected = ""
     var timer: Timer?
     var polygonCurrent = MKPolygon()
+    let notification = LocalNotification()
     lazy var pencil: UIBarButtonItem = {
         UIBarButtonItem(image: UIImage(systemName: "pencil.circle"), style: .plain, target: self, action: #selector(pencilButtonAction))
     }()
@@ -44,8 +45,12 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         answerAuthorizations()
         initializeMapView()
-        
         mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -146,6 +151,7 @@ class MapViewController: UIViewController {
         
         if !hunter.monitoring.checkUserIsAlwayInArea(area: polygonCurrent, positionUser: positionUser) {
             presentNativeAlertError(alertMessage: "your are exit of your Area")
+            notification.sendNotification()
         }
         
         hunter.monitoring.CheckUserIsRadiusAlert(hunterSignIn: hunter) { [weak self] result in
@@ -158,6 +164,7 @@ class MapViewController: UIViewController {
                 }
 
                 self?.insertHunterInMap(arrayHunters)
+                self?.notification.sendNotification()
 
             case .failure(let error):
                 print(error.localizedDescription)
@@ -181,7 +188,7 @@ class MapViewController: UIViewController {
         case .monitoring:
             monitoringButton.isHidden = false
         }
-        
+        notification.notificationInitialize()
         drawAreaSelected()
         setPopUpMessageNameArea()
         editingArea = false

@@ -19,16 +19,16 @@ class SettingsViewController: UIViewController {
             transferToLogin()
     }
 
-
     private func transferToLogin() {
         let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
-        
+
         guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "LoginNavigation") as? UINavigationController else {
             return
         }
 
         loginViewController.modalPresentationStyle = .fullScreen
-        self.present(loginViewController, animated: true)
+        self.navigationController?.pushViewController(loginViewController, animated: true)
+        self.dismiss(animated: true)
     }
 
     private func resetUserDefault() {

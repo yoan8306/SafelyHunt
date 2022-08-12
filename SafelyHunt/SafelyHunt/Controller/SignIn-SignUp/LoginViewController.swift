@@ -26,6 +26,10 @@ class LoginViewController: UIViewController {
         super.viewWillAppear(animated)
     }
     
+    deinit {
+        print("deint")
+    }
+    
     @IBAction func logInActionButton() {
         activityIndicator(shown: true)
         
@@ -57,7 +61,8 @@ class LoginViewController: UIViewController {
         }
         
         mainStarter.modalPresentationStyle = .fullScreen
-        self.present(mainStarter, animated: true)
+        self.navigationController?.pushViewController(mainStarter, animated: true)
+        self.dismiss(animated: false)
     }
     
     private func activityIndicator(shown: Bool) {

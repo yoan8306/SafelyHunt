@@ -11,7 +11,7 @@ import FirebaseAuth
 
 class Area {
     var coordinatesPoints : [CLLocationCoordinate2D] = []
-    
+
     func createPolyLine() -> MKOverlay {
      MKPolyline(coordinates: coordinatesPoints, count: coordinatesPoints.count)
     }

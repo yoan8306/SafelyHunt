@@ -14,7 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         //configure firebase launching application
         FirebaseApp.configure()
-
+        //set value to true for the first launch application
+        UserDefaults.standard.register(defaults: [UserDefaultKeys.Keys.allowsNotificationRadiusAlert: true])
         return true
     }
 

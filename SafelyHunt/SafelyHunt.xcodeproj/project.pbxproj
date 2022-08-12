@@ -28,6 +28,7 @@
 		5F62872A28A522B600AD51E2 /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F62872928A522B600AD51E2 /* LocalNotification.swift */; };
 		5F62872D28A5230F00AD51E2 /* orchestralEmergency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5F62872B28A5230E00AD51E2 /* orchestralEmergency.mp3 */; };
 		5F62872E28A5230F00AD51E2 /* orchestralEmergency.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5F62872C28A5230E00AD51E2 /* orchestralEmergency.caf */; };
+		5F62873128A5329F00AD51E2 /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5F62873028A5329F00AD51E2 /* NotificationBannerSwift */; };
 		5F77E8A6286F275A005A7F0B /* AreasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F77E8A5286F275A005A7F0B /* AreasTests.swift */; };
 		5F78B6BF2876D306003C58B5 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6BE2876D306003C58B5 /* SplashScreenViewController.swift */; };
 		5F78B6C12876D47A003C58B5 /* MainStarterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */; };
@@ -125,6 +126,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F0B730E289D06630034CB48 /* FirebaseAnalytics in Frameworks */,
+				5F62873128A5329F00AD51E2 /* NotificationBannerSwift in Frameworks */,
 				5F0B7310289D06630034CB48 /* FirebaseAuth in Frameworks */,
 				5F0B7312289D06630034CB48 /* FirebaseDatabase in Frameworks */,
 				5F0B7314289D06630034CB48 /* FirebaseStorage in Frameworks */,
@@ -317,6 +319,7 @@
 				5F0B730F289D06630034CB48 /* FirebaseAuth */,
 				5F0B7311289D06630034CB48 /* FirebaseDatabase */,
 				5F0B7313289D06630034CB48 /* FirebaseStorage */,
+				5F62873028A5329F00AD51E2 /* NotificationBannerSwift */,
 			);
 			productName = SafelyHunt;
 			productReference = 5F1CF2FD286B1F2900A0429D /* SafelyHunt.app */;
@@ -393,6 +396,7 @@
 			packageReferences = (
 				5FF4C818286D6B1C000A0F26 /* XCRemoteSwiftPackageReference "SPAlert" */,
 				5F0B730C289D06630034CB48 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				5F62872F28A5329E00AD51E2 /* XCRemoteSwiftPackageReference "NotificationBanner" */,
 			);
 			productRefGroup = 5F1CF2FE286B1F2900A0429D /* Products */;
 			projectDirPath = "";
@@ -843,6 +847,14 @@
 				kind = branch;
 			};
 		};
+		5F62872F28A5329E00AD51E2 /* XCRemoteSwiftPackageReference "NotificationBanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Daltron/NotificationBanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		5FF4C818286D6B1C000A0F26 /* XCRemoteSwiftPackageReference "SPAlert" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ivanvorobei/SPAlert.git";
@@ -873,6 +885,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5F0B730C289D06630034CB48 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		5F62873028A5329F00AD51E2 /* NotificationBannerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5F62872F28A5329E00AD51E2 /* XCRemoteSwiftPackageReference "NotificationBanner" */;
+			productName = NotificationBannerSwift;
 		};
 		5FF4C819286D6B1C000A0F26 /* SPAlert */ = {
 			isa = XCSwiftPackageProductDependency;

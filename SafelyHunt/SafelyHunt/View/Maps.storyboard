@@ -37,7 +37,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="56"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aOf-Hr-ErB">
-                                                <rect key="frame" x="0.0" y="0.0" width="126" height="56"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="90" height="56"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="-">
                                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="35"/>
@@ -47,7 +47,7 @@
                                                 </connections>
                                             </button>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="500" minValue="0.0" maxValue="1500" translatesAutoresizingMaskIntoConstraints="NO" id="XSi-ap-yg3">
-                                                <rect key="frame" x="129" y="13" width="194.66666666666663" height="31"/>
+                                                <rect key="frame" x="92.999999999999986" y="13" width="230.66666666666663" height="31"/>
                                                 <color key="minimumTrackTintColor" red="0.0" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <action selector="sliderAction" destination="Y6W-OH-hqX" eventType="valueChanged" id="5uY-ah-xdj"/>
@@ -77,7 +77,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Lw-Hc-2Nm">
-                                <rect key="frame" x="349" y="643" width="45" height="43.666666666666629"/>
+                                <rect key="frame" x="349" y="603" width="45" height="43.666666666666686"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="pDu-9U-rIX"/>
                                     <constraint firstAttribute="width" constant="45" id="qeD-mx-S1Z"/>
@@ -157,7 +157,7 @@
                                 </constraints>
                             </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPK-CH-eVp">
-                                <rect key="frame" x="20" y="642" width="45" height="45"/>
+                                <rect key="frame" x="20" y="602" width="45" height="45"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="GDX-pd-a1O"/>
@@ -228,7 +228,7 @@
                             <constraint firstItem="xPK-CH-eVp" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="6Dp-5G-JE4"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="aYO-R1-nip" secondAttribute="trailing" constant="20" id="6Hv-qN-rka"/>
                             <constraint firstItem="DdS-4n-brd" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="6aY-KL-Y3r"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="1Lw-Hc-2Nm" secondAttribute="bottom" id="AnB-mD-Se8"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="1Lw-Hc-2Nm" secondAttribute="bottom" constant="40" id="AnB-mD-Se8"/>
                             <constraint firstItem="jtq-LA-mXM" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="Hgp-wP-QcT"/>
                             <constraint firstItem="Y79-QI-tjl" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="10" id="KFr-ie-8Mg"/>
                             <constraint firstItem="DdS-4n-brd" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="L0J-dG-dEi"/>

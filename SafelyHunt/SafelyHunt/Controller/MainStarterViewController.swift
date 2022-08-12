@@ -23,11 +23,12 @@ class MainStarterViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+        tabBarController?.tabBar.isHidden = false
     }
     
     @IBAction func startMonitoringButton(_ sender: UIButton) {
         transferToMapViewController()
+        tabBarController?.tabBar.isHidden = true
     }
     
     private func transferToMapViewController() {

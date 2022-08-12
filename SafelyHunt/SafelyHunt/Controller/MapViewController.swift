@@ -185,7 +185,7 @@ class MapViewController: UIViewController {
             switchButtonRadiusAlert.isOn  = UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert)
             monitoringButton.layer.cornerRadius = monitoringButton.layer.frame.height/2
         }
-        
+
         notification.notificationInitialize()
         drawAreaSelected()
         setPopUpMessageNameArea()

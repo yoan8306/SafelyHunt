@@ -48,6 +48,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var myNavigationItem: UINavigationItem!
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var switchButtonRadiusAlert: UISwitch!
+    @IBOutlet weak var pickerMapMode: UIPickerView!
     
     
     
@@ -334,6 +335,50 @@ extension MapViewController: UITextFieldDelegate {
         return true
     }
 }
+
+// MARK: - implement picker
+extension MapViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 2
+    }
+}
+
+extension MapViewController: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch row {
+        case 0:
+            mapView.mapType = .standard
+        case 1:
+            mapView.mapType = .hybrid
+        default: mapView.mapType = .standard
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+            var label = UILabel()
+            if let v = view {
+                label = v as! UILabel
+            }
+            label.font = .systemFont(ofSize: 12)
+            label.textAlignment = .center
+            
+        switch row {
+        case 0:
+            label.text = "standard"
+        case 1:
+            label.text = "satellite"
+        default: break
+        }
+        
+            return label
+        }
+    
+}
+
 
 // MARK: -Extension Monitoring
 extension MapViewController {

@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="DdS-4n-brd">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DdS-4n-brd">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <connections>
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="8O4-eg-EKc"/>
@@ -169,10 +169,10 @@
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jtq-LA-mXM">
-                                <rect key="frame" x="204" y="0.0" width="200" height="51"/>
+                                <rect key="frame" x="204" y="0.0" width="200" height="82"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XjC-zQ-60J">
-                                        <rect key="frame" x="20" y="10" width="160" height="31"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="XjC-zQ-60J">
+                                        <rect key="frame" x="20" y="10" width="160" height="62"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lul-lA-fGN">
                                                 <rect key="frame" x="0.0" y="0.0" width="160" height="31"/>
@@ -192,7 +192,29 @@
                                                     </switch>
                                                 </subviews>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6XL-Dg-VDk">
+                                                <rect key="frame" x="0.0" y="31" width="160" height="31"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Map mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yC5-pj-6LL">
+                                                        <rect key="frame" x="0.0" y="0.0" width="55.333333333333336" height="31"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <pickerView contentMode="scaleToFill" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="3M9-lr-gwj">
+                                                        <rect key="frame" x="55.333333333333321" y="0.0" width="104.66666666666669" height="31"/>
+                                                        <connections>
+                                                            <outlet property="dataSource" destination="Y6W-OH-hqX" id="eRC-3L-O9W"/>
+                                                            <outlet property="delegate" destination="Y6W-OH-hqX" id="NIo-h0-t95"/>
+                                                        </connections>
+                                                    </pickerView>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Nat-by-Po2" firstAttribute="trailing" secondItem="3M9-lr-gwj" secondAttribute="trailing" id="I6h-YL-i4m"/>
+                                            <constraint firstItem="yC5-pj-6LL" firstAttribute="leading" secondItem="SEp-a3-8OR" secondAttribute="leading" id="SxH-sP-9xA"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -236,6 +258,7 @@
                         <outlet property="monitoringButton" destination="xPK-CH-eVp" id="CGN-Yc-Jno"/>
                         <outlet property="myNavigationItem" destination="4a2-nG-jdr" id="jiN-NI-mq8"/>
                         <outlet property="nameAreaTextField" destination="QBL-ne-hsg" id="bgw-vb-asv"/>
+                        <outlet property="pickerMapMode" destination="3M9-lr-gwj" id="4ha-c8-kuY"/>
                         <outlet property="popUpAreaNameUiView" destination="77p-Us-BpL" id="0uB-aB-yFV"/>
                         <outlet property="popUpLabel" destination="mKf-0M-fZT" id="8sr-zg-Kzg"/>
                         <outlet property="radiusAlertLabelStatus" destination="SEp-a3-8OR" id="dhA-DF-UBz"/>

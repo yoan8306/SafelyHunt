@@ -24,6 +24,9 @@ class MapViewController: UIViewController {
     lazy var pencil: UIBarButtonItem = {
         UIBarButtonItem(image: UIImage(systemName: "pencil.circle"), style: .plain, target: self, action: #selector(pencilButtonAction))
     }()
+    lazy var gearButton: UIBarButtonItem = {
+        UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain , target: self, action: #selector(gearButtonAction))
+    }()
     
     
     // MARK: - IBOutlet
@@ -40,8 +43,9 @@ class MapViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var monitoringButton: UIButton!
     @IBOutlet weak var switchButtonRadiusAlert: UISwitch!
-    @IBOutlet weak var gearButton: UIButton!
     @IBOutlet weak var setNotificationView: UIView!
+    @IBOutlet weak var radiusAlertLabelStatus: UILabel!
+    
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -151,12 +155,13 @@ class MapViewController: UIViewController {
             monitoringOff()
         }
     }
-    @IBAction func gearButtonAction() {
+    @objc func gearButtonAction() {
         setNotificationView.isHidden = !setNotificationView.isHidden
     }
     
     @IBAction func setAllowsNotificationRadiusAlertAction() {
         UserDefaults.standard.set(switchButtonRadiusAlert.isOn, forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert)
+        radiusAlertLabelStatus.text = switchButtonRadiusAlert.isOn ? "Radius alert is enable" : "Radius alert is disable"
     }
     
     @objc func launchMonitoring() {
@@ -171,18 +176,18 @@ class MapViewController: UIViewController {
             navigationItem.rightBarButtonItem = pencil
             
         case .editingRadius:
-            slider.value = Float(UserDefaults.standard.integer(forKey:UserDefaultKeys.Keys.radiusAlert))
+            slider.value = Float(hunter.radiusAlert)
             radiusLabel.text = "\(Int(slider.value)) m"
             insertRadius()
             sliderUiView.backgroundColor = nil
             sliderUiView.isHidden = false
             
         case .monitoring:
+            navigationItem.rightBarButtonItem = gearButton
             monitoringButton.isHidden = false
-            gearButton.isHidden = false
-            gearButton.layer.cornerRadius = gearButton.frame.height/2
             setNotificationView.isHidden = true
             switchButtonRadiusAlert.isOn  = UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert)
+            setAllowsNotificationRadiusAlertAction()
             monitoringButton.layer.cornerRadius = monitoringButton.layer.frame.height/2
         }
 
@@ -244,7 +249,7 @@ class MapViewController: UIViewController {
     }
 
     private func insertRadius() {
-        let radius = CLLocationDistance(UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert))
+        let radius = CLLocationDistance(hunter.radiusAlert)
         guard let userPosition = locationManager.location?.coordinate else {
             return
         }

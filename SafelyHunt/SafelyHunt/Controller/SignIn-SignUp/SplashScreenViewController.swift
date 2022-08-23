@@ -53,5 +53,4 @@ class SplashScreenViewController: UIViewController {
         loginViewController.modalPresentationStyle = .fullScreen
         self.present(loginViewController, animated: true)
     }
-    
 }

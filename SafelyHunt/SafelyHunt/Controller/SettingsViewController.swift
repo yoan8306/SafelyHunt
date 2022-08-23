@@ -35,6 +35,6 @@ class SettingsViewController: UIViewController {
         let userDefault = UserDefaults.standard
         userDefault.set("", forKey: UserDefaultKeys.Keys.areaSelected)
         userDefault.set(true, forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert)
-        userDefault.set(0,forKey: UserDefaultKeys.Keys.radiusAlert)
+        userDefault.set(300,forKey: UserDefaultKeys.Keys.radiusAlert)
     }
 }

@@ -247,9 +247,9 @@
 			children = (
 				5F14AD242878406B0039002A /* SignIn-SignUp */,
 				5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */,
-				5F78B6C62876F13F003C58B5 /* SettingsViewController.swift */,
 				5FFCF682288EB7CF009D9AE8 /* AreaListViewController.swift */,
 				5FC7538F289408E600BC3DB7 /* MapViewController.swift */,
+				5F78B6C62876F13F003C58B5 /* SettingsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

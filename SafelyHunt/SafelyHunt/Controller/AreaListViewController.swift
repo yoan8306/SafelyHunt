@@ -13,7 +13,6 @@ import SwiftUI
 class AreaListViewController: UIViewController {
     // MARK: - Properties
     var hunter = Hunter()
-    var areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
     @objc var refreshControl = UIRefreshControl()
     
     
@@ -86,13 +85,12 @@ extension AreaListViewController: UITableViewDataSource {
         var cellSelected = false
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? AreaCellTableViewCell,
-              let areaSelected = areaSelected,
               let areaList = hunter.meHunter.areaList else {
             return UITableViewCell()
         }
         
         for (key, _) in areaList[indexPath.row] {
-            if areaSelected == key {
+            if hunter.areaSelected == key {
                 cellSelected = true
             }else {
                 cellSelected = false
@@ -107,15 +105,16 @@ extension AreaListViewController: UITableViewDataSource {
 // MARK: - TableView Delegate
 extension AreaListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var newAreaSelected = ""
         guard let areaList = hunter.meHunter.areaList else {
             return
         }
         
         for (key, _) in areaList[indexPath.row] {
-            areaSelected = key
+            newAreaSelected = key
         }
 
-        UserDefaults.standard.set(areaSelected, forKey: UserDefaultKeys.Keys.areaSelected)
+        UserDefaults.standard.set(newAreaSelected, forKey: UserDefaultKeys.Keys.areaSelected)
         tableView.reloadData()
     }
     

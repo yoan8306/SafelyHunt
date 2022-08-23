@@ -34,7 +34,6 @@ class UserDefaultKeys {
     
     static var allowsNotificationRadiusAlert: Bool {
         get {
-            UserDefaults.standard.register(defaults: [Keys.allowsNotificationRadiusAlert : true])
             return UserDefaults.standard.bool(forKey: Keys.allowsNotificationRadiusAlert)
         }
         set {

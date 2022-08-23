@@ -25,13 +25,14 @@ class Area {
     }
     
     func transfertAreaToFireBase(nameArea: String?) {
-        guard let user = FirebaseAuth.Auth.auth().currentUser, let nameArea = nameArea else {
-            return
-        }
         let dateNow = Date()
         let dateStamp: TimeInterval = dateNow.timeIntervalSince1970
         let dateToTimeStamp = Int(dateStamp)
-        
+
+        guard let user = FirebaseAuth.Auth.auth().currentUser, let nameArea = nameArea else {
+            return
+        }
+       
         FirebaseManagement.shared.insertArea(user: user, coordinate: coordinatesPoints, nameArea: nameArea, date: dateToTimeStamp)
     }
 }

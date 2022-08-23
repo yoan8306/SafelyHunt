@@ -59,7 +59,7 @@
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="5IY-nx-Ij0"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="JHm-bX-BrD">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="JHm-bX-BrD">
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                             </activityIndicatorView>
                         </subviews>

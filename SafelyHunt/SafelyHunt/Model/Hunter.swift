@@ -13,7 +13,17 @@ class Hunter {
     var meHunter = HunterDTO()
     var monitoring = Monitoring()
     var area = Area()
-
+    var areaSelected: String {
+        get {
+            return UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) ?? ""
+        }
+    }
+    var radiusAlert: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert)
+        }
+    }
+    
     func updatePosition(userPostion: CLLocationCoordinate2D) {
         guard let user = meHunter.user else {
             return

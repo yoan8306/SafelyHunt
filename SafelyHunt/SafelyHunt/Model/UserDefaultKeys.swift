@@ -11,6 +11,7 @@ class UserDefaultKeys {
     struct Keys {
         static let areaSelected = "AreaSelected"
         static let radiusAlert = "Radius alert"
+        static let allowsNotificationRadiusAlert = "Notification radius alert"
     }
     
     static var areaSelected: String {
@@ -31,5 +32,12 @@ class UserDefaultKeys {
         }
     }
     
-    
+    static var allowsNotificationRadiusAlert: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: Keys.allowsNotificationRadiusAlert)
+        }
+        set {
+            UserDefaults.standard.bool(forKey: Keys.allowsNotificationRadiusAlert)
+        }
+    }
 }

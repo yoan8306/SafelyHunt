@@ -23,11 +23,13 @@ class MainStarterViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
         tableView.reloadData()
     }
     
     @IBAction func startMonitoringButton(_ sender: UIButton) {
         transferToMapViewController()
+        tabBarController?.tabBar.isHidden = true
     }
     
     private func transferToMapViewController() {
@@ -42,10 +44,9 @@ class MainStarterViewController: UIViewController {
         mapViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(mapViewController, animated: true)
     }
-    
-    
 }
 
+// MARK: - TableView DataSource
 extension MainStarterViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return mainStarter.count
@@ -66,9 +67,9 @@ extension MainStarterViewController: UITableViewDataSource {
             content.text = title
             switch indexPath.row {
             case 0:
-                content.secondaryText = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
+                content.secondaryText = hunter.areaSelected
             case 1:
-                content.secondaryText = "\(UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.radiusAlert) ?? "0") m"
+                content.secondaryText = "\(hunter.radiusAlert) m"
             default:
                 break
             }
@@ -77,17 +78,17 @@ extension MainStarterViewController: UITableViewDataSource {
             cell.textLabel?.text = title
             switch indexPath.row {
             case 0:
-                cell.detailTextLabel?.text = UserDefaultKeys.Keys.areaSelected
+                cell.detailTextLabel?.text = hunter.areaSelected
             case 1:
-                cell.detailTextLabel?.text = "\(UserDefaultKeys.Keys.radiusAlert) m"
+                cell.detailTextLabel?.text = "\(hunter.radiusAlert) m"
             default:
                 break
             }
         }
     }
-    
 }
 
+// MARK: - TableView Delegate
 extension MainStarterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {

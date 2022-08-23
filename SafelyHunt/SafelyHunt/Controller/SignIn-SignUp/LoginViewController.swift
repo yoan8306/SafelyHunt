@@ -11,7 +11,7 @@ import FirebaseAuth
 class LoginViewController: UIViewController {
     
     var signInMail: String = ""
-    
+
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var logInButton: UIButton!
@@ -25,7 +25,7 @@ class LoginViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-    
+
     @IBAction func logInActionButton() {
         activityIndicator(shown: true)
         
@@ -33,7 +33,7 @@ class LoginViewController: UIViewController {
             presentNativeAlertError(alertMessage: "Enter email and password")
             return
         }
-        
+
         FirebaseManagement.shared.signInUser(email: email, password: password) { [weak self] authResult in
             switch authResult {
             case .success(_):
@@ -47,22 +47,20 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
 
-    
     private func transferToMainStarter() {
         let tabBarMain = UIStoryboard(name: "TabbarMain", bundle: nil)
         guard let mainStarter = tabBarMain.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {
             return
         }
-        
+
         mainStarter.modalPresentationStyle = .fullScreen
-        self.present(mainStarter, animated: true)
+        self.navigationController?.pushViewController(mainStarter, animated: true)
+        self.dismiss(animated: false)
     }
-    
+
     private func activityIndicator(shown: Bool) {
         logInButton.isHidden = shown
         activityIndicator.isHidden = !shown
     }
-    
 }

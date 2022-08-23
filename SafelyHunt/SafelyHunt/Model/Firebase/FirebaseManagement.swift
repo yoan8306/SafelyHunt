@@ -11,7 +11,7 @@ import Firebase
 import MapKit
 import CoreAudio
 
-// MARK: - Authentification
+// MARK: - Sign in
 class FirebaseManagement {
     
     // MARK: - properties
@@ -66,10 +66,6 @@ class FirebaseManagement {
         }
     }
     
-    func disconnectCurrentUser() {
-        try? firebaseAuth.signOut()
-    }
-    
     func updateProfile(displayName: String, callBack: @escaping (Result<Auth,Error>) -> Void) {
         let changeRequest = FirebaseAuth.Auth.auth().currentUser?.createProfileChangeRequest()
         changeRequest?.displayName = displayName
@@ -91,6 +87,26 @@ class FirebaseManagement {
             }
             callBack(.failure(error ?? FirebaseError.resetPassword))
         }
+    }
+}
+// MARK: - SignUp - Remove Account
+extension FirebaseManagement {
+    func disconnectCurrentUser() {
+        try? firebaseAuth.signOut()
+    }
+    
+    func checkCredential(callback: @escaping (Result<Bool, Error>)-> Void) {
+        
+    }
+
+    func deleteAccount() {
+       let user = firebaseAuth.currentUser
+        guard let user = user else {
+            return
+        }
+        database.child("Database").child("users_list").child(user.uid).removeValue()
+        database.child("Database").child("position_user").child(user.uid).removeValue()
+        Auth.auth().currentUser?.delete()
     }
 }
 
@@ -156,18 +172,14 @@ extension FirebaseManagement {
         }
         
         dictCoordinateArea.removeAll()
-        
+
         databaseArea.child(nameArea).child("coordinate").getData { error, dataSnapshot in
-            guard let snapshot = dataSnapshot, error == nil else {
+            guard let snapshot = dataSnapshot, error == nil, let data = snapshot.children.allObjects as? [DataSnapshot] else {
                 callBack(.failure(error ?? FirebaseError.noAreaRecordedFound))
                 return
             }
             
-            guard let data = snapshot.children.allObjects as? [DataSnapshot] else {
-                callBack(.failure(FirebaseError.noAreaRecordedFound))
-                return
-            }
-            
+            //Add all coordinate into dictionary
             for element in data {
                 let coordinateElement = element.value as? NSDictionary
                 let latitude = coordinateElement?["latitude"]
@@ -183,6 +195,7 @@ extension FirebaseManagement {
                 return
             }
             
+            //sort dictionary by index
             let sortedArray = dictCoordinateArea.sorted( by: { $0.key < $1.key})
             for dict in  0..<dictCoordinateArea.count {
                let list = sortedArray[dict]
@@ -255,5 +268,4 @@ extension FirebaseManagement {
             callBack(.success(hunters))
         }
     }
-    
 }

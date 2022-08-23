@@ -31,20 +31,25 @@ class MapViewController: UIViewController {
     
     // MARK: - IBOutlet
     @IBOutlet weak var sliderUiView: UIView!
-    @IBOutlet weak var popUpLabel: UILabel!
-    @IBOutlet weak var locationButton: UIButton!
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var radiusLabel: UILabel!
-    @IBOutlet weak var nameAreaTextField: UITextField!
-    @IBOutlet weak var myNavigationItem: UINavigationItem!
     @IBOutlet weak var popUpAreaNameUiView: UIView!
-    @IBOutlet weak var validateButton: UIButton!
-    @IBOutlet weak var slider: UISlider!
+    @IBOutlet weak var settingsView: UIView!
+    
+    @IBOutlet weak var popUpLabel: UILabel!
+    @IBOutlet weak var radiusLabel: UILabel!
+    @IBOutlet weak var radiusAlertLabelStatus: UILabel!
+
+    @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var monitoringButton: UIButton!
+    @IBOutlet weak var validateButton: UIButton!
+
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var nameAreaTextField: UITextField!
+    @IBOutlet weak var myNavigationItem: UINavigationItem!
+    @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var switchButtonRadiusAlert: UISwitch!
-    @IBOutlet weak var setNotificationView: UIView!
-    @IBOutlet weak var radiusAlertLabelStatus: UILabel!
+    
+    
     
     
     // MARK: - Life Cycle
@@ -155,15 +160,16 @@ class MapViewController: UIViewController {
             monitoringOff()
         }
     }
+
     @objc func gearButtonAction() {
-        setNotificationView.isHidden = !setNotificationView.isHidden
+        settingsView.isHidden = !settingsView.isHidden
     }
-    
+
     @IBAction func setAllowsNotificationRadiusAlertAction() {
         UserDefaults.standard.set(switchButtonRadiusAlert.isOn, forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert)
         radiusAlertLabelStatus.text = switchButtonRadiusAlert.isOn ? "Radius alert is enable" : "Radius alert is disable"
     }
-    
+
     @objc func launchMonitoring() {
         checkIfUserIsInsideArea()
         checkIfOthersUsersAreInsideAreaAlert()
@@ -185,7 +191,7 @@ class MapViewController: UIViewController {
         case .monitoring:
             navigationItem.rightBarButtonItem = gearButton
             monitoringButton.isHidden = false
-            setNotificationView.isHidden = true
+            settingsView.isHidden = true
             switchButtonRadiusAlert.isOn  = UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert)
             setAllowsNotificationRadiusAlertAction()
             monitoringButton.layer.cornerRadius = monitoringButton.layer.frame.height/2

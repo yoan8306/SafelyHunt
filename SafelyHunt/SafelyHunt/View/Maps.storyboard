@@ -174,16 +174,16 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="XjC-zQ-60J">
                                         <rect key="frame" x="20" y="10" width="160" height="31"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lul-lA-fGN">
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lul-lA-fGN">
                                                 <rect key="frame" x="0.0" y="0.0" width="160" height="31"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable radius alert" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SEp-a3-8OR">
-                                                        <rect key="frame" x="0.0" y="0.0" width="111" height="31"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="101" height="31"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nat-by-Po2">
+                                                    <switch opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nat-by-Po2">
                                                         <rect key="frame" x="111" y="0.0" width="51" height="31"/>
                                                         <color key="onTintColor" systemColor="systemCyanColor"/>
                                                         <connections>
@@ -240,7 +240,7 @@
                         <outlet property="popUpLabel" destination="mKf-0M-fZT" id="8sr-zg-Kzg"/>
                         <outlet property="radiusAlertLabelStatus" destination="SEp-a3-8OR" id="dhA-DF-UBz"/>
                         <outlet property="radiusLabel" destination="0VL-KW-Rxn" id="WMI-KN-X0Y"/>
-                        <outlet property="setNotificationView" destination="jtq-LA-mXM" id="Ao0-ui-VFo"/>
+                        <outlet property="settingsView" destination="jtq-LA-mXM" id="Ao0-ui-VFo"/>
                         <outlet property="slider" destination="XSi-ap-yg3" id="gwk-gI-KD1"/>
                         <outlet property="sliderUiView" destination="aYO-R1-nip" id="RLK-x0-Nyg"/>
                         <outlet property="switchButtonRadiusAlert" destination="Nat-by-Po2" id="r1o-b1-LFo"/>

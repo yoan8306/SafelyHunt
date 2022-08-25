@@ -50,6 +50,8 @@
 		5FC7538E2894063900BC3DB7 /* Maps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FC7538D2894063900BC3DB7 /* Maps.storyboard */; };
 		5FC75390289408E600BC3DB7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7538F289408E600BC3DB7 /* MapViewController.swift */; };
 		5FC753922894892B00BC3DB7 /* Area.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC753912894892B00BC3DB7 /* Area.swift */; };
+		5FEB598928B78E490051B21B /* FirebaseTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEB598828B78E490051B21B /* FirebaseTask.swift */; };
+		5FEB598E28B79D220051B21B /* FirebaseTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEB598D28B79D220051B21B /* FirebaseTaskMock.swift */; };
 		5FF4C81A286D6B1C000A0F26 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C819286D6B1C000A0F26 /* SPAlert */; };
 		5FFCF67E288EB46C009D9AE8 /* AreasList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FFCF67D288EB46C009D9AE8 /* AreasList.storyboard */; };
 		5FFCF681288EB481009D9AE8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FFCF67F288EB481009D9AE8 /* Launch Screen.storyboard */; };
@@ -115,6 +117,8 @@
 		5FC7538D2894063900BC3DB7 /* Maps.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Maps.storyboard; sourceTree = "<group>"; };
 		5FC7538F289408E600BC3DB7 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5FC753912894892B00BC3DB7 /* Area.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Area.swift; sourceTree = "<group>"; };
+		5FEB598828B78E490051B21B /* FirebaseTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTask.swift; sourceTree = "<group>"; };
+		5FEB598D28B79D220051B21B /* FirebaseTaskMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTaskMock.swift; sourceTree = "<group>"; };
 		5FFCF67D288EB46C009D9AE8 /* AreasList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AreasList.storyboard; sourceTree = "<group>"; };
 		5FFCF680288EB481009D9AE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5FFCF682288EB7CF009D9AE8 /* AreaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaListViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +168,7 @@
 			children = (
 				5FBEF94C2873706D0023E5A5 /* FirebaseManagement.swift */,
 				5FBEF94E287375050023E5A5 /* FirebaseError.swift */,
+				5FEB598828B78E490051B21B /* FirebaseTask.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -226,6 +231,7 @@
 		5F1CF316286B1F2C00A0429D /* SafelyHuntTests */ = {
 			isa = PBXGroup;
 			children = (
+				5FEB598A28B79C610051B21B /* FirebaseTest */,
 				5F77E8A5286F275A005A7F0B /* AreasTests.swift */,
 			);
 			path = SafelyHuntTests;
@@ -295,6 +301,14 @@
 				5F1CF309286B1F2B00A0429D /* Assets.xcassets */,
 			);
 			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		5FEB598A28B79C610051B21B /* FirebaseTest */ = {
+			isa = PBXGroup;
+			children = (
+				5FEB598D28B79D220051B21B /* FirebaseTaskMock.swift */,
+			);
+			path = FirebaseTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -466,6 +480,7 @@
 				5FBEF948287306DD0023E5A5 /* RegisterViewController.swift in Sources */,
 				5F14AD1F2878284C0039002A /* UserDefaultKeys.swift in Sources */,
 				5F0B730B289D04440034CB48 /* HunterDTO.swift in Sources */,
+				5FEB598928B78E490051B21B /* FirebaseTask.swift in Sources */,
 				5F62872A28A522B600AD51E2 /* LocalNotification.swift in Sources */,
 				5F78B6CC2876FE6A003C58B5 /* ResetPasswordViewController.swift in Sources */,
 				5FBEF952287380050023E5A5 /* UIViewController_Alert.swift in Sources */,
@@ -486,6 +501,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F77E8A6286F275A005A7F0B /* AreasTests.swift in Sources */,
+				5FEB598E28B79D220051B21B /* FirebaseTaskMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

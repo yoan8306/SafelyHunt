@@ -40,6 +40,8 @@
 		5F79FCE7289BE389009F6AE9 /* Monitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F79FCE6289BE389009F6AE9 /* Monitoring.swift */; };
 		5F79FCE9289BF911009F6AE9 /* Hunter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F79FCE8289BF911009F6AE9 /* Hunter.swift */; };
 		5F7F698128932C1000562FDA /* AreaCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */; };
+		5F959EE928B7A23E006643A9 /* DatabaseTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F959EE828B7A23E006643A9 /* DatabaseTest.json */; };
+		5F959EEB28B7A329006643A9 /* FakeResponseDataSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F959EEA28B7A329006643A9 /* FakeResponseDataSnapshot.swift */; };
 		5FBA014B287453F800D70715 /* TabbarMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FBA014A287453F800D70715 /* TabbarMain.storyboard */; };
 		5FBEF946287306C80023E5A5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF945287306C80023E5A5 /* LoginViewController.swift */; };
 		5FBEF948287306DD0023E5A5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF947287306DD0023E5A5 /* RegisterViewController.swift */; };
@@ -107,6 +109,8 @@
 		5F79FCE6289BE389009F6AE9 /* Monitoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitoring.swift; sourceTree = "<group>"; };
 		5F79FCE8289BF911009F6AE9 /* Hunter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hunter.swift; sourceTree = "<group>"; };
 		5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaCellTableViewCell.swift; sourceTree = "<group>"; };
+		5F959EE828B7A23E006643A9 /* DatabaseTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DatabaseTest.json; sourceTree = "<group>"; };
+		5F959EEA28B7A329006643A9 /* FakeResponseDataSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeResponseDataSnapshot.swift; sourceTree = "<group>"; };
 		5FBA014A287453F800D70715 /* TabbarMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabbarMain.storyboard; sourceTree = "<group>"; };
 		5FBEF945287306C80023E5A5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5FBEF947287306DD0023E5A5 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -306,7 +310,9 @@
 		5FEB598A28B79C610051B21B /* FirebaseTest */ = {
 			isa = PBXGroup;
 			children = (
+				5F959EE828B7A23E006643A9 /* DatabaseTest.json */,
 				5FEB598D28B79D220051B21B /* FirebaseTaskMock.swift */,
+				5F959EEA28B7A329006643A9 /* FakeResponseDataSnapshot.swift */,
 			);
 			path = FirebaseTest;
 			sourceTree = "<group>";
@@ -448,6 +454,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F959EE928B7A23E006643A9 /* DatabaseTest.json in Resources */,
 				5F1CF332286B1FB500A0429D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -502,6 +509,7 @@
 			files = (
 				5F77E8A6286F275A005A7F0B /* AreasTests.swift in Sources */,
 				5FEB598E28B79D220051B21B /* FirebaseTaskMock.swift in Sources */,
+				5F959EEB28B7A329006643A9 /* FakeResponseDataSnapshot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

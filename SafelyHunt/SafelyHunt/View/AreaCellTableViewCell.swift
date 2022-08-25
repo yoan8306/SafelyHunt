@@ -60,8 +60,8 @@ class AreaCellTableViewCell: UITableViewCell {
             areaNameLabel.textColor = .red
             dateLabel.textColor = .red
         } else {
-            areaNameLabel.textColor = .black
-            dateLabel.textColor = .black
+            areaNameLabel.textColor = .label
+            dateLabel.textColor = .gray
         }
     }
 }

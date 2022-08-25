@@ -48,6 +48,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var myNavigationItem: UINavigationItem!
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var switchButtonRadiusAlert: UISwitch!
+    @IBOutlet weak var pickerMapMode: UIPickerView!
     
     
     
@@ -55,7 +56,7 @@ class MapViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        answerAuthorizations()
+        askAuthorizations()
         initializeMapView()
         mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
     }
@@ -276,9 +277,9 @@ class MapViewController: UIViewController {
     }
 }
 
-// MARK: - MapView delegate, CLLocation delegate
+// MARK: - MapView delegate, CLLocationmanager delegate
 extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
-    private func answerAuthorizations() {
+    private func askAuthorizations() {
         mapView.delegate = self
         locationManager.requestWhenInUseAuthorization()
         
@@ -335,8 +336,53 @@ extension MapViewController: UITextFieldDelegate {
     }
 }
 
+// MARK: - PickerView datasource
+extension MapViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 2
+    }
+}
+// MARK: - PickerView delegate
+extension MapViewController: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch row {
+        case 0:
+            mapView.mapType = .standard
+        case 1:
+            mapView.mapType = .hybrid
+        default: mapView.mapType = .standard
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+            var label = UILabel()
+            if let v = view {
+                label = v as! UILabel
+            }
+            label.font = .systemFont(ofSize: 16)
+            label.textAlignment = .center
+
+        switch row {
+        case 0:
+            label.text = "standard"
+        case 1:
+            label.text = "satellite"
+        default: break
+        }
+
+            return label
+        }
+}
+
+
 // MARK: -Extension Monitoring
 extension MapViewController {
+    
+// MARK: - private func
     private func insertHunterInMap(_ arrayHunters: [Hunter]) {
         if arrayHunters.count > 0 {
             for hunter in arrayHunters {

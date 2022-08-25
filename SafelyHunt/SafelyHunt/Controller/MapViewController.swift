@@ -56,7 +56,7 @@ class MapViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        answerAuthorizations()
+        askAuthorizations()
         initializeMapView()
         mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
     }
@@ -277,9 +277,9 @@ class MapViewController: UIViewController {
     }
 }
 
-// MARK: - MapView delegate, CLLocation delegate
+// MARK: - MapView delegate, CLLocationmanager delegate
 extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
-    private func answerAuthorizations() {
+    private func askAuthorizations() {
         mapView.delegate = self
         locationManager.requestWhenInUseAuthorization()
         
@@ -336,7 +336,7 @@ extension MapViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - implement picker
+// MARK: - PickerView datasource
 extension MapViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -346,7 +346,7 @@ extension MapViewController: UIPickerViewDataSource {
         return 2
     }
 }
-
+// MARK: - PickerView delegate
 extension MapViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch row {
@@ -363,9 +363,9 @@ extension MapViewController: UIPickerViewDelegate {
             if let v = view {
                 label = v as! UILabel
             }
-            label.font = .systemFont(ofSize: 12)
+            label.font = .systemFont(ofSize: 16)
             label.textAlignment = .center
-            
+
         switch row {
         case 0:
             label.text = "standard"
@@ -373,15 +373,16 @@ extension MapViewController: UIPickerViewDelegate {
             label.text = "satellite"
         default: break
         }
-        
+
             return label
         }
-    
 }
 
 
 // MARK: -Extension Monitoring
 extension MapViewController {
+    
+// MARK: - private func
     private func insertHunterInMap(_ arrayHunters: [Hunter]) {
         if arrayHunters.count > 0 {
             for hunter in arrayHunters {

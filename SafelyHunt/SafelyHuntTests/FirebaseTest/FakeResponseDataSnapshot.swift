@@ -9,11 +9,5 @@ import Foundation
 import Firebase
 
 class FakeResponseDataSnapshot {
-    var dataSnapshot: DataSnapshot {
-        let bundle = Bundle(for: FakeResponseDataSnapshot.self)
-        let url = bundle.url(forResource: "RecipesList", withExtension: "json")
-        let data = try! Data(contentsOf: url!)
-        let dataSnapshot = data as? DataSnapshot
-        return data
-    }
+    let databaseArea = FakeDatabaseReference().database.child("Database").child("users_list").child("7cidCVeA00fN2ZD2t91fKM9vOpk1").child("area_list")
 }

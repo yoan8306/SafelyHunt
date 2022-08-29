@@ -23,6 +23,7 @@ class MapViewController: UIViewController {
     let notification = LocalNotification()
     lazy var pencil: UIBarButtonItem = {
         UIBarButtonItem(image: UIImage(systemName: "pencil.circle"), style: .plain, target: self, action: #selector(pencilButtonAction))
+        
     }()
     lazy var gearButton: UIBarButtonItem = {
         UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain , target: self, action: #selector(gearButtonAction))
@@ -180,7 +181,7 @@ class MapViewController: UIViewController {
     private func initializeMapView() {
         switch mapMode {
         case .editingArea:
-            navigationItem.rightBarButtonItem = pencil
+            navigationItem.rightBarButtonItems = [pencil, gearButton]
             
         case .editingRadius:
             slider.value = Float(hunter.radiusAlert)

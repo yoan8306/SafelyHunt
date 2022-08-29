@@ -19,10 +19,10 @@ class FirebaseManagement {
     weak var handle: AuthStateDidChangeListenerHandle?
     private let database = Database.database().reference()
     private let firebaseAuth: FirebaseAuth.Auth = .auth()
-    var session: FirebaseTaskProtocol
+    var firebaseTask: FirebaseTaskProtocol
     
     init(session: FirebaseTaskProtocol) {
-        self.session = session
+        self.firebaseTask = session
     }
     
     // MARK: - Functions
@@ -97,19 +97,28 @@ extension FirebaseManagement {
     func disconnectCurrentUser() {
         try? firebaseAuth.signOut()
     }
-    
-    func checkCredential(callback: @escaping (Result<Bool, Error>)-> Void) {
-        
-    }
 
-    func deleteAccount() {
-       let user = firebaseAuth.currentUser
-        guard let user = user else {
+    func deleteAccount(password: String, callBack: @escaping (Result<String, Error>) -> Void) {
+        let user = firebaseAuth.currentUser
+        
+        guard let user = user, let mail = user.email else {
+            callBack(.failure(FirebaseError.deleteAccountError))
             return
         }
-        database.child("Database").child("users_list").child(user.uid).removeValue()
-        database.child("Database").child("position_user").child(user.uid).removeValue()
-        Auth.auth().currentUser?.delete()
+
+        let credential: AuthCredential = EmailAuthProvider.credential(withEmail: mail, password: password)
+
+        user.reauthenticate(with: credential) { success, error  in
+            if success != nil, error == nil {
+                self.database.child("Database").child("users_list").child(user.uid).removeValue()
+                self.database.child("Database").child("position_user").child(user.uid).removeValue()
+                user.delete()
+                callBack(.success("Delete Success"))
+                self.disconnectCurrentUser()
+            } else {
+                callBack(.failure(error ?? FirebaseError.deleteAccountError))
+            }
+        }
     }
 }
 
@@ -139,7 +148,7 @@ extension FirebaseManagement {
         var areaList: [[String: String]] = [[:]]
         let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list")
         
-        session.getData(databaseReference: databaseArea) { result in
+        firebaseTask.getData(databaseReference: databaseArea) { result in
             switch result {
             case .failure(let error):
                 callBack(.failure(error))
@@ -175,7 +184,7 @@ extension FirebaseManagement {
         var dictCoordinateArea: [Int: CLLocationCoordinate2D] = [:]
         dictCoordinateArea.removeAll()
         
-        session.getData(databaseReference: databaseArea) { result in
+        firebaseTask.getData(databaseReference: databaseArea) { result in
             switch result {
             case .failure(let error):
                 callBack(.failure(error))
@@ -239,7 +248,7 @@ extension FirebaseManagement {
         let databaseAllPositions = database.child("Database").child("position_user")
         var hunters: [Hunter] = []
         
-        session.getData(databaseReference: databaseAllPositions) { result in
+        firebaseTask.getData(databaseReference: databaseAllPositions) { result in
             switch result {
             case .failure(let error):
                 callBack(.failure(error))

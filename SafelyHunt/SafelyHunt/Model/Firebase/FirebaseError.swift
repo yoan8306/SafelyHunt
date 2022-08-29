@@ -8,7 +8,7 @@
 import Foundation
 
 enum FirebaseError: Error {
-    case createAccountError, emailAlreadyExist,signIn, resetPassword, noAreaRecordedFound, errorDeletingArea, errorTask, listUsersPostions
+    case createAccountError, emailAlreadyExist,signIn, resetPassword, noAreaRecordedFound, errorDeletingArea, errorTask, listUsersPostions, deleteAccountError
     
     var detail: String {
         switch self {
@@ -28,6 +28,8 @@ enum FirebaseError: Error {
             return "Error during task"
         case .listUsersPostions:
             return "No postions users list found"
+        case .deleteAccountError:
+            return "Error during delete account"
         }
     }
 }

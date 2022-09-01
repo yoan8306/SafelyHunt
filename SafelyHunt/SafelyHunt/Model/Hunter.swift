@@ -13,22 +13,11 @@ class Hunter {
     var meHunter = HunterDTO()
     var monitoring = Monitoring()
     var area = Area()
-    var areaSelected: String {
-        get {
-            return UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) ?? ""
-        }
-    }
-    var radiusAlert: Int {
-        get {
-            return UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert)
-        }
-    }
-
     var currentDistance: Double = 0.0
-    var totalDistance: Double = 0.0
     var currentTravel: [CLLocationCoordinate2D] = []
     private var lastLocation: CLLocation!
     private var firstLocation: CLLocation?
+    
     
     func updatePosition(userPostion: CLLocationCoordinate2D) {
         guard let user = meHunter.user else {
@@ -58,6 +47,31 @@ class Hunter {
             currentTravel.append(location.coordinate)
         }
     }
+    
+    func insertMyDistanceTraveled() {
+        guard let user = FirebaseAuth.Auth.auth().currentUser else {
+            return
+        }
+        FirebaseManagement.shared.insertDistanceTraveled(user: user, distance: currentDistance)
+        currentDistance = 0
+        currentTravel = []
+        lastLocation = nil
+        firstLocation = nil
+    }
+    
+    func getTotalDistanceTraveled(callBack: @escaping (Result<Double, Error>) -> Void ) {
+        guard let user = FirebaseAuth.Auth.auth().currentUser else {
+            return
+        }
+        FirebaseManagement.shared.getDistanceTraveled(user: user) { result in
+            switch result {
+            case .failure(let error):
+                callBack(.failure(error))
+            case.success(let distance):
+                callBack(.success(distance))
+        }
+    }
+}
 }
 
 

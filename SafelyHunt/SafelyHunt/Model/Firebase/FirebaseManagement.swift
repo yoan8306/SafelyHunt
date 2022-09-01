@@ -254,7 +254,7 @@ extension FirebaseManagement {
                 
             case .success(let snapshot):
                 guard let data = snapshot.children.allObjects as? [DataSnapshot] else {
-                    callBack(.failure(FirebaseError.listUsersPostions))
+                    callBack(.failure(FirebaseError.listUsersPositions))
                     return
                 }
                 
@@ -283,4 +283,30 @@ extension FirebaseManagement {
             }
         }
     }
+    
+    func insertDistanceTraveled(user: User, distance: Double) {
+        getDistanceTraveled(user: user) { result in
+            switch result {
+            case .failure(_):
+                return
+            case .success(let distanceTraveled):
+                let newDistanceTraveled = distance + distanceTraveled
+                self.database.child("Database").child("users_list").child(user.uid).child("distance_traveled").setValue([
+                    "Total_distance": newDistanceTraveled])
+            }
+        }
+    }
+    
+    func getDistanceTraveled(user: User, callBack: @escaping(Result<Double, Error>)->Void) {
+        database.child("Database").child("users_list").child(user.uid).child("distance_traveled").child("Total_distance").getData { error, dataSnapshot in
+            guard error == nil else {
+                callBack(.failure(error ?? FirebaseError.distanceTraveled))
+                return
+            }
+            let distance = dataSnapshot?.value as? Double
+            callBack(.success(distance ?? 0.0))
+        }
+       
+    }
+    
 }

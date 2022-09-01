@@ -32,18 +32,18 @@ class AreaListViewController: UIViewController {
         super.viewWillAppear(animated)
         getAreaList()
     }
-
-// MARK: - IBAction
+    
+    // MARK: - IBAction
     @objc func refreshTable() {
         getAreaList()
     }
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
         let mapsStoryboard = UIStoryboard(name: "Maps", bundle: nil)
-
+        
         guard let mapViewController = mapsStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return
         }
-
+        
         mapViewController.hunter = hunter
         mapViewController.mapMode = .editingArea
         mapViewController.modalPresentationStyle = .fullScreen
@@ -52,13 +52,13 @@ class AreaListViewController: UIViewController {
     }
     
     
-// MARK: - Private functions
+    // MARK: - Private functions
     private func getAreaList() {
         activityIndicator.isHidden = false
         guard let user = hunter.meHunter.user else {
             return
         }
-
+        
         FirebaseManagement.shared.getAreaList(user: user) { [weak self] fetchArea in
             switch fetchArea {
             case .success(let listArea):
@@ -66,11 +66,23 @@ class AreaListViewController: UIViewController {
                 self?.areaListTableView.reloadData()
                 self?.refreshControl.endRefreshing()
                 self?.activityIndicator.isHidden = true
-
+                self?.initializeBackgroundTableView()
+                
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
                 self?.activityIndicator.isHidden = true
             }
+        }
+    }
+    
+    private func initializeBackgroundTableView() {
+        if hunter.meHunter.areaList?.count == 0 {
+            let backgroundImage = UIImage(named: "listVoid")
+            let image = UIImageView(image: backgroundImage)
+            image.contentMode = .scaleAspectFit
+            areaListTableView.backgroundView = image
+        } else {
+            areaListTableView.backgroundView = nil
         }
     }
 }
@@ -90,13 +102,13 @@ extension AreaListViewController: UITableViewDataSource {
         }
         
         for (key, _) in areaList[indexPath.row] {
-            if hunter.areaSelected == key {
+            if hunter.area.areaSelected == key {
                 cellSelected = true
             }else {
                 cellSelected = false
             }
         }
-
+        
         cell.configureCell(infoArea: areaList[indexPath.row], cellSelected: cellSelected)
         return cell
     }
@@ -113,7 +125,7 @@ extension AreaListViewController: UITableViewDelegate {
         for (key, _) in areaList[indexPath.row] {
             newAreaSelected = key
         }
-
+        
         UserDefaults.standard.set(newAreaSelected, forKey: UserDefaultKeys.Keys.areaSelected)
         tableView.reloadData()
     }
@@ -122,7 +134,7 @@ extension AreaListViewController: UITableViewDelegate {
         guard let user = hunter.meHunter.user else {
             return
         }
-
+        
         if editingStyle == .delete {
             askDelete(indexPath: indexPath, user: user)
         }
@@ -133,15 +145,15 @@ extension AreaListViewController: UITableViewDelegate {
         guard let areaList = hunter.meHunter.areaList else {
             return
         }
-
+        
         for (key,_) in areaList[indexPath.row] {
             nameArea = key
         }
-
+        
         transferToMapViewController(nameAreaSelected: nameArea)
     }
-
-// MARK: - private func tableView
+    
+    // MARK: - private func tableView
     private func askDelete (indexPath: IndexPath, user: User) {
         let alertVC = UIAlertController(title: "Delete area", message: "Are you sure you want delete this area", preferredStyle: .actionSheet)
         let deletingAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
@@ -162,11 +174,11 @@ extension AreaListViewController: UITableViewDelegate {
         guard let areaList = hunter.meHunter.areaList else {
             return
         }
-
+        
         for (key,_) in areaList[indexPath.row] {
             areaName = key
         }
-
+        
         FirebaseManagement.shared.removeArea(name: areaName, user: user) { [weak self] result in
             switch result {
             case .success(_):

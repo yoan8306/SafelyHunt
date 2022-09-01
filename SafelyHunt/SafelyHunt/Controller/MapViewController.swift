@@ -54,11 +54,19 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var currentAltitude: UILabel!
     // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         askAuthorizations()
         initializeMapView()
         mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super .viewWillDisappear(animated)
+        if mapMode == .monitoring {
+            hunter.insertMyDistanceTraveled()
+        }
     }
     
     /// When user touch map draw or not polyline
@@ -187,7 +195,7 @@ class MapViewController: UIViewController {
             navigationItem.rightBarButtonItems = [gearButton,pencil]
             travelInfoUiView.isHidden = true
         case .editingRadius:
-            slider.value = Float(hunter.radiusAlert)
+            slider.value = Float(hunter.area.radiusAlert)
             radiusLabel.text = "\(Int(slider.value)) m"
             insertRadius()
             sliderUiView.backgroundColor = nil
@@ -262,7 +270,7 @@ class MapViewController: UIViewController {
     }
 
     private func insertRadius() {
-        let radius = CLLocationDistance(hunter.radiusAlert)
+        let radius = CLLocationDistance(hunter.area.radiusAlert)
         guard let userPosition = locationManager.location?.coordinate else {
             return
         }

@@ -97,7 +97,7 @@ extension FirebaseManagement {
     func disconnectCurrentUser() {
         try? firebaseAuth.signOut()
     }
-
+    
     func deleteAccount(password: String, callBack: @escaping (Result<String, Error>) -> Void) {
         let user = firebaseAuth.currentUser
         
@@ -105,9 +105,9 @@ extension FirebaseManagement {
             callBack(.failure(FirebaseError.deleteAccountError))
             return
         }
-
+        
         let credential: AuthCredential = EmailAuthProvider.credential(withEmail: mail, password: password)
-
+        
         user.reauthenticate(with: credential) { success, error  in
             if success != nil, error == nil {
                 self.database.child("Database").child("users_list").child(user.uid).removeValue()
@@ -124,7 +124,6 @@ extension FirebaseManagement {
 
 // MARK: - Database Area
 extension FirebaseManagement {
-    
     func insertArea(user: User, coordinate: [CLLocationCoordinate2D], nameArea: String, date: Int) {
         var index = 0
         let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list")
@@ -178,7 +177,7 @@ extension FirebaseManagement {
             callBack(.failure(FirebaseError.noAreaRecordedFound))
             return
         }
-
+        
         let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list").child(nameArea).child("coordinate")
         var coordinateArea: [CLLocationCoordinate2D] = []
         var dictCoordinateArea: [Int: CLLocationCoordinate2D] = [:]
@@ -188,13 +187,13 @@ extension FirebaseManagement {
             switch result {
             case .failure(let error):
                 callBack(.failure(error))
-
+                
             case .success(let dataSnapshot):
                 guard let data = dataSnapshot.children.allObjects as? [DataSnapshot] else {
                     callBack(.failure(FirebaseError.noAreaRecordedFound))
                     return
                 }
-
+                
                 for element in data {
                     let coordinateElement = element.value as? NSDictionary
                     let latitude = coordinateElement?["latitude"]
@@ -204,19 +203,19 @@ extension FirebaseManagement {
                         dictCoordinateArea[index] = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     }
                 }
-
+                
                 if dictCoordinateArea.count <= 0 {
                     callBack(.failure(FirebaseError.noAreaRecordedFound))
                     return
                 }
-
+                
                 //sort dictionary by index
                 let sortedArray = dictCoordinateArea.sorted( by: { $0.key < $1.key})
                 for dict in  0..<dictCoordinateArea.count {
-                   let list = sortedArray[dict]
+                    let list = sortedArray[dict]
                     coordinateArea.append(list.value)
                 }
-    
+                
                 callBack(.success(coordinateArea))            }
         }
     }

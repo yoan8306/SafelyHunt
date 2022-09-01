@@ -28,8 +28,12 @@ class MainStarterViewController: UIViewController {
     }
     
     @IBAction func startMonitoringButton(_ sender: UIButton) {
-        transferToMapViewController()
-        tabBarController?.tabBar.isHidden = true
+        if hunter.areaSelected != "" {
+            transferToMapViewController()
+            tabBarController?.tabBar.isHidden = true
+        } else {
+            presentAlertError(alertMessage: "Select an area for start")
+        }
     }
     
     private func transferToMapViewController() {
@@ -42,6 +46,7 @@ class MainStarterViewController: UIViewController {
         mapViewController.mapMode = .monitoring
         mapViewController.nameAreaSelected = areaSelected
         mapViewController.modalPresentationStyle = .fullScreen
+        mapViewController.myNavigationItem.title = "Ready for monitoring"
         navigationController?.pushViewController(mapViewController, animated: true)
     }
 }
@@ -118,6 +123,7 @@ extension MainStarterViewController: UITableViewDelegate {
             return
         }
         mapViewController.mapMode = .editingRadius
+        mapViewController.myNavigationItem.title = "Set radius alert"
         mapViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(mapViewController, animated: true)
     }

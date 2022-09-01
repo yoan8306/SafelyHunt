@@ -23,17 +23,17 @@ class MapViewController: UIViewController {
     let notification = LocalNotification()
     lazy var pencil: UIBarButtonItem = {
         UIBarButtonItem(image: UIImage(systemName: "pencil.circle"), style: .plain, target: self, action: #selector(pencilButtonAction))
-        
     }()
     lazy var gearButton: UIBarButtonItem = {
         UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain , target: self, action: #selector(gearButtonAction))
     }()
     
-    
-    // MARK: - IBOutlet
+// MARK: - IBOutlet
     @IBOutlet weak var sliderUiView: UIView!
     @IBOutlet weak var popUpAreaNameUiView: UIView!
     @IBOutlet weak var settingsView: UIView!
+    @IBOutlet weak var travelInfoUiView: UIView!
+    
     
     @IBOutlet weak var popUpLabel: UILabel!
     @IBOutlet weak var radiusLabel: UILabel!
@@ -50,10 +50,9 @@ class MapViewController: UIViewController {
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var switchButtonRadiusAlert: UISwitch!
     @IBOutlet weak var pickerMapMode: UIPickerView!
+    @IBOutlet weak var distanceTraveledLabel: UILabel!
     
-    
-    
-    
+    @IBOutlet weak var currentAltitude: UILabel!
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +61,10 @@ class MapViewController: UIViewController {
         mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
     }
     
+    /// When user touch map draw or not polyline
+    /// - Parameters:
+    ///   - touches: user touch screen
+    ///   - event: event touch
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard editingArea else {
             return
@@ -181,14 +184,15 @@ class MapViewController: UIViewController {
     private func initializeMapView() {
         switch mapMode {
         case .editingArea:
-            navigationItem.rightBarButtonItems = [pencil, gearButton]
-            
+            navigationItem.rightBarButtonItems = [gearButton,pencil]
+            travelInfoUiView.isHidden = true
         case .editingRadius:
             slider.value = Float(hunter.radiusAlert)
             radiusLabel.text = "\(Int(slider.value)) m"
             insertRadius()
             sliderUiView.backgroundColor = nil
             sliderUiView.isHidden = false
+            travelInfoUiView.isHidden = true
             
         case .monitoring:
             navigationItem.rightBarButtonItem = gearButton
@@ -197,8 +201,9 @@ class MapViewController: UIViewController {
             switchButtonRadiusAlert.isOn  = UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert)
             setAllowsNotificationRadiusAlertAction()
             monitoringButton.layer.cornerRadius = monitoringButton.layer.frame.height/2
+            travelInfoUiView.isHidden = false
         }
-
+        locationButton.layer.cornerRadius = locationButton.layer.frame.height/2
         notification.notificationInitialize()
         drawAreaSelected()
         setPopUpMessageNameArea()
@@ -287,7 +292,6 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.startUpdatingLocation()
             locationManager.startUpdatingHeading()
         }
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -324,8 +328,15 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let distanceTraveled = hunter.measureDistanceTravelled(locations: locations)
+        
+        hunter.getCurrentTravel(locations: locations)
+        hunter.area.coordinateTravel = hunter.currentTravel
+        mapView.addOverlay(hunter.area.createPolyLineTravel())
         hunter.meHunter.latitude = locations.first?.coordinate.latitude
         hunter.meHunter.longitude = locations.first?.coordinate.longitude
+        distanceTraveledLabel.text = String(format: "%.2f", distanceTraveled) + " km"
+        currentAltitude.text = String(format: "%.0f", locations.first!.altitude) + " m"
     }
 }
 
@@ -404,6 +415,7 @@ extension MapViewController {
     
     private func monitoringOn() {
         let imageStop = UIImage(systemName: "stop.circle")
+        launchMonitoring()
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
         timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(launchMonitoring), userInfo: nil, repeats: true)

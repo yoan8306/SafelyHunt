@@ -47,7 +47,7 @@ class AreaListViewController: UIViewController {
         mapViewController.hunter = hunter
         mapViewController.mapMode = .editingArea
         mapViewController.modalPresentationStyle = .fullScreen
-        mapViewController.myNavigationItem.title = "Position map for draw area"
+        mapViewController.myNavigationItem.title = "Editing area"
         navigationController?.pushViewController(mapViewController, animated: true)
     }
     
@@ -172,6 +172,7 @@ extension AreaListViewController: UITableViewDelegate {
             case .success(_):
                 self?.getAreaList()
                 self?.presentNativeAlertSuccess(alertMessage: "Area Deleting")
+                UserDefaults.standard.set("", forKey: UserDefaultKeys.Keys.areaSelected)
             case.failure(let error):
                 self?.getAreaList()
                 self?.presentAlertError(alertTitle: "Error", alertMessage: error.localizedDescription, buttonTitle: "Dismiss", alertStyle: .cancel)
@@ -188,6 +189,7 @@ extension AreaListViewController: UITableViewDelegate {
         mapViewController.mapMode = .editingArea
         mapViewController.nameAreaSelected = nameAreaSelected
         mapViewController.modalPresentationStyle = .fullScreen
+        mapViewController.myNavigationItem.title = "Editing area"
         navigationController?.pushViewController(mapViewController, animated: true)
     }
 }

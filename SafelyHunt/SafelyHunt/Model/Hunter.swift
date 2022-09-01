@@ -23,6 +23,12 @@ class Hunter {
             return UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert)
         }
     }
+
+    var currentDistance: Double = 0.0
+    var totalDistance: Double = 0.0
+    var currentTravel: [CLLocationCoordinate2D] = []
+    private var lastLocation: CLLocation!
+    private var firstLocation: CLLocation?
     
     func updatePosition(userPostion: CLLocationCoordinate2D) {
         guard let user = meHunter.user else {
@@ -33,8 +39,24 @@ class Hunter {
         let dateToTimeStamp = Int(dateStamp)
         meHunter.latitude = userPostion.latitude
         meHunter.longitude = userPostion.longitude
-
+        
         FirebaseManagement.shared.insertMyPosition(userPosition: userPostion, user: user, date: dateToTimeStamp)
+    }
+    
+    func measureDistanceTravelled(locations: [CLLocation]) -> Double {
+        if firstLocation == nil {
+            firstLocation = locations.first
+        } else if let location = locations.last {
+            currentDistance += lastLocation.distance(from: location)
+        }
+        lastLocation = locations.last
+        return currentDistance / 1000
+    }
+    
+    func getCurrentTravel(locations: [CLLocation]) {
+        for location in locations {
+            currentTravel.append(location.coordinate)
+        }
     }
 }
 

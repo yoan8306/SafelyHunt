@@ -8,7 +8,7 @@
 import Foundation
 
 enum FirebaseError: Error {
-    case createAccountError, emailAlreadyExist,signIn, resetPassword, noAreaRecordedFound, errorDeletingArea
+    case createAccountError, emailAlreadyExist,signIn, resetPassword, noAreaRecordedFound, errorDeletingArea, errorTask, listUsersPositions, deleteAccountError, disconnected, distanceTraveled
     
     var detail: String {
         switch self {
@@ -23,7 +23,18 @@ enum FirebaseError: Error {
         case .noAreaRecordedFound:
             return "You doesn't have area recorded. \nClick on + for add an area"
         case .errorDeletingArea:
-          return  "Error during deleting"
+            return  "Error during deleting"
+        case .errorTask:
+            return "Error during task"
+        case .listUsersPositions:
+            return "No postions users list found"
+        case .deleteAccountError:
+            return "Error during delete account"
+        case .disconnected :
+            return "Error during disconnected."
+        case .distanceTraveled:
+            return "No distance traveled recorded"
         }
     }
 }
+

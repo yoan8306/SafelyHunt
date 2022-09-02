@@ -8,7 +8,8 @@
 import UIKit
 
 class SplashScreenViewController: UIViewController {
-    
+
+// MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -19,7 +20,6 @@ class SplashScreenViewController: UIViewController {
             switch userIsLogged {
             case .success(_):
                 self.transferToMainStarter()
-//                self.goToViewTest()
             case .failure(_):
                 self.transferToLogin()
             }
@@ -30,7 +30,8 @@ class SplashScreenViewController: UIViewController {
         super.viewDidDisappear(false)
         FirebaseManagement.shared.removeStateChangeLoggedListen()
     }
-    
+
+// MARK: - private functions
     private func transferToMainStarter() {
         let mainStarterStoryboard = UIStoryboard(name: "TabbarMain", bundle: nil)
         
@@ -43,7 +44,6 @@ class SplashScreenViewController: UIViewController {
     }
     
     private func transferToLogin() {
-    
         let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
         
         guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "LoginNavigation") as? UINavigationController else {

@@ -9,18 +9,21 @@ import Foundation
 import FirebaseAuth
 import Firebase
 import MapKit
-import CoreAudio
+//import CoreAudio
 
 // MARK: - Sign in
 class FirebaseManagement {
     
     // MARK: - properties
-    static let shared = FirebaseManagement()
+    static let shared = FirebaseManagement(session: FirebaseTask.shared)
     weak var handle: AuthStateDidChangeListenerHandle?
     private let database = Database.database().reference()
     private let firebaseAuth: FirebaseAuth.Auth = .auth()
+    var firebaseTask: FirebaseTaskProtocol
     
-    private init() {}
+    init(session: FirebaseTaskProtocol) {
+        self.firebaseTask = session
+    }
     
     // MARK: - Functions
     func checkUserLogged(callBack: @escaping (Result<Bool, Error>) -> Void) {
@@ -95,24 +98,32 @@ extension FirebaseManagement {
         try? firebaseAuth.signOut()
     }
     
-    func checkCredential(callback: @escaping (Result<Bool, Error>)-> Void) {
+    func deleteAccount(password: String, callBack: @escaping (Result<String, Error>) -> Void) {
+        let user = firebaseAuth.currentUser
         
-    }
-
-    func deleteAccount() {
-       let user = firebaseAuth.currentUser
-        guard let user = user else {
+        guard let user = user, let mail = user.email else {
+            callBack(.failure(FirebaseError.deleteAccountError))
             return
         }
-        database.child("Database").child("users_list").child(user.uid).removeValue()
-        database.child("Database").child("position_user").child(user.uid).removeValue()
-        Auth.auth().currentUser?.delete()
+        
+        let credential: AuthCredential = EmailAuthProvider.credential(withEmail: mail, password: password)
+        
+        user.reauthenticate(with: credential) { success, error  in
+            if success != nil, error == nil {
+                self.database.child("Database").child("users_list").child(user.uid).removeValue()
+                self.database.child("Database").child("position_user").child(user.uid).removeValue()
+                user.delete()
+                callBack(.success("Delete Success"))
+                self.disconnectCurrentUser()
+            } else {
+                callBack(.failure(error ?? FirebaseError.deleteAccountError))
+            }
+        }
     }
 }
 
 // MARK: - Database Area
 extension FirebaseManagement {
-    
     func insertArea(user: User, coordinate: [CLLocationCoordinate2D], nameArea: String, date: Int) {
         var index = 0
         let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list")
@@ -136,73 +147,76 @@ extension FirebaseManagement {
         var areaList: [[String: String]] = [[:]]
         let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list")
         
-        databaseArea.getData(completion: { error, snapshot in
-            guard let snapshot = snapshot, error == nil else {
-                callBack(.failure(error ?? FirebaseError.noAreaRecordedFound))
-                return
-            }
-            
-            guard let data = snapshot.children.allObjects as? [DataSnapshot] else {
-                callBack(.failure(FirebaseError.noAreaRecordedFound))
-                return
-            }
-            
-            areaList.removeAll()
-
-            for element in data {
-                let list = element.value as? NSDictionary
-                let name = list?["name"]
-                let date = list?["date"]
-                if let name = name as? String, let date = date as? String {
-                    areaList.append([name: date])
+        firebaseTask.getData(databaseReference: databaseArea) { result in
+            switch result {
+            case .failure(let error):
+                callBack(.failure(error))
+                
+            case .success(let snapshot):
+                guard let data = snapshot.children.allObjects as? [DataSnapshot] else {
+                    callBack(.failure(FirebaseError.noAreaRecordedFound))
+                    return
                 }
-            }
-            callBack(.success(areaList))
-        })
+                
+                areaList.removeAll()
+                
+                for element in data {
+                    let list = element.value as? NSDictionary
+                    let name = list?["name"]
+                    let date = list?["date"]
+                    if let name = name as? String, let date = date as? String {
+                        areaList.append([name: date])
+                    }
+                }
+                callBack(.success(areaList))            }
+        }
     }
     
     func getArea(nameArea: String?, user: User, callBack: @escaping (Result<[CLLocationCoordinate2D], Error>) -> Void) {
-        let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list")
-        var coordinateArea: [CLLocationCoordinate2D] = []
-        var dictCoordinateArea: [Int: CLLocationCoordinate2D] = [:]
-        
         guard let nameArea = nameArea, !nameArea.isEmpty else {
             callBack(.failure(FirebaseError.noAreaRecordedFound))
             return
         }
         
+        let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list").child(nameArea).child("coordinate")
+        var coordinateArea: [CLLocationCoordinate2D] = []
+        var dictCoordinateArea: [Int: CLLocationCoordinate2D] = [:]
         dictCoordinateArea.removeAll()
-
-        databaseArea.child(nameArea).child("coordinate").getData { error, dataSnapshot in
-            guard let snapshot = dataSnapshot, error == nil, let data = snapshot.children.allObjects as? [DataSnapshot] else {
-                callBack(.failure(error ?? FirebaseError.noAreaRecordedFound))
-                return
-            }
-            
-            //Add all coordinate into dictionary
-            for element in data {
-                let coordinateElement = element.value as? NSDictionary
-                let latitude = coordinateElement?["latitude"]
-                let longitude = coordinateElement?["longitude"]
-                let index = coordinateElement?["index"]
-                if let latitude = latitude as? Double, let longitude = longitude as? Double, let index = index as? Int {
-                    dictCoordinateArea[index] = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        
+        firebaseTask.getData(databaseReference: databaseArea) { result in
+            switch result {
+            case .failure(let error):
+                callBack(.failure(error))
+                
+            case .success(let dataSnapshot):
+                guard let data = dataSnapshot.children.allObjects as? [DataSnapshot] else {
+                    callBack(.failure(FirebaseError.noAreaRecordedFound))
+                    return
                 }
-            }
-            
-            if dictCoordinateArea.count <= 0 {
-                callBack(.failure(FirebaseError.noAreaRecordedFound))
-                return
-            }
-            
-            //sort dictionary by index
-            let sortedArray = dictCoordinateArea.sorted( by: { $0.key < $1.key})
-            for dict in  0..<dictCoordinateArea.count {
-               let list = sortedArray[dict]
-                coordinateArea.append(list.value)
-            }
-            
-            callBack(.success(coordinateArea))
+                
+                for element in data {
+                    let coordinateElement = element.value as? NSDictionary
+                    let latitude = coordinateElement?["latitude"]
+                    let longitude = coordinateElement?["longitude"]
+                    let index = coordinateElement?["index"]
+                    if let latitude = latitude as? Double, let longitude = longitude as? Double, let index = index as? Int {
+                        dictCoordinateArea[index] = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                    }
+                }
+                
+                if dictCoordinateArea.count <= 0 {
+                    callBack(.failure(FirebaseError.noAreaRecordedFound))
+                    return
+                }
+                
+                //sort dictionary by index
+                let sortedArray = dictCoordinateArea.sorted( by: { $0.key < $1.key})
+                for dict in  0..<dictCoordinateArea.count {
+                    let list = sortedArray[dict]
+                    coordinateArea.append(list.value)
+                }
+                
+                callBack(.success(coordinateArea))            }
         }
     }
     
@@ -232,40 +246,67 @@ extension FirebaseManagement {
     func getPositionUsers(callBack: @escaping (Result<[Hunter], Error>)-> Void) {
         let databaseAllPositions = database.child("Database").child("position_user")
         var hunters: [Hunter] = []
-        databaseAllPositions.getData { error, snapshot in
-            guard error == nil, snapshot != nil else  {
-                callBack(.failure(error ?? FirebaseError.noAreaRecordedFound))
-                return
-            }
-            guard let dataSnapshot = snapshot?.children.allObjects else {
-                return
-            }
-            
-            guard let data = dataSnapshot as? [DataSnapshot] else {
-                return
-            }
-            guard let userId = self.firebaseAuth.currentUser?.uid else {
-                return
-            }
-            
-            for element in data {
-                if element.key != userId {
-                    let dictElement = element.value as? NSDictionary
-                    
-                    let name = dictElement?["name"] as? String
-                    let latitude = dictElement?["latitude"] as? Double
-                    let longitude = dictElement?["longitude"] as? Double
-                    let dateString = dictElement?["date"] as? String
-                      let date = Int(dateString ?? "0")
-                    let hunter = Hunter()
-                    hunter.meHunter.displayName = name
-                    hunter.meHunter.longitude = longitude
-                    hunter.meHunter.latitude = latitude
-                    hunter.meHunter.date = date
-                    hunters.append(hunter)
+        
+        firebaseTask.getData(databaseReference: databaseAllPositions) { result in
+            switch result {
+            case .failure(let error):
+                callBack(.failure(error))
+                
+            case .success(let snapshot):
+                guard let data = snapshot.children.allObjects as? [DataSnapshot] else {
+                    callBack(.failure(FirebaseError.listUsersPositions))
+                    return
                 }
+                
+                guard let userId = self.firebaseAuth.currentUser?.uid else {
+                    return
+                }
+                
+                for element in data {
+                    if element.key != userId {
+                        let dictElement = element.value as? NSDictionary
+                        let name = dictElement?["name"] as? String
+                        let latitude = dictElement?["latitude"] as? Double
+                        let longitude = dictElement?["longitude"] as? Double
+                        let dateString = dictElement?["date"] as? String
+                        let date = Int(dateString ?? "0")
+                        let hunter = Hunter()
+                        
+                        hunter.meHunter.displayName = name
+                        hunter.meHunter.longitude = longitude
+                        hunter.meHunter.latitude = latitude
+                        hunter.meHunter.date = date
+                        hunters.append(hunter)
+                    }
+                }
+                callBack(.success(hunters))
             }
-            callBack(.success(hunters))
         }
     }
+    
+    func insertDistanceTraveled(user: User, distance: Double) {
+        getDistanceTraveled(user: user) { result in
+            switch result {
+            case .failure(_):
+                return
+            case .success(let distanceTraveled):
+                let newDistanceTraveled = distance + distanceTraveled
+                self.database.child("Database").child("users_list").child(user.uid).child("distance_traveled").setValue([
+                    "Total_distance": newDistanceTraveled])
+            }
+        }
+    }
+    
+    func getDistanceTraveled(user: User, callBack: @escaping(Result<Double, Error>)->Void) {
+        database.child("Database").child("users_list").child(user.uid).child("distance_traveled").child("Total_distance").getData { error, dataSnapshot in
+            guard error == nil else {
+                callBack(.failure(error ?? FirebaseError.distanceTraveled))
+                return
+            }
+            let distance = dataSnapshot?.value as? Double
+            callBack(.success(distance ?? 0.0))
+        }
+       
+    }
+    
 }

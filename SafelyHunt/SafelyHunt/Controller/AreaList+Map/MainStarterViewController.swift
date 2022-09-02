@@ -28,8 +28,12 @@ class MainStarterViewController: UIViewController {
     }
     
     @IBAction func startMonitoringButton(_ sender: UIButton) {
-        transferToMapViewController()
-        tabBarController?.tabBar.isHidden = true
+        if hunter.area.areaSelected != "" {
+            transferToMapViewController()
+            tabBarController?.tabBar.isHidden = true
+        } else {
+            presentAlertError(alertMessage: "Select an area for start")
+        }
     }
     
     private func transferToMapViewController() {
@@ -42,6 +46,7 @@ class MainStarterViewController: UIViewController {
         mapViewController.mapMode = .monitoring
         mapViewController.nameAreaSelected = areaSelected
         mapViewController.modalPresentationStyle = .fullScreen
+        mapViewController.myNavigationItem.title = "Ready for monitoring"
         navigationController?.pushViewController(mapViewController, animated: true)
     }
 }
@@ -67,9 +72,9 @@ extension MainStarterViewController: UITableViewDataSource {
             content.text = title
             switch indexPath.row {
             case 0:
-                content.secondaryText = hunter.areaSelected
+                content.secondaryText = hunter.area.areaSelected
             case 1:
-                content.secondaryText = "\(hunter.radiusAlert) m"
+                content.secondaryText = "\(hunter.area.radiusAlert) m"
             default:
                 break
             }
@@ -78,9 +83,9 @@ extension MainStarterViewController: UITableViewDataSource {
             cell.textLabel?.text = title
             switch indexPath.row {
             case 0:
-                cell.detailTextLabel?.text = hunter.areaSelected
+                cell.detailTextLabel?.text = hunter.area.areaSelected
             case 1:
-                cell.detailTextLabel?.text = "\(hunter.radiusAlert) m"
+                cell.detailTextLabel?.text = "\(hunter.area.radiusAlert) m"
             default:
                 break
             }
@@ -118,6 +123,7 @@ extension MainStarterViewController: UITableViewDelegate {
             return
         }
         mapViewController.mapMode = .editingRadius
+        mapViewController.myNavigationItem.title = "Set radius alert"
         mapViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(mapViewController, animated: true)
     }

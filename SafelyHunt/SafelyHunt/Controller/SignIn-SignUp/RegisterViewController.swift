@@ -31,6 +31,8 @@ class RegisterViewController: UIViewController {
         showActivityIndicator(shown: true)
         if checkPassword() {
             guard let displayName = pseudonym.text, !displayName.isEmpty, let email = emailAddressTextField.text, !email.isEmpty, let password = passwordTextField.text else {
+                showActivityIndicator(shown: false)
+                presentAlertError(alertMessage: "Complete all field")
                 return
             }
             createUser(email, password, displayName)
@@ -45,10 +47,13 @@ class RegisterViewController: UIViewController {
                 self?.updateDisplayName(displayName: displayName)
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
+                self?.showActivityIndicator(shown: false)
             }
         }
     }
     
+    /// After create user transfer displayName value to the new user
+    /// - Parameter displayName: displayName value
     private func updateDisplayName(displayName: String) {
         FirebaseManagement.shared.updateProfile(displayName: displayName) { [weak self] updateResult in
             switch updateResult {
@@ -75,16 +80,20 @@ class RegisterViewController: UIViewController {
         FirebaseManagement.shared.disconnectCurrentUser()
         navigationController?.setViewControllers([loginViewController], animated: true)
     }
-
+    
+    /// Check fields if the same values
+    /// - Returns: return true or false if password is good
     private func checkPassword() -> Bool {
         if passwordTextField.text == confirmPasswordTextField.text {
             return true
         }
-        presentAlertError(alertMessage: "your Password is not similar")
-        showActivityIndicator(shown: true)
+        presentAlertError(alertMessage: "Your password is not similar")
+        showActivityIndicator(shown: false)
         return false
     }
     
+    /// Switch activity indicator and button
+    /// - Parameter shown: transfer the boolean to isHiidden
     private func showActivityIndicator(shown: Bool) {
         activityIndicator.isHidden = !shown
         registerButton.isHidden = shown

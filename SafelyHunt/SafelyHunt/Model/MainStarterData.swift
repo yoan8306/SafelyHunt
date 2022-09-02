@@ -9,4 +9,5 @@ import Foundation
 
 class MainStarterData {
     var mainStarter = ["Select your area hunt", "Define your radius alert"]
+    var mainSettings = ["Profile", "Account"]
 }

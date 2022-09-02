@@ -11,7 +11,22 @@ import FirebaseAuth
 
 class Area {
     var coordinatesPoints : [CLLocationCoordinate2D] = []
-
+    var coordinateTravel: [CLLocationCoordinate2D] = []
+    var areaSelected: String {
+        get {
+            return UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) ?? ""
+        }
+    }
+    var radiusAlert: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert)
+        }
+    }
+    
+    func createPolyLineTravel() -> MKOverlay {
+        MKPolyline(coordinates: coordinateTravel, count: coordinateTravel.count)
+    }
+    
     func createPolyLine() -> MKOverlay {
      MKPolyline(coordinates: coordinatesPoints, count: coordinatesPoints.count)
     }

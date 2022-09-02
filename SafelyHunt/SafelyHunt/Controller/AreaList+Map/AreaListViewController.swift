@@ -23,9 +23,9 @@ class AreaListViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
         areaListTableView.addSubview(refreshControl)
+        initializeBackgroundTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {

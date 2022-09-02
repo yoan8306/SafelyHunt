@@ -29,6 +29,11 @@
 		5F62872D28A5230F00AD51E2 /* orchestralEmergency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5F62872B28A5230E00AD51E2 /* orchestralEmergency.mp3 */; };
 		5F62872E28A5230F00AD51E2 /* orchestralEmergency.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5F62872C28A5230E00AD51E2 /* orchestralEmergency.caf */; };
 		5F62873128A5329F00AD51E2 /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5F62873028A5329F00AD51E2 /* NotificationBannerSwift */; };
+		5F7624D428C2159800D6FA65 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F7624D228C2159800D6FA65 /* Settings.storyboard */; };
+		5F7624D628C215E700D6FA65 /* AccountSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F7624D528C215E700D6FA65 /* AccountSettings.storyboard */; };
+		5F7624D828C216AC00D6FA65 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7624D728C216AC00D6FA65 /* AccountSettingsViewController.swift */; };
+		5F7624DD28C2227500D6FA65 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F7624DC28C2227500D6FA65 /* Profile.storyboard */; };
+		5F7624E128C224CE00D6FA65 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7624E028C224CD00D6FA65 /* ProfileViewController.swift */; };
 		5F77E8A6286F275A005A7F0B /* AreasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F77E8A5286F275A005A7F0B /* AreasTests.swift */; };
 		5F78B6BF2876D306003C58B5 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6BE2876D306003C58B5 /* SplashScreenViewController.swift */; };
 		5F78B6C12876D47A003C58B5 /* MainStarterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */; };
@@ -91,6 +96,11 @@
 		5F62872928A522B600AD51E2 /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
 		5F62872B28A5230E00AD51E2 /* orchestralEmergency.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = orchestralEmergency.mp3; sourceTree = "<group>"; };
 		5F62872C28A5230E00AD51E2 /* orchestralEmergency.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = orchestralEmergency.caf; sourceTree = "<group>"; };
+		5F7624D328C2159800D6FA65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
+		5F7624D528C215E700D6FA65 /* AccountSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountSettings.storyboard; sourceTree = "<group>"; };
+		5F7624D728C216AC00D6FA65 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
+		5F7624DC28C2227500D6FA65 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		5F7624E028C224CD00D6FA65 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		5F77E8A5286F275A005A7F0B /* AreasTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreasTests.swift; sourceTree = "<group>"; };
 		5F78B6BE2876D306003C58B5 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStarterViewController.swift; sourceTree = "<group>"; };
@@ -227,6 +237,57 @@
 			path = SafelyHuntTests;
 			sourceTree = "<group>";
 		};
+		5F7624D928C2215800D6FA65 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				5F7624D228C2159800D6FA65 /* Settings.storyboard */,
+				5F7624D528C215E700D6FA65 /* AccountSettings.storyboard */,
+				5F7624DC28C2227500D6FA65 /* Profile.storyboard */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		5F7624DA28C221C300D6FA65 /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				5FBA014A287453F800D70715 /* TabbarMain.storyboard */,
+				5F7624DB28C2222D00D6FA65 /* AreaList+Map */,
+				5F7624D928C2215800D6FA65 /* Settings */,
+			);
+			path = Tabbar;
+			sourceTree = "<group>";
+		};
+		5F7624DB28C2222D00D6FA65 /* AreaList+Map */ = {
+			isa = PBXGroup;
+			children = (
+				5F78B6C42876E8BC003C58B5 /* MainStarter.storyboard */,
+				5FFCF67D288EB46C009D9AE8 /* AreasList.storyboard */,
+				5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */,
+				5FC7538D2894063900BC3DB7 /* Maps.storyboard */,
+			);
+			path = "AreaList+Map";
+			sourceTree = "<group>";
+		};
+		5F7624DE28C2228400D6FA65 /* AreaList+Map */ = {
+			isa = PBXGroup;
+			children = (
+				5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */,
+				5FFCF682288EB7CF009D9AE8 /* AreaListViewController.swift */,
+				5FC7538F289408E600BC3DB7 /* MapViewController.swift */,
+			);
+			path = "AreaList+Map";
+			sourceTree = "<group>";
+		};
+		5F7624DF28C222A600D6FA65 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				5F78B6C62876F13F003C58B5 /* SettingsViewController.swift */,
+				5F7624D728C216AC00D6FA65 /* AccountSettingsViewController.swift */,
+				5F7624E028C224CD00D6FA65 /* ProfileViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		5FBEF95028737FDC0023E5A5 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,10 +303,8 @@
 			isa = PBXGroup;
 			children = (
 				5F14AD242878406B0039002A /* SignIn-SignUp */,
-				5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */,
-				5FFCF682288EB7CF009D9AE8 /* AreaListViewController.swift */,
-				5FC7538F289408E600BC3DB7 /* MapViewController.swift */,
-				5F78B6C62876F13F003C58B5 /* SettingsViewController.swift */,
+				5F7624DE28C2228400D6FA65 /* AreaList+Map */,
+				5F7624DF28C222A600D6FA65 /* Settings */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -253,13 +312,9 @@
 		5FCDFFB7286CE57A002D83DD /* View */ = {
 			isa = PBXGroup;
 			children = (
-				5F14AD25287840C80039002A /* SignIn-SignUp */,
-				5FBA014A287453F800D70715 /* TabbarMain.storyboard */,
-				5F78B6C42876E8BC003C58B5 /* MainStarter.storyboard */,
-				5FFCF67D288EB46C009D9AE8 /* AreasList.storyboard */,
 				5FFCF67F288EB481009D9AE8 /* Launch Screen.storyboard */,
-				5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */,
-				5FC7538D2894063900BC3DB7 /* Maps.storyboard */,
+				5F14AD25287840C80039002A /* SignIn-SignUp */,
+				5F7624DA28C221C300D6FA65 /* Tabbar */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -411,6 +466,9 @@
 				5FBEF94B2873073A0023E5A5 /* Register.storyboard in Resources */,
 				5FBA014B287453F800D70715 /* TabbarMain.storyboard in Resources */,
 				5F62872D28A5230F00AD51E2 /* orchestralEmergency.mp3 in Resources */,
+				5F7624D628C215E700D6FA65 /* AccountSettings.storyboard in Resources */,
+				5F7624DD28C2227500D6FA65 /* Profile.storyboard in Resources */,
+				5F7624D428C2159800D6FA65 /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,12 +501,14 @@
 				5F79FCE7289BE389009F6AE9 /* Monitoring.swift in Sources */,
 				5FBEF948287306DD0023E5A5 /* RegisterViewController.swift in Sources */,
 				5F14AD1F2878284C0039002A /* UserDefaultKeys.swift in Sources */,
+				5F7624E128C224CE00D6FA65 /* ProfileViewController.swift in Sources */,
 				5F0B730B289D04440034CB48 /* HunterDTO.swift in Sources */,
 				5FEB598928B78E490051B21B /* FirebaseTask.swift in Sources */,
 				5F62872A28A522B600AD51E2 /* LocalNotification.swift in Sources */,
 				5F78B6CC2876FE6A003C58B5 /* ResetPasswordViewController.swift in Sources */,
 				5FBEF952287380050023E5A5 /* UIViewController_Alert.swift in Sources */,
 				5F14AD21287829470039002A /* MainStarterData.swift in Sources */,
+				5F7624D828C216AC00D6FA65 /* AccountSettingsViewController.swift in Sources */,
 				5FBEF94F287375050023E5A5 /* FirebaseError.swift in Sources */,
 				5F78B6BF2876D306003C58B5 /* SplashScreenViewController.swift in Sources */,
 				5F78B6C12876D47A003C58B5 /* MainStarterViewController.swift in Sources */,
@@ -488,6 +548,14 @@
 				5F1CF307286B1F2900A0429D /* Base */,
 			);
 			name = Login.storyboard;
+			sourceTree = "<group>";
+		};
+		5F7624D228C2159800D6FA65 /* Settings.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5F7624D328C2159800D6FA65 /* Base */,
+			);
+			name = Settings.storyboard;
 			sourceTree = "<group>";
 		};
 		5F78B6C82876FE0A003C58B5 /* ResetPassword.storyboard */ = {

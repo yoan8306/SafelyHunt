@@ -1,14 +1,13 @@
 //
-//  SettingsViewController.swift
+//  AccountSettingsViewController.swift
 //  SafelyHunt
 //
-//  Created by Yoan on 07/07/2022.
+//  Created by Yoan on 02/09/2022.
 //
 
 import UIKit
 
-class SettingsViewController: UIViewController {
-
+class AccountSettingsViewController: UIViewController {
     @IBOutlet weak var reAuthenticateUiView: UIView!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!

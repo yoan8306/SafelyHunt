@@ -22,7 +22,7 @@ class MapViewController: UIViewController {
     var polygonCurrent = MKPolygon()
     let notification = LocalNotification()
     lazy var pencil: UIBarButtonItem = {
-        UIBarButtonItem(image: UIImage(systemName: "pencil.circle"), style: .plain, target: self, action: #selector(pencilButtonAction))
+        UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(pencilButtonAction))
     }()
 
     // MARK: - IBOutlet
@@ -57,6 +57,14 @@ class MapViewController: UIViewController {
         askAuthorizations()
         initializeMapView()
         mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if mapMode == .monitoring {
+            launchMonitoring()
+            animateButtonMonitoring()
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -202,11 +210,13 @@ class MapViewController: UIViewController {
         mapView.showsUserLocation = true
         mapView.isZoomEnabled = true
         mapView.showsCompass = false
+        mapView.setUserTrackingMode(.follow, animated: false)
 
         switch mapMode {
         case .editingArea:
             navigationItem.rightBarButtonItem = pencil
             travelInfoUiView.isHidden = true
+
         case .editingRadius:
             slider.value = Float(hunter.area.radiusAlert)
             radiusLabel.text = "\(Int(slider.value)) m"
@@ -222,6 +232,7 @@ class MapViewController: UIViewController {
             setAllowsNotificationRadiusAlertAction()
             monitoringButton.layer.cornerRadius = monitoringButton.layer.frame.height/2
             travelInfoUiView.isHidden = false
+            monitoringAction()
         }
     }
 
@@ -264,7 +275,7 @@ class MapViewController: UIViewController {
                 if let center = overlay["polygon"]?.coordinate, self.mapMode == .editingArea {
                     let span = MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta: 0.025)
                     let region = MKCoordinateRegion(center: center, span: span)
-                    self.mapView.setRegion(region, animated: false)
+                    self.mapView.setRegion(region, animated: true)
                 }
 
             case .failure(_):
@@ -376,13 +387,19 @@ extension MapViewController {
 
     private func monitoringOn() {
         let imageStop = UIImage(systemName: "stop.circle")
-        launchMonitoring()
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
         timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(launchMonitoring), userInfo: nil, repeats: true)
         hunter.monitoring.monitoringIsOn = !hunter.monitoring.monitoringIsOn
         monitoringButton.setImage(imageStop, for: .normal)
-        navigationController?.navigationBar.isHidden = true
+        monitoringButton.tintColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+    }
+
+    private func animateButtonMonitoring() {
+        UIView.animate(withDuration: 2, delay: 0, options: [.repeat, .autoreverse, .allowUserInteraction], animations: {
+            self.monitoringButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            self.monitoringButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+        }, completion: nil)
     }
 
     private func monitoringOff() {
@@ -394,7 +411,8 @@ extension MapViewController {
         removeRadiusOverlay()
         mapView.removeAnnotations(mapView.annotations)
         monitoringButton.setImage(imageStart, for: .normal)
-        navigationController?.navigationBar.isHidden = false
+        monitoringButton.layer.removeAllAnimations()
+        self.dismiss(animated: true)
     }
 
     private func checkIfUserIsInsideArea() {
@@ -416,19 +434,19 @@ extension MapViewController {
                 let allowsNotification = UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert)
                 self?.mapView.removeAnnotations((self?.mapView.annotations)!)
 
-                if usersIsInRadiusAlert, allowsNotification {
+                if usersIsInRadiusAlert {
                     guard let arrayHunters = self?.hunter.monitoring.listHuntersInRadiusAlert else {
                         return
                     }
-
                     self?.insertHunterInMap(arrayHunters)
                     self?.insertRadius()
 
+                    if allowsNotification {
                     let bannerRadius = FloatingNotificationBanner(title: "Attention", subtitle: "Others users are near you", style: .info)
                     bannerRadius.show(cornerRadius: 8, shadowBlurRadius: 16)
                     AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-
                     self?.notification.sendNotification()
+                    }
                 }
 
             case .failure(let error):

@@ -47,7 +47,8 @@ class MainStarterViewController: UIViewController {
         mapViewController.nameAreaSelected = areaSelected
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.myNavigationItem.title = "Ready for monitoring"
-        navigationController?.pushViewController(mapViewController, animated: true)
+//        navigationController?.pushViewController(mapViewController, animated: true)
+        self.present(mapViewController, animated: true)
     }
 }
 

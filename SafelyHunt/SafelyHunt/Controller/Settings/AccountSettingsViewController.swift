@@ -22,7 +22,7 @@ class AccountSettingsViewController: UIViewController {
     @IBAction func disconnectButton() {
         resetUserDefault()
         FirebaseManagement.shared.disconnectCurrentUser()
-            transferToLogin()
+        self.dismiss(animated: true)
     }
     @IBAction func deleteAccountButton() {
         reAuthenticateUiView.isHidden = false
@@ -44,7 +44,7 @@ class AccountSettingsViewController: UIViewController {
 
             case .success(let stringSuccess):
                 self?.presentNativeAlertSuccess(alertMessage: stringSuccess)
-                self?.transferToLogin()
+                self?.dismiss(animated: true)
             }
         }
     }
@@ -58,18 +58,6 @@ class AccountSettingsViewController: UIViewController {
         activityIndicator.isHidden = !shown
         validateButton.isHidden = shown
 
-    }
-
-    private func transferToLogin() {
-        let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
-
-        guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "LoginNavigation") as? UINavigationController else {
-            return
-        }
-
-        loginViewController.modalPresentationStyle = .fullScreen
-        self.navigationController?.pushViewController(loginViewController, animated: true)
-        self.dismiss(animated: true)
     }
 
     private func resetUserDefault() {

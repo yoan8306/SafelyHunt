@@ -316,10 +316,10 @@
                                 </constraints>
                             </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPK-CH-eVp">
-                                <rect key="frame" x="369" y="622" width="35" height="35"/>
+                                <rect key="frame" x="184.66666666666666" y="612" width="45" height="45"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="AUc-RJ-iMb"/>
+                                    <constraint firstAttribute="height" constant="45" id="AUc-RJ-iMb"/>
                                     <constraint firstAttribute="width" secondItem="xPK-CH-eVp" secondAttribute="height" id="AX4-sN-TXB"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -345,9 +345,8 @@
                             <constraint firstItem="aYO-R1-nip" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="Orl-df-eUn"/>
                             <constraint firstItem="aYO-R1-nip" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="UNU-lr-V4g"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="DdS-4n-brd" secondAttribute="trailing" id="ZBz-nR-nYD"/>
-                            <constraint firstItem="xPK-CH-eVp" firstAttribute="leading" secondItem="mRI-Dh-U6x" secondAttribute="leading" id="b54-mN-f6C"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="jtq-LA-mXM" secondAttribute="trailing" id="fNO-J8-sHV"/>
-                            <constraint firstItem="xPK-CH-eVp" firstAttribute="trailing" secondItem="mRI-Dh-U6x" secondAttribute="trailing" id="kXr-5K-SBJ"/>
+                            <constraint firstItem="xPK-CH-eVp" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="iDM-Hs-KmF"/>
                             <constraint firstItem="jtq-LA-mXM" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="t5d-dE-sjJ"/>
                             <constraint firstItem="77p-Us-BpL" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="2/3" id="ul6-g8-pt2"/>
                             <constraint firstItem="77p-Us-BpL" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="zAJ-GJ-xsU"/>

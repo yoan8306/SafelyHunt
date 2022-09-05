@@ -12,6 +12,14 @@ import MapKit
 class Monitoring {
     var listHuntersInRadiusAlert: [Hunter] = []
     var monitoringIsOn = false
+    var firebaseManagement: FirebaseManaging
+
+    init(listHuntersInRadiusAlert: [Hunter] = [], monitoringIsOn: Bool = false, firebaseManagement: FirebaseManaging = FirebaseManagement.shared) {
+
+        self.listHuntersInRadiusAlert = listHuntersInRadiusAlert
+        self.monitoringIsOn = monitoringIsOn
+        self.firebaseManagement = firebaseManagement
+    }
 
     func checkUserIsRadiusAlert(hunterSignIn: Hunter?, callback: @escaping(Result<Bool, Error>) -> Void) {
         guard let hunterSignIn = hunterSignIn else {

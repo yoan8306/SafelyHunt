@@ -8,8 +8,8 @@
 import Foundation
 
 enum FirebaseError: Error {
-    case createAccountError, emailAlreadyExist,signIn, resetPassword, noAreaRecordedFound, errorDeletingArea, errorTask, listUsersPositions, deleteAccountError, disconnected, distanceTraveled
-    
+    case createAccountError, emailAlreadyExist, signIn, resetPassword, noAreaRecordedFound, errorDeletingArea, errorTask, listUsersPositions, deleteAccountError, disconnected, distanceTraveled
+
     var detail: String {
         switch self {
         case .createAccountError:
@@ -37,4 +37,3 @@ enum FirebaseError: Error {
         }
     }
 }
-

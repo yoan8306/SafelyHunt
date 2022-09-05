@@ -12,7 +12,7 @@ class PlaceHunters: NSObject, MKAnnotation {
     var title: String?
     var coordinate: CLLocationCoordinate2D
     var subtitle: String?
-    
+
     init(title: String, coordinate: CLLocationCoordinate2D, subtitle: String) {
         self.title = title
         self.coordinate = coordinate
@@ -23,7 +23,7 @@ class PlaceHunters: NSObject, MKAnnotation {
 class AnnotationHuntersView: MKAnnotationView {
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        image = UIImage(named: "hunterPosition36")        
+        image = UIImage(named: "hunterPosition36")
     }
 
     required init?(coder aDecoder: NSCoder) {

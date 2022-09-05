@@ -13,7 +13,7 @@ class UserDefaultKeys {
         static let radiusAlert = "Radius alert"
         static let allowsNotificationRadiusAlert = "Notification radius alert"
     }
-    
+
     static var areaSelected: String {
         get {
             return UserDefaults.standard.string(forKey: Keys.areaSelected) ?? "No Selection"
@@ -22,7 +22,7 @@ class UserDefaultKeys {
             UserDefaults.standard.set(newValue, forKey: Keys.areaSelected)
         }
     }
-    
+
     static var radiusAlert: Int {
         get {
             return UserDefaults.standard.integer(forKey: Keys.radiusAlert)
@@ -31,7 +31,7 @@ class UserDefaultKeys {
             UserDefaults.standard.integer(forKey: Keys.radiusAlert)
         }
     }
-    
+
     static var allowsNotificationRadiusAlert: Bool {
         get {
             return UserDefaults.standard.bool(forKey: Keys.allowsNotificationRadiusAlert)

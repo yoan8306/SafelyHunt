@@ -8,7 +8,7 @@
 import UIKit
 
 class AreaCellTableViewCell: UITableViewCell {
-    
+
     @IBOutlet weak var areaNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
 
@@ -22,16 +22,16 @@ class AreaCellTableViewCell: UITableViewCell {
         accessoryType = .detailButton
     }
 
-    func configureCell(infoArea: [String:String], cellSelected: Bool) {
+    func configureCell(infoArea: [String: String], cellSelected: Bool) {
         for (nameArea, dateCreate) in infoArea {
             areaNameLabel.text = nameArea
             guard let double = Double(dateCreate) else {
                 return
             }
-            
+
             let myDate = Date(timeIntervalSince1970: TimeInterval(double))
             let numbersDays = numberDayBetween(from: myDate, to: Date())
-            
+
             if numbersDays < 20 {
                 let formatter = RelativeDateTimeFormatter()
                 formatter.unitsStyle = .full
@@ -42,8 +42,8 @@ class AreaCellTableViewCell: UITableViewCell {
         }
         setLabel(cellSelected: cellSelected)
     }
-    
-    private func numberDayBetween(from: Date, to : Date) -> Int {
+
+    private func numberDayBetween(from: Date, to: Date) -> Int {
         let cal = Calendar.current
         let numbersDays = cal.dateComponents([.day], from: from, to: to)
         guard let numbersDays = numbersDays.day else {
@@ -51,7 +51,7 @@ class AreaCellTableViewCell: UITableViewCell {
         }
         return numbersDays
     }
-    
+
     private func setLabel(cellSelected: Bool) {
         areaNameLabel.font = .boldSystemFont(ofSize: 12)
         dateLabel.font = .italicSystemFont(ofSize: 10)

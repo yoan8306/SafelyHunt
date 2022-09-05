@@ -17,7 +17,7 @@ protocol FirebaseTaskProtocol {
 class FirebaseTask: FirebaseTaskProtocol {
     static let shared = FirebaseTask()
     private init() {}
-    
+
     func getData(databaseReference: DatabaseReference, callBack: @escaping (Result<DataSnapshot, Error>) -> Void) {
         databaseReference.getData { error, dataSnapShot in
             guard let dataSnapShot = dataSnapShot else {

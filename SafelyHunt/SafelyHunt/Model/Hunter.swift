@@ -10,28 +10,20 @@ import FirebaseAuth
 import MapKit
 
 class Hunter {
-    var meHunter = HunterDTO()
+    var displayName: String?
+    var areaList: [[String: String]]?
+    var latitude: Double?
+    var longitude: Double?
+    var user: User?
+    var date: Int?
+
     var monitoring = Monitoring()
     var area = Area()
     var currentDistance: Double = 0.0
     var currentTravel: [CLLocationCoordinate2D] = []
     private var lastLocation: CLLocation!
     private var firstLocation: CLLocation?
-    
-    
-    func updatePosition(userPostion: CLLocationCoordinate2D) {
-        guard let user = meHunter.user else {
-            return
-        }
-        let dateNow = Date()
-        let dateStamp: TimeInterval = dateNow.timeIntervalSince1970
-        let dateToTimeStamp = Int(dateStamp)
-        meHunter.latitude = userPostion.latitude
-        meHunter.longitude = userPostion.longitude
-        
-        FirebaseManagement.shared.insertMyPosition(userPosition: userPostion, user: user, date: dateToTimeStamp)
-    }
-    
+
     func measureDistanceTravelled(locations: [CLLocation]) -> Double {
         if firstLocation == nil {
             firstLocation = locations.first
@@ -41,13 +33,13 @@ class Hunter {
         lastLocation = locations.last
         return currentDistance / 1000
     }
-    
+
     func getCurrentTravel(locations: [CLLocation]) {
         for location in locations {
             currentTravel.append(location.coordinate)
         }
     }
-    
+
     func insertMyDistanceTraveled() {
         guard let user = FirebaseAuth.Auth.auth().currentUser else {
             return
@@ -58,7 +50,7 @@ class Hunter {
         lastLocation = nil
         firstLocation = nil
     }
-    
+
     func getTotalDistanceTraveled(callBack: @escaping (Result<Double, Error>) -> Void ) {
         guard let user = FirebaseAuth.Auth.auth().currentUser else {
             return
@@ -69,9 +61,7 @@ class Hunter {
                 callBack(.failure(error))
             case.success(let distance):
                 callBack(.success(distance))
+            }
         }
     }
 }
-}
-
-

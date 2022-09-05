@@ -1,5 +1,5 @@
 //
-//  AreasTests.swift
+//  TestfFireBase.swift
 //  SafelyHuntTests
 //
 //  Created by Yoan on 01/07/2022.
@@ -12,7 +12,7 @@ import Firebase
 class AreasTests: XCTestCase {
 //    var fakeResponse = FakeResponseDataSnapshot().databaseArea
 //    var firebaseTask = FirebaseTaskMock()
-    
+
     func testGiventest_Whentest_Thentest() {
 //        var areaList: [[String: String]] = [[:]]
 //        firebaseTask.getData(databaseReference: fakeResponse) { result in
@@ -40,4 +40,3 @@ class AreasTests: XCTestCase {
         XCTAssertTrue(true)
     }
 }
-    

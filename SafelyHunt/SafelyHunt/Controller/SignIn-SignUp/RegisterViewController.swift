@@ -11,7 +11,6 @@ import SwiftUI
 
 class RegisterViewController: UIViewController {
 
-
 // MARK: - IBOutlet
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var pseudonym: UITextField!
@@ -38,7 +37,7 @@ class RegisterViewController: UIViewController {
             createUser(email, password, displayName)
         }
     }
-    
+
 // MARK: - Private functions
     private func createUser(_ email: String, _ password: String, _ displayName: String) {
         FirebaseManagement.shared.createUser(email: email, password: password, displayName: displayName) { [weak self] result in
@@ -51,7 +50,7 @@ class RegisterViewController: UIViewController {
             }
         }
     }
-    
+
     /// After create user transfer displayName value to the new user
     /// - Parameter displayName: displayName value
     private func updateDisplayName(displayName: String) {
@@ -66,21 +65,21 @@ class RegisterViewController: UIViewController {
         }
     }
 }
-    
+
     private func goToLoginController() {
         let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
-        
+
         guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "Login") as? LoginViewController else {
             return
         }
         if let userMail = FirebaseAuth.Auth.auth().currentUser?.email {
             loginViewController.signInMail = userMail
         }
-        
+
         FirebaseManagement.shared.disconnectCurrentUser()
         navigationController?.setViewControllers([loginViewController], animated: true)
     }
-    
+
     /// Check fields if the same values
     /// - Returns: return true or false if password is good
     private func checkPassword() -> Bool {
@@ -91,14 +90,14 @@ class RegisterViewController: UIViewController {
         showActivityIndicator(shown: false)
         return false
     }
-    
+
     /// Switch activity indicator and button
     /// - Parameter shown: transfer the boolean to isHiidden
     private func showActivityIndicator(shown: Bool) {
         activityIndicator.isHidden = !shown
         registerButton.isHidden = shown
     }
-    
+
 }
 
 // MARK: - TextFieldDelegate

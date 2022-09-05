@@ -15,11 +15,11 @@ extension Date {
        return formatter.localizedString(for: myDate, relativeTo: Date())
 //       return DateFormatter.localizedString(from: myDate, dateStyle: .short, timeStyle: .short)
     }
-    
-    func dateToTimeStamp()-> Int {
+
+    func dateToTimeStamp() -> Int {
         Int(self.timeIntervalSince1970)
     }
-    
+
     func getTime(dateInt: Int) -> String {
         let myHour = Date(timeIntervalSince1970: TimeInterval(dateInt))
         let formatter = DateFormatter()

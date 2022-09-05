@@ -8,15 +8,14 @@
 import UIKit
 
 class ResetPasswordViewController: UIViewController {
-    
-    
+
     @IBOutlet weak var emailTextField: UITextField!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
-    
+
     @IBAction func resetActionButton() {
         guard let email = emailTextField.text else {
             return
@@ -26,7 +25,7 @@ class ResetPasswordViewController: UIViewController {
             case .success(let resetSuccess):
                 self?.presentAlertSuccess(alertMessage: resetSuccess)
                 self?.dismiss(animated: true)
-                
+
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
             }

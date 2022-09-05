@@ -9,26 +9,26 @@ import UIKit
 import FirebaseAuth
 
 class LoginViewController: UIViewController {
-    
+
     var signInMail: String = ""
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.text = signInMail
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
 
     @IBAction func logInActionButton() {
         activityIndicator(shown: true)
-        
+
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             presentNativeAlertError(alertMessage: "Enter email and password")
             return
@@ -39,7 +39,7 @@ class LoginViewController: UIViewController {
             case .success(_):
                 self?.transferToMainStarter()
                 self?.activityIndicator(shown: false)
-                
+
             case .failure(let error):
                 FirebaseManagement.shared.disconnectCurrentUser()
                 self?.presentAlertError(alertMessage: error.localizedDescription)

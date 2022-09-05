@@ -12,7 +12,7 @@ class AccountSettingsViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var validateButton: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         reAuthenticateUiView.isHidden = true
@@ -27,39 +27,39 @@ class AccountSettingsViewController: UIViewController {
     @IBAction func deleteAccountButton() {
         reAuthenticateUiView.isHidden = false
     }
-    
+
     @IBAction func validateDeleteAccount() {
         guard let password = passwordTextField.text, !password.isEmpty else {
             presentAlertError(alertMessage: "Enter password")
             return
         }
         showActivityIndicator(shown: true)
-        
+
         FirebaseManagement.shared.deleteAccount(password: password) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.passwordTextField.resignFirstResponder()
                 self?.presentAlertError(alertMessage: error.localizedDescription)
                 self?.showActivityIndicator(shown: false)
-    
+
             case .success(let stringSuccess):
                 self?.presentNativeAlertSuccess(alertMessage: stringSuccess)
                 self?.transferToLogin()
             }
         }
     }
-    
+
     @IBAction func cancelButtonAction() {
         reAuthenticateUiView.isHidden = true
         passwordTextField.resignFirstResponder()
     }
-    
+
     private func showActivityIndicator(shown: Bool) {
         activityIndicator.isHidden = !shown
         validateButton.isHidden = shown
-        
+
     }
-    
+
     private func transferToLogin() {
         let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
 
@@ -76,6 +76,6 @@ class AccountSettingsViewController: UIViewController {
         let userDefault = UserDefaults.standard
         userDefault.set("", forKey: UserDefaultKeys.Keys.areaSelected)
         userDefault.set(true, forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert)
-        userDefault.set(300,forKey: UserDefaultKeys.Keys.radiusAlert)
+        userDefault.set(300, forKey: UserDefaultKeys.Keys.radiusAlert)
     }
 }

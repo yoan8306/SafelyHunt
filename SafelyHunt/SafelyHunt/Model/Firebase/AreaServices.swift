@@ -11,7 +11,10 @@ import Firebase
 import MapKit
 
 protocol AreaServicesProtocol {
-    // all functions
+    func insertArea(user: User, coordinate: [CLLocationCoordinate2D], nameArea: String, date: Int)
+    func getAreaList(user: User, callBack: @escaping (Result<[[String: String]], Error>) -> Void)
+    func getArea(nameArea: String?, user: User, callBack: @escaping (Result<[CLLocationCoordinate2D], Error>) -> Void)
+    func removeArea(name: String, user: User, callBack: @escaping(Result<DatabaseReference, Error>) -> Void)
 }
 
 // MARK: - Sign in

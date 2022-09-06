@@ -22,8 +22,7 @@ var hunter = Hunter()
     }
 
     private func getTotalDistance() {
-
-        hunter.getTotalDistanceTraveled { [weak self] result in
+        hunter.monitoring.getTotalDistanceTraveled { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)

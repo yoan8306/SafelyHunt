@@ -11,7 +11,10 @@ import Firebase
 import CoreLocation
 
 protocol MonitoringServicesProtocol {
-
+    func insertMyPosition(userPosition: CLLocation, user: User, date: Int)
+    func getPositionUsers(callBack: @escaping (Result<[Hunter], Error>) -> Void)
+    func insertDistanceTraveled(user: User, distance: Double)
+    func getDistanceTraveled(user: User, callBack: @escaping(Result<Double, Error>) -> Void)
 }
 
 class MonitoringServices: MonitoringServicesProtocol {

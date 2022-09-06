@@ -69,7 +69,7 @@ class MapViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super .viewWillDisappear(animated)
         if mapMode == .monitoring {
-            hunter.insertMyDistanceTraveled()
+            hunter.monitoring.insertMyDistanceTraveled()
         }
     }
 
@@ -350,10 +350,10 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let distanceTraveled = hunter.measureDistanceTravelled(locations: locations)
+        let distanceTraveled = hunter.monitoring.measureDistanceTravelled(locations: locations)
 
-        hunter.getCurrentTravel(locations: locations)
-        hunter.area.coordinateTravel = hunter.currentTravel
+        hunter.monitoring.getCurrentTravel(locations: locations)
+        hunter.area.coordinateTravel = hunter.monitoring.currentTravel
         mapView.addOverlay(hunter.area.createPolyLineTravel())
         hunter.latitude = locations.first?.coordinate.latitude
         hunter.longitude = locations.first?.coordinate.longitude

@@ -52,12 +52,7 @@ class AreaListViewController: UIViewController {
 
     // MARK: - Private functions
     private func getAreaList() {
-        activityIndicator.isHidden = false
-        guard let user = hunter.user else {
-            return
-        }
-
-        AreaServices.shared.getAreaList(user: user) { [weak self] fetchArea in
+        hunter.area.getAreaList() { [weak self] fetchArea in
             switch fetchArea {
             case .success(let listArea):
                 self?.hunter.areaList = listArea
@@ -67,8 +62,10 @@ class AreaListViewController: UIViewController {
                 self?.initializeBackgroundTableView()
 
             case .failure(let error):
+                self?.activityIndicator.isHidden = true
                 self?.presentAlertError(alertMessage: error.localizedDescription)
                 self?.activityIndicator.isHidden = true
+                self?.refreshControl.endRefreshing()
             }
         }
     }

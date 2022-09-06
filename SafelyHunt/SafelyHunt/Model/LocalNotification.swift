@@ -17,9 +17,7 @@ class LocalNotification {
 
     func notificationInitialize() {
         prepareMyAlert()
-        notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { (granted, _) in
-            if granted {
-            }
+        notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { (_, _) in
         }
     }
 

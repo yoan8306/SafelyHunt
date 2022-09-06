@@ -8,7 +8,6 @@
 import UIKit
 import MapKit
 import FirebaseAuth
-import AudioToolbox
 import NotificationBannerSwift
 
 class MapViewController: UIViewController {
@@ -197,7 +196,7 @@ class MapViewController: UIViewController {
     // MARK: - Private func
     private func initializeMapView() {
         let compassButton = MKCompassButton(mapView: mapView)
-        compassButton.frame.origin = CGPoint(x: travelInfoUiView.frame.origin.x, y: travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 10)
+        compassButton.frame.origin = CGPoint(x: travelInfoUiView.frame.origin.x + 5, y: travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 10)
         compassButton.compassVisibility = .adaptive
         view.addSubview(compassButton)
 
@@ -258,7 +257,7 @@ class MapViewController: UIViewController {
             return
         }
 
-        FirebaseManagement.shared.getArea(nameArea: nameAreaSelected, user: user) { result in
+        AreaServices.shared.getArea(nameArea: nameAreaSelected, user: user) { result in
             switch result {
             case .success(let coordinate):
                 overlay["polyLine"] = MKPolyline(coordinates: coordinate, count: coordinate.count)
@@ -421,7 +420,6 @@ extension MapViewController {
         }
         if !hunter.monitoring.checkUserIsAlwayInArea(area: polygonCurrent, positionUser: positionUser) {
             let banner = NotificationBanner(title: "Attention", subtitle: "You are exit of your area", leftView: nil, rightView: nil, style: .danger, colors: nil)
-            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             notification.sendNotification()
             banner.show()
         }
@@ -444,7 +442,6 @@ extension MapViewController {
                     if allowsNotification {
                     let bannerRadius = FloatingNotificationBanner(title: "Attention", subtitle: "Others users are near you", style: .info)
                     bannerRadius.show(cornerRadius: 8, shadowBlurRadius: 16)
-                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                     self?.notification.sendNotification()
                     }
                 }

@@ -16,7 +16,7 @@ class SplashScreenViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
-        FirebaseManagement.shared.checkUserLogged { userIsLogged in
+        UserServices.shared.checkUserLogged { userIsLogged in
             switch userIsLogged {
             case .success(_):
                 self.transferToMainStarter()
@@ -28,7 +28,7 @@ class SplashScreenViewController: UIViewController {
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(false)
-        FirebaseManagement.shared.removeStateChangeLoggedListen()
+        UserServices.shared.removeStateChangeLoggedListen()
     }
 
 // MARK: - private functions

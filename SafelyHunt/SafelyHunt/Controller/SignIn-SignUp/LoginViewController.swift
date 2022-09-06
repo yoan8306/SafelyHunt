@@ -34,14 +34,15 @@ class LoginViewController: UIViewController {
             return
         }
 
-        FirebaseManagement.shared.signInUser(email: email, password: password) { [weak self] authResult in
+        UserServices.shared.signInUser(email: email, password: password) { [weak self] authResult in
             switch authResult {
             case .success(_):
                 self?.transferToMainStarter()
                 self?.activityIndicator(shown: false)
 
             case .failure(let error):
-                FirebaseManagement.shared.disconnectCurrentUser()
+                UserServices.shared.disconnectCurrentUser { _ in
+                }
                 self?.presentAlertError(alertMessage: error.localizedDescription)
                 self?.activityIndicator(shown: false)
             }

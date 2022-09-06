@@ -25,7 +25,6 @@
 		5F46BEF7289E9EEA00D1E020 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46BEF6289E9EEA00D1E020 /* CustomAnnotationView.swift */; };
 		5F46BEF9289EF23A00D1E020 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46BEF8289EF23A00D1E020 /* DateExtension.swift */; };
 		5F62872A28A522B600AD51E2 /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F62872928A522B600AD51E2 /* LocalNotification.swift */; };
-		5F62872D28A5230F00AD51E2 /* orchestralEmergency.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5F62872B28A5230E00AD51E2 /* orchestralEmergency.mp3 */; };
 		5F62872E28A5230F00AD51E2 /* orchestralEmergency.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5F62872C28A5230E00AD51E2 /* orchestralEmergency.caf */; };
 		5F62873128A5329F00AD51E2 /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5F62873028A5329F00AD51E2 /* NotificationBannerSwift */; };
 		5F7624D428C2159800D6FA65 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F7624D228C2159800D6FA65 /* Settings.storyboard */; };
@@ -49,14 +48,15 @@
 		5F959EE928B7A23E006643A9 /* DatabaseTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F959EE828B7A23E006643A9 /* DatabaseTest.json */; };
 		5F959EEB28B7A329006643A9 /* FakeResponseDataSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F959EEA28B7A329006643A9 /* FakeResponseDataSnapshot.swift */; };
 		5F959EED28B8B3A6006643A9 /* FakeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F959EEC28B8B3A6006643A9 /* FakeDatabase.swift */; };
+		5F984C5E28C76321003E9A65 /* scanning-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5F984C5D28C76320003E9A65 /* scanning-alarm.mp3 */; };
 		5FB4BCCB28C681F500C69E8F /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4BCCA28C681F500C69E8F /* UserServices.swift */; };
 		5FB4BCCD28C6821000C69E8F /* MonitoringServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4BCCC28C6821000C69E8F /* MonitoringServices.swift */; };
 		5FBA014B287453F800D70715 /* TabbarMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FBA014A287453F800D70715 /* TabbarMain.storyboard */; };
 		5FBEF946287306C80023E5A5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF945287306C80023E5A5 /* LoginViewController.swift */; };
 		5FBEF948287306DD0023E5A5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF947287306DD0023E5A5 /* RegisterViewController.swift */; };
 		5FBEF94B2873073A0023E5A5 /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FBEF9492873073A0023E5A5 /* Register.storyboard */; };
-		5FBEF94D2873706D0023E5A5 /* FirebaseManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF94C2873706D0023E5A5 /* FirebaseManagement.swift */; };
-		5FBEF94F287375050023E5A5 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF94E287375050023E5A5 /* FirebaseError.swift */; };
+		5FBEF94D2873706D0023E5A5 /* AreaServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF94C2873706D0023E5A5 /* AreaServices.swift */; };
+		5FBEF94F287375050023E5A5 /* ServicesError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF94E287375050023E5A5 /* ServicesError.swift */; };
 		5FBEF952287380050023E5A5 /* UIViewController_Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF951287380050023E5A5 /* UIViewController_Alert.swift */; };
 		5FC7538E2894063900BC3DB7 /* Maps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FC7538D2894063900BC3DB7 /* Maps.storyboard */; };
 		5FC75390289408E600BC3DB7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7538F289408E600BC3DB7 /* MapViewController.swift */; };
@@ -95,7 +95,6 @@
 		5F46BEF6289E9EEA00D1E020 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		5F46BEF8289EF23A00D1E020 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		5F62872928A522B600AD51E2 /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
-		5F62872B28A5230E00AD51E2 /* orchestralEmergency.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = orchestralEmergency.mp3; sourceTree = "<group>"; };
 		5F62872C28A5230E00AD51E2 /* orchestralEmergency.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = orchestralEmergency.caf; sourceTree = "<group>"; };
 		5F7624D328C2159800D6FA65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		5F7624D528C215E700D6FA65 /* AccountSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AccountSettings.storyboard; sourceTree = "<group>"; };
@@ -118,14 +117,15 @@
 		5F959EE828B7A23E006643A9 /* DatabaseTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DatabaseTest.json; sourceTree = "<group>"; };
 		5F959EEA28B7A329006643A9 /* FakeResponseDataSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeResponseDataSnapshot.swift; sourceTree = "<group>"; };
 		5F959EEC28B8B3A6006643A9 /* FakeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDatabase.swift; sourceTree = "<group>"; };
+		5F984C5D28C76320003E9A65 /* scanning-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "scanning-alarm.mp3"; sourceTree = "<group>"; };
 		5FB4BCCA28C681F500C69E8F /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
 		5FB4BCCC28C6821000C69E8F /* MonitoringServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoringServices.swift; sourceTree = "<group>"; };
 		5FBA014A287453F800D70715 /* TabbarMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabbarMain.storyboard; sourceTree = "<group>"; };
 		5FBEF945287306C80023E5A5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5FBEF947287306DD0023E5A5 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		5FBEF94A2873073A0023E5A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SafelyHunt/View/Base.lproj/Register.storyboard; sourceTree = "<group>"; };
-		5FBEF94C2873706D0023E5A5 /* FirebaseManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManagement.swift; sourceTree = "<group>"; };
-		5FBEF94E287375050023E5A5 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
+		5FBEF94C2873706D0023E5A5 /* AreaServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaServices.swift; sourceTree = "<group>"; };
+		5FBEF94E287375050023E5A5 /* ServicesError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesError.swift; sourceTree = "<group>"; };
 		5FBEF951287380050023E5A5 /* UIViewController_Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController_Alert.swift; sourceTree = "<group>"; };
 		5FC7538D2894063900BC3DB7 /* Maps.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Maps.storyboard; sourceTree = "<group>"; };
 		5FC7538F289408E600BC3DB7 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -171,8 +171,8 @@
 		5F14AD1D287827F20039002A /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
-				5FBEF94C2873706D0023E5A5 /* FirebaseManagement.swift */,
-				5FBEF94E287375050023E5A5 /* FirebaseError.swift */,
+				5FBEF94C2873706D0023E5A5 /* AreaServices.swift */,
+				5FBEF94E287375050023E5A5 /* ServicesError.swift */,
 				5FB4BCCA28C681F500C69E8F /* UserServices.swift */,
 				5FB4BCCC28C6821000C69E8F /* MonitoringServices.swift */,
 			);
@@ -353,7 +353,7 @@
 			children = (
 				5F1CF300286B1F2900A0429D /* AppDelegate.swift */,
 				5F62872C28A5230E00AD51E2 /* orchestralEmergency.caf */,
-				5F62872B28A5230E00AD51E2 /* orchestralEmergency.mp3 */,
+				5F984C5D28C76320003E9A65 /* scanning-alarm.mp3 */,
 				5F1CF302286B1F2900A0429D /* SceneDelegate.swift */,
 				5F1CF30E286B1F2C00A0429D /* Info.plist */,
 				5F1CF309286B1F2B00A0429D /* Assets.xcassets */,
@@ -477,11 +477,11 @@
 				5FFCF681288EB481009D9AE8 /* Launch Screen.storyboard in Resources */,
 				5F78B6CA2876FE0A003C58B5 /* ResetPassword.storyboard in Resources */,
 				5F14AD2328783B050039002A /* Main.storyboard in Resources */,
+				5F984C5E28C76321003E9A65 /* scanning-alarm.mp3 in Resources */,
 				5F7624E728C526B800D6FA65 /* .swiftlint.yml in Resources */,
 				5FC7538E2894063900BC3DB7 /* Maps.storyboard in Resources */,
 				5FBEF94B2873073A0023E5A5 /* Register.storyboard in Resources */,
 				5FBA014B287453F800D70715 /* TabbarMain.storyboard in Resources */,
-				5F62872D28A5230F00AD51E2 /* orchestralEmergency.mp3 in Resources */,
 				5F7624D628C215E700D6FA65 /* AccountSettings.storyboard in Resources */,
 				5F7624DD28C2227500D6FA65 /* Profile.storyboard in Resources */,
 				5F7624D428C2159800D6FA65 /* Settings.storyboard in Resources */,
@@ -530,7 +530,7 @@
 				5F79FCE9289BF911009F6AE9 /* Hunter.swift in Sources */,
 				5FB4BCCB28C681F500C69E8F /* UserServices.swift in Sources */,
 				5F46BEF5289E9E2400D1E020 /* PlaceHunters.swift in Sources */,
-				5FBEF94D2873706D0023E5A5 /* FirebaseManagement.swift in Sources */,
+				5FBEF94D2873706D0023E5A5 /* AreaServices.swift in Sources */,
 				5F46BEF9289EF23A00D1E020 /* DateExtension.swift in Sources */,
 				5F7F698128932C1000562FDA /* AreaCellTableViewCell.swift in Sources */,
 				5F79FCE5289BB959009F6AE9 /* Polygon+Circle.swift in Sources */,
@@ -546,7 +546,7 @@
 				5FBEF952287380050023E5A5 /* UIViewController_Alert.swift in Sources */,
 				5F14AD21287829470039002A /* MainStarterData.swift in Sources */,
 				5F7624D828C216AC00D6FA65 /* AccountSettingsViewController.swift in Sources */,
-				5FBEF94F287375050023E5A5 /* FirebaseError.swift in Sources */,
+				5FBEF94F287375050023E5A5 /* ServicesError.swift in Sources */,
 				5F78B6BF2876D306003C58B5 /* SplashScreenViewController.swift in Sources */,
 				5F78B6C12876D47A003C58B5 /* MainStarterViewController.swift in Sources */,
 				5F1CF301286B1F2900A0429D /* AppDelegate.swift in Sources */,

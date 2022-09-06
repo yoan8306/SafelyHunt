@@ -48,6 +48,6 @@ class Area {
             return
         }
 
-        FirebaseManagement.shared.insertArea(user: user, coordinate: coordinatesPoints, nameArea: nameArea, date: dateToTimeStamp)
+        AreaServices.shared.insertArea(user: user, coordinate: coordinatesPoints, nameArea: nameArea, date: dateToTimeStamp)
     }
 }

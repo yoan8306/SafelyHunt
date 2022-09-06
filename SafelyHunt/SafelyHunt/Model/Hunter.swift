@@ -44,7 +44,7 @@ class Hunter {
         guard let user = FirebaseAuth.Auth.auth().currentUser else {
             return
         }
-        FirebaseManagement.shared.insertDistanceTraveled(user: user, distance: currentDistance)
+        MonitoringServices.shared.insertDistanceTraveled(user: user, distance: currentDistance)
         currentDistance = 0
         currentTravel = []
         lastLocation = nil
@@ -55,7 +55,7 @@ class Hunter {
         guard let user = FirebaseAuth.Auth.auth().currentUser else {
             return
         }
-        FirebaseManagement.shared.getDistanceTraveled(user: user) { result in
+        MonitoringServices.shared.getDistanceTraveled(user: user) { result in
             switch result {
             case .failure(let error):
                 callBack(.failure(error))

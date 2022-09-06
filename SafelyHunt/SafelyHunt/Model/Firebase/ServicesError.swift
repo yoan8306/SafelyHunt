@@ -1,5 +1,5 @@
 //
-//  FirebaseError.swift
+//  ServicesError.swift
 //  SafelyHunt
 //
 //  Created by Yoan on 04/07/2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum FirebaseError: Error {
+enum ServicesError: Error {
     case createAccountError, emailAlreadyExist, signIn, resetPassword, noAreaRecordedFound, errorDeletingArea, errorTask, listUsersPositions, deleteAccountError, disconnected, distanceTraveled
 
     var detail: String {

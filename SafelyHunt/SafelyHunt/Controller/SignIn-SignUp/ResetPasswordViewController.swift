@@ -20,7 +20,7 @@ class ResetPasswordViewController: UIViewController {
         guard let email = emailTextField.text else {
             return
         }
-        FirebaseManagement.shared.resetPassword(email: email) { [weak self] resetResult in
+        UserServices.shared.resetPassword(email: email) { [weak self] resetResult in
             switch resetResult {
             case .success(let resetSuccess):
                 self?.presentAlertSuccess(alertMessage: resetSuccess)

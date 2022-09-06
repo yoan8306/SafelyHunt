@@ -40,7 +40,7 @@ class RegisterViewController: UIViewController {
 
 // MARK: - Private functions
     private func createUser(_ email: String, _ password: String, _ displayName: String) {
-        FirebaseManagement.shared.createUser(email: email, password: password, displayName: displayName) { [weak self] result in
+        UserServices.shared.createUser(email: email, password: password, displayName: displayName) { [weak self] result in
             switch result {
             case .success(_):
                 self?.updateDisplayName(displayName: displayName)
@@ -54,7 +54,7 @@ class RegisterViewController: UIViewController {
     /// After create user transfer displayName value to the new user
     /// - Parameter displayName: displayName value
     private func updateDisplayName(displayName: String) {
-        FirebaseManagement.shared.updateProfile(displayName: displayName) { [weak self] updateResult in
+        UserServices.shared.updateProfile(displayName: displayName) { [weak self] updateResult in
             switch updateResult {
             case .success(let auth):
                 self?.showActivityIndicator(shown: false)
@@ -76,7 +76,14 @@ class RegisterViewController: UIViewController {
             loginViewController.signInMail = userMail
         }
 
-        FirebaseManagement.shared.disconnectCurrentUser()
+        UserServices.shared.disconnectCurrentUser { [weak self] result in
+            switch result {
+            case .failure(let error):
+                self?.presentAlertError(alertMessage: error.localizedDescription)
+            case .success(let disconnectedMessage):
+                self?.presentNativeAlertSuccess(alertMessage: disconnectedMessage)
+            }
+        }
         navigationController?.setViewControllers([loginViewController], animated: true)
     }
 

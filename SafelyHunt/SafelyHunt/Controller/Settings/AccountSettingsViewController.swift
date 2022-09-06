@@ -21,7 +21,14 @@ class AccountSettingsViewController: UIViewController {
 
     @IBAction func disconnectButton() {
         resetUserDefault()
-        FirebaseManagement.shared.disconnectCurrentUser()
+        UserServices.shared.disconnectCurrentUser { result in
+            switch result {
+            case .failure(let error):
+                self.presentAlertError(alertMessage: error.localizedDescription)
+            case .success(let messageDisconnected):
+                self.presentNativeAlertSuccess(alertMessage: messageDisconnected)
+            }
+        }
         self.dismiss(animated: true)
     }
     @IBAction func deleteAccountButton() {
@@ -35,7 +42,7 @@ class AccountSettingsViewController: UIViewController {
         }
         showActivityIndicator(shown: true)
 
-        FirebaseManagement.shared.deleteAccount(password: password) { [weak self] result in
+        UserServices.shared.deleteAccount(password: password) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.passwordTextField.resignFirstResponder()

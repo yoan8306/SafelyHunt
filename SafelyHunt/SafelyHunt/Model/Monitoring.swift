@@ -12,22 +12,22 @@ import MapKit
 class Monitoring {
     var listHuntersInRadiusAlert: [Hunter] = []
     var monitoringIsOn = false
-    var firebaseManagement: FirebaseManaging
+    var monitoringServices: MonitoringServicesProtocol
 
-    init(listHuntersInRadiusAlert: [Hunter] = [], monitoringIsOn: Bool = false, firebaseManagement: FirebaseManaging = FirebaseManagement.shared) {
+    init(listHuntersInRadiusAlert: [Hunter] = [], monitoringIsOn: Bool = false, monitoringServices: MonitoringServicesProtocol = MonitoringServices.shared) {
 
         self.listHuntersInRadiusAlert = listHuntersInRadiusAlert
         self.monitoringIsOn = monitoringIsOn
-        self.firebaseManagement = firebaseManagement
+        self.monitoringServices = monitoringServices
     }
 
     func checkUserIsRadiusAlert(hunterSignIn: Hunter?, callback: @escaping(Result<Bool, Error>) -> Void) {
         guard let hunterSignIn = hunterSignIn else {
-            callback(.failure(FirebaseError.signIn))
+            callback(.failure(ServicesError.signIn))
             return
         }
 
-        FirebaseManagement.shared.getPositionUsers { result in
+        MonitoringServices.shared.getPositionUsers { result in
             switch result {
             case .success(let hunters):
                 self.addHuntersIntoList(huntersList: hunters, hunterSignIn: hunterSignIn)
@@ -51,7 +51,7 @@ class Monitoring {
         let myLongitude = hunterSignIn.longitude ?? 0
         let myPosition = CLLocation(latitude: myLatitude, longitude: myLongitude)
 
-        FirebaseManagement.shared.insertMyPosition(userPosition: myPosition, user: user, date: Int(Date().timeIntervalSince1970))
+        MonitoringServices.shared.insertMyPosition(userPosition: myPosition, user: user, date: Int(Date().timeIntervalSince1970))
 
         self.listHuntersInRadiusAlert = []
 

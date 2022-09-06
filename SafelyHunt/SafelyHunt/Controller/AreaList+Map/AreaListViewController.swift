@@ -57,7 +57,7 @@ class AreaListViewController: UIViewController {
             return
         }
 
-        FirebaseManagement.shared.getAreaList(user: user) { [weak self] fetchArea in
+        AreaServices.shared.getAreaList(user: user) { [weak self] fetchArea in
             switch fetchArea {
             case .success(let listArea):
                 self?.hunter.areaList = listArea
@@ -177,7 +177,7 @@ extension AreaListViewController: UITableViewDelegate {
             areaName = key
         }
 
-        FirebaseManagement.shared.removeArea(name: areaName, user: user) { [weak self] result in
+        AreaServices.shared.removeArea(name: areaName, user: user) { [weak self] result in
             switch result {
             case .success(_):
                 self?.getAreaList()

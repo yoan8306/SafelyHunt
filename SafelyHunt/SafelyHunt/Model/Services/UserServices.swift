@@ -11,9 +11,9 @@ import Firebase
 
 protocol UserServicesProtocol {
     func checkUserLogged(callBack: @escaping (Result<Bool, Error>) -> Void)
-    func createUser(email: String, password: String, displayName: String, callBack: @escaping (Result<AuthDataResult, Error>) -> Void)
-    func signInUser(email: String?, password: String?, callBack: @escaping (Result<AuthDataResult, Error>) -> Void)
-    func updateProfile(displayName: String, callBack: @escaping (Result<Auth, Error>) -> Void)
+    func createUser(email: String, password: String, displayName: String, callBack: @escaping (Result<String, Error>) -> Void)
+    func signInUser(email: String?, password: String?, callBack: @escaping (Result<String, Error>) -> Void)
+    func updateProfile(displayName: String, callBack: @escaping (Result<String, Error>) -> Void)
     func deleteAccount(password: String, callBack: @escaping (Result<String, Error>) -> Void)
 }
 
@@ -39,19 +39,19 @@ class UserServices: UserServicesProtocol {
         firebaseAuth.removeStateDidChangeListener(self.handle!)
     }
 
-    func createUser(email: String, password: String, displayName: String, callBack: @escaping (Result<AuthDataResult, Error>) -> Void) {
+    func createUser(email: String, password: String, displayName: String, callBack: @escaping (Result<String, Error>) -> Void) {
         self.firebaseAuth.createUser(withEmail: email, password: password) { authResult, error in
             DispatchQueue.main.async {
-                guard let result = authResult, error == nil else {
+                guard let _ = authResult, error == nil else {
                     callBack(.failure(error ?? ServicesError.createAccountError))
                     return
                 }
-                callBack(.success(result))
+                callBack(.success("UserCreated"))
             }
         }
     }
 
-    func signInUser(email: String?, password: String?, callBack: @escaping (Result<AuthDataResult, Error>) -> Void) {
+    func signInUser(email: String?, password: String?, callBack: @escaping (Result<String, Error>) -> Void) {
         guard let email = email, let password = password else {
             callBack(.failure(ServicesError.signIn))
             return
@@ -59,16 +59,16 @@ class UserServices: UserServicesProtocol {
 
         firebaseAuth.signIn(withEmail: email, password: password) { authResult, error in
             DispatchQueue.main.async {
-                guard let authResult = authResult, error == nil else {
+                guard let _ = authResult, error == nil else {
                     callBack(.failure(error ?? ServicesError.signIn))
                     return
                 }
-                callBack(.success(authResult))
+                callBack(.success("UserSignIn"))
             }
         }
     }
 
-    func updateProfile(displayName: String, callBack: @escaping (Result<Auth, Error>) -> Void) {
+    func updateProfile(displayName: String, callBack: @escaping (Result<String, Error>) -> Void) {
         let changeRequest = FirebaseAuth.Auth.auth().currentUser?.createProfileChangeRequest()
         changeRequest?.displayName = displayName
         changeRequest?.commitChanges(completion: { error in
@@ -77,7 +77,7 @@ class UserServices: UserServicesProtocol {
                     callBack(.failure(error ?? ServicesError.signIn))
                     return
                 }
-                callBack(.success(self.firebaseAuth))
+                callBack(.success("ProfileUpdated"))
             }
         })
     }

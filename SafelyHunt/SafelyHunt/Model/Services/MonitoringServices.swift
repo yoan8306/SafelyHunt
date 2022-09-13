@@ -18,11 +18,17 @@ protocol MonitoringServicesProtocol {
 }
 
 class MonitoringServices: MonitoringServicesProtocol {
+//    var area: Area
+//    var radius: Int
+
     static let shared = MonitoringServices()
     private let database = Database.database().reference()
     private let firebaseAuth: FirebaseAuth.Auth = .auth()
-
-    private init() {}
+    private init () {}
+//    init(area: Area, radius: Int) {
+//        self.area = area
+//        self.radius = radius
+//    }
 
     func insertMyPosition(userPosition: CLLocation, user: User, date: Int) {
         database.child("Database").child("position_user").child(user.uid).setValue([
@@ -38,7 +44,7 @@ class MonitoringServices: MonitoringServicesProtocol {
         var hunters: [Hunter] = []
 
         databaseAllPositions.getData { error, dataSnapshot in
-            guard error != nil, let dataSnapshot = dataSnapshot else {
+            guard error == nil, let dataSnapshot = dataSnapshot else {
                 callBack(.failure(error ?? ServicesError.listUsersPositions))
                 return
             }

@@ -10,10 +10,23 @@ import FirebaseAuth
 import MapKit
 
 class Monitoring {
-
+    var area = Area()
+    var hunter = Hunter()
+    var radiusAlert: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert)
+        }
+    }
+    var areaSelected: String {
+        get {
+            return UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) ?? ""
+        }
+    }
     var listHuntersInRadiusAlert: [Hunter]
+
+//    in monitoringServices
     var monitoringIsOn: Bool
-    private var monitoringServices: MonitoringServicesProtocol
+    var monitoringServices: MonitoringServicesProtocol
 
     var currentDistance: Double = 0.0
     var currentTravel: [CLLocationCoordinate2D] = []
@@ -26,6 +39,27 @@ class Monitoring {
         self.monitoringServices = monitoringServices
     }
 
+//    func updatePositionTravelled([CLLocation]) {
+//        
+//    }
+
+    func getCurrentTravel(locations: [CLLocation]) {
+        for location in locations {
+            currentTravel.append(location.coordinate)
+        }
+    }
+
+    func measureDistanceTravelled(locations: [CLLocation]) -> Double {
+        if firstLocation == nil {
+            firstLocation = locations.first
+        } else if let location = locations.last {
+            currentDistance += lastLocation.distance(from: location)
+        }
+        lastLocation = locations.last
+        return currentDistance / 1000
+    }
+
+//    in services
     func checkUserIsRadiusAlert(hunterSignIn: Hunter?, callback: @escaping(Result<Bool, Error>) -> Void) {
         guard let hunterSignIn = hunterSignIn else {
             callback(.failure(ServicesError.signIn))
@@ -50,22 +84,6 @@ class Monitoring {
     func checkUserIsAlwayInArea(area: MKPolygon, positionUser: CLLocationCoordinate2D) -> Bool {
       return area.contain(coordinate: positionUser)
    }
-
-    func measureDistanceTravelled(locations: [CLLocation]) -> Double {
-        if firstLocation == nil {
-            firstLocation = locations.first
-        } else if let location = locations.last {
-            currentDistance += lastLocation.distance(from: location)
-        }
-        lastLocation = locations.last
-        return currentDistance / 1000
-    }
-
-    func getCurrentTravel(locations: [CLLocation]) {
-        for location in locations {
-            currentTravel.append(location.coordinate)
-        }
-    }
 
     func insertMyDistanceTraveled() {
         guard let user = FirebaseAuth.Auth.auth().currentUser else {

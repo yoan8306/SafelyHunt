@@ -10,7 +10,7 @@ import MapKit
 import FirebaseAuth
 
 class Area {
-    private var areaServices: AreaServicesProtocol
+    var areaServices: AreaServicesProtocol
     var coordinatesPoints: [CLLocationCoordinate2D] = []
     var coordinateTravel: [CLLocationCoordinate2D] = []
     var areaSelected: String {
@@ -47,11 +47,7 @@ class Area {
     }
 
     func getAreaList(callBack: @escaping (Result<[[String: String]], Error>) -> Void) {
-        guard let user = FirebaseAuth.Auth.auth().currentUser else {
-            callBack(.failure(ServicesError.signIn))
-            return
-        }
-        areaServices.getAreaList(user: user ) { fetchArea in
+        areaServices.getAreaList() { fetchArea in
             switch fetchArea {
             case .success(let areaList):
                 callBack(.success(areaList))
@@ -61,7 +57,7 @@ class Area {
         }
     }
 
-    func transfertAreaToFireBase(nameArea: String?) {
+    func insertArea(nameArea: String?) {
         let dateNow = Date()
         let dateStamp: TimeInterval = dateNow.timeIntervalSince1970
         let dateToTimeStamp = Int(dateStamp)
@@ -71,5 +67,16 @@ class Area {
         }
 
         areaServices.insertArea(user: user, coordinate: coordinatesPoints, nameArea: nameArea, date: dateToTimeStamp)
+    }
+
+    func getArea(nameArea: String?, callBack: @escaping (Result<[CLLocationCoordinate2D], Error>) -> Void) {
+        areaServices.getArea(nameArea: nameArea) { result in
+            switch result {
+            case .success(let coordinate):
+                callBack(.success(coordinate))
+            case .failure(let error):
+                callBack(.failure(error))
+            }
+        }
     }
 }

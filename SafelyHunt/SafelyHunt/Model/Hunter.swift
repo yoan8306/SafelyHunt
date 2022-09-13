@@ -16,47 +16,17 @@ class Hunter {
     var longitude: Double?
     var user: User?
     var date: Int?
-    var monitoring = Monitoring()
-    var area = Area()
+    var monitoring: Monitoring // delete
+    var area: Area
 
-//    func measureDistanceTravelled(locations: [CLLocation]) -> Double {
-//        if firstLocation == nil {
-//            firstLocation = locations.first
-//        } else if let location = locations.last {
-//            currentDistance += lastLocation.distance(from: location)
-//        }
-//        lastLocation = locations.last
-//        return currentDistance / 1000
-//    }
-//
-//    func getCurrentTravel(locations: [CLLocation]) {
-//        for location in locations {
-//            currentTravel.append(location.coordinate)
-//        }
-//    }
-//
-//    func insertMyDistanceTraveled() {
-//        guard let user = FirebaseAuth.Auth.auth().currentUser else {
-//            return
-//        }
-//        MonitoringServices.shared.insertDistanceTraveled(user: user, distance: currentDistance)
-//        currentDistance = 0
-//        currentTravel = []
-//        lastLocation = nil
-//        firstLocation = nil
-//    }
-//
-//    func getTotalDistanceTraveled(callBack: @escaping (Result<Double, Error>) -> Void ) {
-//        guard let user = FirebaseAuth.Auth.auth().currentUser else {
-//            return
-//        }
-//        MonitoringServices.shared.getDistanceTraveled(user: user) { result in
-//            switch result {
-//            case .failure(let error):
-//                callBack(.failure(error))
-//            case.success(let distance):
-//                callBack(.success(distance))
-//            }
-//        }
-//    }
+    init(displayName: String? = nil, areaList: [[String: String]]? = nil, latitude: Double? = nil, longitude: Double? = nil, user: User? = nil, date: Int? = nil, monitoring: Monitoring = Monitoring(), area: Area = Area()) {
+        self.displayName = displayName
+        self.areaList = areaList
+        self.latitude = latitude
+        self.longitude = longitude
+        self.user = user
+        self.date = date
+        self.monitoring = monitoring // delete
+        self.area = area
+    }
 }

@@ -32,9 +32,8 @@
 		5F7624D828C216AC00D6FA65 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7624D728C216AC00D6FA65 /* AccountSettingsViewController.swift */; };
 		5F7624DD28C2227500D6FA65 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F7624DC28C2227500D6FA65 /* Profile.storyboard */; };
 		5F7624E128C224CE00D6FA65 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7624E028C224CD00D6FA65 /* ProfileViewController.swift */; };
-		5F7624E428C2876900D6FA65 /* TestHunter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7624E328C2876900D6FA65 /* TestHunter.swift */; };
+		5F7624E428C2876900D6FA65 /* TestAreaServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7624E328C2876900D6FA65 /* TestAreaServices.swift */; };
 		5F7624E728C526B800D6FA65 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5F7624E628C526B800D6FA65 /* .swiftlint.yml */; };
-		5F77E8A6286F275A005A7F0B /* TestfFireBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F77E8A5286F275A005A7F0B /* TestfFireBase.swift */; };
 		5F78B6BF2876D306003C58B5 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6BE2876D306003C58B5 /* SplashScreenViewController.swift */; };
 		5F78B6C12876D47A003C58B5 /* MainStarterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */; };
 		5F78B6C52876E8BC003C58B5 /* MainStarter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F78B6C42876E8BC003C58B5 /* MainStarter.storyboard */; };
@@ -44,11 +43,13 @@
 		5F79FCE5289BB959009F6AE9 /* Polygon+Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F79FCE4289BB959009F6AE9 /* Polygon+Circle.swift */; };
 		5F79FCE7289BE389009F6AE9 /* Monitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F79FCE6289BE389009F6AE9 /* Monitoring.swift */; };
 		5F79FCE9289BF911009F6AE9 /* Hunter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F79FCE8289BF911009F6AE9 /* Hunter.swift */; };
+		5F7B568F28C9BC70007FA105 /* FakeHunter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7B568E28C9BC70007FA105 /* FakeHunter.swift */; };
 		5F7F698128932C1000562FDA /* AreaCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */; };
 		5F959EE928B7A23E006643A9 /* DatabaseTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F959EE828B7A23E006643A9 /* DatabaseTest.json */; };
-		5F959EEB28B7A329006643A9 /* FakeResponseDataSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F959EEA28B7A329006643A9 /* FakeResponseDataSnapshot.swift */; };
-		5F959EED28B8B3A6006643A9 /* FakeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F959EEC28B8B3A6006643A9 /* FakeDatabase.swift */; };
 		5F984C5E28C76321003E9A65 /* scanning-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5F984C5D28C76320003E9A65 /* scanning-alarm.mp3 */; };
+		5F98CA4428C9289C00197406 /* MonitoringServicesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F98CA4328C9289C00197406 /* MonitoringServicesMock.swift */; };
+		5F98CA4628C92D0100197406 /* AreaServicesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F98CA4528C92D0100197406 /* AreaServicesMock.swift */; };
+		5F98CA4928C945CB00197406 /* FakeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F98CA4828C945CB00197406 /* FakeData.swift */; };
 		5FB4BCCB28C681F500C69E8F /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4BCCA28C681F500C69E8F /* UserServices.swift */; };
 		5FB4BCCD28C6821000C69E8F /* MonitoringServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4BCCC28C6821000C69E8F /* MonitoringServices.swift */; };
 		5FBA014B287453F800D70715 /* TabbarMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FBA014A287453F800D70715 /* TabbarMain.storyboard */; };
@@ -61,7 +62,7 @@
 		5FC7538E2894063900BC3DB7 /* Maps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FC7538D2894063900BC3DB7 /* Maps.storyboard */; };
 		5FC75390289408E600BC3DB7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7538F289408E600BC3DB7 /* MapViewController.swift */; };
 		5FC753922894892B00BC3DB7 /* Area.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC753912894892B00BC3DB7 /* Area.swift */; };
-		5FEB598E28B79D220051B21B /* FirebaseTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEB598D28B79D220051B21B /* FirebaseTaskMock.swift */; };
+		5FEB598E28B79D220051B21B /* UserServicesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEB598D28B79D220051B21B /* UserServicesMock.swift */; };
 		5FF4C81A286D6B1C000A0F26 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 5FF4C819286D6B1C000A0F26 /* SPAlert */; };
 		5FFCF67E288EB46C009D9AE8 /* AreasList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FFCF67D288EB46C009D9AE8 /* AreasList.storyboard */; };
 		5FFCF681288EB481009D9AE8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FFCF67F288EB481009D9AE8 /* Launch Screen.storyboard */; };
@@ -101,9 +102,8 @@
 		5F7624D728C216AC00D6FA65 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		5F7624DC28C2227500D6FA65 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		5F7624E028C224CD00D6FA65 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		5F7624E328C2876900D6FA65 /* TestHunter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHunter.swift; sourceTree = "<group>"; };
+		5F7624E328C2876900D6FA65 /* TestAreaServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAreaServices.swift; sourceTree = "<group>"; };
 		5F7624E628C526B800D6FA65 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		5F77E8A5286F275A005A7F0B /* TestfFireBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestfFireBase.swift; sourceTree = "<group>"; };
 		5F78B6BE2876D306003C58B5 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStarterViewController.swift; sourceTree = "<group>"; };
 		5F78B6C42876E8BC003C58B5 /* MainStarter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStarter.storyboard; sourceTree = "<group>"; };
@@ -113,11 +113,13 @@
 		5F79FCE4289BB959009F6AE9 /* Polygon+Circle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Polygon+Circle.swift"; sourceTree = "<group>"; };
 		5F79FCE6289BE389009F6AE9 /* Monitoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitoring.swift; sourceTree = "<group>"; };
 		5F79FCE8289BF911009F6AE9 /* Hunter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hunter.swift; sourceTree = "<group>"; };
+		5F7B568E28C9BC70007FA105 /* FakeHunter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeHunter.swift; sourceTree = "<group>"; };
 		5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaCellTableViewCell.swift; sourceTree = "<group>"; };
 		5F959EE828B7A23E006643A9 /* DatabaseTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DatabaseTest.json; sourceTree = "<group>"; };
-		5F959EEA28B7A329006643A9 /* FakeResponseDataSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeResponseDataSnapshot.swift; sourceTree = "<group>"; };
-		5F959EEC28B8B3A6006643A9 /* FakeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeDatabase.swift; sourceTree = "<group>"; };
 		5F984C5D28C76320003E9A65 /* scanning-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "scanning-alarm.mp3"; sourceTree = "<group>"; };
+		5F98CA4328C9289C00197406 /* MonitoringServicesMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoringServicesMock.swift; sourceTree = "<group>"; };
+		5F98CA4528C92D0100197406 /* AreaServicesMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaServicesMock.swift; sourceTree = "<group>"; };
+		5F98CA4828C945CB00197406 /* FakeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeData.swift; sourceTree = "<group>"; };
 		5FB4BCCA28C681F500C69E8F /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
 		5FB4BCCC28C6821000C69E8F /* MonitoringServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoringServices.swift; sourceTree = "<group>"; };
 		5FBA014A287453F800D70715 /* TabbarMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabbarMain.storyboard; sourceTree = "<group>"; };
@@ -130,7 +132,7 @@
 		5FC7538D2894063900BC3DB7 /* Maps.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Maps.storyboard; sourceTree = "<group>"; };
 		5FC7538F289408E600BC3DB7 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5FC753912894892B00BC3DB7 /* Area.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Area.swift; sourceTree = "<group>"; };
-		5FEB598D28B79D220051B21B /* FirebaseTaskMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTaskMock.swift; sourceTree = "<group>"; };
+		5FEB598D28B79D220051B21B /* UserServicesMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServicesMock.swift; sourceTree = "<group>"; };
 		5FFCF67D288EB46C009D9AE8 /* AreasList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AreasList.storyboard; sourceTree = "<group>"; };
 		5FFCF680288EB481009D9AE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5FFCF682288EB7CF009D9AE8 /* AreaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaListViewController.swift; sourceTree = "<group>"; };
@@ -168,7 +170,7 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
-		5F14AD1D287827F20039002A /* Firebase */ = {
+		5F14AD1D287827F20039002A /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				5FBEF94C2873706D0023E5A5 /* AreaServices.swift */,
@@ -176,7 +178,7 @@
 				5FB4BCCA28C681F500C69E8F /* UserServices.swift */,
 				5FB4BCCC28C6821000C69E8F /* MonitoringServices.swift */,
 			);
-			path = Firebase;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		5F14AD242878406B0039002A /* SignIn-SignUp */ = {
@@ -237,8 +239,9 @@
 		5F1CF316286B1F2C00A0429D /* SafelyHuntTests */ = {
 			isa = PBXGroup;
 			children = (
+				5F98CA4228C9285300197406 /* supportingFiles */,
+				5FEB598A28B79C610051B21B /* MockServices */,
 				5F7624E228C2874100D6FA65 /* Hunter */,
-				5FEB598A28B79C610051B21B /* FirebaseTest */,
 			);
 			path = SafelyHuntTests;
 			sourceTree = "<group>";
@@ -297,9 +300,19 @@
 		5F7624E228C2874100D6FA65 /* Hunter */ = {
 			isa = PBXGroup;
 			children = (
-				5F7624E328C2876900D6FA65 /* TestHunter.swift */,
+				5F7624E328C2876900D6FA65 /* TestAreaServices.swift */,
+				5F7B568E28C9BC70007FA105 /* FakeHunter.swift */,
 			);
 			path = Hunter;
+			sourceTree = "<group>";
+		};
+		5F98CA4228C9285300197406 /* supportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				5F959EE828B7A23E006643A9 /* DatabaseTest.json */,
+				5F98CA4828C945CB00197406 /* FakeData.swift */,
+			);
+			path = supportingFiles;
 			sourceTree = "<group>";
 		};
 		5FBEF95028737FDC0023E5A5 /* Extension */ = {
@@ -336,7 +349,7 @@
 		5FCDFFB8286CE584002D83DD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5F14AD1D287827F20039002A /* Firebase */,
+				5F14AD1D287827F20039002A /* Services */,
 				5F14AD1E2878284C0039002A /* UserDefaultKeys.swift */,
 				5F14AD20287829470039002A /* MainStarterData.swift */,
 				5FC753912894892B00BC3DB7 /* Area.swift */,
@@ -361,16 +374,14 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
-		5FEB598A28B79C610051B21B /* FirebaseTest */ = {
+		5FEB598A28B79C610051B21B /* MockServices */ = {
 			isa = PBXGroup;
 			children = (
-				5F959EE828B7A23E006643A9 /* DatabaseTest.json */,
-				5F959EEC28B8B3A6006643A9 /* FakeDatabase.swift */,
-				5FEB598D28B79D220051B21B /* FirebaseTaskMock.swift */,
-				5F959EEA28B7A329006643A9 /* FakeResponseDataSnapshot.swift */,
-				5F77E8A5286F275A005A7F0B /* TestfFireBase.swift */,
+				5FEB598D28B79D220051B21B /* UserServicesMock.swift */,
+				5F98CA4328C9289C00197406 /* MonitoringServicesMock.swift */,
+				5F98CA4528C92D0100197406 /* AreaServicesMock.swift */,
 			);
-			path = FirebaseTest;
+			path = MockServices;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -561,11 +572,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F77E8A6286F275A005A7F0B /* TestfFireBase.swift in Sources */,
-				5FEB598E28B79D220051B21B /* FirebaseTaskMock.swift in Sources */,
-				5F959EED28B8B3A6006643A9 /* FakeDatabase.swift in Sources */,
-				5F7624E428C2876900D6FA65 /* TestHunter.swift in Sources */,
-				5F959EEB28B7A329006643A9 /* FakeResponseDataSnapshot.swift in Sources */,
+				5F98CA4628C92D0100197406 /* AreaServicesMock.swift in Sources */,
+				5FEB598E28B79D220051B21B /* UserServicesMock.swift in Sources */,
+				5F98CA4428C9289C00197406 /* MonitoringServicesMock.swift in Sources */,
+				5F7624E428C2876900D6FA65 /* TestAreaServices.swift in Sources */,
+				5F7B568F28C9BC70007FA105 /* FakeHunter.swift in Sources */,
+				5F98CA4928C945CB00197406 /* FakeData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -802,6 +814,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = NLCUCTBNY2;
@@ -822,6 +835,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = NLCUCTBNY2;

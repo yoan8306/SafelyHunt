@@ -56,9 +56,9 @@ class RegisterViewController: UIViewController {
     private func updateDisplayName(displayName: String) {
         UserServices.shared.updateProfile(displayName: displayName) { [weak self] updateResult in
             switch updateResult {
-            case .success(let auth):
+            case .success(_):
                 self?.showActivityIndicator(shown: false)
-                self?.presentNativeAlertSuccess(alertMessage: "User \(auth.currentUser?.displayName ?? "") is created")
+                self?.presentNativeAlertSuccess(alertMessage: "User \(FirebaseAuth.Auth.auth().currentUser?.displayName ?? "User") is created")
                 self?.goToLoginController()
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
@@ -80,8 +80,9 @@ class RegisterViewController: UIViewController {
             switch result {
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
-            case .success(let disconnectedMessage):
-                self?.presentNativeAlertSuccess(alertMessage: disconnectedMessage)
+            case .success(_):
+                break
+//                self?.presentNativeAlertSuccess(alertMessage: disconnectedMessage)
             }
         }
         navigationController?.setViewControllers([loginViewController], animated: true)

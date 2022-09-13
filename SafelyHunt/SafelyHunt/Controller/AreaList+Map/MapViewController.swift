@@ -142,7 +142,7 @@ class MapViewController: UIViewController {
         guard let name = nameAreaTextField.text, !name.isEmpty else {
             return
         }
-        hunter.area.transfertAreaToFireBase(nameArea: name)
+        hunter.area.insertArea(nameArea: name)
         turnOffEditingMode()
     }
 
@@ -196,7 +196,7 @@ class MapViewController: UIViewController {
     // MARK: - Private func
     private func initializeMapView() {
         let compassButton = MKCompassButton(mapView: mapView)
-        compassButton.frame.origin = CGPoint(x: travelInfoUiView.frame.origin.x + 5, y: travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 10)
+        compassButton.frame.origin = CGPoint(x: travelInfoUiView.frame.origin.x + 5, y: travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 20)
         compassButton.compassVisibility = .adaptive
         view.addSubview(compassButton)
 
@@ -253,11 +253,7 @@ class MapViewController: UIViewController {
         var overlay: [String: MKOverlay] = [:]
         overlay.removeAll()
 
-        guard let user = FirebaseAuth.Auth.auth().currentUser else {
-            return
-        }
-
-        AreaServices.shared.getArea(nameArea: nameAreaSelected, user: user) { result in
+        hunter.area.getArea(nameArea: nameAreaSelected) { result in
             switch result {
             case .success(let coordinate):
                 overlay["polyLine"] = MKPolyline(coordinates: coordinate, count: coordinate.count)
@@ -279,6 +275,7 @@ class MapViewController: UIViewController {
 
             case .failure(_):
                 return
+
             }
         }
     }

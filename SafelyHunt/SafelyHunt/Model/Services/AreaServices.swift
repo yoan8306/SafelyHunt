@@ -12,9 +12,9 @@ import MapKit
 
 protocol AreaServicesProtocol {
     func insertArea(user: User, coordinate: [CLLocationCoordinate2D], nameArea: String, date: Int)
-    func getAreaList(user: User, callBack: @escaping (Result<[[String: String]], Error>) -> Void)
-    func getArea(nameArea: String?, user: User, callBack: @escaping (Result<[CLLocationCoordinate2D], Error>) -> Void)
-    func removeArea(name: String, user: User, callBack: @escaping(Result<DatabaseReference, Error>) -> Void)
+    func getAreaList(callBack: @escaping (Result<[[String: String]], Error>) -> Void)
+    func getArea(nameArea: String?, callBack: @escaping (Result<[CLLocationCoordinate2D], Error>) -> Void)
+    func removeArea(name: String, user: User, callBack: @escaping(Result<String, Error>) -> Void)
 }
 
 // MARK: - Sign in
@@ -46,11 +46,16 @@ class AreaServices: AreaServicesProtocol {
         }
     }
 
-    func getAreaList(user: User, callBack: @escaping (Result<[[String: String]], Error>) -> Void) {
+    func getAreaList(callBack: @escaping (Result<[[String: String]], Error>) -> Void) {
         var areaList: [[String: String]] = [[:]]
-        let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list")
+        let databaseArea = database.child("Database").child("users_list")
 
-        databaseArea.getData { error, dataSnapshot in
+        guard let user = firebaseAuth.currentUser else {
+            callBack(.failure(ServicesError.signIn))
+            return
+        }
+
+        databaseArea.child(user.uid).child("area_list").getData { error, dataSnapshot in
             guard error == nil, let dataSnapshot = dataSnapshot else {
                 callBack(.failure(error ?? ServicesError.noAreaRecordedFound))
                 return
@@ -66,6 +71,7 @@ class AreaServices: AreaServicesProtocol {
                 let list = element.value as? NSDictionary
                 let name = list?["name"]
                 let date = list?["date"]
+//                element.children["coordinate"]
                 if let name = name as? String, let date = date as? String {
                     areaList.append([name: date])
                 }
@@ -74,8 +80,8 @@ class AreaServices: AreaServicesProtocol {
         }
     }
 
-    func getArea(nameArea: String?, user: User, callBack: @escaping (Result<[CLLocationCoordinate2D], Error>) -> Void) {
-        guard let nameArea = nameArea, !nameArea.isEmpty else {
+    func getArea(nameArea: String?, callBack: @escaping (Result<[CLLocationCoordinate2D], Error>) -> Void) {
+        guard let nameArea = nameArea, !nameArea.isEmpty, let user = firebaseAuth.currentUser else {
             callBack(.failure(ServicesError.noAreaRecordedFound))
             return
         }
@@ -122,14 +128,14 @@ class AreaServices: AreaServicesProtocol {
         }
     }
 
-    func removeArea(name: String, user: User, callBack: @escaping(Result<DatabaseReference, Error>) -> Void) {
+    func removeArea(name: String, user: User, callBack: @escaping(Result<String, Error>) -> Void) {
         let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list").child(name)
         databaseArea.removeValue { error, success in
             guard error == nil else {
                 callBack(.failure(error ?? ServicesError.errorDeletingArea))
                 return
             }
-            callBack(.success(success))
+            callBack(.success("Remove area success"))
         }
     }
 }

@@ -157,6 +157,7 @@ class MapViewController: UIViewController {
     @IBAction func cancelButtonAction() {
         turnOffEditingMode()
         mapView.removeOverlays(mapView.overlays)
+        nameAreaTextField.text = ""
     }
 
     /// define radius
@@ -263,10 +264,10 @@ class MapViewController: UIViewController {
 
         AreaServices.shared.getArea(nameArea: areaSelected.name) { result in
             switch result {
-            case .success(let coordinate):
-                overlay["polyLine"] = MKPolyline(coordinates: coordinate, count: coordinate.count)
-                overlay["polygon"] = MKPolygon(coordinates: coordinate, count: coordinate.count)
-                self.polygonCurrent = MKPolygon(coordinates: coordinate, count: coordinate.count)
+            case .success(let area):
+                overlay["polyLine"] = MKPolyline(coordinates: area.coordinatesPoints, count: area.coordinatesPoints.count)
+                overlay["polygon"] = MKPolygon(coordinates: area.coordinatesPoints, count: area.coordinatesPoints.count)
+                self.polygonCurrent = MKPolygon(coordinates: area.coordinatesPoints, count: area.coordinatesPoints.count)
 
                 guard let polyLine = overlay["polyLine"], let polygon = overlay["polygon"] else {
                     return
@@ -312,18 +313,50 @@ class MapViewController: UIViewController {
 
 // MARK: - MapView delegate, CLLocationmanager delegate
 extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
+
     private func askAuthorizations() {
         mapView.delegate = self
-        locationManager.requestWhenInUseAuthorization()
+        locationManager.delegate = self
 
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.startUpdatingHeading()
-        }
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        if CLLocationManager.locationServicesEnabled() {
+//            locationManager.delegate = self
+//            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//            locationManager.startUpdatingHeading()
+//        }
+
+            if #available(iOS 14.0, *) {
+                handleAuthorizationStatus(status: locationManager.authorizationStatus)
+            } else {
+                handleAuthorizationStatus(status: CLLocationManager.authorizationStatus())
+            }
+
         if mapMode != .editingArea {
             mapView.setUserTrackingMode(.follow, animated: false)
+        }
+    }
+
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+
+        if #available(iOS 14.0, *) {
+            handleAuthorizationStatus(status: locationManager.authorizationStatus)
+        } else {
+            handleAuthorizationStatus(status: CLLocationManager.authorizationStatus())
+        }
+    }
+
+    func handleAuthorizationStatus(status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedWhenInUse:
+            if locationManager.desiredAccuracy != kCLLocationAccuracyBest {
+                presentAlertError(alertMessage: "I need exact position for best monitoring, you can change in your setting")
+            }
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingHeading()
+            mapView.showsUserLocation = true
+        case .denied:
+            presentAlertError(alertMessage: "Go to settings for accept localization")
+        default:
+            locationManager.requestWhenInUseAuthorization()
         }
     }
 

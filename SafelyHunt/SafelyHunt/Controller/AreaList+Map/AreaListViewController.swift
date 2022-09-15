@@ -124,8 +124,8 @@ extension AreaListViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        let area = listArea[indexPath.row]
-        transferToMapViewController(areaSelected: area)
+        monitoringServices.monitoring.area = listArea[indexPath.row]
+        transferToMapViewController()
     }
 
     // MARK: - private func tableView
@@ -162,13 +162,14 @@ extension AreaListViewController: UITableViewDelegate {
         }
     }
 
-    private func transferToMapViewController(areaSelected: Area) {
+    private func transferToMapViewController() {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return
         }
+        mapViewController.monitoringServices = monitoringServices
         mapViewController.mapMode = .editingArea
-        mapViewController.areaSelected = areaSelected
+//        mapViewController.areaSelected = areaSelected
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.myNavigationItem.title = "Editing area"
         navigationController?.pushViewController(mapViewController, animated: true)

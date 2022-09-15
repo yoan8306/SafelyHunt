@@ -36,20 +36,17 @@ class MainStarterViewController: UIViewController {
 
     private func transferToMapViewController() {
         let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
-        
+
         AreaServices.shared.getArea(nameArea: areaSelected) { [weak self] success in
             switch success {
-            case .success(let coordinatePoint):
-                let area = Area()
-                area.name = areaSelected
-                area.coordinatesPoints = coordinatePoint
+            case .success(let area):
                 self?.monitoringServcies.monitoring.area = area
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
                 return
             }
         }
-        
+
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return

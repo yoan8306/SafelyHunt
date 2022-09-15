@@ -27,12 +27,16 @@ class AreaServices: AreaServicesProtocol {
     private init() {}
 
 // MARK: - Database Area
+
+    /// Insert a new area in database
+    /// - Parameters:
+    ///   - area: object area to insert
+    ///   - date: date of creation
     func insertArea(area: Area, date: Date) {
+        var index = 0
         guard let user = firebaseAuth.currentUser else {
             return
         }
-
-        var index = 0
         let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list")
 
         databaseArea.child(area.name!).setValue([
@@ -50,6 +54,8 @@ class AreaServices: AreaServicesProtocol {
         }
     }
 
+    /// get all area in user's database
+    /// - Parameter callBack: call result
     func getAreaList(callBack: @escaping (Result<[Area], Error>) -> Void) {
         var areaList: [Area] = []
         let databaseArea = database.child("Database").child("users_list")
@@ -74,53 +80,17 @@ class AreaServices: AreaServicesProtocol {
                 let list = element.value as? NSDictionary
                 let name = list?["name"]
                 let date = list?["date"]
-                var coordinateArea: [CLLocationCoordinate2D] = []
-                var dictCoordinateArea: [Int: CLLocationCoordinate2D] = [:]
-                dictCoordinateArea.removeAll()
 
-                guard let name = name as? String else {
+                guard let name = name as? String, let date = date as? String else {
                     break
                 }
 
-                let databaseCoordinate = self.database.child("Database").child("users_list").child(user.uid).child("area_list").child(name).child("coordinate")
-
-                databaseCoordinate.getData { error, dataSnapshot in
-                    guard error == nil, let dataSnapshot = dataSnapshot else {
-                        callBack(.failure(error ?? ServicesError.noAreaRecordedFound))
-                        return
-                    }
-                    guard let data = dataSnapshot.children.allObjects as? [DataSnapshot] else {
-                        callBack(.failure(ServicesError.noAreaRecordedFound))
-                        return
-                    }
-
-                    for element in data {
-                        let coordinateElement = element.value as? NSDictionary
-                        let latitude = coordinateElement?["latitude"]
-                        let longitude = coordinateElement?["longitude"]
-                        let index = coordinateElement?["index"]
-                        if let latitude = latitude as? Double, let longitude = longitude as? Double, let index = index as? Int {
-                            dictCoordinateArea[index] = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                        }
-                    }
-
-                    if dictCoordinateArea.count <= 0 {
-                        callBack(.failure(ServicesError.noAreaRecordedFound))
-                        return
-                    }
-
-                    // sort dictionary by index
-                    let sortedArray = dictCoordinateArea.sorted( by: { $0.key < $1.key})
-                    for dict in  0..<dictCoordinateArea.count {
-                        let list = sortedArray[dict]
-                        coordinateArea.append(list.value)
-                    }
-
-                    if let date = date as? String {
-                        let area = Area()
-                        area.name = name
+                self.getArea(nameArea: name) { result in
+                    switch result {
+                    case .failure(let error):
+                        callBack(.failure(error))
+                    case .success(let area):
                         area.date = date
-                        area.coordinatesPoints = coordinateArea
                         areaList.append(area)
                         if index == data.count-1 {
                             callBack(.success(areaList))
@@ -131,6 +101,10 @@ class AreaServices: AreaServicesProtocol {
         }
     }
 
+    /// get area selected
+    /// - Parameters:
+    ///   - nameArea: name area selected
+    ///   - callBack: call result
     func getArea(nameArea: String?, callBack: @escaping (Result<Area, Error>) -> Void) {
         guard let nameArea = nameArea, !nameArea.isEmpty, let user = firebaseAuth.currentUser else {
             callBack(.failure(ServicesError.noAreaRecordedFound))
@@ -138,9 +112,6 @@ class AreaServices: AreaServicesProtocol {
         }
 
         let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list").child(nameArea).child("coordinate")
-        var coordinateArea: [CLLocationCoordinate2D] = []
-        var dictCoordinateArea: [Int: CLLocationCoordinate2D] = [:]
-        dictCoordinateArea.removeAll()
 
         databaseArea.getData { error, dataSnapshot in
             guard error == nil, let dataSnapshot = dataSnapshot else {
@@ -152,27 +123,8 @@ class AreaServices: AreaServicesProtocol {
                 return
             }
 
-            for element in data {
-                let coordinateElement = element.value as? NSDictionary
-                let latitude = coordinateElement?["latitude"]
-                let longitude = coordinateElement?["longitude"]
-                let index = coordinateElement?["index"]
-                if let latitude = latitude as? Double, let longitude = longitude as? Double, let index = index as? Int {
-                    dictCoordinateArea[index] = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                }
-            }
+            let coordinateArea = self.createCoordinate(data: data)
 
-            if dictCoordinateArea.count <= 0 {
-                callBack(.failure(ServicesError.noAreaRecordedFound))
-                return
-            }
-
-            // sort dictionary by index
-            let sortedArray = dictCoordinateArea.sorted( by: { $0.key < $1.key})
-            for dict in  0..<dictCoordinateArea.count {
-                let list = sortedArray[dict]
-                coordinateArea.append(list.value)
-            }
             let area = Area()
             area.name = nameArea
             area.coordinatesPoints = coordinateArea
@@ -180,6 +132,10 @@ class AreaServices: AreaServicesProtocol {
         }
     }
 
+    /// delete area selected
+    /// - Parameters:
+    ///   - name: name area deleting
+    ///   - callBack: call result
     func removeArea(name: String, callBack: @escaping(Result<String, Error>) -> Void) {
         guard let user = firebaseAuth.currentUser else {
             callBack(.failure(ServicesError.signIn))
@@ -193,5 +149,32 @@ class AreaServices: AreaServicesProtocol {
             }
             callBack(.success("Remove area success"))
         }
+    }
+
+    /// organizes the coordinates of the area after the call
+    /// - Parameter data: coordinates data receive
+    /// - Returns: array coordinates's area
+    private func createCoordinate(data: [DataSnapshot]) -> [CLLocationCoordinate2D] {
+        var coordinateArea: [CLLocationCoordinate2D] = []
+        var dictCoordinateArea: [Int: CLLocationCoordinate2D] = [:]
+        dictCoordinateArea.removeAll()
+
+        for element in data {
+            let coordinateElement = element.value as? NSDictionary
+            let latitude = coordinateElement?["latitude"]
+            let longitude = coordinateElement?["longitude"]
+            let index = coordinateElement?["index"]
+            if let latitude = latitude as? Double, let longitude = longitude as? Double, let index = index as? Int {
+                dictCoordinateArea[index] = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            }
+        }
+
+        // sort dictionary by index
+        let sortedArray = dictCoordinateArea.sorted( by: { $0.key < $1.key})
+        for dict in  0..<dictCoordinateArea.count {
+            let list = sortedArray[dict]
+            coordinateArea.append(list.value)
+        }
+        return coordinateArea
     }
 }

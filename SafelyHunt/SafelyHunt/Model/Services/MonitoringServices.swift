@@ -12,10 +12,8 @@ import CoreLocation
 import MapKit
 
 protocol MonitoringServicesProtocol {
-    func insertMyPosition(userPosition: CLLocation, user: User, date: Int)
-    func getPositionUsers(callBack: @escaping (Result<[Hunter], Error>) -> Void)
-    func insertDistanceTraveled(user: User, distance: Double)
-    func getDistanceTraveled(user: User, callBack: @escaping(Result<Double, Error>) -> Void)
+    func insertDistanceTraveled()
+    func getTotalDistanceTraveled(callBack: @escaping(Result<Double, Error>) -> Void)
 }
 
 class MonitoringServices: MonitoringServicesProtocol {
@@ -30,16 +28,80 @@ class MonitoringServices: MonitoringServicesProtocol {
         self.startMonitoring = startMonitoring
     }
 
-    func insertMyPosition(userPosition: CLLocation, user: User, date: Int) {
-        database.child("Database").child("position_user").child(user.uid).setValue([
-            "name": user.displayName ?? "no name",
-            "date": String(date),
-            "latitude": userPosition.coordinate.latitude,
-            "longitude": userPosition.coordinate.longitude
-        ])
+    /// check if they are hunters in the radius of the user
+    /// - Parameter callback: send true if an other hunter is in  radius
+    func checkUserIsRadiusAlert(callback: @escaping(Result<Bool, Error>) -> Void) {
+        getPositionUsers { result in
+            switch result {
+            case .success(let hunters):
+                self.addHuntersIntoList(huntersList: hunters)
+                if self.monitoring.listHuntersInRadiusAlert.count > 0 {
+                    callback(.success(true))
+                } else {
+                    callback(.success(false))
+                }
+            case .failure(let error):
+                callback(.failure(error))
+            }
+        }
     }
 
-    func getPositionUsers(callBack: @escaping (Result<[Hunter], Error>) -> Void) {
+    /// checks if the user is still in their hunting area
+    /// - Parameters:
+    ///   - area: polygon of area
+    ///   - positionUser: user position
+    /// - Returns: send true if user is still in their area
+    func checkUserIsAlwayInArea(area: MKPolygon, positionUser: CLLocationCoordinate2D) -> Bool {
+        return area.contain(coordinate: positionUser)
+    }
+
+    /// add new total value of the distance total traveled in database
+    /// - Parameters:
+    ///   - user: current user
+    ///   - distance: the distance to be added
+    func insertDistanceTraveled() {
+        let distance = monitoring.currentDistance
+        guard let user = firebaseAuth.currentUser else {
+            return
+        }
+
+        getTotalDistanceTraveled() { result in
+            switch result {
+            case .failure(_):
+                return
+            case .success(let distanceTraveled):
+                let newDistanceTraveled = distance + distanceTraveled
+                self.database.child("Database").child("users_list").child(user.uid).child("distance_traveled").setValue([
+                    "Total_distance": newDistanceTraveled])
+                self.monitoring.currentDistance = 0
+                self.monitoring.currentTravel = []
+                self.monitoring.lastLocation = nil
+                self.monitoring.firstLocation = nil
+            }
+        }
+    }
+
+    /// get the totatl distance traveled
+    /// - Parameters:
+    ///   - user: current user
+    ///   - callBack: send the total distance traveled
+    func getTotalDistanceTraveled(callBack: @escaping(Result<Double, Error>) -> Void) {
+        guard let user = firebaseAuth.currentUser else {
+            return
+        }
+        database.child("Database").child("users_list").child(user.uid).child("distance_traveled").child("Total_distance").getData { error, dataSnapshot in
+            guard error == nil, let dataSnapshot = dataSnapshot else {
+                callBack(.failure(error ?? ServicesError.distanceTraveled))
+                return
+            }
+            let distance = dataSnapshot.value as? Double
+            callBack(.success(distance ?? 0.0))
+        }
+    }
+
+    /// get position of all users available in database
+    /// - Parameter callBack: call result send array of hunter
+    private func getPositionUsers(callBack: @escaping (Result<[Hunter], Error>) -> Void) {
         let databaseAllPositions = database.child("Database").child("position_user")
         var hunters: [Hunter] = []
 
@@ -75,77 +137,10 @@ class MonitoringServices: MonitoringServicesProtocol {
         }
     }
 
-    func insertDistanceTraveled(user: User, distance: Double) {
-        getDistanceTraveled(user: user) { result in
-            switch result {
-            case .failure(_):
-                return
-            case .success(let distanceTraveled):
-                let newDistanceTraveled = distance + distanceTraveled
-                self.database.child("Database").child("users_list").child(user.uid).child("distance_traveled").setValue([
-                    "Total_distance": newDistanceTraveled])
-            }
-        }
-    }
-
-    func getDistanceTraveled(user: User, callBack: @escaping(Result<Double, Error>) -> Void) {
-        database.child("Database").child("users_list").child(user.uid).child("distance_traveled").child("Total_distance").getData { error, dataSnapshot in
-            guard error == nil, let dataSnapshot = dataSnapshot else {
-                callBack(.failure(error ?? ServicesError.distanceTraveled))
-                return
-            }
-            let distance = dataSnapshot.value as? Double
-            callBack(.success(distance ?? 0.0))
-        }
-    }
-
-    func checkUserIsRadiusAlert(callback: @escaping(Result<Bool, Error>) -> Void) {
-        getPositionUsers { result in
-            switch result {
-            case .success(let hunters):
-                self.addHuntersIntoList(huntersList: hunters)
-                if self.monitoring.listHuntersInRadiusAlert.count > 0 {
-                    callback(.success(true))
-                } else {
-                    callback(.success(false))
-                }
-            case .failure(let error):
-                callback(.failure(error))
-            }
-        }
-    }
-
-    func checkUserIsAlwayInArea(area: MKPolygon, positionUser: CLLocationCoordinate2D) -> Bool {
-        return area.contain(coordinate: positionUser)
-    }
-
-    func insertMyDistanceTraveled() {
-        guard let user = FirebaseAuth.Auth.auth().currentUser else {
-            return
-        }
-        insertDistanceTraveled(user: user, distance: monitoring.currentDistance)
-        monitoring.currentDistance = 0
-        monitoring.currentTravel = []
-        monitoring.lastLocation = nil
-        monitoring.firstLocation = nil
-    }
-
-    func getTotalDistanceTraveled(callBack: @escaping (Result<Double, Error>) -> Void ) {
-        guard let user = FirebaseAuth.Auth.auth().currentUser else {
-            return
-        }
-        getDistanceTraveled(user: user) { result in
-            switch result {
-            case .failure(let error):
-                callBack(.failure(error))
-            case.success(let distance):
-                callBack(.success(distance))
-            }
-        }
-    }
-
+    /// insert hunters if they were seen less than 20 minutes ago
+    /// - Parameter huntersList: all hunters in database
     private func addHuntersIntoList(huntersList: [Hunter]) {
-        guard let user = FirebaseAuth.Auth.auth().currentUser else {
+        guard let user = firebaseAuth.currentUser else {
             return
         }
 
@@ -176,4 +171,17 @@ class MonitoringServices: MonitoringServicesProtocol {
         }
     }
 
+    /// insert position of current user in database
+    /// - Parameters:
+    ///   - userPosition: position user
+    ///   - user: current user
+    ///   - date: date of insert position
+    private func insertMyPosition(userPosition: CLLocation, user: User, date: Int) {
+        database.child("Database").child("position_user").child(user.uid).setValue([
+            "name": user.displayName ?? "no name",
+            "date": String(date),
+            "latitude": userPosition.coordinate.latitude,
+            "longitude": userPosition.coordinate.longitude
+        ])
+    }
 }

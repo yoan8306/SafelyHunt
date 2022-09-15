@@ -3,4 +3,102 @@
    uuid = "809D049E-4781-49AF-8DC5-FE75FABAC681"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0E179895-8527-471B-A5D5-3E149CF3D4BA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SafelyHunt/Controller/AreaList+Map/MapViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
+            landmarkName = "drawAreaSelected()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D9615D96-63AF-40B5-8153-FB0F39F2DAB5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SafelyHunt/Controller/AreaList+Map/MapViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
+            landmarkName = "drawAreaSelected()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D9615D96-63AF-40B5-8153-FB0F39F2DAB5 - f28300edfd058d6a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SafelyHunt.MapViewController.drawAreaSelected() -&gt; ()"
+                  moduleName = "SafelyHunt"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yoan/Documents/Developer/P12/SafelyHunt/SafelyHunt/Controller/AreaList+Map/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "264"
+                  endingLineNumber = "264"
+                  offsetFromSymbolStart = "308">
+               </Location>
+               <Location
+                  uuid = "D9615D96-63AF-40B5-8153-FB0F39F2DAB5 - 72bdc6cb76f12c4a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Swift.Array&lt;__C.CLLocationCoordinate2D&gt;, Swift.Error&gt;) -&gt; () in SafelyHunt.MapViewController.drawAreaSelected() -&gt; ()"
+                  moduleName = "SafelyHunt"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yoan/Documents/Developer/P12/SafelyHunt/SafelyHunt/Controller/AreaList+Map/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "264"
+                  endingLineNumber = "264"
+                  offsetFromSymbolStart = "229">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CABD4FEC-A368-46CA-A255-751EF2AD324E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SafelyHunt/Controller/AreaList+Map/MapViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
+            landmarkName = "drawAreaSelected()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "90118F71-708F-425B-A2B2-9D7D7BEB973E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SafelyHunt/Controller/AreaList+Map/MapViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
+            landmarkName = "drawAreaSelected()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

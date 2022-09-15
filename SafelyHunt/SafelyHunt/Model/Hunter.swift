@@ -11,22 +11,14 @@ import MapKit
 
 class Hunter {
     var displayName: String?
-    var areaList: [[String: String]]?
-    var latitude: Double?
-    var longitude: Double?
     var user: User?
     var date: Int?
-    var monitoring: Monitoring // delete
-    var area: Area
+    var latitude: Double?
+    var longitude: Double?
 
-    init(displayName: String? = nil, areaList: [[String: String]]? = nil, latitude: Double? = nil, longitude: Double? = nil, user: User? = nil, date: Int? = nil, monitoring: Monitoring = Monitoring(), area: Area = Area()) {
+    init(displayName: String? = nil, user: User? = nil, date: Int? = nil) {
         self.displayName = displayName
-        self.areaList = areaList
-        self.latitude = latitude
-        self.longitude = longitude
         self.user = user
         self.date = date
-        self.monitoring = monitoring // delete
-        self.area = area
     }
 }

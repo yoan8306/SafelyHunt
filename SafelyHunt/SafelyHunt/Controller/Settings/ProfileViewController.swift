@@ -7,10 +7,12 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 class ProfileViewController: UIViewController {
 
-var hunter = Hunter()
+    var monitoringServices = MonitoringServices()
+    var hunter = Hunter()
 
     @IBOutlet weak var totalDistanceLabel: UILabel!
     @IBOutlet weak var pseudonymeLabel: UILabel!
@@ -22,7 +24,7 @@ var hunter = Hunter()
     }
 
     private func getTotalDistance() {
-        hunter.monitoring.getTotalDistanceTraveled { [weak self] result in
+        monitoringServices.getTotalDistanceTraveled { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)

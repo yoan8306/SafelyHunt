@@ -12,7 +12,9 @@ import SwiftUI
 
 class AreaListViewController: UIViewController {
     // MARK: - Properties
-    var hunter = Hunter()
+    var listArea: [Area] = []
+    var monitoringServices = MonitoringServices()
+
     @objc var refreshControl = UIRefreshControl()
 
     // MARK: - IBOutlet
@@ -43,7 +45,6 @@ class AreaListViewController: UIViewController {
             return
         }
 
-        mapViewController.hunter = hunter
         mapViewController.mapMode = .editingArea
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.myNavigationItem.title = "Editing area"
@@ -52,10 +53,10 @@ class AreaListViewController: UIViewController {
 
     // MARK: - Private functions
     private func getAreaList() {
-        hunter.area.getAreaList() { [weak self] fetchArea in
+        AreaServices.shared.getAreaList() { [weak self] fetchArea in
             switch fetchArea {
             case .success(let listArea):
-                self?.hunter.areaList = listArea
+                self?.listArea = listArea
                 self?.areaListTableView.reloadData()
                 self?.refreshControl.endRefreshing()
                 self?.activityIndicator.isHidden = true
@@ -71,7 +72,7 @@ class AreaListViewController: UIViewController {
     }
 
     private func initializeBackgroundTableView() {
-        if hunter.areaList?.count == 0 {
+        if listArea.count == 0 {
             let backgroundImage = UIImage(named: "listVoid")
             let image = UIImageView(image: backgroundImage)
             image.contentMode = .scaleAspectFit
@@ -85,74 +86,53 @@ class AreaListViewController: UIViewController {
 // MARK: - TableViewDataSource
 extension AreaListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return hunter.areaList?.count ?? 0
+        return listArea.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cellSelected = false
+        let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
 
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? AreaCellTableViewCell,
-              let areaList = hunter.areaList else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? AreaCellTableViewCell else {
             return UITableViewCell()
         }
-
-        for (key, _) in areaList[indexPath.row] {
-            if hunter.area.areaSelected == key {
+            if areaSelected == listArea[indexPath.row].name {
                 cellSelected = true
             } else {
                 cellSelected = false
             }
-        }
 
-        cell.configureCell(infoArea: areaList[indexPath.row], cellSelected: cellSelected)
+        cell.configureCell(infoArea: listArea[indexPath.row], cellSelected: cellSelected)
         return cell
     }
 }
 
 // MARK: - TableView Delegate
 extension AreaListViewController: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var newAreaSelected = ""
-        guard let areaList = hunter.areaList else {
-            return
-        }
-
-        for (key, _) in areaList[indexPath.row] {
-            newAreaSelected = key
-        }
-
-        UserDefaults.standard.set(newAreaSelected, forKey: UserDefaultKeys.Keys.areaSelected)
+        monitoringServices.monitoring.area = listArea[indexPath.row]
+        UserDefaults.standard.set(listArea[indexPath.row].name, forKey: UserDefaultKeys.Keys.areaSelected)
         tableView.reloadData()
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard let user = hunter.user else {
-            return
-        }
 
         if editingStyle == .delete {
-            askDelete(indexPath: indexPath, user: user)
+            askDelete(indexPath: indexPath)
         }
     }
 
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        var nameArea = ""
-        guard let areaList = hunter.areaList else {
-            return
-        }
-
-        for (key, _) in areaList[indexPath.row] {
-            nameArea = key
-        }
-
-        transferToMapViewController(nameAreaSelected: nameArea)
+        let area = listArea[indexPath.row]
+        transferToMapViewController(areaSelected: area)
     }
 
     // MARK: - private func tableView
-    private func askDelete (indexPath: IndexPath, user: User) {
+    private func askDelete (indexPath: IndexPath) {
         let alertVC = UIAlertController(title: "Delete area", message: "Are you sure you want delete this area", preferredStyle: .actionSheet)
         let deletingAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
-            self.deleteArea(indexPath, user)
+            self.deleteArea(indexPath)
         }
         let dismiss = UIAlertAction(title: "Cancel", style: .default, handler: nil)
         alertVC.addAction(deletingAction)
@@ -164,17 +144,12 @@ extension AreaListViewController: UITableViewDelegate {
     /// - Parameters:
     ///   - indexPath: cell area detect
     ///   - user: user signIn
-    private func deleteArea(_ indexPath: IndexPath, _ user: User) {
-        var areaName = ""
-        guard let areaList = hunter.areaList else {
+    private func deleteArea(_ indexPath: IndexPath) {
+        guard let areaName = listArea[indexPath.row].name else {
             return
         }
 
-        for (key, _) in areaList[indexPath.row] {
-            areaName = key
-        }
-
-        AreaServices.shared.removeArea(name: areaName, user: user) { [weak self] result in
+        AreaServices.shared.removeArea(name: areaName) { [weak self] result in
             switch result {
             case .success(_):
                 self?.getAreaList()
@@ -187,14 +162,13 @@ extension AreaListViewController: UITableViewDelegate {
         }
     }
 
-    private func transferToMapViewController(nameAreaSelected: String) {
+    private func transferToMapViewController(areaSelected: Area) {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return
         }
-        mapViewController.hunter = hunter
         mapViewController.mapMode = .editingArea
-        mapViewController.nameAreaSelected = nameAreaSelected
+        mapViewController.areaSelected = areaSelected
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.myNavigationItem.title = "Editing area"
         navigationController?.pushViewController(mapViewController, animated: true)

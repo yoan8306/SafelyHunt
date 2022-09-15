@@ -22,10 +22,10 @@ class AreaCellTableViewCell: UITableViewCell {
         accessoryType = .detailButton
     }
 
-    func configureCell(infoArea: [String: String], cellSelected: Bool) {
-        for (nameArea, dateCreate) in infoArea {
-            areaNameLabel.text = nameArea
-            guard let double = Double(dateCreate) else {
+    func configureCell(infoArea: Area, cellSelected: Bool) {
+
+        areaNameLabel.text = infoArea.name
+        guard let double = Double(infoArea.date ?? "0") else {
                 return
             }
 
@@ -39,7 +39,6 @@ class AreaCellTableViewCell: UITableViewCell {
             } else {
                 dateLabel.text = DateFormatter.localizedString(from: myDate, dateStyle: .medium, timeStyle: .medium)
             }
-        }
         setLabel(cellSelected: cellSelected)
     }
 

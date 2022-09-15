@@ -11,10 +11,10 @@ import Firebase
 import MapKit
 
 protocol AreaServicesProtocol {
-    func insertArea(user: User, coordinate: [CLLocationCoordinate2D], nameArea: String, date: Int)
-    func getAreaList(callBack: @escaping (Result<[[String: String]], Error>) -> Void)
+    func insertArea(area: Area, date: Date)
+    func getAreaList(callBack: @escaping (Result<[Area], Error>) -> Void)
     func getArea(nameArea: String?, callBack: @escaping (Result<[CLLocationCoordinate2D], Error>) -> Void)
-    func removeArea(name: String, user: User, callBack: @escaping(Result<String, Error>) -> Void)
+    func removeArea(name: String, callBack: @escaping(Result<String, Error>) -> Void)
 }
 
 // MARK: - Sign in
@@ -27,17 +27,21 @@ class AreaServices: AreaServicesProtocol {
     private init() {}
 
 // MARK: - Database Area
-    func insertArea(user: User, coordinate: [CLLocationCoordinate2D], nameArea: String, date: Int) {
+    func insertArea(area: Area, date: Date) {
+        guard let user = firebaseAuth.currentUser else {
+            return
+        }
+
         var index = 0
         let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list")
 
-        databaseArea.child(nameArea).setValue([
-            "name": nameArea,
-            "date": String(date)
+        databaseArea.child(area.name!).setValue([
+            "name": area.name,
+            "date": area.date
         ])
 
-        for point in coordinate {
-            databaseArea.child(nameArea).child("coordinate").child("coordinate\(index)").setValue([
+        for point in area.coordinatesPoints {
+            databaseArea.child(area.name!).child("coordinate").child("coordinate\(index)").setValue([
                 "index": index,
                 "latitude": point.latitude,
                 "longitude": point.longitude
@@ -46,8 +50,8 @@ class AreaServices: AreaServicesProtocol {
         }
     }
 
-    func getAreaList(callBack: @escaping (Result<[[String: String]], Error>) -> Void) {
-        var areaList: [[String: String]] = [[:]]
+    func getAreaList(callBack: @escaping (Result<[Area], Error>) -> Void) {
+        var areaList: [Area] = []
         let databaseArea = database.child("Database").child("users_list")
 
         guard let user = firebaseAuth.currentUser else {
@@ -67,16 +71,29 @@ class AreaServices: AreaServicesProtocol {
 
             areaList.removeAll()
 
-            for element in data {
+            for (index, element) in data.enumerated() {
                 let list = element.value as? NSDictionary
                 let name = list?["name"]
                 let date = list?["date"]
-//                element.children["coordinate"]
+
                 if let name = name as? String, let date = date as? String {
-                    areaList.append([name: date])
+                    self.getArea(nameArea: name) { result in
+                        switch result {
+                        case .failure(let error):
+                            callBack(.failure(error))
+                        case .success(let coordinateArea):
+                            let area = Area()
+                            area.name = name
+                            area.date = date
+                            area.coordinatesPoints = coordinateArea
+                            areaList.append(area)
+                            if index == data.count-1 {
+                                callBack(.success(areaList))
+                            }
+                        }
+                    }
                 }
             }
-            callBack(.success(areaList))
         }
     }
 
@@ -128,7 +145,11 @@ class AreaServices: AreaServicesProtocol {
         }
     }
 
-    func removeArea(name: String, user: User, callBack: @escaping(Result<String, Error>) -> Void) {
+    func removeArea(name: String, callBack: @escaping(Result<String, Error>) -> Void) {
+        guard let user = firebaseAuth.currentUser else {
+            callBack(.failure(ServicesError.signIn))
+            return
+        }
         let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list").child(name)
         databaseArea.removeValue { error, success in
             guard error == nil else {

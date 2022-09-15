@@ -10,15 +10,13 @@ import FirebaseAuth
 import MapKit
 
 class MainStarterViewController: UIViewController {
-    let user = FirebaseAuth.Auth.auth().currentUser
     let mainStarter = MainStarterData().mainStarter
-    var hunter = Hunter()
+    var monitoringServcies = MonitoringServices()
 
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        hunter.user = user
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -28,7 +26,7 @@ class MainStarterViewController: UIViewController {
     }
 
     @IBAction func startMonitoringButton(_ sender: UIButton) {
-        if hunter.area.areaSelected != "" {
+        if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" {
             transferToMapViewController()
             tabBarController?.tabBar.isHidden = true
         } else {
@@ -37,17 +35,30 @@ class MainStarterViewController: UIViewController {
     }
 
     private func transferToMapViewController() {
+        let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
+        
+        AreaServices.shared.getArea(nameArea: areaSelected) { [weak self] success in
+            switch success {
+            case .success(let coordinatePoint):
+                let area = Area()
+                area.name = areaSelected
+                area.coordinatesPoints = coordinatePoint
+                self?.monitoringServcies.monitoring.area = area
+            case .failure(let error):
+                self?.presentAlertError(alertMessage: error.localizedDescription)
+                return
+            }
+        }
+        
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
-        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController, let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) else {
+        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return
         }
 
-        mapViewController.hunter = hunter
+        mapViewController.monitoringServices = monitoringServcies
         mapViewController.mapMode = .monitoring
-        mapViewController.nameAreaSelected = areaSelected
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.myNavigationItem.title = "Ready for monitoring"
-//        navigationController?.pushViewController(mapViewController, animated: true)
         self.present(mapViewController, animated: true)
     }
 }
@@ -67,15 +78,16 @@ extension MainStarterViewController: UITableViewDataSource {
     }
 
     private func configureCell(_ cell: UITableViewCell, _ title: String, _ indexPath: IndexPath) {
-
+        let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
+        let radiusAlert = UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert)
         if #available(iOS 14.0, *) {
             var content = cell.defaultContentConfiguration()
             content.text = title
             switch indexPath.row {
             case 0:
-                content.secondaryText = hunter.area.areaSelected
+                content.secondaryText = areaSelected
             case 1:
-                content.secondaryText = "\(hunter.area.radiusAlert) m"
+                content.secondaryText = "\(radiusAlert) m"
             default:
                 break
             }
@@ -84,9 +96,9 @@ extension MainStarterViewController: UITableViewDataSource {
             cell.textLabel?.text = title
             switch indexPath.row {
             case 0:
-                cell.detailTextLabel?.text = hunter.area.areaSelected
+                cell.detailTextLabel?.text = areaSelected
             case 1:
-                cell.detailTextLabel?.text = "\(hunter.area.radiusAlert) m"
+                cell.detailTextLabel?.text = "\(radiusAlert) m"
             default:
                 break
             }
@@ -113,7 +125,6 @@ extension MainStarterViewController: UITableViewDelegate {
         guard let areaListViewController = areaListStoryboard.instantiateViewController(withIdentifier: "AreasList") as? AreaListViewController else {
             return
         }
-        areaListViewController.hunter.user = hunter.user
         areaListViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(areaListViewController, animated: true)
     }

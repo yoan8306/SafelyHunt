@@ -10,7 +10,7 @@ import  FirebaseAuth
 import Firebase
 
 protocol UserServicesProtocol {
-    func checkUserLogged(callBack: @escaping (Result<Bool, Error>) -> Void)
+    func checkUserLogged(callBack: @escaping (Result<String, Error>) -> Void)
     func createUser(email: String, password: String, displayName: String, callBack: @escaping (Result<String, Error>) -> Void)
     func signInUser(email: String?, password: String?, callBack: @escaping (Result<String, Error>) -> Void)
     func updateProfile(displayName: String, callBack: @escaping (Result<String, Error>) -> Void)
@@ -18,6 +18,7 @@ protocol UserServicesProtocol {
 }
 
 class UserServices: UserServicesProtocol {
+// MARK: - Properties
    static var shared = UserServices()
     weak var handle: AuthStateDidChangeListenerHandle?
     private let database = Database.database().reference()
@@ -25,20 +26,31 @@ class UserServices: UserServicesProtocol {
 
    private init() {}
 
-    func checkUserLogged(callBack: @escaping (Result<Bool, Error>) -> Void) {
+// MARK: - functions
+
+    /// Check if an user is logged
+    /// - Parameter callBack: if user is logged callback egual success
+    func checkUserLogged(callBack: @escaping (Result<String, Error>) -> Void) {
         handle = firebaseAuth.addStateDidChangeListener { _, user in
             if (user) != nil {
-                callBack(.success(true))
+                callBack(.success("User logged"))
             } else {
                 callBack(.failure(ServicesError.signIn))
             }
         }
     }
-
+    
+    /// stop  listener state logged in or out
     func removeStateChangeLoggedListen() {
         firebaseAuth.removeStateDidChangeListener(self.handle!)
     }
-
+    
+    /// Create a new user in database firebase
+    /// - Parameters:
+    ///   - email: email for authenticate
+    ///   - password: password's user
+    ///   - displayName: displaynam user's
+    ///   - callBack: check if user create is success or not
     func createUser(email: String, password: String, displayName: String, callBack: @escaping (Result<String, Error>) -> Void) {
         self.firebaseAuth.createUser(withEmail: email, password: password) { authResult, error in
             DispatchQueue.main.async {
@@ -50,7 +62,12 @@ class UserServices: UserServicesProtocol {
             }
         }
     }
-
+    
+    /// Sign in user in application
+    /// - Parameters:
+    ///   - email: email's user sign in
+    ///   - password: password user
+    ///   - callBack: check if sign in is success
     func signInUser(email: String?, password: String?, callBack: @escaping (Result<String, Error>) -> Void) {
         guard let email = email, let password = password else {
             callBack(.failure(ServicesError.signIn))
@@ -67,21 +84,39 @@ class UserServices: UserServicesProtocol {
             }
         }
     }
-
+    
+    /// update user data and save in database
+    /// - Parameters:
+    ///   - displayName: user's displayname
+    ///   - callBack: result of update
     func updateProfile(displayName: String, callBack: @escaping (Result<String, Error>) -> Void) {
-        let changeRequest = FirebaseAuth.Auth.auth().currentUser?.createProfileChangeRequest()
-        changeRequest?.displayName = displayName
-        changeRequest?.commitChanges(completion: { error in
+        let user = firebaseAuth.currentUser
+        guard let user = user else {
+            return
+        }
+        let changeRequest = user.createProfileChangeRequest()
+
+        changeRequest.displayName = displayName
+
+        changeRequest.commitChanges(completion: { error in
             DispatchQueue.main.async {
                 guard error == nil else {
                     callBack(.failure(error ?? ServicesError.signIn))
                     return
                 }
+                self.database.child("Database").child("users_list").child(user.uid).child("info_user").setValue([
+                    "name": user.displayName,
+                    "email": user.email,
+                    "uid": user.uid])
                 callBack(.success("ProfileUpdated"))
             }
         })
     }
-
+    
+    /// reset password
+    /// - Parameters:
+    ///   - email: email for reset password
+    ///   - callBack: result after click reset password
     func resetPassword(email: String, callBack: @escaping (Result<String, Error>) -> Void) {
         firebaseAuth.sendPasswordReset(withEmail: email) { error in
             if error == nil {
@@ -90,7 +125,9 @@ class UserServices: UserServicesProtocol {
             callBack(.failure(error ?? ServicesError.resetPassword))
         }
     }
-
+    
+    /// disconnect the current user
+    /// - Parameter callBack: return if disconnected is success or not
     func disconnectCurrentUser(callBack: @escaping (Result<String, Error>) -> Void) {
         try? firebaseAuth.signOut()
 
@@ -101,7 +138,11 @@ class UserServices: UserServicesProtocol {
             callBack(.failure(ServicesError.disconnected))
         }
     }
-
+    
+    /// delete user and all information in database firebase
+    /// - Parameters:
+    ///   - password: password for provide credential
+    ///   - callBack: return success deleting user or show error
     func deleteAccount(password: String, callBack: @escaping (Result<String, Error>) -> Void) {
         let user = firebaseAuth.currentUser
 
@@ -126,6 +167,7 @@ class UserServices: UserServicesProtocol {
                         callBack(.success("Delete Success"))
                     }
                 }
+
             } else {
                 callBack(.failure(error ?? ServicesError.deleteAccountError))
             }

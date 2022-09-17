@@ -12,13 +12,13 @@ import CoreLocation
 
 class FakeData {
 //    UserServicesMock
-    var userIsLogged: Bool?
+    var userIsLogged: String?
     var myStringMessage: String?
 //    monitoringServices
     var arrayHunter: [Hunter]?
     var distanceDouble: Double?
 //    areaServices
-    var areaList: [[String: String]] = [[:]]
+    var areaList: [Area] = []
     var areaCoordinate: [CLLocationCoordinate2D]?
     var removeAreaSuccess: Bool?
 //    ResponseKO

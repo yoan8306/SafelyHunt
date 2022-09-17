@@ -12,8 +12,11 @@ import CoreLocation
 import MapKit
 
 protocol MonitoringServicesProtocol {
+    func checkUserIsRadiusAlert(callback: @escaping(Result<Bool, Error>) -> Void)
+    func checkUserIsAlwayInArea(area: MKPolygon, positionUser: CLLocationCoordinate2D) -> Bool
     func insertDistanceTraveled()
     func getTotalDistanceTraveled(callBack: @escaping(Result<Double, Error>) -> Void)
+    
 }
 
 class MonitoringServices: MonitoringServicesProtocol {

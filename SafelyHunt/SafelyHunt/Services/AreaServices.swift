@@ -74,12 +74,11 @@ class AreaServices: AreaServicesProtocol {
                 return
             }
 
-            for (index, element) in data.enumerated() {
-                let list = element.value as? NSDictionary
+            for (index, dataArea) in data.enumerated() {
+                let list = dataArea.value as? NSDictionary
                 let name = list?["name"]
                 let date = list?["date"]
-                let Foldercoordinate = element.childSnapshot(forPath: "coordinate").children.allObjects as? [DataSnapshot]
-
+                let Foldercoordinate = dataArea.childSnapshot(forPath: "coordinate").children.allObjects as? [DataSnapshot]
                 guard let Foldercoordinate = Foldercoordinate else {
                     break
                 }
@@ -100,6 +99,7 @@ class AreaServices: AreaServicesProtocol {
                     callBack(.success(areaList))
                 }
             }
+
         }
     }
 

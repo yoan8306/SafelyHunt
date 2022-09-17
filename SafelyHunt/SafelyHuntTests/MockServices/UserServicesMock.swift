@@ -12,7 +12,7 @@ class UserServicesMock: UserServicesProtocol {
     var fakeData: FakeData?
     var responseError: Error?
 
-    func checkUserLogged(callBack: @escaping (Result<Bool, Error>) -> Void) {
+    func checkUserLogged(callBack: @escaping (Result<String, Error>) -> Void) {
         if let userIsLogged = fakeData?.userIsLogged {
             callBack(.success(userIsLogged))
         } else if let responseError = responseError {

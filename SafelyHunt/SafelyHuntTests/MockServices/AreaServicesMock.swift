@@ -8,35 +8,30 @@
 import Foundation
 import Firebase
 import CoreLocation
-
 @testable import SafelyHunt
 
 class AreaServicesMock: AreaServicesProtocol {
     var fakeResponseData = FakeData()
     var responseError: Error?
 
-    func insertArea(user: User, coordinate: [CLLocationCoordinate2D], nameArea: String, date: Int) {
-        let area = ["name": nameArea, "date": String(date)]
+    func insertArea(area: Area, date: Date) {
+        let area = Area()
         fakeResponseData.areaList.append(area)
     }
-
-    func getAreaList(callBack: @escaping (Result<[[String: String]], Error>) -> Void) {
+    
+    func getAreaList(callBack: @escaping (Result<[Area], Error>) -> Void) {
         guard responseError == nil else {
             callBack(.failure(responseError ?? ServicesError.noAreaRecordedFound))
             return
         }
         callBack(.success(fakeResponseData.areaList))
     }
-
-    func getArea(nameArea: String?, callBack: @escaping (Result<[CLLocationCoordinate2D], Error>) -> Void) {
-        if let areaCoordinate = fakeResponseData.areaCoordinate {
-            callBack(.success(areaCoordinate))
-        } else if let responseError = responseError {
-            callBack(.failure(responseError))
-        }
+    
+    func getArea(nameArea: String?, callBack: @escaping (Result<Area, Error>) -> Void) {
+        <#code#>
     }
-
-    func removeArea(name: String, user: User, callBack: @escaping (Result<String, Error>) -> Void) {
+    
+    func removeArea(name: String, callBack: @escaping (Result<String, Error>) -> Void) {
         if let removeAreaSuccess = fakeResponseData.removeAreaSuccess, removeAreaSuccess == true {
             callBack(.success("Remove area"))
         } else if let responseError = responseError {

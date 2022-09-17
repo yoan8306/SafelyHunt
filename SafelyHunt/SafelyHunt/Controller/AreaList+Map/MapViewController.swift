@@ -72,7 +72,7 @@ class MapViewController: UIViewController {
         }
     }
 
-    /// When user touch map draw or not polyline
+    /// When user touch map, create polyline or not
     /// - Parameters:
     ///   - touches: user touch screen
     ///   - event: event touch

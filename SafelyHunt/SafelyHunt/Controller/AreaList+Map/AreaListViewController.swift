@@ -14,8 +14,7 @@ class AreaListViewController: UIViewController {
     // MARK: - Properties
     var listArea: [Area] = []
     var monitoringServices = MonitoringServices()
-
-    @objc var refreshControl = UIRefreshControl()
+    var refreshControl = UIRefreshControl()
 
     // MARK: - IBOutlet
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -31,6 +30,7 @@ class AreaListViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        refreshControl.beginRefreshing()
         getAreaList()
     }
 

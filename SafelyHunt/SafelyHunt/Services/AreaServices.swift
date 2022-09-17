@@ -17,7 +17,6 @@ protocol AreaServicesProtocol {
     func removeArea(name: String, callBack: @escaping(Result<String, Error>) -> Void)
 }
 
-// MARK: - Sign in
 class AreaServices: AreaServicesProtocol {
 
     // MARK: - properties
@@ -26,7 +25,7 @@ class AreaServices: AreaServicesProtocol {
     private let firebaseAuth: FirebaseAuth.Auth = .auth()
     private init() {}
 
-// MARK: - Database Area
+    // MARK: - Database Area
 
     /// Insert a new area in database
     /// - Parameters:
@@ -55,7 +54,7 @@ class AreaServices: AreaServicesProtocol {
     }
 
     /// get all area in user's database
-    /// - Parameter callBack: call result
+    /// - Parameter callBack: switch an array area or error
     func getAreaList(callBack: @escaping (Result<[Area], Error>) -> Void) {
         var areaList: [Area] = []
         let databaseArea = database.child("Database").child("users_list")
@@ -63,6 +62,7 @@ class AreaServices: AreaServicesProtocol {
             callBack(.failure(ServicesError.signIn))
             return
         }
+        areaList.removeAll()
 
         databaseArea.child(user.uid).child("area_list").getData { error, dataSnapshot in
             guard error == nil, let dataSnapshot = dataSnapshot else {
@@ -74,28 +74,30 @@ class AreaServices: AreaServicesProtocol {
                 return
             }
 
-            areaList.removeAll()
-
             for (index, element) in data.enumerated() {
                 let list = element.value as? NSDictionary
                 let name = list?["name"]
                 let date = list?["date"]
+                let Foldercoordinate = element.childSnapshot(forPath: "coordinate").children.allObjects as? [DataSnapshot]
+
+                guard let Foldercoordinate = Foldercoordinate else {
+                    break
+                }
+
+                let coordinateArea = self.createCoordinate(data: Foldercoordinate)
 
                 guard let name = name as? String, let date = date as? String else {
                     break
                 }
 
-                self.getArea(nameArea: name) { result in
-                    switch result {
-                    case .failure(let error):
-                        callBack(.failure(error))
-                    case .success(let area):
-                        area.date = date
-                        areaList.append(area)
-                        if index == data.count-1 {
-                            callBack(.success(areaList))
-                        }
-                    }
+                let area = Area()
+                area.name = name
+                area.date = date
+                area.coordinatesPoints = coordinateArea
+                areaList.append(area)
+
+                if index == data.count-1 {
+                    callBack(.success(areaList))
                 }
             }
         }

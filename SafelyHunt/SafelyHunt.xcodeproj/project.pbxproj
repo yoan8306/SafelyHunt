@@ -227,6 +227,7 @@
 				5F0B7317289D96F80034CB48 /* Enum */,
 				5FBEF95028737FDC0023E5A5 /* Extension */,
 				5FCDFFB9286CE595002D83DD /* SupportingFiles */,
+				5F14AD1D287827F20039002A /* Services */,
 				5FCDFFB8286CE584002D83DD /* Model */,
 				5FCDFFB7286CE57A002D83DD /* View */,
 				5FCDFFB6286CE56C002D83DD /* Controller */,
@@ -347,7 +348,6 @@
 		5FCDFFB8286CE584002D83DD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5F14AD1D287827F20039002A /* Services */,
 				5F14AD1E2878284C0039002A /* UserDefaultKeys.swift */,
 				5F14AD20287829470039002A /* MainStarterData.swift */,
 				5FC753912894892B00BC3DB7 /* Area.swift */,

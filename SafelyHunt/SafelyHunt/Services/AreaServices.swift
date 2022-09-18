@@ -40,7 +40,8 @@ class AreaServices: AreaServicesProtocol {
 
         databaseArea.child(area.name!).setValue([
             "name": area.name,
-            "date": area.date
+            "date": area.date,
+            "city": area.city
         ])
 
         for point in area.coordinatesPoints {
@@ -74,10 +75,15 @@ class AreaServices: AreaServicesProtocol {
                 return
             }
 
+            if data.count <= 0 {
+                callBack(.failure(ServicesError.noAreaRecordedFound))
+            }
+
             for (index, dataArea) in data.enumerated() {
                 let list = dataArea.value as? NSDictionary
                 let name = list?["name"]
                 let date = list?["date"]
+                let city = list?["city"]
                 let Foldercoordinate = dataArea.childSnapshot(forPath: "coordinate").children.allObjects as? [DataSnapshot]
                 guard let Foldercoordinate = Foldercoordinate else {
                     break
@@ -86,12 +92,13 @@ class AreaServices: AreaServicesProtocol {
                 let coordinateArea = self.createCoordinate(data: Foldercoordinate)
 
                 guard let name = name as? String, let date = date as? String else {
-                    break
+                    return
                 }
 
                 let area = Area()
                 area.name = name
                 area.date = date
+                area.city = city as? String
                 area.coordinatesPoints = coordinateArea
                 areaList.append(area)
 

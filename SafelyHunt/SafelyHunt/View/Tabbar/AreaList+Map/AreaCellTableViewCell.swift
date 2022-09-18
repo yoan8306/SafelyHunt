@@ -11,6 +11,7 @@ class AreaCellTableViewCell: UITableViewCell {
 
     @IBOutlet weak var areaNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,8 +24,9 @@ class AreaCellTableViewCell: UITableViewCell {
     }
 
     func configureCell(infoArea: Area, cellSelected: Bool) {
-
         areaNameLabel.text = infoArea.name
+        cityLabel.text = infoArea.city
+
         guard let double = Double(infoArea.date ?? "0") else {
                 return
             }
@@ -53,14 +55,18 @@ class AreaCellTableViewCell: UITableViewCell {
 
     private func setLabel(cellSelected: Bool) {
         areaNameLabel.font = .boldSystemFont(ofSize: 12)
+        cityLabel.font = .boldSystemFont(ofSize: 12)
         dateLabel.font = .italicSystemFont(ofSize: 10)
         dateLabel.textColor = .gray
         if cellSelected {
             areaNameLabel.textColor = .red
             dateLabel.textColor = .red
+            cityLabel.textColor  = .red
         } else {
             areaNameLabel.textColor = .label
+            cityLabel.textColor = .label
             dateLabel.textColor = .gray
+
         }
     }
 }

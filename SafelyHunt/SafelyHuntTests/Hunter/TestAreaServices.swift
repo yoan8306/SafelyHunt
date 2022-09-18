@@ -8,7 +8,7 @@
 import XCTest
 @testable import SafelyHunt
 
-//class TestAreaServices: XCTestCase {
+// class TestAreaServices: XCTestCase {
 //    var hunter = Hunter()
 //    let areaServicesMock = AreaServicesMock()
 //
@@ -67,4 +67,4 @@ import XCTest
 //            }
 //        }
 //    }
-//}
+// }

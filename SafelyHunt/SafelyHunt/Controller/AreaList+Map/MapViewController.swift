@@ -143,16 +143,7 @@ class MapViewController: UIViewController {
 
     /// get name new area
     @IBAction func validateButtonAction() {
-        guard let name = nameAreaTextField.text, !name.isEmpty else {
-            return
-        }
-        let coordinateArea = monitoringServices.monitoring.area.coordinatesPoints
-        let area = Area()
-        area.name = name
-        area.date = String(Date().dateToTimeStamp())
-        area.coordinatesPoints = coordinateArea
-
-        AreaServices.shared.insertArea(area: area, date: Date())
+       createArea()
 
         turnOffEditingMode()
     }
@@ -284,6 +275,30 @@ class MapViewController: UIViewController {
         switchButtonActionRadiusAlert()
         monitoringButton.layer.cornerRadius = monitoringButton.layer.frame.height/2
         travelInfoUiView.isHidden = false
+    }
+
+    private func createArea() {
+        guard let name = nameAreaTextField.text, !name.isEmpty else {
+            return
+        }
+        let coordinateArea = monitoringServices.monitoring.area.coordinatesPoints
+        let polygonCreate = MKPolygon(coordinates: coordinateArea, count: coordinateArea.count)
+        let positionPolygon = CLLocation(latitude: polygonCreate.coordinate.latitude, longitude: polygonCreate.coordinate.longitude)
+        var city: String?
+
+        CLGeocoder().reverseGeocodeLocation(positionPolygon) { places, _ in
+            guard let firstPlace = places?.first else {
+                return
+            }
+            city = firstPlace.locality
+            let area = Area()
+            area.name = name
+            area.date = String(Date().dateToTimeStamp())
+            area.coordinatesPoints = coordinateArea
+            area.city = city
+
+            AreaServices.shared.insertArea(area: area, date: Date())
+        }
     }
 
     // MARK: - Map mode Editing

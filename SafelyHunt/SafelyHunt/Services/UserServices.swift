@@ -39,12 +39,12 @@ class UserServices: UserServicesProtocol {
             }
         }
     }
-    
+
     /// stop  listener state logged in or out
     func removeStateChangeLoggedListen() {
         firebaseAuth.removeStateDidChangeListener(self.handle!)
     }
-    
+
     /// Create a new user in database firebase
     /// - Parameters:
     ///   - email: email for authenticate
@@ -62,7 +62,7 @@ class UserServices: UserServicesProtocol {
             }
         }
     }
-    
+
     /// Sign in user in application
     /// - Parameters:
     ///   - email: email's user sign in
@@ -84,7 +84,7 @@ class UserServices: UserServicesProtocol {
             }
         }
     }
-    
+
     /// update user data and save in database
     /// - Parameters:
     ///   - displayName: user's displayname
@@ -112,7 +112,7 @@ class UserServices: UserServicesProtocol {
             }
         })
     }
-    
+
     /// reset password
     /// - Parameters:
     ///   - email: email for reset password
@@ -125,7 +125,7 @@ class UserServices: UserServicesProtocol {
             callBack(.failure(error ?? ServicesError.resetPassword))
         }
     }
-    
+
     /// disconnect the current user
     /// - Parameter callBack: return if disconnected is success or not
     func disconnectCurrentUser(callBack: @escaping (Result<String, Error>) -> Void) {
@@ -138,7 +138,7 @@ class UserServices: UserServicesProtocol {
             callBack(.failure(ServicesError.disconnected))
         }
     }
-    
+
     /// delete user and all information in database firebase
     /// - Parameters:
     ///   - password: password for provide credential

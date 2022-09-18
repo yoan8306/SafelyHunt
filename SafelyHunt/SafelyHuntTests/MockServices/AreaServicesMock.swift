@@ -18,7 +18,7 @@ class AreaServicesMock: AreaServicesProtocol {
         let area = Area()
         fakeResponseData.areaList.append(area)
     }
-    
+
     func getAreaList(callBack: @escaping (Result<[Area], Error>) -> Void) {
         guard responseError == nil else {
             callBack(.failure(responseError ?? ServicesError.noAreaRecordedFound))
@@ -26,11 +26,11 @@ class AreaServicesMock: AreaServicesProtocol {
         }
         callBack(.success(fakeResponseData.areaList))
     }
-    
+
     func getArea(nameArea: String?, callBack: @escaping (Result<Area, Error>) -> Void) {
         <#code#>
     }
-    
+
     func removeArea(name: String, callBack: @escaping (Result<String, Error>) -> Void) {
         if let removeAreaSuccess = fakeResponseData.removeAreaSuccess, removeAreaSuccess == true {
             callBack(.success("Remove area"))

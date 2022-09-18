@@ -17,7 +17,6 @@ class AreaListViewController: UIViewController {
     var refreshControl = UIRefreshControl()
 
     // MARK: - IBOutlet
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var areaListTableView: UITableView!
 
     // MARK: - Life Cycle
@@ -59,13 +58,11 @@ class AreaListViewController: UIViewController {
                 self?.listArea = listArea
                 self?.areaListTableView.reloadData()
                 self?.refreshControl.endRefreshing()
-                self?.activityIndicator.isHidden = true
+
                 self?.initializeBackgroundTableView()
 
             case .failure(let error):
-                self?.activityIndicator.isHidden = true
                 self?.presentAlertError(alertMessage: error.localizedDescription)
-                self?.activityIndicator.isHidden = true
                 self?.refreshControl.endRefreshing()
             }
         }

@@ -12,6 +12,7 @@ import FirebaseAuth
 class Area {
     var name: String?
     var date: String?
+    var city: String?
     var coordinatesPoints: [CLLocationCoordinate2D] = []
     var coordinateTravel: [CLLocationCoordinate2D] = []
 

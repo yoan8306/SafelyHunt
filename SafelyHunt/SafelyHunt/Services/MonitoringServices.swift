@@ -16,17 +16,17 @@ protocol MonitoringServicesProtocol {
     func checkUserIsAlwayInArea(area: MKPolygon, positionUser: CLLocationCoordinate2D) -> Bool
     func insertDistanceTraveled()
     func getTotalDistanceTraveled(callBack: @escaping(Result<Double, Error>) -> Void)
-    
+
 }
 
 class MonitoringServices: MonitoringServicesProtocol {
 
-    var monitoring: Monitoring
+    var monitoring: MonitoringProtocol
     var startMonitoring: Bool
     private let database = Database.database().reference()
     private let firebaseAuth: FirebaseAuth.Auth = .auth()
 
-    init (monitoring: Monitoring = Monitoring(), startMonitoring: Bool = false) {
+    init (monitoring: MonitoringProtocol = Monitoring(), startMonitoring: Bool = false) {
         self.monitoring = monitoring
         self.startMonitoring = startMonitoring
     }

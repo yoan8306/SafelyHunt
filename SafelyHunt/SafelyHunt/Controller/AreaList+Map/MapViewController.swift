@@ -27,6 +27,8 @@ class MapViewController: UIViewController {
     }()
 
     // MARK: - IBOutlet
+
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var sliderUiView: UIView!
     @IBOutlet weak var popUpAreaNameUiView: UIView!
     @IBOutlet weak var settingsView: UIView!
@@ -60,7 +62,7 @@ class MapViewController: UIViewController {
         mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
             drawAreaSelected()
     }
@@ -228,7 +230,8 @@ class MapViewController: UIViewController {
         compassButton.frame.origin = CGPoint(x: travelInfoUiView.frame.origin.x + 5, y: travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 20)
         compassButton.compassVisibility = .adaptive
         view.addSubview(compassButton)
-
+        activityIndicator.layer.cornerRadius = activityIndicator.layer.frame.height/2
+        activityIndicator.isHidden = true
         locationButton.layer.cornerRadius = locationButton.layer.frame.height/2
         settingsButton.layer.cornerRadius = settingsButton.frame.height / 2
         notification.notificationInitialize()
@@ -319,7 +322,7 @@ class MapViewController: UIViewController {
 
     private func drawAreaSelected() {
         let areaSelected = monitoringServices.monitoring.area
-
+        activityIndicator.isHidden = false
         AreaServices.shared.getArea(nameArea: areaSelected.name) { [weak self] result in
             switch result {
             case .success(let area):
@@ -327,7 +330,9 @@ class MapViewController: UIViewController {
                 if self?.mapMode == .monitoring {
                     self?.monitoringAction()
                 }
+                self?.activityIndicator.isHidden = true
             case .failure(_):
+                self?.activityIndicator.isHidden = true
                 return
             }
         }
@@ -352,6 +357,7 @@ class MapViewController: UIViewController {
             let region = MKCoordinateRegion(center: center, span: span)
             mapView.setRegion(region, animated: true)
         }
+
     }
 
     private func insertRadius() {
@@ -401,7 +407,7 @@ extension MapViewController {
         locationManager.allowsBackgroundLocationUpdates = false
         locationManager.stopUpdatingLocation()
         timer?.invalidate()
-        monitoringServices.startMonitoring = !monitoringServices.startMonitoring
+        monitoringServices.startMonitoring = false
         removeRadiusOverlay()
         mapView.removeAnnotations(mapView.annotations)
         monitoringButton.setImage(imageStart, for: .normal)

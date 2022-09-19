@@ -9,11 +9,13 @@ import Foundation
 
 enum ServicesError: Error {
     case createAccountError, emailAlreadyExist, signIn, resetPassword, noAreaRecordedFound, errorDeletingArea, errorTask, listUsersPositions, deleteAccountError, disconnected, distanceTraveled
+}
 
-    var detail: String {
+extension ServicesError: LocalizedError {
+   public var detail: String {
         switch self {
         case .createAccountError:
-            return "Error during create account"
+            return NSLocalizedString("Error during create account", comment: "Error")
         case .emailAlreadyExist:
             return "This email already exist"
         case .signIn:
@@ -21,7 +23,7 @@ enum ServicesError: Error {
         case .resetPassword:
             return "Error during reset your password"
         case .noAreaRecordedFound:
-            return "You doesn't have area recorded. \nClick on + for add an area"
+            return NSLocalizedString("You doesn't have area recorded. \nClick on \"+\" for add an area", comment: "Error")
         case .errorDeletingArea:
             return  "Error during deleting"
         case .errorTask:

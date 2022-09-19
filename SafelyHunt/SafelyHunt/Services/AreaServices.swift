@@ -75,8 +75,9 @@ class AreaServices: AreaServicesProtocol {
                 return
             }
 
-            if data.count <= 0 {
+            guard data.count > 0  else {
                 callBack(.failure(ServicesError.noAreaRecordedFound))
+                return
             }
 
             for (index, dataArea) in data.enumerated() {
@@ -86,7 +87,7 @@ class AreaServices: AreaServicesProtocol {
                 let city = list?["city"]
                 let Foldercoordinate = dataArea.childSnapshot(forPath: "coordinate").children.allObjects as? [DataSnapshot]
                 guard let Foldercoordinate = Foldercoordinate else {
-                    break
+                    return
                 }
 
                 let coordinateArea = self.createCoordinate(data: Foldercoordinate)

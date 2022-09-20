@@ -11,7 +11,7 @@ import FirebaseAuth
 
 class ProfileViewController: UIViewController {
 
-    var monitoringServices = MonitoringServices()
+    var monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area()))
     var hunter = Hunter()
 
     @IBOutlet weak var totalDistanceLabel: UILabel!
@@ -32,7 +32,5 @@ class ProfileViewController: UIViewController {
                 self?.totalDistanceLabel.text = String(format: "%.2f", distance / 1000) + " Km"
             }
         }
-
     }
-
 }

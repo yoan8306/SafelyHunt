@@ -12,28 +12,38 @@ enum ServicesError: Error {
 }
 
 extension ServicesError: LocalizedError {
-   public var detail: String {
+    internal var errorDescription: String? {
         switch self {
         case .createAccountError:
-            return NSLocalizedString("Error during create account", comment: "Error")
+            return "Error during create account"
+
         case .emailAlreadyExist:
             return "This email already exist"
+
         case .signIn:
             return "Authentification failed"
+
         case .resetPassword:
             return "Error during reset your password"
+
         case .noAreaRecordedFound:
-            return NSLocalizedString("You doesn't have area recorded. \nClick on \"+\" for add an area", comment: "Error")
+            return "You doesn't have an area recorded. Click on + for add your first area"
+
         case .errorDeletingArea:
             return  "Error during deleting"
+
         case .errorTask:
             return "Error during task"
+
         case .listUsersPositions:
             return "No postions users list found"
+
         case .deleteAccountError:
             return "Error during delete account"
+
         case .disconnected :
             return "Error during disconnected."
+
         case .distanceTraveled:
             return "No distance traveled recorded"
         }

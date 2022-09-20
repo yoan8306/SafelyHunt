@@ -12,10 +12,19 @@ import UIKit
 @testable import SafelyHunt
 
 class MonitoringServicesMock: MonitoringServicesProtocol {
+    var monitoring: MonitoringProtocol
+    var startMonitoring: Bool
     var fakeData: FakeData?
     var responseError: Error?
 
-    func checkUserIsRadiusAlert(callback: @escaping (Result<Bool, Error>) -> Void) {
+    init(monitoring: MonitoringProtocol, startMonitoring: Bool, fakeData: FakeData? = nil, responseError: Error? = nil) {
+        self.monitoring = monitoring
+        self.startMonitoring = startMonitoring
+        self.fakeData = fakeData
+        self.responseError = responseError
+    }
+
+    func checkUserIsRadiusAlert(callback: @escaping (Result<[Hunter], Error>) -> Void) {
         <#code#>
     }
 

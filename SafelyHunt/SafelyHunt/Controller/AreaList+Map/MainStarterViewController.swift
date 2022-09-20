@@ -11,7 +11,7 @@ import MapKit
 
 class MainStarterViewController: UIViewController {
     let mainStarter = MainStarterData().mainStarter
-    var monitoringServcies = MonitoringServices()
+    var area: Area?
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -22,37 +22,41 @@ class MainStarterViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
+        getSelectedArea()
         tableView.reloadData()
     }
 
     @IBAction func startMonitoringButton(_ sender: UIButton) {
         if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" {
-            transferToMapViewController()
             tabBarController?.tabBar.isHidden = true
+            presentMapView()
         } else {
             presentAlertError(alertMessage: "Select an area for start")
         }
     }
 
-    private func transferToMapViewController() {
+    private func getSelectedArea() {
         let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
 
         AreaServices.shared.getArea(nameArea: areaSelected) { [weak self] success in
             switch success {
             case .success(let area):
-                self?.monitoringServcies.monitoring.area = area
-            case .failure(let error):
-                self?.presentAlertError(alertMessage: error.localizedDescription)
+                self?.area = area
+            case .failure(_):
+                self?.presentAlertError(alertTitle: "👋", alertMessage: "Please select your area in your list, or check your connection before start monitoring.")
                 return
             }
         }
+    }
 
+    private func presentMapView() {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
-        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
+        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController, let area = area else {
             return
         }
+        let monitoringService: MonitoringServicesProtocol = MonitoringServices(monitoring: Monitoring(area: area))
 
-        mapViewController.monitoringServices = monitoringServcies
+        mapViewController.monitoringServices = monitoringService
         mapViewController.mapMode = .monitoring
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.myNavigationItem.title = "Ready for monitoring"
@@ -131,6 +135,8 @@ extension MainStarterViewController: UITableViewDelegate {
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return
         }
+        let monitoringService = MonitoringServices(monitoring: Monitoring(area: Area()))
+        mapViewController.monitoringServices = monitoringService
         mapViewController.mapMode = .editingRadius
         mapViewController.myNavigationItem.title = "Set radius alert"
         mapViewController.modalPresentationStyle = .fullScreen

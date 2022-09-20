@@ -12,7 +12,7 @@ import NotificationBannerSwift
 
 class MapViewController: UIViewController {
     // MARK: - Properties
-    var monitoringServices = MonitoringServices()
+    var monitoringServices: MonitoringServicesProtocol!
     var locationManager = CLLocationManager()
     var mapMode: MapMode = .monitoring
     var editingArea = false
@@ -114,7 +114,7 @@ class MapViewController: UIViewController {
         if editingArea {
             turnOffEditingMode()
         }
-        monitoringServices.startMonitoring = false
+//        monitoringServices.startMonitoring = false
     }
 
     // MARK: - IBAction
@@ -366,6 +366,7 @@ class MapViewController: UIViewController {
             return
         }
         removeRadiusOverlay()
+
         mapView.addOverlay(monitoringServices.monitoring.area.createCircle(userPosition: userPosition, radius: radius))
     }
 
@@ -430,14 +431,12 @@ extension MapViewController {
         monitoringServices.checkUserIsRadiusAlert { [weak self] result in
             switch result {
             case .success(let usersIsInRadiusAlert):
+                guard usersIsInRadiusAlert.isEmpty == false else {
+                    return
+                }
                 let allowsNotification = UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert)
                 self?.mapView.removeAnnotations((self?.mapView.annotations)!)
-                //
-                if usersIsInRadiusAlert {
-                    guard let arrayHunters = self?.monitoringServices.monitoring.listHuntersInRadiusAlert else {
-                        return
-                    }
-                    self?.insertHunterInMap(arrayHunters)
+                    self?.insertHunterInMap(usersIsInRadiusAlert)
                     self?.insertRadius()
 
                     if allowsNotification {
@@ -445,7 +444,7 @@ extension MapViewController {
                         bannerRadius.show(cornerRadius: 8, shadowBlurRadius: 16)
                         self?.notification.sendNotification()
                     }
-                }
+
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -484,7 +483,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        GetInfoDistanceAndAltitude(locations)
+        getInfoDistanceAndAltitude(locations)
         getDistanceTraveled(locations)
         getPostionUser(locations)
     }
@@ -520,7 +519,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             locationManager.requestWhenInUseAuthorization()
         }
     }
-    private func GetInfoDistanceAndAltitude(_ locations: [CLLocation]) {
+    private func getInfoDistanceAndAltitude(_ locations: [CLLocation]) {
         let distanceTraveled = monitoringServices.monitoring.measureDistanceTravelled(locations: locations)
         distanceTraveledLabel.text = String(format: "%.2f", distanceTraveled) + " km"
         currentAltitude.text = String(format: "%.0f", locations.first!.altitude) + " m"
@@ -533,8 +532,11 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     }
 
     private func getPostionUser(_ locations: [CLLocation]) {
-        monitoringServices.monitoring.hunter.latitude = locations.first?.coordinate.latitude
-        monitoringServices.monitoring.hunter.longitude = locations.first?.coordinate.longitude
+        guard let hunter = monitoringServices.monitoring.hunter else {
+            return
+        }
+        hunter.latitude = locations.first?.coordinate.latitude
+        hunter.longitude = locations.first?.coordinate.longitude
     }
 
     private func createPolyLineRenderer(_ overlay: MKOverlay) -> MKOverlayRenderer {

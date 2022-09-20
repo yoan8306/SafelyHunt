@@ -8,12 +8,10 @@
 import UIKit
 import AVFoundation
 import FirebaseAuth
-import SwiftUI
 
 class AreaListViewController: UIViewController {
     // MARK: - Properties
     var listArea: [Area] = []
-    var monitoringServices = MonitoringServices()
     var refreshControl = UIRefreshControl()
 
     // MARK: - IBOutlet
@@ -43,7 +41,7 @@ class AreaListViewController: UIViewController {
         guard let mapViewController = mapsStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return
         }
-
+        mapViewController.monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area()))
         mapViewController.mapMode = .editingArea
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.myNavigationItem.title = "Editing area"
@@ -62,7 +60,7 @@ class AreaListViewController: UIViewController {
                 self?.initializeBackgroundTableView()
 
             case .failure(let error):
-                self?.presentAlertError(alertMessage: error.localizedDescription)
+                self?.presentAlertError(alertTitle: "🤷‍♂️", alertMessage: error.localizedDescription)
                 self?.refreshControl.endRefreshing()
             }
         }
@@ -108,7 +106,7 @@ extension AreaListViewController: UITableViewDataSource {
 extension AreaListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        monitoringServices.monitoring.area = listArea[indexPath.row]
+//        monitoringServices.monitoring.area = listArea[indexPath.row]
         UserDefaults.standard.set(listArea[indexPath.row].name, forKey: UserDefaultKeys.Keys.areaSelected)
         tableView.reloadData()
     }
@@ -121,8 +119,7 @@ extension AreaListViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        monitoringServices.monitoring.area = listArea[indexPath.row]
-        transferToMapViewController()
+        transferToMapViewController(area: listArea[indexPath.row])
     }
 
     // MARK: - private func tableView
@@ -159,14 +156,15 @@ extension AreaListViewController: UITableViewDelegate {
         }
     }
 
-    private func transferToMapViewController() {
+    private func transferToMapViewController(area: Area) {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
+        let monitoringService = MonitoringServices(monitoring: Monitoring(area: area))
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
             return
         }
-        mapViewController.monitoringServices = monitoringServices
+
+        mapViewController.monitoringServices = monitoringService
         mapViewController.mapMode = .editingArea
-//        mapViewController.areaSelected = areaSelected
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.myNavigationItem.title = "Editing area"
         navigationController?.pushViewController(mapViewController, animated: true)

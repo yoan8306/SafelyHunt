@@ -10,9 +10,8 @@ import FirebaseAuth
 import MapKit
 
 protocol MonitoringProtocol {
-    var area: Area { get set }
-    var hunter: Hunter { get set }
-    var listHuntersInRadiusAlert: [Hunter] {get set}
+    var area: Area {get set}
+    var hunter: Hunter? {get set}
     var currentDistance: Double {get set}
     var currentTravel: [CLLocationCoordinate2D] {get set}
     var lastLocation: CLLocation? {get set}
@@ -23,16 +22,15 @@ protocol MonitoringProtocol {
 }
 
 class Monitoring: MonitoringProtocol {
-    var area = Area()
-    var hunter = Hunter()
-    var listHuntersInRadiusAlert: [Hunter]
+    var area: Area
+    var hunter: Hunter?
     var currentDistance: Double = 0.0
     var currentTravel: [CLLocationCoordinate2D] = []
     var lastLocation: CLLocation?
     var firstLocation: CLLocation?
 
-    init(listHuntersInRadiusAlert: [Hunter] = [], monitoringIsOn: Bool = false) {
-        self.listHuntersInRadiusAlert = listHuntersInRadiusAlert
+    init(monitoringIsOn: Bool = false, area: Area) {
+        self.area = area
     }
 
     func getCurrentTravel(locations: [CLLocation]) {

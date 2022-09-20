@@ -10,7 +10,7 @@ import  FirebaseAuth
 import Firebase
 
 protocol UserServicesProtocol {
-    func checkUserLogged(callBack: @escaping (Result<String, Error>) -> Void)
+    func checkUserLogged(callBack: @escaping (Result<Hunter, Error>) -> Void)
     func createUser(email: String, password: String, displayName: String, callBack: @escaping (Result<String, Error>) -> Void)
     func signInUser(email: String?, password: String?, callBack: @escaping (Result<String, Error>) -> Void)
     func updateProfile(displayName: String, callBack: @escaping (Result<String, Error>) -> Void)
@@ -30,10 +30,13 @@ class UserServices: UserServicesProtocol {
 
     /// Check if an user is logged
     /// - Parameter callBack: if user is logged callback egual success
-    func checkUserLogged(callBack: @escaping (Result<String, Error>) -> Void) {
+    func checkUserLogged(callBack: @escaping (Result<Hunter, Error>) -> Void) {
         handle = firebaseAuth.addStateDidChangeListener { _, user in
-            if (user) != nil {
-                callBack(.success("User logged"))
+            if let user = user {
+                let hunter = Hunter()
+                hunter.user = user
+                hunter.displayName = user.displayName
+                callBack(.success(hunter))
             } else {
                 callBack(.failure(ServicesError.signIn))
             }

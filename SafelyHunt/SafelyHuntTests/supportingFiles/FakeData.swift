@@ -12,7 +12,7 @@ import CoreLocation
 
 class FakeData {
 //    UserServicesMock
-    var userIsLogged: String?
+    var userLogged: Hunter?
     var myStringMessage: String?
 //    monitoringServices
     var arrayHunter: [Hunter]?

@@ -16,10 +16,10 @@ class SplashScreenViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
-        UserServices.shared.checkUserLogged { userIsLogged in
-            switch userIsLogged {
-            case .success(_):
-                self.transferToMainStarter()
+        UserServices.shared.checkUserLogged { hunter in
+            switch hunter {
+            case .success(let hunter):
+                self.transferToMainStarter(hunter: hunter)
             case .failure(_):
                 self.transferToLogin()
             }
@@ -32,13 +32,12 @@ class SplashScreenViewController: UIViewController {
     }
 
 // MARK: - private functions
-    private func transferToMainStarter() {
+    private func transferToMainStarter(hunter: Hunter) {
         let mainStarterStoryboard = UIStoryboard(name: "TabbarMain", bundle: nil)
 
         guard let mainStarterViewController = mainStarterStoryboard.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {
             return
         }
-
         mainStarterViewController.modalPresentationStyle = .fullScreen
         self.present(mainStarterViewController, animated: true)
     }

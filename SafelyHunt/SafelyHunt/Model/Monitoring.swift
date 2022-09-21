@@ -29,8 +29,9 @@ class Monitoring: MonitoringProtocol {
     var lastLocation: CLLocation?
     var firstLocation: CLLocation?
 
-    init(monitoringIsOn: Bool = false, area: Area) {
+    init(monitoringIsOn: Bool = false, area: Area, hunter: Hunter = Hunter()) {
         self.area = area
+        self.hunter = hunter
     }
 
     func getCurrentTravel(locations: [CLLocation]) {

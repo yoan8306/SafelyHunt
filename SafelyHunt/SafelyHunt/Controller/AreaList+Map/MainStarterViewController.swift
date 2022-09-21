@@ -54,7 +54,9 @@ class MainStarterViewController: UIViewController {
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController, let area = area else {
             return
         }
-        let monitoringService: MonitoringServicesProtocol = MonitoringServices(monitoring: Monitoring(area: area))
+        let hunter = Hunter(user: FirebaseAuth.Auth.auth().currentUser)
+        hunter.displayName = hunter.user?.displayName
+        let monitoringService: MonitoringServicesProtocol = MonitoringServices(monitoring: Monitoring(area: area, hunter: hunter))
 
         mapViewController.monitoringServices = monitoringService
         mapViewController.mapMode = .monitoring

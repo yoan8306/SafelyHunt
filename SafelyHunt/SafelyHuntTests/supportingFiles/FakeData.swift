@@ -14,13 +14,16 @@ class FakeData {
 //    UserServicesMock
     var userLogged: Hunter?
     var myStringMessage: String?
+
 //    monitoringServices
     var arrayHunter: [Hunter]?
     var distanceDouble: Double?
+
 //    areaServices
     var areaList: [Area] = []
     var areaCoordinate: [CLLocationCoordinate2D]?
     var removeAreaSuccess: Bool?
+
 //    ResponseKO
     var responseKO = "i'm bad data".data(using: .utf8)
 }

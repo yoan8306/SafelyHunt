@@ -59,6 +59,9 @@
                                                 <color key="backgroundColor" systemColor="systemRedColor"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="Cancel"/>
+                                                <connections>
+                                                    <action selector="cancelButtonAction" destination="Y6W-OH-hqX" eventType="touchUpInside" id="PkB-w2-46a"/>
+                                                </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sxo-fy-AMG">
                                                 <rect key="frame" x="125" y="0.0" width="115" height="40"/>
@@ -69,7 +72,6 @@
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="Validate"/>
                                                         <connections>
-                                                            <action selector="cancelButtonAction" destination="Y6W-OH-hqX" eventType="touchUpInside" id="3TH-J3-wR8"/>
                                                             <action selector="validateDeleteAccount" destination="Y6W-OH-hqX" eventType="touchUpInside" id="DGJ-fD-pGj"/>
                                                         </connections>
                                                     </button>

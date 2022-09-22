@@ -21,16 +21,18 @@ class AccountSettingsViewController: UIViewController {
 
     @IBAction func disconnectButton() {
         resetUserDefault()
-        UserServices.shared.disconnectCurrentUser { result in
+
+        UserServices.shared.disconnectCurrentUser { [weak self] result in
             switch result {
             case .failure(let error):
-                self.presentAlertError(alertMessage: error.localizedDescription)
+                self?.presentAlertError(alertMessage: error.localizedDescription)
             case .success(let messageDisconnected):
-                self.presentNativeAlertSuccess(alertMessage: messageDisconnected)
+                self?.presentNativeAlertSuccess(alertMessage: messageDisconnected)
+                self?.navigationToLoginViewController()
             }
         }
-        self.dismiss(animated: true)
     }
+
     @IBAction func deleteAccountButton() {
         reAuthenticateUiView.isHidden = false
     }
@@ -51,7 +53,7 @@ class AccountSettingsViewController: UIViewController {
 
             case .success(let stringSuccess):
                 self?.presentNativeAlertSuccess(alertMessage: stringSuccess)
-                self?.dismiss(animated: true)
+                self?.navigationToLoginViewController()
             }
         }
     }
@@ -59,6 +61,16 @@ class AccountSettingsViewController: UIViewController {
     @IBAction func cancelButtonAction() {
         reAuthenticateUiView.isHidden = true
         passwordTextField.resignFirstResponder()
+    }
+
+    private func navigationToLoginViewController() {
+        let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
+
+        guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "LoginNavigation") as? UINavigationController else {
+            return
+        }
+
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginViewController, animationOption: .transitionCrossDissolve)
     }
 
     private func showActivityIndicator(shown: Bool) {

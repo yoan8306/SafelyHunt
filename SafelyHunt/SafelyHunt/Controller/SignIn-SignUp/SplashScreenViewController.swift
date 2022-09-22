@@ -38,8 +38,8 @@ class SplashScreenViewController: UIViewController {
         guard let mainStarterViewController = mainStarterStoryboard.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {
             return
         }
-        mainStarterViewController.modalPresentationStyle = .fullScreen
-        self.present(mainStarterViewController, animated: true)
+
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarterViewController, animationOption: .transitionFlipFromBottom)
     }
 
     private func transferToLogin() {
@@ -48,8 +48,6 @@ class SplashScreenViewController: UIViewController {
         guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "LoginNavigation") as? UINavigationController else {
             return
         }
-
-        loginViewController.modalPresentationStyle = .fullScreen
-        self.present(loginViewController, animated: true)
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginViewController, animationOption: .transitionFlipFromLeft)
     }
 }

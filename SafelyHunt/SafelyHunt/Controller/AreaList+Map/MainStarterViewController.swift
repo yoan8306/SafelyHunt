@@ -12,6 +12,7 @@ import MapKit
 class MainStarterViewController: UIViewController {
     let mainStarter = MainStarterData().mainStarter
     var area: Area?
+    var hunter = Hunter()
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -54,8 +55,7 @@ class MainStarterViewController: UIViewController {
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController, let area = area else {
             return
         }
-        let hunter = Hunter(user: FirebaseAuth.Auth.auth().currentUser)
-        hunter.displayName = hunter.user?.displayName
+
         let monitoringService: MonitoringServicesProtocol = MonitoringServices(monitoring: Monitoring(area: area, hunter: hunter))
 
         mapViewController.monitoringServices = monitoringService

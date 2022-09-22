@@ -54,10 +54,8 @@ class LoginViewController: UIViewController {
         guard let mainStarter = tabBarMain.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {
             return
         }
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarter, animationOption: .transitionFlipFromBottom)
 
-        mainStarter.modalPresentationStyle = .fullScreen
-        self.navigationController?.pushViewController(mainStarter, animated: true)
-        self.dismiss(animated: false)
     }
 
     private func activityIndicator(shown: Bool) {

@@ -6,24 +6,27 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseAuth
 import CoreLocation
 @testable import SafelyHunt
 
 class FakeData {
 //    UserServicesMock
-    var userLogged: Hunter?
+    var userSign: User?
     var myStringMessage: String?
+    var password: String?
 
 //    monitoringServices
-    var arrayHunter: [Hunter]?
+    var hunters: [Hunter]?
     var distanceDouble: Double?
+    var newDistanceInDatabase: Double?
 
 //    areaServices
-    var areaList: [Area] = []
+    var areas: [Area] = []
     var areaCoordinate: [CLLocationCoordinate2D]?
     var removeAreaSuccess: Bool?
 
 //    ResponseKO
     var responseKO = "i'm bad data".data(using: .utf8)
+    var resonseError: ServicesError?
 }

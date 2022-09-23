@@ -11,9 +11,9 @@ import Firebase
 
 protocol UserServicesProtocol {
     func checkUserLogged(callBack: @escaping (Result<Hunter, Error>) -> Void)
-    func createUser(email: String, password: String, displayName: String, callBack: @escaping (Result<String, Error>) -> Void)
+    func createUser(email: String, password: String, displayName: String, callBack: @escaping (Result<User, Error>) -> Void)
     func signInUser(email: String?, password: String?, callBack: @escaping (Result<String, Error>) -> Void)
-    func updateProfile(displayName: String, callBack: @escaping (Result<String, Error>) -> Void)
+    func updateProfile(displayName: String, callBack: @escaping (Result<User, Error>) -> Void)
     func deleteAccount(password: String, callBack: @escaping (Result<String, Error>) -> Void)
 }
 
@@ -33,9 +33,8 @@ class UserServices: UserServicesProtocol {
     func checkUserLogged(callBack: @escaping (Result<Hunter, Error>) -> Void) {
         handle = firebaseAuth.addStateDidChangeListener { _, user in
             if let user = user {
-                let hunter = Hunter()
-                hunter.user = user
-                hunter.displayName = user.displayName
+                let hunter = Hunter(displayName: user.displayName,
+                                    user: user)
                 callBack(.success(hunter))
             } else {
                 callBack(.failure(ServicesError.signIn))
@@ -54,14 +53,14 @@ class UserServices: UserServicesProtocol {
     ///   - password: password's user
     ///   - displayName: displaynam user's
     ///   - callBack: check if user create is success or not
-    func createUser(email: String, password: String, displayName: String, callBack: @escaping (Result<String, Error>) -> Void) {
+    func createUser(email: String, password: String, displayName: String, callBack: @escaping (Result<User, Error>) -> Void) {
         self.firebaseAuth.createUser(withEmail: email, password: password) { authResult, error in
             DispatchQueue.main.async {
-                guard let _ = authResult, error == nil else {
+                guard let user = authResult?.user, error == nil else {
                     callBack(.failure(error ?? ServicesError.createAccountError))
                     return
                 }
-                callBack(.success("UserCreated"))
+                callBack(.success(user))
             }
         }
     }
@@ -92,7 +91,7 @@ class UserServices: UserServicesProtocol {
     /// - Parameters:
     ///   - displayName: user's displayname
     ///   - callBack: result of update
-    func updateProfile(displayName: String, callBack: @escaping (Result<String, Error>) -> Void) {
+    func updateProfile(displayName: String, callBack: @escaping (Result<User, Error>) -> Void) {
         let user = firebaseAuth.currentUser
         guard let user = user else {
             return
@@ -111,7 +110,7 @@ class UserServices: UserServicesProtocol {
                     "name": user.displayName,
                     "email": user.email,
                     "uid": user.uid])
-                callBack(.success("ProfileUpdated"))
+                callBack(.success(user))
             }
         })
     }
@@ -148,31 +147,29 @@ class UserServices: UserServicesProtocol {
     ///   - callBack: return success deleting user or show error
     func deleteAccount(password: String, callBack: @escaping (Result<String, Error>) -> Void) {
         let user = firebaseAuth.currentUser
-
         guard let user = user, let mail = user.email else {
             callBack(.failure(ServicesError.deleteAccountError))
             return
         }
-
         let credential: AuthCredential = EmailAuthProvider.credential(withEmail: mail, password: password)
 
-        user.reauthenticate(with: credential) { success, error  in
-            if success != nil, error == nil {
-                self.database.child("Database").child("users_list").child(user.uid).removeValue()
-                self.database.child("Database").child("position_user").child(user.uid).removeValue()
-                user.delete()
-
-                self.disconnectCurrentUser { result in
-                    switch result {
-                    case .failure(_):
-                        callBack(.failure(error ?? ServicesError.disconnected))
-                    case .success(_):
-                        callBack(.success("Delete Success"))
-                    }
-                }
-
-            } else {
+        user.reauthenticate(with: credential) { authResult, error  in
+            guard let userId = authResult?.user.uid, error == nil else {
                 callBack(.failure(error ?? ServicesError.deleteAccountError))
+                return
+            }
+
+            self.database.child("Database").child("users_list").child(userId).removeValue()
+            self.database.child("Database").child("position_user").child(userId).removeValue()
+            user.delete()
+
+            self.disconnectCurrentUser { result in
+                switch result {
+                case .failure(_):
+                    callBack(.failure(error ?? ServicesError.disconnected))
+                case .success(_):
+                    callBack(.success("Delete Success"))
+                }
             }
         }
     }

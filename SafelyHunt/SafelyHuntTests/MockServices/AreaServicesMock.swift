@@ -11,31 +11,37 @@ import CoreLocation
 @testable import SafelyHunt
 
 class AreaServicesMock: AreaServicesProtocol {
-    var fakeResponseData = FakeData()
-    var responseError: Error?
+    var fakeData = FakeData()
 
     func insertArea(area: Area, date: Date) {
         let area = Area()
-        fakeResponseData.areaList.append(area)
+        fakeData.areas.append(area)
     }
 
     func getAreaList(callBack: @escaping (Result<[Area], Error>) -> Void) {
-        guard responseError == nil else {
-            callBack(.failure(responseError ?? ServicesError.noAreaRecordedFound))
-            return
+        if !fakeData.areas.isEmpty, fakeData.resonseError == nil {
+            callBack(.success(fakeData.areas))
+        } else if let error = fakeData.resonseError {
+            callBack(.failure(error))
         }
-        callBack(.success(fakeResponseData.areaList))
     }
 
     func getArea(nameArea: String?, callBack: @escaping (Result<Area, Error>) -> Void) {
-        <#code#>
+        for area in fakeData.areas {
+            if area.name == nameArea {
+                callBack(.success(area))
+            }
+        }
+        callBack(.failure(fakeData.resonseError!))
     }
 
     func removeArea(name: String, callBack: @escaping (Result<String, Error>) -> Void) {
-        if let removeAreaSuccess = fakeResponseData.removeAreaSuccess, removeAreaSuccess == true {
-            callBack(.success("Remove area"))
-        } else if let responseError = responseError {
-                callBack(.failure(responseError))
+        var index = 0
+        for area in fakeData.areas {
+            if area.name == name {
+                fakeData.areas.remove(at: index)
+            }
+            index += 1
         }
     }
 }

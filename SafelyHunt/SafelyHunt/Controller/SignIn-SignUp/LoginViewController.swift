@@ -27,12 +27,11 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func logInActionButton() {
-        activityIndicator(shown: true)
-
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             presentNativeAlertError(alertMessage: "Enter email and password")
             return
         }
+        activityIndicator(shown: true)
 
         UserServices.shared.signInUser(email: email, password: password) { [weak self] authResult in
             switch authResult {
@@ -41,8 +40,6 @@ class LoginViewController: UIViewController {
                 self?.activityIndicator(shown: false)
 
             case .failure(let error):
-                UserServices.shared.disconnectCurrentUser { _ in
-                }
                 self?.presentAlertError(alertMessage: error.localizedDescription)
                 self?.activityIndicator(shown: false)
             }
@@ -55,7 +52,6 @@ class LoginViewController: UIViewController {
             return
         }
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarter, animationOption: .transitionFlipFromBottom)
-
     }
 
     private func activityIndicator(shown: Bool) {

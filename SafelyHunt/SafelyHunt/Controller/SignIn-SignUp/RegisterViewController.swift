@@ -42,8 +42,8 @@ class RegisterViewController: UIViewController {
     private func createUser(_ email: String, _ password: String, _ displayName: String) {
         UserServices.shared.createUser(email: email, password: password, displayName: displayName) { [weak self] result in
             switch result {
-            case .success(_):
-                self?.updateDisplayName(displayName: displayName)
+            case .success(let user):
+                self?.updateDisplayName(displayName: displayName, user: user)
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
                 self?.showActivityIndicator(shown: false)
@@ -53,26 +53,26 @@ class RegisterViewController: UIViewController {
 
     /// After create user transfer displayName value to the new user
     /// - Parameter displayName: displayName value
-    private func updateDisplayName(displayName: String) {
+    private func updateDisplayName(displayName: String, user: User) {
         UserServices.shared.updateProfile(displayName: displayName) { [weak self] updateResult in
             switch updateResult {
-            case .success(_):
+            case .success(let user):
                 self?.showActivityIndicator(shown: false)
-                self?.presentNativeAlertSuccess(alertMessage: "User \(FirebaseAuth.Auth.auth().currentUser?.displayName ?? "User") is created")
-                self?.goToLoginController()
+                self?.presentNativeAlertSuccess(alertMessage: "User \(user.displayName ?? "User") is created")
+                self?.goToLoginController(user: user)
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
         }
     }
 }
 
-    private func goToLoginController() {
+    private func goToLoginController(user: User) {
         let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
 
         guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "Login") as? LoginViewController else {
             return
         }
-        if let userMail = FirebaseAuth.Auth.auth().currentUser?.email {
+        if let userMail = user.email {
             loginViewController.signInMail = userMail
         }
 
@@ -82,7 +82,6 @@ class RegisterViewController: UIViewController {
                 self?.presentAlertError(alertMessage: error.localizedDescription)
             case .success(_):
                 break
-//                self?.presentNativeAlertSuccess(alertMessage: disconnectedMessage)
             }
         }
         navigationController?.setViewControllers([loginViewController], animated: true)

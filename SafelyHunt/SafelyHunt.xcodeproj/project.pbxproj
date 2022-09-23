@@ -171,10 +171,10 @@
 		5F14AD1D287827F20039002A /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				5FBEF94C2873706D0023E5A5 /* AreaServices.swift */,
-				5FBEF94E287375050023E5A5 /* ServicesError.swift */,
 				5FB4BCCA28C681F500C69E8F /* UserServices.swift */,
 				5FB4BCCC28C6821000C69E8F /* MonitoringServices.swift */,
+				5FBEF94C2873706D0023E5A5 /* AreaServices.swift */,
+				5FBEF94E287375050023E5A5 /* ServicesError.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -756,6 +756,7 @@
 				DEVELOPMENT_TEAM = NLCUCTBNY2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SafelyHunt/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "I need your authorization";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow position for get alert when you outside area";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
@@ -786,6 +787,7 @@
 				DEVELOPMENT_TEAM = NLCUCTBNY2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SafelyHunt/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "I need your authorization";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow position for get alert when you outside area";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";

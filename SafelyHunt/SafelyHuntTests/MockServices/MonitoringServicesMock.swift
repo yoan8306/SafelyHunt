@@ -86,6 +86,6 @@ class MonitoringServicesMock: MonitoringServicesProtocol {
     }
 
     func insertMyPosition() {
-        <#code#>
+        print("coucou")
     }
 }

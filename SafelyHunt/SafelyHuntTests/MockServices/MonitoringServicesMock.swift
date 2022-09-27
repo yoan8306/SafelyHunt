@@ -27,8 +27,8 @@ class MonitoringServicesMock: MonitoringServicesProtocol {
         if fakeData?.resonseError == nil, let hunters = fakeData?.hunters {
             let latitude = monitoring.hunter?.latitude ?? 0
             let longitude = monitoring.hunter?.longitude ?? 0
-            let myPosition = CLLocation(latitude: latitude, longitude: longitude)
-            callback(.success(addHuntersIntoList(huntersList: hunters, myPosition: myPosition)))
+            let actualPosition = CLLocation(latitude: latitude, longitude: longitude)
+            callback(.success(addHuntersIntoList(huntersList: hunters, actualPostion: actualPosition)))
 
         } else if let error = fakeData?.resonseError {
             callback(.failure(error))
@@ -59,7 +59,7 @@ class MonitoringServicesMock: MonitoringServicesProtocol {
         }
     }
 
-    private func addHuntersIntoList(huntersList: [Hunter], myPosition: CLLocation) -> [Hunter] {
+    private func addHuntersIntoList(huntersList: [Hunter], actualPostion: CLLocation) -> [Hunter] {
         var hunterInradiusAlert: [Hunter] = []
 
         for hunter in huntersList {
@@ -76,7 +76,7 @@ class MonitoringServicesMock: MonitoringServicesProtocol {
                 let latitude = hunter.latitude ?? 0
                 let longitude = hunter.longitude ?? 0
                 let hunterPositionFind = CLLocation(latitude: latitude, longitude: longitude)
-                let distance = myPosition.distance(from: hunterPositionFind)
+                let distance = actualPostion.distance(from: hunterPositionFind)
                 if Int(distance) < 300 {
                     hunterInradiusAlert.append(hunter)
                 }
@@ -84,9 +84,8 @@ class MonitoringServicesMock: MonitoringServicesProtocol {
         }
         return hunterInradiusAlert
     }
-    
+
     func insertMyPosition() {
         <#code#>
     }
-    
 }

@@ -62,6 +62,7 @@
 		5FD577B728D2529F00F464F6 /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5FD577B628D2529F00F464F6 /* NotificationBannerSwift */; };
 		5FD577BA28D252F100F464F6 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 5FD577B928D252F100F464F6 /* SPAlert */; };
 		5FEB598E28B79D220051B21B /* UserServicesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEB598D28B79D220051B21B /* UserServicesMock.swift */; };
+		5FFBFF9028E384F700214FEB /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5FFBFF8F28E384F700214FEB /* .swiftlint.yml */; };
 		5FFCF67E288EB46C009D9AE8 /* AreasList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FFCF67D288EB46C009D9AE8 /* AreasList.storyboard */; };
 		5FFCF681288EB481009D9AE8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FFCF67F288EB481009D9AE8 /* Launch Screen.storyboard */; };
 		5FFCF683288EB7CF009D9AE8 /* AreaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FFCF682288EB7CF009D9AE8 /* AreaListViewController.swift */; };
@@ -130,6 +131,7 @@
 		5FC7538F289408E600BC3DB7 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5FC753912894892B00BC3DB7 /* Area.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Area.swift; sourceTree = "<group>"; };
 		5FEB598D28B79D220051B21B /* UserServicesMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServicesMock.swift; sourceTree = "<group>"; };
+		5FFBFF8F28E384F700214FEB /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		5FFCF67D288EB46C009D9AE8 /* AreasList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AreasList.storyboard; sourceTree = "<group>"; };
 		5FFCF680288EB481009D9AE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5FFCF682288EB7CF009D9AE8 /* AreaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaListViewController.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 		5F1CF2FF286B1F2900A0429D /* SafelyHunt */ = {
 			isa = PBXGroup;
 			children = (
+				5FFBFF8F28E384F700214FEB /* .swiftlint.yml */,
 				5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */,
 				5F0B7317289D96F80034CB48 /* Enum */,
 				5FBEF95028737FDC0023E5A5 /* Extension */,
@@ -389,6 +392,7 @@
 				5F1CF2F9286B1F2900A0429D /* Sources */,
 				5F1CF2FA286B1F2900A0429D /* Frameworks */,
 				5F1CF2FB286B1F2900A0429D /* Resources */,
+				5FFBFF8E28E3842900214FEB /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -481,6 +485,7 @@
 				5FFCF681288EB481009D9AE8 /* Launch Screen.storyboard in Resources */,
 				5F78B6CA2876FE0A003C58B5 /* ResetPassword.storyboard in Resources */,
 				5F14AD2328783B050039002A /* Main.storyboard in Resources */,
+				5FFBFF9028E384F700214FEB /* .swiftlint.yml in Resources */,
 				5F984C5E28C76321003E9A65 /* scanning-alarm.mp3 in Resources */,
 				5FC7538E2894063900BC3DB7 /* Maps.storyboard in Resources */,
 				5FBEF94B2873073A0023E5A5 /* Register.storyboard in Resources */,
@@ -501,6 +506,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5FFBFF8E28E3842900214FEB /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n    swiftlint autocorrect\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5F1CF2F9286B1F2900A0429D /* Sources */ = {

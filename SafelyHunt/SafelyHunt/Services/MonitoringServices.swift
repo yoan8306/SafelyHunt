@@ -47,7 +47,7 @@ class MonitoringServices: MonitoringServicesProtocol {
         getPositionUsers { result in
             switch result {
             case .success(let hunters):
-                callback(.success( self.addHuntersIntoList(huntersList: hunters, actualPostion: actualPosition, radiusAlert:  UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert))))
+                callback(.success( self.addHuntersIntoList(huntersList: hunters, actualPostion: actualPosition, radiusAlert: UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert))))
             case .failure(let error):
                 callback(.failure(error))
             }

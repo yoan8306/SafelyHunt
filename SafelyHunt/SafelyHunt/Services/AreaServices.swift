@@ -85,12 +85,12 @@ class AreaServices: AreaServicesProtocol {
                 let name = list?["name"]
                 let date = list?["date"]
                 let city = list?["city"]
-                let Foldercoordinate = dataArea.childSnapshot(forPath: "coordinate").children.allObjects as? [DataSnapshot]
-                guard let Foldercoordinate = Foldercoordinate else {
+                let foldercoordinate = dataArea.childSnapshot(forPath: "coordinate").children.allObjects as? [DataSnapshot]
+                guard let foldercoordinate = foldercoordinate else {
                     return
                 }
 
-                let coordinateArea = self.createCoordinate(data: Foldercoordinate)
+                let coordinateArea = self.createCoordinate(data: foldercoordinate)
 
                 guard let name = name as? String, let date = date as? String else {
                     return

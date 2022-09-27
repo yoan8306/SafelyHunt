@@ -27,10 +27,10 @@ class AreaServicesMock: AreaServicesProtocol {
     }
 
     func getArea(nameArea: String?, callBack: @escaping (Result<Area, Error>) -> Void) {
-        for area in fakeData.areas {
-            if area.name == nameArea {
+        for area in fakeData.areas where area.name == nameArea {
+//            if area.name == nameArea {
                 callBack(.success(area))
-            }
+//            }
         }
         callBack(.failure(fakeData.resonseError!))
     }

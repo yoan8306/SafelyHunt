@@ -70,8 +70,7 @@ final class TestMonitoringServices: XCTestCase {
 
         XCTAssertTrue(distance * 1000 == monitoringServicesMock.monitoring.currentDistance)
     }
-    
-    
+
     /// Test addHunters
     func testGivenTheyHunterAreInRadiusAlertWhenGetPositionsHunterThenCallbackHunters() {
         var hunters: [Hunter] = []
@@ -92,15 +91,15 @@ final class TestMonitoringServices: XCTestCase {
         hunterThree.latitude = 37.33233141
         hunterThree.longitude = -122.0312186
         hunterThree.date = Date().dateToTimeStamp()
-        
+
         hunters.append(hunterOne)
         hunters.append(hunterTwo)
         hunters.append(hunterThree)
-        
+
         let userPosition = CLLocation(latitude: 37.33233141, longitude: -122.0312186)
-        
+
        let huntersInRadiusAlert = monitoringServices.addHuntersIntoList(huntersList: hunters, actualPostion: userPosition, radiusAlert: 300)
-        
+
         XCTAssertTrue(huntersInRadiusAlert.count == hunters.count)
     }
 

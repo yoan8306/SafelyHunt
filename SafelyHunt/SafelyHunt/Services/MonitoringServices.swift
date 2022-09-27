@@ -47,7 +47,7 @@ class MonitoringServices: MonitoringServicesProtocol {
         getPositionUsers { result in
             switch result {
             case .success(let hunters):
-                callback(.success( self.addHuntersIntoList(huntersList: hunters, actualPostion: actualPosition)))
+                callback(.success( self.addHuntersIntoList(huntersList: hunters, actualPostion: actualPosition, radiusAlert:  UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert))))
             case .failure(let error):
                 callback(.failure(error))
             }
@@ -146,7 +146,7 @@ class MonitoringServices: MonitoringServicesProtocol {
 
     /// insert hunters if they were seen less than 20 minutes ago
     /// - Parameter huntersList: all hunters in database
-    private func addHuntersIntoList(huntersList: [Hunter], actualPostion: CLLocation) -> [Hunter] {
+    func addHuntersIntoList(huntersList: [Hunter], actualPostion: CLLocation, radiusAlert: Int) -> [Hunter] {
         var hunterInradiusAlert: [Hunter] = []
 
         for hunter in huntersList {
@@ -161,7 +161,7 @@ class MonitoringServices: MonitoringServicesProtocol {
                 let longitude = hunter.longitude ?? 0
                 let hunterPositionFind = CLLocation(latitude: latitude, longitude: longitude)
                 let distance = actualPostion.distance(from: hunterPositionFind)
-                if Int(distance) < UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert) {
+                if Int(distance) < radiusAlert {
                     hunterInradiusAlert.append(hunter)
                 }
             }

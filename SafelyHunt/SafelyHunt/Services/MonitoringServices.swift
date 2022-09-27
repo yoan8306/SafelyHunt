@@ -18,6 +18,7 @@ protocol MonitoringServicesProtocol {
     func checkUserIsAlwayInArea(area: MKPolygon, positionUser: CLLocationCoordinate2D) -> Bool
     func insertDistanceTraveled()
     func getTotalDistanceTraveled(callBack: @escaping(Result<Double, Error>) -> Void)
+    func insertMyPosition()
 }
 
 class MonitoringServices: MonitoringServicesProtocol {
@@ -34,19 +35,19 @@ class MonitoringServices: MonitoringServicesProtocol {
     /// check if they are hunters in the radius of the user
     /// - Parameter callback: send true if an other hunter is in  radius
     func checkUserIsInRadiusAlert(callback: @escaping(Result<[Hunter], Error>) -> Void) {
-        guard let hunter = monitoring.hunter, let user = firebaseAuth.currentUser else {
+        guard let hunter = monitoring.hunter else {
             callback(.failure(ServicesError.signIn))
             return
         }
-        let myLatitude = hunter.latitude ?? 0
-        let myLongitude = hunter.longitude ?? 0
-        let myPosition = CLLocation(latitude: myLatitude, longitude: myLongitude)
-        insertMyPosition(userPosition: myPosition, user: user, date: Int(Date().timeIntervalSince1970))
+
+        let latitude = hunter.latitude ?? 0
+        let longitude = hunter.longitude ?? 0
+        let actualPosition = CLLocation(latitude: latitude, longitude: longitude)
 
         getPositionUsers { result in
             switch result {
             case .success(let hunters):
-                callback(.success( self.addHuntersIntoList(huntersList: hunters, myPosition: myPosition)))
+                callback(.success( self.addHuntersIntoList(huntersList: hunters, actualPostion: actualPosition)))
             case .failure(let error):
                 callback(.failure(error))
             }
@@ -145,7 +146,7 @@ class MonitoringServices: MonitoringServicesProtocol {
 
     /// insert hunters if they were seen less than 20 minutes ago
     /// - Parameter huntersList: all hunters in database
-    private func addHuntersIntoList(huntersList: [Hunter], myPosition: CLLocation) -> [Hunter] {
+    private func addHuntersIntoList(huntersList: [Hunter], actualPostion: CLLocation) -> [Hunter] {
         var hunterInradiusAlert: [Hunter] = []
 
         for hunter in huntersList {
@@ -159,7 +160,7 @@ class MonitoringServices: MonitoringServicesProtocol {
                 let latitude = hunter.latitude ?? 0
                 let longitude = hunter.longitude ?? 0
                 let hunterPositionFind = CLLocation(latitude: latitude, longitude: longitude)
-                let distance = myPosition.distance(from: hunterPositionFind)
+                let distance = actualPostion.distance(from: hunterPositionFind)
                 if Int(distance) < UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert) {
                     hunterInradiusAlert.append(hunter)
                 }
@@ -173,12 +174,15 @@ class MonitoringServices: MonitoringServicesProtocol {
     ///   - userPosition: position user
     ///   - user: current user
     ///   - date: date of insert position
-    private func insertMyPosition(userPosition: CLLocation, user: User, date: Int) {
+     func insertMyPosition() {
+         guard let user = firebaseAuth.currentUser, let latitude = monitoring.hunter?.latitude, let longitude = monitoring.hunter?.longitude else {
+             return
+         }
         database.child("Database").child("position_user").child(user.uid).setValue([
             "name": user.displayName ?? "no name",
-            "date": String(date),
-            "latitude": userPosition.coordinate.latitude,
-            "longitude": userPosition.coordinate.longitude
+            "date": String(Int(Date().timeIntervalSince1970)),
+            "latitude": latitude,
+            "longitude": longitude
         ])
     }
 }

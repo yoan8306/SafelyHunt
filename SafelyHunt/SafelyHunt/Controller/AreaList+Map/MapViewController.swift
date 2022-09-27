@@ -190,9 +190,10 @@ class MapViewController: UIViewController {
         radiusAlertLabelStatus.text = switchButtonRadiusAlert.isOn ? "Radius alert is enable" : "Radius alert is disable"
     }
 
-    @objc func launchMonitoring() {
+    @objc func updateMonitoring() {
         checkIfUserIsInsideArea()
         checkIfOthersUsersAreInsideAreaAlert()
+        monitoringServices.insertMyPosition()
     }
 
     @objc func startMonitoring() {
@@ -390,7 +391,7 @@ extension MapViewController {
         let imageStop = UIImage(systemName: "stop.circle")
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
-        timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(launchMonitoring), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(updateMonitoring), userInfo: nil, repeats: true)
         monitoringServices.startMonitoring = !monitoringServices.startMonitoring
         monitoringButton.setImage(imageStop, for: .normal)
         monitoringButton.tintColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)

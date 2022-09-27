@@ -10,7 +10,12 @@ import FirebaseAuth
 @testable import SafelyHunt
 
 class UserServicesMock: UserServicesProtocol {
+    // enlever
     var fakeData = FakeData()
+    ///
+
+    var user: User?
+    var responseError: ServicesError?
 
     func checkUserLogged(callBack: @escaping (Result<Hunter, Error>) -> Void) {
         if fakeData.userSign != nil, fakeData.resonseError == nil {

@@ -107,7 +107,6 @@ class AreaServices: AreaServicesProtocol {
                     callBack(.success(areaList))
                 }
             }
-
         }
     }
 

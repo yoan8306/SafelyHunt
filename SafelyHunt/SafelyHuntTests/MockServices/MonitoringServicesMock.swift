@@ -22,7 +22,7 @@ class MonitoringServicesMock: MonitoringServicesProtocol {
         self.fakeData = fakeData
     }
 
-    func checkUserIsRadiusAlert(callback: @escaping (Result<[Hunter], Error>) -> Void) {
+    func checkUserIsInRadiusAlert(callback: @escaping (Result<[Hunter], Error>) -> Void) {
         if fakeData?.resonseError == nil, let hunters = fakeData?.hunters {
             let latitude = monitoring.hunter?.latitude ?? 0
             let longitude = monitoring.hunter?.longitude ?? 0
@@ -67,8 +67,11 @@ class MonitoringServicesMock: MonitoringServicesProtocol {
             }
 
             let lastUpdate = Date(timeIntervalSince1970: TimeInterval(dateTimeStamp))
+            // date of day simulate = 2022-09-14 10:06:23 , to timeStamp = 1663142783
+            let dateOfDaySimulate = 1663142783
+
             // check if user is present less 20 minutes ago
-            if lastUpdate.addingTimeInterval(1200) > Date() {
+            if lastUpdate.addingTimeInterval(1200) > Date(timeIntervalSince1970: TimeInterval(dateOfDaySimulate)) {
                 let latitude = hunter.latitude ?? 0
                 let longitude = hunter.longitude ?? 0
                 let hunterPositionFind = CLLocation(latitude: latitude, longitude: longitude)

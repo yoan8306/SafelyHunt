@@ -20,6 +20,11 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.text = signInMail
+
+        #if DEBUG
+        emailTextField.text = "yoyo@wandoo.fr"
+        passwordTextField.text = "coucou"
+        #endif
     }
 
     override func viewWillAppear(_ animated: Bool) {

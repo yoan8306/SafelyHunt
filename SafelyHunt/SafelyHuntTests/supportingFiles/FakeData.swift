@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import FirebaseAuth
 import CoreLocation
+import FirebaseAuth
 @testable import SafelyHunt
 
 class FakeData {

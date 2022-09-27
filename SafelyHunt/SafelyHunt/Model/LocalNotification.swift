@@ -49,6 +49,5 @@ class LocalNotification {
             print("file isn't  food!")
         }
         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-
     }
 }

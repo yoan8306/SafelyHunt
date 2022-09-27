@@ -14,10 +14,10 @@ import MapKit
 protocol MonitoringServicesProtocol {
     var monitoring: MonitoringProtocol {get}
     var startMonitoring: Bool {get set}
-    func checkUserIsRadiusAlert(callback: @escaping(Result<[Hunter], Error>) -> Void)
+    func checkUserIsInRadiusAlert(callback: @escaping(Result<[Hunter], Error>) -> Void)
     func checkUserIsAlwayInArea(area: MKPolygon, positionUser: CLLocationCoordinate2D) -> Bool
     func insertDistanceTraveled()
-    func getTotalDistanceTraveled(callBack: @escaping(Result<Double, Error>) -> Void) 
+    func getTotalDistanceTraveled(callBack: @escaping(Result<Double, Error>) -> Void)
 }
 
 class MonitoringServices: MonitoringServicesProtocol {
@@ -33,7 +33,7 @@ class MonitoringServices: MonitoringServicesProtocol {
 
     /// check if they are hunters in the radius of the user
     /// - Parameter callback: send true if an other hunter is in  radius
-    func checkUserIsRadiusAlert(callback: @escaping(Result<[Hunter], Error>) -> Void) {
+    func checkUserIsInRadiusAlert(callback: @escaping(Result<[Hunter], Error>) -> Void) {
         guard let hunter = monitoring.hunter, let user = firebaseAuth.currentUser else {
             callback(.failure(ServicesError.signIn))
             return

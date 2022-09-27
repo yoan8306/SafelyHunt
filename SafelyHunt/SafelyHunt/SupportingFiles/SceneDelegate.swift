@@ -49,7 +49,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ///   - vc: ViewController
     ///   - animated: if transition is animated or not
     ///   - animationOption: select animation option
-    func changeRootViewController(_ vc: UIViewController, animated: Bool = true, animationOption: UIView.AnimationOptions) {
+    func changeRootViewController(_ vc: UIViewController, animationOption: UIView.AnimationOptions) {
         guard let window = window else {
             return
         }

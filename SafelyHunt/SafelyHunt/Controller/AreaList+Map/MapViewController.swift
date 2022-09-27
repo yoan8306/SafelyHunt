@@ -428,7 +428,7 @@ extension MapViewController {
     }
 
     private func checkIfOthersUsersAreInsideAreaAlert() {
-        monitoringServices.checkUserIsRadiusAlert { [weak self] result in
+        monitoringServices.checkUserIsInRadiusAlert { [weak self] result in
             switch result {
             case .success(let usersIsInRadiusAlert):
                 guard usersIsInRadiusAlert.isEmpty == false else {
@@ -525,6 +525,8 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         currentAltitude.text = String(format: "%.0f", locations.first!.altitude) + " m"
     }
 
+    /// Draw polyLine travel
+    /// - Parameter locations: user's travelled 
     private func getDistanceTraveled(_ locations: [CLLocation]) {
         monitoringServices.monitoring.getCurrentTravel(locations: locations)
         monitoringServices.monitoring.area.coordinateTravel = monitoringServices.monitoring.currentTravel

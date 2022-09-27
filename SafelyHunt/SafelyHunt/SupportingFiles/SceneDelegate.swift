@@ -30,8 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -45,9 +44,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-    
-    
-    
+    /// Change viewController for specific viewcontroller
+    /// - Parameters:
+    ///   - vc: ViewController
+    ///   - animated: if transition is animated or not
+    ///   - animationOption: select animation option
+    func changeRootViewController(_ vc: UIViewController, animationOption: UIView.AnimationOptions) {
+        guard let window = window else {
+            return
+        }
+        window.rootViewController = vc
 
+        UIView.transition(with: window,
+                          duration: 0.5,
+                          options: [animationOption],
+                          animations: nil,
+                          completion: nil)
+    }
 }
-

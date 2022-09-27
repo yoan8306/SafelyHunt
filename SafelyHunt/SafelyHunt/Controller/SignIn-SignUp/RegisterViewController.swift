@@ -11,7 +11,6 @@ import SwiftUI
 
 class RegisterViewController: UIViewController {
 
-
 // MARK: - IBOutlet
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var pseudonym: UITextField!
@@ -38,49 +37,56 @@ class RegisterViewController: UIViewController {
             createUser(email, password, displayName)
         }
     }
-    
+
 // MARK: - Private functions
     private func createUser(_ email: String, _ password: String, _ displayName: String) {
-        FirebaseManagement.shared.createUser(email: email, password: password, displayName: displayName) { [weak self] result in
+        UserServices.shared.createUser(email: email, password: password, displayName: displayName) { [weak self] result in
             switch result {
-            case .success(_):
-                self?.updateDisplayName(displayName: displayName)
+            case .success(let user):
+                self?.updateDisplayName(displayName: displayName, user: user)
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
                 self?.showActivityIndicator(shown: false)
             }
         }
     }
-    
+
     /// After create user transfer displayName value to the new user
     /// - Parameter displayName: displayName value
-    private func updateDisplayName(displayName: String) {
-        FirebaseManagement.shared.updateProfile(displayName: displayName) { [weak self] updateResult in
+    private func updateDisplayName(displayName: String, user: User) {
+        UserServices.shared.updateProfile(displayName: displayName) { [weak self] updateResult in
             switch updateResult {
-            case .success(let auth):
+            case .success(let user):
                 self?.showActivityIndicator(shown: false)
-                self?.presentNativeAlertSuccess(alertMessage: "User \(auth.currentUser?.displayName ?? "") is created")
-                self?.goToLoginController()
+                self?.presentNativeAlertSuccess(alertMessage: "User \(user.displayName ?? "User") is created")
+                self?.goToLoginController(user: user)
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
         }
     }
 }
-    
-    private func goToLoginController() {
+
+    private func goToLoginController(user: User) {
         let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
-        
+
         guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "Login") as? LoginViewController else {
             return
         }
-        if let userMail = FirebaseAuth.Auth.auth().currentUser?.email {
+        if let userMail = user.email {
             loginViewController.signInMail = userMail
         }
-        
-        FirebaseManagement.shared.disconnectCurrentUser()
+
+        UserServices.shared.disconnectCurrentUser { [weak self] result in
+            switch result {
+            case .failure(let error):
+                self?.presentAlertError(alertMessage: error.localizedDescription)
+            case .success(_):
+                break
+            }
+        }
         navigationController?.setViewControllers([loginViewController], animated: true)
     }
-    
+
     /// Check fields if the same values
     /// - Returns: return true or false if password is good
     private func checkPassword() -> Bool {
@@ -91,14 +97,14 @@ class RegisterViewController: UIViewController {
         showActivityIndicator(shown: false)
         return false
     }
-    
+
     /// Switch activity indicator and button
     /// - Parameter shown: transfer the boolean to isHiidden
     private func showActivityIndicator(shown: Bool) {
         activityIndicator.isHidden = !shown
         registerButton.isHidden = shown
     }
-    
+
 }
 
 // MARK: - TextFieldDelegate

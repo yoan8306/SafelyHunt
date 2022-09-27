@@ -9,39 +9,42 @@ import UIKit
 import FirebaseAuth
 
 class LoginViewController: UIViewController {
-    
+
     var signInMail: String = ""
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.text = signInMail
+
+        #if DEBUG
+        emailTextField.text = "yoyo@wandoo.fr"
+        passwordTextField.text = "coucou"
+        #endif
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
 
     @IBAction func logInActionButton() {
-        activityIndicator(shown: true)
-        
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             presentNativeAlertError(alertMessage: "Enter email and password")
             return
         }
+        activityIndicator(shown: true)
 
-        FirebaseManagement.shared.signInUser(email: email, password: password) { [weak self] authResult in
+        UserServices.shared.signInUser(email: email, password: password) { [weak self] authResult in
             switch authResult {
             case .success(_):
                 self?.transferToMainStarter()
                 self?.activityIndicator(shown: false)
-                
+
             case .failure(let error):
-                FirebaseManagement.shared.disconnectCurrentUser()
                 self?.presentAlertError(alertMessage: error.localizedDescription)
                 self?.activityIndicator(shown: false)
             }
@@ -53,10 +56,7 @@ class LoginViewController: UIViewController {
         guard let mainStarter = tabBarMain.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {
             return
         }
-
-        mainStarter.modalPresentationStyle = .fullScreen
-        self.navigationController?.pushViewController(mainStarter, animated: true)
-        self.dismiss(animated: false)
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarter, animationOption: .transitionFlipFromBottom)
     }
 
     private func activityIndicator(shown: Bool) {

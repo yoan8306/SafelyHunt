@@ -8,9 +8,10 @@
 import UIKit
 
 class AreaCellTableViewCell: UITableViewCell {
-    
+
     @IBOutlet weak var areaNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,16 +23,17 @@ class AreaCellTableViewCell: UITableViewCell {
         accessoryType = .detailButton
     }
 
-    func configureCell(infoArea: [String:String], cellSelected: Bool) {
-        for (nameArea, dateCreate) in infoArea {
-            areaNameLabel.text = nameArea
-            guard let double = Double(dateCreate) else {
+    func configureCell(infoArea: Area, cellSelected: Bool) {
+        areaNameLabel.text = infoArea.name
+        cityLabel.text = infoArea.city
+
+        guard let double = Double(infoArea.date ?? "0") else {
                 return
             }
-            
+
             let myDate = Date(timeIntervalSince1970: TimeInterval(double))
             let numbersDays = numberDayBetween(from: myDate, to: Date())
-            
+
             if numbersDays < 20 {
                 let formatter = RelativeDateTimeFormatter()
                 formatter.unitsStyle = .full
@@ -39,11 +41,10 @@ class AreaCellTableViewCell: UITableViewCell {
             } else {
                 dateLabel.text = DateFormatter.localizedString(from: myDate, dateStyle: .medium, timeStyle: .medium)
             }
-        }
         setLabel(cellSelected: cellSelected)
     }
-    
-    private func numberDayBetween(from: Date, to : Date) -> Int {
+
+    private func numberDayBetween(from: Date, to: Date) -> Int {
         let cal = Calendar.current
         let numbersDays = cal.dateComponents([.day], from: from, to: to)
         guard let numbersDays = numbersDays.day else {
@@ -51,17 +52,21 @@ class AreaCellTableViewCell: UITableViewCell {
         }
         return numbersDays
     }
-    
+
     private func setLabel(cellSelected: Bool) {
         areaNameLabel.font = .boldSystemFont(ofSize: 12)
+        cityLabel.font = .boldSystemFont(ofSize: 12)
         dateLabel.font = .italicSystemFont(ofSize: 10)
         dateLabel.textColor = .gray
         if cellSelected {
             areaNameLabel.textColor = .red
             dateLabel.textColor = .red
+            cityLabel.textColor  = .red
         } else {
             areaNameLabel.textColor = .label
+            cityLabel.textColor = .label
             dateLabel.textColor = .gray
+
         }
     }
 }

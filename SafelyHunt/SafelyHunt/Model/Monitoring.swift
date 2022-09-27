@@ -9,78 +9,47 @@ import Foundation
 import FirebaseAuth
 import MapKit
 
-class Monitoring {
-    var listHuntersInRadiusAlert: [Hunter] = []
-    var monitoringIsOn = false
-    var alerted = false
-    
-    func CheckUserIsRadiusAlert(hunterSignIn: Hunter?, callback: @escaping(Result<Bool, Error>) -> Void) {
-        guard let hunterSignIn = hunterSignIn else {
-            callback(.failure(FirebaseError.signIn))
-            return
-        }
+protocol MonitoringProtocol {
+    var area: Area {get set}
+    var hunter: Hunter? {get set}
+    var currentDistance: Double {get set}
+    var currentTravel: [CLLocationCoordinate2D] {get set}
+    var lastLocation: CLLocation? {get set}
+    var firstLocation: CLLocation? {get set}
 
-        FirebaseManagement.shared.getPositionUsers { result in
-            switch result {
-            case .success(let hunters):
-                self.addHuntersIntoList(huntersList: hunters, hunterSignIn: hunterSignIn)
-                self.giveAlertHuntersInRadiusAlert()
-                callback(.success(true))
-                
-            case .failure(let error):
-                callback(.failure(error))
+    func getCurrentTravel(locations: [CLLocation])
+    func measureDistanceTravelled(locations: [CLLocation]) -> Double
+}
+
+class Monitoring: MonitoringProtocol {
+    var area: Area
+    var hunter: Hunter?
+    var currentDistance: Double = 0.0
+    var currentTravel: [CLLocationCoordinate2D] = []
+    var lastLocation: CLLocation?
+    var firstLocation: CLLocation?
+
+    init(monitoringIsOn: Bool = false, area: Area, hunter: Hunter = Hunter()) {
+        self.area = area
+        self.hunter = hunter
+    }
+
+    func getCurrentTravel(locations: [CLLocation]) {
+        for location in locations {
+            currentTravel.append(location.coordinate)
+            print("all location --- \(location)")
+        }
+    }
+
+    func measureDistanceTravelled(locations: [CLLocation]) -> Double {
+        if firstLocation == nil {
+            firstLocation = locations.first
+        } else if let location = locations.last {
+            if let lastLocation = lastLocation {
+                currentDistance += lastLocation.distance(from: location)
             }
         }
+        lastLocation = locations.last
+        return currentDistance / 1000
     }
-
-    private func addHuntersIntoList(huntersList: [Hunter], hunterSignIn: Hunter) {
-        guard let user = FirebaseAuth.Auth.auth().currentUser else {
-            return
-        }
-        let myLatitude = hunterSignIn.meHunter.latitude ?? 0
-        let myLongitude = hunterSignIn.meHunter.longitude ?? 0
-        let myPosition = CLLocation(latitude: myLatitude, longitude: myLongitude)
-        
-        FirebaseManagement.shared.insertMyPosition(userPosition: CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude), user: user , date: Int(Date().timeIntervalSince1970))
-        
-        self.listHuntersInRadiusAlert = []
-
-        for hunter in huntersList {
-            guard let dateTimeStamp = hunter.meHunter.date else {
-                return
-            }
-            let lastUpdate = Date(timeIntervalSince1970: TimeInterval(dateTimeStamp))
-//            check if user is present less 20 minutes ago
-            if lastUpdate.addingTimeInterval(1200) > Date() {
-                let latitude = hunter.meHunter.latitude ?? 0
-                let longitude = hunter.meHunter.longitude ?? 0
-                let positionTheOther = CLLocation(latitude: latitude, longitude: longitude)
-                let distance = myPosition.distance(from: positionTheOther)
-                if Int(distance) < UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert) {
-                    self.listHuntersInRadiusAlert.append(hunter)
-                }
-            }
-        }
-    }
-
-    private func giveAlertHuntersInRadiusAlert() {
-        if listHuntersInRadiusAlert.count > 0, monitoringIsOn {
-            alerted = true
-        }
-        alerted = false
-    }
-    
-     func checkUserIsAlwayInArea(area: MKPolygon, positionUser: CLLocationCoordinate2D) -> Bool {
-       return area.contain(coordinate: positionUser)
-    }
-    
-    private func numberDayBetween(from: Date, to : Date) -> Int {
-        let cal = Calendar.current
-        let numbersDays = cal.dateComponents([.day], from: from, to: to)
-        guard let numbersDays = numbersDays.day else {
-            return 0
-        }
-        return numbersDays
-    }
-
 }

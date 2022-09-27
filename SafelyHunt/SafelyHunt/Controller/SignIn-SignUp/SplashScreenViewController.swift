@@ -13,44 +13,41 @@ class SplashScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
-        FirebaseManagement.shared.checkUserLogged { userIsLogged in
-            switch userIsLogged {
-            case .success(_):
-                self.transferToMainStarter()
+        UserServices.shared.checkUserLogged { hunter in
+            switch hunter {
+            case .success(let hunter):
+                self.transferToMainStarter(hunter: hunter)
             case .failure(_):
                 self.transferToLogin()
             }
         }
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(false)
-        FirebaseManagement.shared.removeStateChangeLoggedListen()
+        UserServices.shared.removeStateChangeLoggedListen()
     }
 
 // MARK: - private functions
-    private func transferToMainStarter() {
+    private func transferToMainStarter(hunter: Hunter) {
         let mainStarterStoryboard = UIStoryboard(name: "TabbarMain", bundle: nil)
-        
+
         guard let mainStarterViewController = mainStarterStoryboard.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {
             return
         }
-        
-        mainStarterViewController.modalPresentationStyle = .fullScreen
-        self.present(mainStarterViewController, animated: true)
+
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarterViewController, animationOption: .transitionFlipFromBottom)
     }
-    
+
     private func transferToLogin() {
         let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
-        
+
         guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "LoginNavigation") as? UINavigationController else {
             return
         }
-        
-        loginViewController.modalPresentationStyle = .fullScreen
-        self.present(loginViewController, animated: true)
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginViewController, animationOption: .transitionFlipFromLeft)
     }
 }

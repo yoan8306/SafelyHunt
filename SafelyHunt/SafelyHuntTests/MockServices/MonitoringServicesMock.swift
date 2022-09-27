@@ -12,6 +12,7 @@ import UIKit
 @testable import SafelyHunt
 
 class MonitoringServicesMock: MonitoringServicesProtocol {
+    
     var monitoring: MonitoringProtocol
     var startMonitoring: Bool
     var fakeData: FakeData?
@@ -83,4 +84,9 @@ class MonitoringServicesMock: MonitoringServicesProtocol {
         }
         return hunterInradiusAlert
     }
+    
+    func insertMyPosition() {
+        <#code#>
+    }
+    
 }

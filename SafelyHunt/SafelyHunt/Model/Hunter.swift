@@ -15,6 +15,10 @@ class Hunter {
     var date: Int?
     var latitude: Double?
     var longitude: Double?
+    var actualPostion: CLLocation? {
+        let position = CLLocation(latitude: latitude ?? 0, longitude: longitude ?? 0)
+        return position
+    }
 
     init(displayName: String? = nil, user: User? = nil, date: Int? = nil) {
         self.displayName = displayName

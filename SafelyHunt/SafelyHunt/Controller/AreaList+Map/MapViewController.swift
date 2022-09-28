@@ -598,13 +598,7 @@ extension MapViewController: UIPickerViewDelegate {
     }
 
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        var label = UILabel()
-        if let labelView = view {
-//            guard let label = labelView as? UILabel else {
-//                continue
-//            }
-            label = labelView as! UILabel
-        }
+        let label = UILabel()
         label.font = .systemFont(ofSize: 16)
         label.textAlignment = .center
 

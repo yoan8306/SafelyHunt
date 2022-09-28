@@ -37,7 +37,6 @@ class Monitoring: MonitoringProtocol {
     func getCurrentTravel(locations: [CLLocation]) {
         for location in locations {
             currentTravel.append(location.coordinate)
-            print("all location --- \(location)")
         }
     }
 

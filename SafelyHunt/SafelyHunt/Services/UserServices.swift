@@ -78,7 +78,7 @@ class UserServices: UserServicesProtocol {
 
         firebaseAuth.signIn(withEmail: email, password: password) { authResult, error in
             DispatchQueue.main.async {
-                guard let _ = authResult, error == nil else {
+                guard authResult != nil, error == nil else {
                     callBack(.failure(error ?? ServicesError.signIn))
                     return
                 }

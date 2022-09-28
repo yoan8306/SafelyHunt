@@ -40,9 +40,11 @@ class MonitoringServices: MonitoringServicesProtocol {
             return
         }
 
-        let latitude = hunter.latitude ?? 0
-        let longitude = hunter.longitude ?? 0
-        let actualPosition = CLLocation(latitude: latitude, longitude: longitude)
+//        let latitude = hunter.latitude ?? 0
+//        let longitude = hunter.longitude ?? 0
+        guard let actualPosition = hunter.actualPostion else {
+            return
+        }
 
         getPositionUsers { result in
             switch result {

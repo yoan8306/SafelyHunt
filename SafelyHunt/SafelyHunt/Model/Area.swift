@@ -21,19 +21,19 @@ class Area {
         self.coordinateTravel = coordinateTravel
     }
 
-    func createPolyLineTravel() -> MKOverlay {
+    func createPolyLineTravel() -> MKPolyline {
         MKPolyline(coordinates: coordinateTravel, count: coordinateTravel.count)
     }
 
-    func createPolyLine() -> MKOverlay {
+    func createPolyLine() -> MKPolyline {
      MKPolyline(coordinates: coordinatesPoints, count: coordinatesPoints.count)
     }
 
-    func createPolygon() -> MKOverlay {
+    func createPolygon() -> MKPolygon {
         MKPolygon(coordinates: coordinatesPoints, count: coordinatesPoints.count)
     }
 
-    func createCircle(userPosition: CLLocationCoordinate2D, radius: CLLocationDistance) -> MKOverlay {
+    func createCircle(userPosition: CLLocationCoordinate2D, radius: CLLocationDistance) -> MKCircle {
         MKCircle(center: userPosition, radius: radius)
     }
 }

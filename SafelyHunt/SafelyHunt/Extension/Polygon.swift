@@ -19,16 +19,3 @@ extension MKPolygon {
         }
     }
 }
-
-extension MKCircle {
-    func contain(coordinate: CLLocationCoordinate2D) -> Bool {
-        let circleRenderer = MKCircleRenderer(circle: self)
-        let currentMapPoint: MKMapPoint = MKMapPoint(coordinate)
-        let circleViewPoint: CGPoint = circleRenderer.point(for: currentMapPoint)
-        if circleRenderer.path == nil {
-            return false
-        } else {
-            return circleRenderer.path.contains(circleViewPoint)
-        }
-    }
-}

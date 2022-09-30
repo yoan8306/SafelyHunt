@@ -391,6 +391,7 @@ extension MapViewController {
         let imageStop = UIImage(systemName: "stop.circle")
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
+        updateMonitoring()
         timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(updateMonitoring), userInfo: nil, repeats: true)
         monitoringServices.startMonitoring = !monitoringServices.startMonitoring
         monitoringButton.setImage(imageStop, for: .normal)
@@ -459,7 +460,7 @@ extension MapViewController {
                     return
                 }
                 let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                let showHunter = PlaceHunters(title: hunter.displayName ?? "no name", coordinate: coordinate, subtitle: "Last view \(Date().getTime(dateInt: hunter.date ?? 0))")
+                let showHunter = PlaceHunters(title: hunter.displayName ?? "no name", coordinate: coordinate, subtitle: "Last view \(Date(timeIntervalSince1970: TimeInterval(hunter.date ?? 0)).getTime())") //   Date().getTime(dateInt: hunter.date ?? 0))")
                 mapView.addAnnotation(showHunter)
                 mapView.register(AnnotationHuntersView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
             }

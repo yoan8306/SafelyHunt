@@ -35,9 +35,7 @@ class AreaCellTableViewCell: UITableViewCell {
             let numbersDays = numberDayBetween(from: myDate, to: Date())
 
             if numbersDays < 20 {
-                let formatter = RelativeDateTimeFormatter()
-                formatter.unitsStyle = .full
-                dateLabel.text = formatter.localizedString(for: myDate, relativeTo: Date())
+                dateLabel.text = myDate.relativeDate(relativeTo: Date())
             } else {
                 dateLabel.text = DateFormatter.localizedString(from: myDate, dateStyle: .medium, timeStyle: .medium)
             }

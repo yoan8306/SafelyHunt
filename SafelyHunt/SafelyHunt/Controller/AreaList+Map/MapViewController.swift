@@ -391,6 +391,7 @@ extension MapViewController {
         let imageStop = UIImage(systemName: "stop.circle")
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
+        updateMonitoring()
         timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(updateMonitoring), userInfo: nil, repeats: true)
         monitoringServices.startMonitoring = !monitoringServices.startMonitoring
         monitoringButton.setImage(imageStop, for: .normal)

@@ -44,7 +44,7 @@ class MainStarterViewController: UIViewController {
             case .success(let area):
                 self?.area = area
             case .failure(_):
-                self?.presentAlertError(alertTitle: "👋", alertMessage: "Please select your area in your list, or check your connection before start monitoring.")
+                self?.presentAlertError(alertTitle: "👋", alertMessage: "Please select your area in your list.")
                 return
             }
         }

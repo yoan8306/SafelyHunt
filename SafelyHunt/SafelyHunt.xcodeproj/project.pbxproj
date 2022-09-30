@@ -37,7 +37,8 @@
 		5F79FCE7289BE389009F6AE9 /* Monitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F79FCE6289BE389009F6AE9 /* Monitoring.swift */; };
 		5F79FCE9289BF911009F6AE9 /* Hunter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F79FCE8289BF911009F6AE9 /* Hunter.swift */; };
 		5F7E5F7228E6E92F0035A38C /* SafelyHuntUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7E5F7128E6E92F0035A38C /* SafelyHuntUITests.swift */; };
-		5F7E5F7428E6E92F0035A38C /* SafelyHuntUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7E5F7328E6E92F0035A38C /* SafelyHuntUITestsLaunchTests.swift */; };
+		5F7E5F7A28E6FF5C0035A38C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5FFBFF8F28E384F700214FEB /* .swiftlint.yml */; };
+		5F7E5F7C28E6FF5E0035A38C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5FFBFF8F28E384F700214FEB /* .swiftlint.yml */; };
 		5F7F698128932C1000562FDA /* AreaCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */; };
 		5F959EE928B7A23E006643A9 /* DatabaseTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F959EE828B7A23E006643A9 /* DatabaseTest.json */; };
 		5F984C5E28C76321003E9A65 /* scanning-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5F984C5D28C76320003E9A65 /* scanning-alarm.mp3 */; };
@@ -123,7 +124,6 @@
 		5F79FCE8289BF911009F6AE9 /* Hunter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hunter.swift; sourceTree = "<group>"; };
 		5F7E5F6F28E6E92F0035A38C /* SafelyHuntUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafelyHuntUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F7E5F7128E6E92F0035A38C /* SafelyHuntUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafelyHuntUITests.swift; sourceTree = "<group>"; };
-		5F7E5F7328E6E92F0035A38C /* SafelyHuntUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafelyHuntUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaCellTableViewCell.swift; sourceTree = "<group>"; };
 		5F959EE828B7A23E006643A9 /* DatabaseTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DatabaseTest.json; sourceTree = "<group>"; };
 		5F984C5D28C76320003E9A65 /* scanning-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "scanning-alarm.mp3"; sourceTree = "<group>"; };
@@ -325,7 +325,6 @@
 			isa = PBXGroup;
 			children = (
 				5F7E5F7128E6E92F0035A38C /* SafelyHuntUITests.swift */,
-				5F7E5F7328E6E92F0035A38C /* SafelyHuntUITestsLaunchTests.swift */,
 			);
 			path = SafelyHuntUITests;
 			sourceTree = "<group>";
@@ -428,7 +427,6 @@
 				5F1CF2F9286B1F2900A0429D /* Sources */,
 				5F1CF2FA286B1F2900A0429D /* Frameworks */,
 				5F1CF2FB286B1F2900A0429D /* Resources */,
-				5FFBFF8E28E3842900214FEB /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -559,6 +557,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F7E5F7A28E6FF5C0035A38C /* .swiftlint.yml in Resources */,
 				5F959EE928B7A23E006643A9 /* DatabaseTest.json in Resources */,
 				5F1CF332286B1FB500A0429D /* GoogleService-Info.plist in Resources */,
 			);
@@ -568,31 +567,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F7E5F7C28E6FF5E0035A38C /* .swiftlint.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		5FFBFF8E28E3842900214FEB /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n    swiftlint autocorrect\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5F1CF2F9286B1F2900A0429D /* Sources */ = {
@@ -651,7 +630,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F7E5F7228E6E92F0035A38C /* SafelyHuntUITests.swift in Sources */,
-				5F7E5F7428E6E92F0035A38C /* SafelyHuntUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
         emailTextField.text = signInMail
 
         #if DEBUG
-        emailTextField.text = "yoyo@wandoo.fr"
+        emailTextField.text = "yoyo@wanadoo.fr"
         passwordTextField.text = "coucou"
         logInActionButton()
         #endif

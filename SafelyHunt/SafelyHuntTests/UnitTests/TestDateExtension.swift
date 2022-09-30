@@ -8,7 +8,7 @@
 import XCTest
 @testable import SafelyHunt
 
-final class TestDateExtension: XCTestCase {
+class TestDateExtension: XCTestCase {
 
     func testGivenDateFormatDateWhenTransformToTimeStampThenTheDateIsFormatTimeStamp() {
         let myDate = Date(timeIntervalSince1970: 1664352449)

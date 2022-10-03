@@ -34,8 +34,6 @@ let app = XCUIApplication()
         app.tables/*@START_MENU_TOKEN@*/.staticTexts["Select your area hunt"]/*[[".cells.staticTexts[\"Select your area hunt\"]",".staticTexts[\"Select your area hunt\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         app.navigationBars["Areas List"].buttons["Add"].tap()
         app.navigationBars["Editing area"].buttons["compose"].tap()
-
-        let vkpointfeatureMap = app/*@START_MENU_TOKEN@*/.maps.containing(.other, identifier: "Chevron").element/*[[".maps.containing(.other, identifier:\"Target\").element",".maps.containing(.other, identifier:\"Northwest YMCA\").element",".maps.containing(.other, identifier:\"Apple Infinite Loop\").element",".maps.containing(.other, identifier:\"Peninsula Bible Church Cupertino\").element",".maps.containing(.other, identifier:\"Cupertino Hotel\").element",".maps.containing(.other, identifier:\"Chevron\").element",".maps.containing(.other, identifier:\"VKPointFeature\").element"],[[[-1,6],[-1,5],[-1,4],[-1,3],[-1,2],[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/
     }
 
     /// Draw radius Alert

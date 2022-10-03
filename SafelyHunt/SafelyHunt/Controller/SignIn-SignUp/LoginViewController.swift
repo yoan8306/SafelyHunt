@@ -24,7 +24,6 @@ class LoginViewController: UIViewController {
         #if DEBUG
         emailTextField.text = "yoyo@wanadoo.fr"
         passwordTextField.text = "coucou"
-        logInActionButton()
         #endif
     }
 

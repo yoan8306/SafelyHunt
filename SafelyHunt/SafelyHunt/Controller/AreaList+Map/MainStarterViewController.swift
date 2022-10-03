@@ -26,6 +26,9 @@ class MainStarterViewController: UIViewController {
         getSelectedArea()
         tableView.reloadData()
     }
+    @IBAction func testCrash(_ sender: UIButton) {
+        fatalError("Test crach")
+    }
 
     @IBAction func startMonitoringButton(_ sender: UIButton) {
         if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" {

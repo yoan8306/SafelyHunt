@@ -65,6 +65,7 @@ class MapViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
             drawAreaSelected()
+
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -86,6 +87,7 @@ class MapViewController: UIViewController {
             let coordinate = mapView.convert(touch.location(in: mapView), toCoordinateFrom: mapView)
             monitoringServices.monitoring.area.coordinatesPoints.append(coordinate)
         }
+
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -146,7 +148,6 @@ class MapViewController: UIViewController {
     /// get name new area
     @IBAction func validateButtonAction() {
        createArea()
-
         turnOffEditingMode()
     }
 
@@ -231,11 +232,14 @@ class MapViewController: UIViewController {
         compassButton.frame.origin = CGPoint(x: travelInfoUiView.frame.origin.x + 5, y: travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 20)
         compassButton.compassVisibility = .adaptive
         view.addSubview(compassButton)
+
         activityIndicator.layer.cornerRadius = activityIndicator.layer.frame.height/2
         activityIndicator.isHidden = true
         locationButton.layer.cornerRadius = locationButton.layer.frame.height/2
         settingsButton.layer.cornerRadius = settingsButton.frame.height / 2
+        settingsView.layer.cornerRadius = 8
         notification.notificationInitialize()
+        initializePickerView()
         setPopUpMessageNameArea()
         editingArea = false
         mapView.showsUserLocation = true
@@ -281,6 +285,13 @@ class MapViewController: UIViewController {
         travelInfoUiView.isHidden = false
     }
 
+    private func initializePickerView(rowSelected: Int = UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.mapTypeSelected)) {
+        pickerMapMode.selectRow(rowSelected, inComponent: 0, animated: true)
+        pickerView(pickerMapMode, didSelectRow: rowSelected, inComponent: 0)
+
+    }
+
+//    check createPolygon function
     private func createArea() {
         guard let name = nameAreaTextField.text, !name.isEmpty else {
             return
@@ -318,6 +329,7 @@ class MapViewController: UIViewController {
         monitoringServices.monitoring.area.coordinatesPoints = []
         mapView.isUserInteractionEnabled = true
         navigationController?.navigationBar.backgroundColor = .white
+        myNavigationItem.title = "Editing area"
         editingArea = false
     }
 
@@ -460,7 +472,7 @@ extension MapViewController {
                     return
                 }
                 let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                let showHunter = PlaceHunters(title: hunter.displayName ?? "no name", coordinate: coordinate, subtitle: "Last view \(Date(timeIntervalSince1970: TimeInterval(hunter.date ?? 0)).getTime())") //   Date().getTime(dateInt: hunter.date ?? 0))")
+                let showHunter = PlaceHunters(title: hunter.displayName ?? "no name", coordinate: coordinate, subtitle: "Last view \(Date(timeIntervalSince1970: TimeInterval(hunter.date ?? 0)).getTime())")
                 mapView.addAnnotation(showHunter)
                 mapView.register(AnnotationHuntersView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
             }
@@ -583,7 +595,7 @@ extension MapViewController: UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 2
+        return 3
     }
 }
 // MARK: - PickerView delegate
@@ -593,9 +605,12 @@ extension MapViewController: UIPickerViewDelegate {
         case 0:
             mapView.mapType = .standard
         case 1:
-            mapView.mapType = .hybrid
+            mapView.mapType = .mutedStandard
+        case 2:
+            mapView.mapType = .hybridFlyover
         default: mapView.mapType = .standard
         }
+        UserDefaults.standard.set(row, forKey: UserDefaultKeys.Keys.mapTypeSelected)
     }
 
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
@@ -607,9 +622,12 @@ extension MapViewController: UIPickerViewDelegate {
         case 0:
             label.text = "standard"
         case 1:
+            label.text = "muted standard"
+        case 2:
             label.text = "satellite"
         default: break
         }
         return label
     }
+
 }

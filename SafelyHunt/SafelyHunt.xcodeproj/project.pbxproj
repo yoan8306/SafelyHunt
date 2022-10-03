@@ -37,8 +37,6 @@
 		5F79FCE7289BE389009F6AE9 /* Monitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F79FCE6289BE389009F6AE9 /* Monitoring.swift */; };
 		5F79FCE9289BF911009F6AE9 /* Hunter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F79FCE8289BF911009F6AE9 /* Hunter.swift */; };
 		5F7E5F7228E6E92F0035A38C /* SafelyHuntUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7E5F7128E6E92F0035A38C /* SafelyHuntUITests.swift */; };
-		5F7E5F7A28E6FF5C0035A38C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5FFBFF8F28E384F700214FEB /* .swiftlint.yml */; };
-		5F7E5F7C28E6FF5E0035A38C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5FFBFF8F28E384F700214FEB /* .swiftlint.yml */; };
 		5F7F698128932C1000562FDA /* AreaCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */; };
 		5F959EE928B7A23E006643A9 /* DatabaseTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F959EE828B7A23E006643A9 /* DatabaseTest.json */; };
 		5F984C5E28C76321003E9A65 /* scanning-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5F984C5D28C76320003E9A65 /* scanning-alarm.mp3 */; };
@@ -227,6 +225,7 @@
 		5F1CF2F4286B1F2900A0429D = {
 			isa = PBXGroup;
 			children = (
+				5FFBFF8F28E384F700214FEB /* .swiftlint.yml */,
 				5F1CF2FF286B1F2900A0429D /* SafelyHunt */,
 				5F1CF316286B1F2C00A0429D /* SafelyHuntTests */,
 				5F7E5F7028E6E92F0035A38C /* SafelyHuntUITests */,
@@ -247,7 +246,6 @@
 		5F1CF2FF286B1F2900A0429D /* SafelyHunt */ = {
 			isa = PBXGroup;
 			children = (
-				5FFBFF8F28E384F700214FEB /* .swiftlint.yml */,
 				5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */,
 				5F0B7317289D96F80034CB48 /* Enum */,
 				5FBEF95028737FDC0023E5A5 /* Extension */,
@@ -427,6 +425,8 @@
 				5F1CF2F9286B1F2900A0429D /* Sources */,
 				5F1CF2FA286B1F2900A0429D /* Frameworks */,
 				5F1CF2FB286B1F2900A0429D /* Resources */,
+				5FF87C6228EAF4CD00D9087C /* SwiftLint */,
+				5FF87C6428EAFAEB00D9087C /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -557,7 +557,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F7E5F7A28E6FF5C0035A38C /* .swiftlint.yml in Resources */,
 				5F959EE928B7A23E006643A9 /* DatabaseTest.json in Resources */,
 				5F1CF332286B1FB500A0429D /* GoogleService-Info.plist in Resources */,
 			);
@@ -567,11 +566,51 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F7E5F7C28E6FF5E0035A38C /* .swiftlint.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5FF87C6228EAF4CD00D9087C /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n    swiftlint autocorrect\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https ://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		5FF87C6428EAFAEB00D9087C /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5F1CF2F9286B1F2900A0429D /* Sources */ = {
@@ -813,6 +852,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = NLCUCTBNY2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SafelyHunt/SupportingFiles/Info.plist;
@@ -844,6 +884,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = NLCUCTBNY2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SafelyHunt/SupportingFiles/Info.plist;

@@ -50,25 +50,38 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jdb-oO-UFe">
                                             <rect key="frame" x="10" y="2" width="300" height="40"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23p-M0-DBx">
-                                                    <rect key="frame" x="10" y="5" width="280" height="30"/>
-                                                    <color key="backgroundColor" systemColor="linkColor"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="Start monitoring">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="startMonitoringButton:" destination="85s-eW-G3B" eventType="touchUpInside" id="fHL-1Q-JKj"/>
-                                                    </connections>
-                                                </button>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="TZJ-gX-8sW">
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="40"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Duh-Eu-CZY">
+                                                            <rect key="frame" x="0.0" y="0.0" width="300" height="20"/>
+                                                            <state key="normal" title="Button"/>
+                                                            <buttonConfiguration key="configuration" style="plain" title="Test Crash"/>
+                                                            <connections>
+                                                                <action selector="testCrash:" destination="85s-eW-G3B" eventType="touchUpInside" id="3e3-Pq-y4g"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23p-M0-DBx">
+                                                            <rect key="frame" x="0.0" y="20" width="300" height="20"/>
+                                                            <color key="backgroundColor" systemColor="linkColor"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <state key="normal" title="Start monitoring">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="startMonitoringButton:" destination="85s-eW-G3B" eventType="touchUpInside" id="fHL-1Q-JKj"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
-                                                <constraint firstItem="23p-M0-DBx" firstAttribute="top" secondItem="Jdb-oO-UFe" secondAttribute="top" constant="5" id="Xaj-2d-8Hq"/>
-                                                <constraint firstAttribute="trailing" secondItem="23p-M0-DBx" secondAttribute="trailing" constant="10" id="oEk-1t-xSY"/>
-                                                <constraint firstAttribute="bottom" secondItem="23p-M0-DBx" secondAttribute="bottom" constant="5" id="uVM-Sm-acy"/>
-                                                <constraint firstItem="23p-M0-DBx" firstAttribute="leading" secondItem="Jdb-oO-UFe" secondAttribute="leading" constant="10" id="wAg-uv-mkK"/>
+                                                <constraint firstAttribute="bottom" secondItem="TZJ-gX-8sW" secondAttribute="bottom" id="DPl-hc-HWy"/>
+                                                <constraint firstItem="TZJ-gX-8sW" firstAttribute="leading" secondItem="Jdb-oO-UFe" secondAttribute="leading" id="TqH-N3-y8A"/>
+                                                <constraint firstAttribute="trailing" secondItem="TZJ-gX-8sW" secondAttribute="trailing" id="gX7-Fd-eAT"/>
+                                                <constraint firstItem="TZJ-gX-8sW" firstAttribute="top" secondItem="Jdb-oO-UFe" secondAttribute="top" id="yy6-nt-SOY"/>
                                             </constraints>
                                         </view>
                                     </subviews>

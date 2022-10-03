@@ -20,12 +20,12 @@ extension Date {
         Int(self.timeIntervalSince1970)
     }
 
-    func getTime(locale: Locale = .current) -> String {
+    func getTime(timeZone: TimeZone = .current) -> String {
         let myHour = self
         let formatter = DateFormatter()
         formatter.dateStyle = .none
         formatter.timeStyle = .medium
-        formatter.locale = locale
+        formatter.timeZone = timeZone
         return formatter.string(from: myHour)
     }
 }

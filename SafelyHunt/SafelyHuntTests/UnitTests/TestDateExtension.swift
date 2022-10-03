@@ -14,7 +14,7 @@ class TestDateExtension: XCTestCase {
         let myDate = Date(timeIntervalSince1970: 1664352449)
 
         XCTAssertTrue(myDate.dateToTimeStamp() == 1664352449)
-        XCTAssertEqual(myDate.getTime(locale: Locale(identifier: "en-US")), "10:07:29 AM")
+        XCTAssertEqual(myDate.getTime(timeZone: TimeZone(secondsFromGMT: 0)!), "8:07:29 AM")
         XCTAssertEqual(myDate.relativeDate(relativeTo: Date(timeIntervalSince1970: 1664352500), locale: Locale(identifier: "en-US")), "51 seconds ago")
     }
 }

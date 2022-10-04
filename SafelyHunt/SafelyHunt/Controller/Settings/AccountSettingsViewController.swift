@@ -8,24 +8,24 @@
 import UIKit
 
 class AccountSettingsViewController: UIViewController {
-    @IBOutlet weak var reAuthenticateUiView: UIView!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var validateButton: UIButton!
+    @IBOutlet weak var disconnectedButton: UIButton!
+    @IBOutlet weak var deleteAccountButton: UIButton!
+    @IBOutlet weak var activyIndicator: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        reAuthenticateUiView.isHidden = true
-        showActivityIndicator(shown: false)
     }
 
-    @IBAction func disconnectButton() {
+    @IBAction func disconnectButtonAction() {
         resetUserDefault()
-
+        disconnectedButton.isHidden = true
+        activyIndicator.isHidden = false
         UserServices.shared.disconnectCurrentUser { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
+                self?.disconnectedButton.isHidden = false
+                self?.activyIndicator.isHidden = true
             case .success(let messageDisconnected):
                 self?.presentNativeAlertSuccess(alertMessage: messageDisconnected)
                 self?.navigationToLoginViewController()
@@ -33,34 +33,46 @@ class AccountSettingsViewController: UIViewController {
         }
     }
 
-    @IBAction func deleteAccountButton() {
-        reAuthenticateUiView.isHidden = false
+    @IBAction func deleteAccountButtonAction() {
+        presentConfirmPassword()
     }
 
-    @IBAction func validateDeleteAccount() {
-        guard let password = passwordTextField.text, !password.isEmpty else {
-            presentAlertError(alertMessage: "Enter password")
-            return
+    private func presentConfirmPassword() {
+        let alertVC = UIAlertController(title: "Confirm password", message: "Enter your password for confirm action", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertVC.addTextField() { textfield in
+            textfield.isSecureTextEntry = true
+            textfield.placeholder = "password.."
         }
-        showActivityIndicator(shown: true)
+        let confirmAction = UIAlertAction(title: "Confirm", style: .destructive) { _ in
+            guard let textfield = alertVC.textFields?[0], let password = textfield.text, !password.isEmpty else {
+                self.presentAlertError(alertMessage: "Enter your password")
+                return
+            }
+            self.deleteAccount(password: password)
+        }
+        alertVC.addAction(confirmAction)
+        alertVC.addAction(cancel)
 
+        present(alertVC, animated: true, completion: nil)
+    }
+
+    private func deleteAccount(password: String) {
+        deleteAccountButton.isHidden = true
+        activyIndicator.isHidden = false
         UserServices.shared.deleteAccount(password: password) { [weak self] result in
             switch result {
             case .failure(let error):
-                self?.passwordTextField.resignFirstResponder()
                 self?.presentAlertError(alertMessage: error.localizedDescription)
-                self?.showActivityIndicator(shown: false)
+                self?.deleteAccountButton.isHidden = false
+                self?.activyIndicator.isHidden = true
 
             case .success(let stringSuccess):
+                self?.resetUserDefault()
                 self?.presentNativeAlertSuccess(alertMessage: stringSuccess)
                 self?.navigationToLoginViewController()
             }
         }
-    }
-
-    @IBAction func cancelButtonAction() {
-        reAuthenticateUiView.isHidden = true
-        passwordTextField.resignFirstResponder()
     }
 
     private func navigationToLoginViewController() {
@@ -71,12 +83,6 @@ class AccountSettingsViewController: UIViewController {
         }
 
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginViewController, animationOption: .transitionCrossDissolve)
-    }
-
-    private func showActivityIndicator(shown: Bool) {
-        activityIndicator.isHidden = !shown
-        validateButton.isHidden = shown
-
     }
 
     private func resetUserDefault() {

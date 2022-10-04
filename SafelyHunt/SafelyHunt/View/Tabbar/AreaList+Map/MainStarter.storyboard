@@ -13,16 +13,15 @@
         <scene sceneID="gh8-QU-Dio">
             <objects>
                 <navigationController storyboardIdentifier="NavigationMain" toolbarHidden="NO" id="LTA-Zs-Xrb" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="APe-fd-4sZ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="APe-fd-4sZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <textAttributes key="largeTitleTextAttributes">
                             <fontDescription key="fontDescription" type="system" pointSize="28"/>
                         </textAttributes>
-                        <navigationBarAppearance key="scrollEdgeAppearance"/>
-                        <connections>
-                            <outlet property="delegate" destination="LTA-Zs-Xrb" id="Bo6-uh-Q0t"/>
-                        </connections>
+                        <navigationBarAppearance key="scrollEdgeAppearance">
+                            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        </navigationBarAppearance>
                     </navigationBar>
                     <connections>
                         <segue destination="85s-eW-G3B" kind="relationship" relationship="rootViewController" id="NSs-cr-Qvo"/>
@@ -37,11 +36,11 @@
             <objects>
                 <viewController storyboardIdentifier="MainStarter" id="85s-eW-G3B" customClass="MainStarterViewController" customModule="SafelyHunt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iPI-ga-kwn">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5M0-mE-ypI">
-                                <rect key="frame" x="0.0" y="44" width="320" height="375"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="375"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="dS1-zG-FY9">
                                     <rect key="frame" x="0.0" y="134.5" width="320" height="44"/>
@@ -136,6 +135,9 @@
         <image name="map.fill" catalog="system" width="128" height="110"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -14,6 +14,7 @@ class AccountSettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpButton()
     }
 
     @IBAction func disconnectButtonAction() {
@@ -35,6 +36,11 @@ class AccountSettingsViewController: UIViewController {
 
     @IBAction func deleteAccountButtonAction() {
         presentConfirmPassword()
+    }
+
+    private func setUpButton() {
+        disconnectedButton.layer.cornerRadius = disconnectedButton.frame.height/2
+        deleteAccountButton.layer.cornerRadius = deleteAccountButton.frame.height/2
     }
 
     private func presentConfirmPassword() {

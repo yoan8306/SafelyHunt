@@ -175,6 +175,8 @@ final class TestMonitoringServices: XCTestCase {
         XCTAssertFalse(monitoringServices.checkUserIsAlwayInArea(area: createArea().createPolygon(), positionUser: actualPostion.coordinate))
     }
 
+    /// Create are with coordinate
+    /// - Returns: Area
     private func createArea() -> Area {
         let area = Area()
         var coordinate: [CLLocationCoordinate2D] = []

@@ -17,6 +17,7 @@ final class TestMonitoring: XCTestCase {
         monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area()), startMonitoring: false)
     }
 
+    /// distance travelled equal current distance
     func testGivenPostionsWhengetCurrenttravelThenReturnDistanceInDouble() {
         let location1 = CLLocation(latitude: 37.33123666, longitude: 122.03076342)
         let location2 = CLLocation(latitude: 37.33115792, longitude: 122.03076154)
@@ -26,6 +27,7 @@ final class TestMonitoring: XCTestCase {
         XCTAssertTrue(distance * 1000 == monitoringServices.monitoring.currentDistance)
     }
 
+    /// history travelled are in currentTravel
     func testGivenPositionUserWhenGetCurrentTravelThenCurrentTravelKeepHistory() {
         let location1 = CLLocation(latitude: 37.33123666, longitude: 122.03076342)
         let location2 = CLLocation(latitude: 37.33115792, longitude: 122.03076154)

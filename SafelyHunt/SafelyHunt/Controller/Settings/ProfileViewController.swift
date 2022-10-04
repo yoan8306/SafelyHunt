@@ -15,12 +15,14 @@ class ProfileViewController: UIViewController {
     var hunter = Hunter()
 
     @IBOutlet weak var totalDistanceLabel: UILabel!
+    @IBOutlet weak var mailLabel: UILabel!
     @IBOutlet weak var pseudonymeLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         pseudonymeLabel.text = FirebaseAuth.Auth.auth().currentUser?.displayName
         getTotalDistance()
+        mailLabel.text = FirebaseAuth.Auth.auth().currentUser?.email
     }
 
     private func getTotalDistance() {

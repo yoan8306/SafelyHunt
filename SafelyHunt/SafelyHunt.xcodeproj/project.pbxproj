@@ -31,20 +31,12 @@
 		5F78B6C12876D47A003C58B5 /* MainStarterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */; };
 		5F78B6C52876E8BC003C58B5 /* MainStarter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F78B6C42876E8BC003C58B5 /* MainStarter.storyboard */; };
 		5F78B6C72876F13F003C58B5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6C62876F13F003C58B5 /* SettingsViewController.swift */; };
-		5F78B6CA2876FE0A003C58B5 /* ResetPassword.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F78B6C82876FE0A003C58B5 /* ResetPassword.storyboard */; };
-		5F78B6CC2876FE6A003C58B5 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F78B6CB2876FE6A003C58B5 /* ResetPasswordViewController.swift */; };
 		5F79FCE5289BB959009F6AE9 /* Polygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F79FCE4289BB959009F6AE9 /* Polygon.swift */; };
 		5F79FCE7289BE389009F6AE9 /* Monitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F79FCE6289BE389009F6AE9 /* Monitoring.swift */; };
 		5F79FCE9289BF911009F6AE9 /* Hunter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F79FCE8289BF911009F6AE9 /* Hunter.swift */; };
 		5F7E5F7228E6E92F0035A38C /* SafelyHuntUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7E5F7128E6E92F0035A38C /* SafelyHuntUITests.swift */; };
-		5F7E5F7A28E6FF5C0035A38C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5FFBFF8F28E384F700214FEB /* .swiftlint.yml */; };
-		5F7E5F7C28E6FF5E0035A38C /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 5FFBFF8F28E384F700214FEB /* .swiftlint.yml */; };
 		5F7F698128932C1000562FDA /* AreaCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */; };
-		5F959EE928B7A23E006643A9 /* DatabaseTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F959EE828B7A23E006643A9 /* DatabaseTest.json */; };
 		5F984C5E28C76321003E9A65 /* scanning-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5F984C5D28C76320003E9A65 /* scanning-alarm.mp3 */; };
-		5F98CA4428C9289C00197406 /* MonitoringServicesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F98CA4328C9289C00197406 /* MonitoringServicesMock.swift */; };
-		5F98CA4628C92D0100197406 /* AreaServicesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F98CA4528C92D0100197406 /* AreaServicesMock.swift */; };
-		5F98CA4928C945CB00197406 /* FakeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F98CA4828C945CB00197406 /* FakeData.swift */; };
 		5FB4BCCB28C681F500C69E8F /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4BCCA28C681F500C69E8F /* UserServices.swift */; };
 		5FB4BCCD28C6821000C69E8F /* MonitoringServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4BCCC28C6821000C69E8F /* MonitoringServices.swift */; };
 		5FBA014B287453F800D70715 /* TabbarMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FBA014A287453F800D70715 /* TabbarMain.storyboard */; };
@@ -62,8 +54,6 @@
 		5FD577B428D2525900F464F6 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5FD577B328D2525900F464F6 /* FirebaseDatabase */; };
 		5FD577B728D2529F00F464F6 /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5FD577B628D2529F00F464F6 /* NotificationBannerSwift */; };
 		5FD577BA28D252F100F464F6 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 5FD577B928D252F100F464F6 /* SPAlert */; };
-		5FEB598E28B79D220051B21B /* UserServicesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEB598D28B79D220051B21B /* UserServicesMock.swift */; };
-		5FED75EE28E5EDD2009A68E9 /* TestUserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FED75EA28E5EDD1009A68E9 /* TestUserServices.swift */; };
 		5FED75EF28E5EDD2009A68E9 /* TestDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FED75EB28E5EDD1009A68E9 /* TestDateExtension.swift */; };
 		5FED75F028E5EDD2009A68E9 /* TestMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FED75EC28E5EDD2009A68E9 /* TestMonitoring.swift */; };
 		5FED75F128E5EDD2009A68E9 /* TestMonitoringServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FED75ED28E5EDD2009A68E9 /* TestMonitoringServices.swift */; };
@@ -117,19 +107,13 @@
 		5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStarterViewController.swift; sourceTree = "<group>"; };
 		5F78B6C42876E8BC003C58B5 /* MainStarter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStarter.storyboard; sourceTree = "<group>"; };
 		5F78B6C62876F13F003C58B5 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		5F78B6C92876FE0A003C58B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = SafelyHunt/View/Base.lproj/ResetPassword.storyboard; sourceTree = "<group>"; };
-		5F78B6CB2876FE6A003C58B5 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		5F79FCE4289BB959009F6AE9 /* Polygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygon.swift; sourceTree = "<group>"; };
 		5F79FCE6289BE389009F6AE9 /* Monitoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitoring.swift; sourceTree = "<group>"; };
 		5F79FCE8289BF911009F6AE9 /* Hunter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hunter.swift; sourceTree = "<group>"; };
 		5F7E5F6F28E6E92F0035A38C /* SafelyHuntUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafelyHuntUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F7E5F7128E6E92F0035A38C /* SafelyHuntUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafelyHuntUITests.swift; sourceTree = "<group>"; };
 		5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaCellTableViewCell.swift; sourceTree = "<group>"; };
-		5F959EE828B7A23E006643A9 /* DatabaseTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DatabaseTest.json; sourceTree = "<group>"; };
 		5F984C5D28C76320003E9A65 /* scanning-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "scanning-alarm.mp3"; sourceTree = "<group>"; };
-		5F98CA4328C9289C00197406 /* MonitoringServicesMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoringServicesMock.swift; sourceTree = "<group>"; };
-		5F98CA4528C92D0100197406 /* AreaServicesMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaServicesMock.swift; sourceTree = "<group>"; };
-		5F98CA4828C945CB00197406 /* FakeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeData.swift; sourceTree = "<group>"; };
 		5FB4BCCA28C681F500C69E8F /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
 		5FB4BCCC28C6821000C69E8F /* MonitoringServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoringServices.swift; sourceTree = "<group>"; };
 		5FBA014A287453F800D70715 /* TabbarMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabbarMain.storyboard; sourceTree = "<group>"; };
@@ -142,8 +126,6 @@
 		5FC7538D2894063900BC3DB7 /* Maps.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Maps.storyboard; sourceTree = "<group>"; };
 		5FC7538F289408E600BC3DB7 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5FC753912894892B00BC3DB7 /* Area.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Area.swift; sourceTree = "<group>"; };
-		5FEB598D28B79D220051B21B /* UserServicesMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServicesMock.swift; sourceTree = "<group>"; };
-		5FED75EA28E5EDD1009A68E9 /* TestUserServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUserServices.swift; sourceTree = "<group>"; };
 		5FED75EB28E5EDD1009A68E9 /* TestDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDateExtension.swift; sourceTree = "<group>"; };
 		5FED75EC28E5EDD2009A68E9 /* TestMonitoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMonitoring.swift; sourceTree = "<group>"; };
 		5FED75ED28E5EDD2009A68E9 /* TestMonitoringServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMonitoringServices.swift; sourceTree = "<group>"; };
@@ -208,7 +190,6 @@
 				5F78B6BE2876D306003C58B5 /* SplashScreenViewController.swift */,
 				5FBEF945287306C80023E5A5 /* LoginViewController.swift */,
 				5FBEF947287306DD0023E5A5 /* RegisterViewController.swift */,
-				5F78B6CB2876FE6A003C58B5 /* ResetPasswordViewController.swift */,
 			);
 			path = "SignIn-SignUp";
 			sourceTree = "<group>";
@@ -217,7 +198,6 @@
 			isa = PBXGroup;
 			children = (
 				5F1CF306286B1F2900A0429D /* Login.storyboard */,
-				5F78B6C82876FE0A003C58B5 /* ResetPassword.storyboard */,
 				5FBEF9492873073A0023E5A5 /* Register.storyboard */,
 				5F14AD2228783B050039002A /* Main.storyboard */,
 			);
@@ -227,6 +207,7 @@
 		5F1CF2F4286B1F2900A0429D = {
 			isa = PBXGroup;
 			children = (
+				5FFBFF8F28E384F700214FEB /* .swiftlint.yml */,
 				5F1CF2FF286B1F2900A0429D /* SafelyHunt */,
 				5F1CF316286B1F2C00A0429D /* SafelyHuntTests */,
 				5F7E5F7028E6E92F0035A38C /* SafelyHuntUITests */,
@@ -247,7 +228,6 @@
 		5F1CF2FF286B1F2900A0429D /* SafelyHunt */ = {
 			isa = PBXGroup;
 			children = (
-				5FFBFF8F28E384F700214FEB /* .swiftlint.yml */,
 				5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */,
 				5F0B7317289D96F80034CB48 /* Enum */,
 				5FBEF95028737FDC0023E5A5 /* Extension */,
@@ -263,8 +243,6 @@
 		5F1CF316286B1F2C00A0429D /* SafelyHuntTests */ = {
 			isa = PBXGroup;
 			children = (
-				5F98CA4228C9285300197406 /* supportingFiles */,
-				5FEB598A28B79C610051B21B /* MockServices */,
 				5FED75E928E5EDB9009A68E9 /* UnitTests */,
 			);
 			path = SafelyHuntTests;
@@ -329,15 +307,6 @@
 			path = SafelyHuntUITests;
 			sourceTree = "<group>";
 		};
-		5F98CA4228C9285300197406 /* supportingFiles */ = {
-			isa = PBXGroup;
-			children = (
-				5F959EE828B7A23E006643A9 /* DatabaseTest.json */,
-				5F98CA4828C945CB00197406 /* FakeData.swift */,
-			);
-			path = supportingFiles;
-			sourceTree = "<group>";
-		};
 		5FBEF95028737FDC0023E5A5 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,23 +365,12 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
-		5FEB598A28B79C610051B21B /* MockServices */ = {
-			isa = PBXGroup;
-			children = (
-				5FEB598D28B79D220051B21B /* UserServicesMock.swift */,
-				5F98CA4328C9289C00197406 /* MonitoringServicesMock.swift */,
-				5F98CA4528C92D0100197406 /* AreaServicesMock.swift */,
-			);
-			path = MockServices;
-			sourceTree = "<group>";
-		};
 		5FED75E928E5EDB9009A68E9 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
 				5FED75EB28E5EDD1009A68E9 /* TestDateExtension.swift */,
 				5FED75EC28E5EDD2009A68E9 /* TestMonitoring.swift */,
 				5FED75ED28E5EDD2009A68E9 /* TestMonitoringServices.swift */,
-				5FED75EA28E5EDD1009A68E9 /* TestUserServices.swift */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -427,6 +385,8 @@
 				5F1CF2F9286B1F2900A0429D /* Sources */,
 				5F1CF2FA286B1F2900A0429D /* Frameworks */,
 				5F1CF2FB286B1F2900A0429D /* Resources */,
+				5FF87C6228EAF4CD00D9087C /* SwiftLint */,
+				5FF87C6428EAFAEB00D9087C /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -540,7 +500,6 @@
 				5F1CF308286B1F2900A0429D /* Login.storyboard in Resources */,
 				5F78B6C52876E8BC003C58B5 /* MainStarter.storyboard in Resources */,
 				5FFCF681288EB481009D9AE8 /* Launch Screen.storyboard in Resources */,
-				5F78B6CA2876FE0A003C58B5 /* ResetPassword.storyboard in Resources */,
 				5F14AD2328783B050039002A /* Main.storyboard in Resources */,
 				5FFBFF9028E384F700214FEB /* .swiftlint.yml in Resources */,
 				5F984C5E28C76321003E9A65 /* scanning-alarm.mp3 in Resources */,
@@ -557,8 +516,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F7E5F7A28E6FF5C0035A38C /* .swiftlint.yml in Resources */,
-				5F959EE928B7A23E006643A9 /* DatabaseTest.json in Resources */,
 				5F1CF332286B1FB500A0429D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -567,11 +524,51 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F7E5F7C28E6FF5E0035A38C /* .swiftlint.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5FF87C6228EAF4CD00D9087C /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n    swiftlint autocorrect\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https ://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		5FF87C6428EAFAEB00D9087C /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5F1CF2F9286B1F2900A0429D /* Sources */ = {
@@ -595,7 +592,6 @@
 				5F7624E128C224CE00D6FA65 /* ProfileViewController.swift in Sources */,
 				5FB4BCCD28C6821000C69E8F /* MonitoringServices.swift in Sources */,
 				5F62872A28A522B600AD51E2 /* LocalNotification.swift in Sources */,
-				5F78B6CC2876FE6A003C58B5 /* ResetPasswordViewController.swift in Sources */,
 				5FBEF952287380050023E5A5 /* UIViewController_Alert.swift in Sources */,
 				5F14AD21287829470039002A /* MainStarterData.swift in Sources */,
 				5F7624D828C216AC00D6FA65 /* AccountSettingsViewController.swift in Sources */,
@@ -614,13 +610,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F98CA4628C92D0100197406 /* AreaServicesMock.swift in Sources */,
 				5FED75F128E5EDD2009A68E9 /* TestMonitoringServices.swift in Sources */,
-				5FEB598E28B79D220051B21B /* UserServicesMock.swift in Sources */,
-				5F98CA4428C9289C00197406 /* MonitoringServicesMock.swift in Sources */,
 				5FED75EF28E5EDD2009A68E9 /* TestDateExtension.swift in Sources */,
-				5FED75EE28E5EDD2009A68E9 /* TestUserServices.swift in Sources */,
-				5F98CA4928C945CB00197406 /* FakeData.swift in Sources */,
 				5FED75F028E5EDD2009A68E9 /* TestMonitoring.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -663,14 +654,6 @@
 				5F7624D328C2159800D6FA65 /* Base */,
 			);
 			name = Settings.storyboard;
-			sourceTree = "<group>";
-		};
-		5F78B6C82876FE0A003C58B5 /* ResetPassword.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5F78B6C92876FE0A003C58B5 /* Base */,
-			);
-			name = ResetPassword.storyboard;
 			sourceTree = "<group>";
 		};
 		5FBEF9492873073A0023E5A5 /* Register.storyboard */ = {
@@ -813,6 +796,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = NLCUCTBNY2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SafelyHunt/SupportingFiles/Info.plist;
@@ -844,6 +828,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = NLCUCTBNY2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SafelyHunt/SupportingFiles/Info.plist;

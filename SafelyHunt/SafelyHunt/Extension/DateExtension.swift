@@ -8,10 +8,11 @@
 import Foundation
 
 extension Date {
-    func relativeDate(relativeTo: Date) -> String {
+    func relativeDate(relativeTo: Date, locale: Locale = .current) -> String {
         let myDate = self
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .full
+        formatter.locale = locale
        return formatter.localizedString(for: myDate, relativeTo: relativeTo)
     }
 
@@ -19,11 +20,12 @@ extension Date {
         Int(self.timeIntervalSince1970)
     }
 
-    func getTime() -> String {
+    func getTime(timeZone: TimeZone = .current) -> String {
         let myHour = self
         let formatter = DateFormatter()
         formatter.dateStyle = .none
         formatter.timeStyle = .medium
+        formatter.timeZone = timeZone
         return formatter.string(from: myHour)
     }
 }

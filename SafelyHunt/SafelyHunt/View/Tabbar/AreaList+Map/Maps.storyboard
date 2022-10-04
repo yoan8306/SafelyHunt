@@ -160,7 +160,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="mRI-Dh-U6x">
-                                <rect key="frame" x="345" y="128" width="35" height="74"/>
+                                <rect key="frame" x="345" y="119" width="35" height="74"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Lw-Hc-2Nm">
                                         <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
@@ -223,7 +223,7 @@
                                                     <pickerView contentMode="scaleAspectFit" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="3M9-lr-gwj">
                                                         <rect key="frame" x="53" y="0.0" width="207" height="70"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="70" id="LG8-8k-ItJ"/>
+                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="70" id="LG8-8k-ItJ"/>
                                                         </constraints>
                                                         <connections>
                                                             <outlet property="dataSource" destination="Y6W-OH-hqX" id="eRC-3L-O9W"/>
@@ -239,13 +239,12 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="XjC-zQ-60J" secondAttribute="trailing" constant="20" id="Axv-XO-jGu"/>
                                     <constraint firstItem="XjC-zQ-60J" firstAttribute="leading" secondItem="jtq-LA-mXM" secondAttribute="leading" constant="20" id="RS4-AM-n5M"/>
                                     <constraint firstAttribute="width" constant="300" id="em3-eS-Ta8"/>
                                     <constraint firstItem="XjC-zQ-60J" firstAttribute="top" secondItem="jtq-LA-mXM" secondAttribute="top" constant="10" id="xq7-SL-r8d"/>
-                                    <constraint firstAttribute="bottom" secondItem="XjC-zQ-60J" secondAttribute="bottom" id="ySL-9T-ZMG"/>
                                 </constraints>
                             </view>
                             <view hidden="YES" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="77p-Us-BpL">
@@ -344,16 +343,17 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="xPK-CH-eVp" secondAttribute="bottom" constant="30" id="6QI-Qi-2LC"/>
                             <constraint firstItem="DdS-4n-brd" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="6aY-KL-Y3r"/>
                             <constraint firstItem="yGs-zR-7dh" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="82Z-3H-bwR"/>
-                            <constraint firstItem="mRI-Dh-U6x" firstAttribute="top" secondItem="jtq-LA-mXM" secondAttribute="bottom" constant="-30" id="9wt-Ko-fGt"/>
+                            <constraint firstItem="mRI-Dh-U6x" firstAttribute="top" secondItem="jtq-LA-mXM" secondAttribute="bottom" constant="-39" id="9wt-Ko-fGt"/>
                             <constraint firstItem="1Fv-Fm-qrb" firstAttribute="trailing" secondItem="xPK-CH-eVp" secondAttribute="trailing" id="Bgt-T5-26n"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="mRI-Dh-U6x" secondAttribute="trailing" constant="10" id="EKc-8i-6Nu"/>
                             <constraint firstItem="yGs-zR-7dh" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="KTO-u7-7Ra"/>
                             <constraint firstItem="DdS-4n-brd" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="L0J-dG-dEi"/>
                             <constraint firstAttribute="bottom" secondItem="DdS-4n-brd" secondAttribute="bottom" id="LEn-1T-tnE"/>
+                            <constraint firstItem="jtq-LA-mXM" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="LaF-SR-Cy3"/>
                             <constraint firstItem="aYO-R1-nip" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="Orl-df-eUn"/>
                             <constraint firstItem="aYO-R1-nip" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="UNU-lr-V4g"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="DdS-4n-brd" secondAttribute="trailing" id="ZBz-nR-nYD"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="jtq-LA-mXM" secondAttribute="trailing" id="fNO-J8-sHV"/>
+                            <constraint firstItem="mRI-Dh-U6x" firstAttribute="top" secondItem="aYO-R1-nip" secondAttribute="bottom" constant="2" id="dtY-Qy-97S"/>
                             <constraint firstItem="1Fv-Fm-qrb" firstAttribute="top" secondItem="xPK-CH-eVp" secondAttribute="top" id="fSd-46-USF"/>
                             <constraint firstItem="xPK-CH-eVp" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="iDM-Hs-KmF"/>
                             <constraint firstItem="1Fv-Fm-qrb" firstAttribute="bottom" secondItem="xPK-CH-eVp" secondAttribute="bottom" id="otZ-7O-ewh"/>
@@ -429,6 +429,9 @@
         </systemColor>
         <systemColor name="tertiaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiarySystemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

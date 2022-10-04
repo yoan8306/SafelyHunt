@@ -115,19 +115,6 @@ class UserServices: UserServicesProtocol {
         })
     }
 
-    /// reset password
-    /// - Parameters:
-    ///   - email: email for reset password
-    ///   - callBack: result after click reset password
-    func resetPassword(email: String, callBack: @escaping (Result<String, Error>) -> Void) {
-        firebaseAuth.sendPasswordReset(withEmail: email) { error in
-            if error == nil {
-                callBack(.success("Email send"))
-            }
-            callBack(.failure(error ?? ServicesError.resetPassword))
-        }
-    }
-
     /// disconnect the current user
     /// - Parameter callBack: return if disconnected is success or not
     func disconnectCurrentUser(callBack: @escaping (Result<String, Error>) -> Void) {

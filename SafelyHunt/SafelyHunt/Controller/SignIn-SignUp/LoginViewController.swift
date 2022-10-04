@@ -12,7 +12,7 @@ class LoginViewController: UIViewController {
     // MARK: - Propertie
     var signInMail: String = ""
 
-    // MARK: -  IBOutlet
+    // MARK: - IBOutlet
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var logInButton: UIButton!
@@ -34,7 +34,7 @@ class LoginViewController: UIViewController {
     }
 
     // MARK: - IBAction
-    
+
     /// sign In user
     @IBAction func logInActionButton() {
         guard let email = emailTextField.text, let password = passwordTextField.text else {
@@ -55,7 +55,7 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
+
     /// if user sign in transfert to mainStarterController
     private func transferToMainStarter() {
         let tabBarMain = UIStoryboard(name: "TabbarMain", bundle: nil)
@@ -64,7 +64,7 @@ class LoginViewController: UIViewController {
         }
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarter, animationOption: .transitionFlipFromBottom)
     }
-    
+
     /// show or hide activity indicator
     /// - Parameter shown: if true activity indicator is show
     private func activityIndicator(shown: Bool) {

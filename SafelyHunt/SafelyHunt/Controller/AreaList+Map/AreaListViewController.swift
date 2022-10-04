@@ -35,6 +35,7 @@ class AreaListViewController: UIViewController {
     @objc func refreshTable() {
         getAreaList()
     }
+
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
         let mapsStoryboard = UIStoryboard(name: "Maps", bundle: nil)
 
@@ -49,6 +50,7 @@ class AreaListViewController: UIViewController {
     }
 
     // MARK: - Private functions
+    /// get all area in database of user
     private func getAreaList() {
         AreaServices.shared.getAreaList() { [weak self] fetchArea in
             switch fetchArea {
@@ -66,6 +68,7 @@ class AreaListViewController: UIViewController {
         }
     }
 
+    /// set background if user's list is empty
     private func initializeBackgroundTableView() {
         if listArea.count == 0 {
             let backgroundImage = UIImage(named: "listVoid")
@@ -123,6 +126,9 @@ extension AreaListViewController: UITableViewDelegate {
     }
 
     // MARK: - private func tableView
+
+    /// Ask confirmation before delete area
+    /// - Parameter indexPath: index of area selected
     private func askDelete (indexPath: IndexPath) {
         let alertVC = UIAlertController(title: "Delete area", message: "Are you sure you want delete this area", preferredStyle: .actionSheet)
         let deletingAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
@@ -156,6 +162,8 @@ extension AreaListViewController: UITableViewDelegate {
         }
     }
 
+    /// transfert to MapViewController
+    /// - Parameter area: area selected
     private func transferToMapViewController(area: Area) {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         let monitoringService = MonitoringServices(monitoring: Monitoring(area: area))

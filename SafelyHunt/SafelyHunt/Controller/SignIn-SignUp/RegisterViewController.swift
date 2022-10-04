@@ -70,7 +70,7 @@ class RegisterViewController: UIViewController {
         }
     }
 }
-    
+
     /// transfert to login controller for identification
     /// - Parameter user: new user create
     private func goToLoginController(user: User) {

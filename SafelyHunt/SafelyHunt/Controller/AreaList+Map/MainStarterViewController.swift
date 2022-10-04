@@ -10,12 +10,15 @@ import FirebaseAuth
 import MapKit
 
 class MainStarterViewController: UIViewController {
+    // MARK: - Properties
     let mainStarter = MainStarterData().mainStarter
     var area: Area?
     var hunter = Hunter()
 
+    // MARK: - IBOutlet
     @IBOutlet weak var tableView: UITableView!
 
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -26,6 +29,8 @@ class MainStarterViewController: UIViewController {
         getSelectedArea()
         tableView.reloadData()
     }
+
+    // MARK: - IBAction
     @IBAction func testCrash(_ sender: UIButton) {
         fatalError("Test crach")
     }
@@ -39,6 +44,8 @@ class MainStarterViewController: UIViewController {
         }
     }
 
+    // MARK: - Private functions
+    /// Download area selected
     private func getSelectedArea() {
         let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
 
@@ -53,6 +60,7 @@ class MainStarterViewController: UIViewController {
         }
     }
 
+    /// Transferr to MapViewController with monitoring object
     private func presentMapView() {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController, let area = area else {
@@ -75,6 +83,7 @@ extension MainStarterViewController: UITableViewDataSource {
         return mainStarter.count
     }
 
+    /// create cell of table view
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellStarter", for: indexPath)
         let title = mainStarter[indexPath.row]
@@ -83,6 +92,7 @@ extension MainStarterViewController: UITableViewDataSource {
         return cell
     }
 
+    /// configure each cell of table view
     private func configureCell(_ cell: UITableViewCell, _ title: String, _ indexPath: IndexPath) {
         let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
         let radiusAlert = UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert)
@@ -114,6 +124,7 @@ extension MainStarterViewController: UITableViewDataSource {
 
 // MARK: - TableView Delegate
 extension MainStarterViewController: UITableViewDelegate {
+    /// action for cell selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
@@ -125,6 +136,7 @@ extension MainStarterViewController: UITableViewDelegate {
         }
     }
 
+    /// transfert to AreaListViewController
     private func transferToAreaListViewController() {
         let areaListStoryboard = UIStoryboard(name: "AreasList", bundle: nil)
 
@@ -135,6 +147,7 @@ extension MainStarterViewController: UITableViewDelegate {
         navigationController?.pushViewController(areaListViewController, animated: true)
     }
 
+    /// Transfert for set radius alert in MapViewController
     private func transferToMapForSetRadiusAlert() {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {

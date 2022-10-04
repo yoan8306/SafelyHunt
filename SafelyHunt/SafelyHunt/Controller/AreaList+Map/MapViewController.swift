@@ -30,7 +30,6 @@ class MapViewController: UIViewController {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var sliderUiView: UIView!
-    @IBOutlet weak var popUpAreaNameUiView: UIView!
     @IBOutlet weak var settingsView: UIView!
     @IBOutlet weak var travelInfoUiView: UIView!
 
@@ -39,13 +38,10 @@ class MapViewController: UIViewController {
     @IBOutlet weak var radiusAlertLabelStatus: UILabel!
 
     @IBOutlet weak var locationButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var monitoringButton: UIButton!
-    @IBOutlet weak var validateButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
 
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var nameAreaTextField: UITextField!
     @IBOutlet weak var myNavigationItem: UINavigationItem!
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var switchButtonRadiusAlert: UISwitch!
@@ -106,9 +102,8 @@ class MapViewController: UIViewController {
             return
         }
         mapView.addOverlay(monitoringServices.monitoring.area.createPolygon())
-        nameAreaTextField.becomeFirstResponder()
         editingArea = false
-        popUpAreaNameUiView.isHidden = false
+       presentPopUpNewNameArea()
     }
 
     override func willMove(toParent parent: UIViewController?) {
@@ -116,7 +111,6 @@ class MapViewController: UIViewController {
         if editingArea {
             turnOffEditingMode()
         }
-//        monitoringServices.startMonitoring = false
     }
 
     // MARK: - IBAction
@@ -143,19 +137,6 @@ class MapViewController: UIViewController {
         } else {
             turnOffEditingMode()
         }
-    }
-
-    /// get name new area
-    @IBAction func validateButtonAction() {
-       createArea()
-        turnOffEditingMode()
-    }
-
-    /// cancel new area
-    @IBAction func cancelButtonAction() {
-        turnOffEditingMode()
-        mapView.removeOverlays(mapView.overlays)
-        nameAreaTextField.text = ""
     }
 
 // Map mode Editing radius
@@ -240,7 +221,6 @@ class MapViewController: UIViewController {
         settingsView.layer.cornerRadius = 8
         notification.notificationInitialize()
         initializePickerView()
-        setPopUpMessageNameArea()
         editingArea = false
         mapView.showsUserLocation = true
         mapView.isZoomEnabled = true
@@ -292,10 +272,7 @@ class MapViewController: UIViewController {
     }
 
 //    check createPolygon function
-    private func createArea() {
-        guard let name = nameAreaTextField.text, !name.isEmpty else {
-            return
-        }
+    private func createArea(nameArea: String) {
         let coordinateArea = monitoringServices.monitoring.area.coordinatesPoints
         let polygonCreate = MKPolygon(coordinates: coordinateArea, count: coordinateArea.count)
         let positionPolygon = CLLocation(latitude: polygonCreate.coordinate.latitude, longitude: polygonCreate.coordinate.longitude)
@@ -307,7 +284,7 @@ class MapViewController: UIViewController {
             }
             city = firstPlace.locality
             let area = Area()
-            area.name = name
+            area.name = nameArea
             area.date = String(Date().dateToTimeStamp())
             area.coordinatesPoints = coordinateArea
             area.city = city
@@ -318,14 +295,7 @@ class MapViewController: UIViewController {
 
     // MARK: - Map mode Editing
 // Private func
-    private func setPopUpMessageNameArea() {
-        popUpAreaNameUiView.layer.cornerRadius = 8
-        popUpAreaNameUiView.isHidden = true
-    }
-
     private func turnOffEditingMode() {
-        popUpAreaNameUiView.isHidden = true
-        nameAreaTextField.resignFirstResponder()
         monitoringServices.monitoring.area.coordinatesPoints = []
         mapView.isUserInteractionEnabled = true
         navigationController?.navigationBar.backgroundColor = .white
@@ -394,6 +364,30 @@ class MapViewController: UIViewController {
             mapView.removeOverlay(overlay)
         }
     }
+
+    private func presentPopUpNewNameArea() {
+        let alertViewController = UIAlertController(title: "New area name", message: "Enter name for your new area", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            self.turnOffEditingMode()
+            self.mapView.removeOverlays(self.mapView.overlays)
+        }
+        alertViewController.addTextField() { textfield in
+            textfield.placeholder = "Name area..."
+        }
+        let register = UIAlertAction(title: "Register", style: .destructive) { _ in
+            guard let textfield = alertViewController.textFields?[0], let nameArea = textfield.text, !nameArea.isEmpty else {
+                self.presentAlertError(alertMessage: "Enter a name")
+                return
+            }
+            self.createArea(nameArea: nameArea)
+            self.turnOffEditingMode()
+        }
+        alertViewController.addAction(register)
+        alertViewController.addAction(cancel)
+
+        present(alertViewController, animated: true, completion: nil)
+    }
+
 }
 
 // MARK: - MapMode Monitoring
@@ -578,14 +572,6 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         return circleView
     }
 
-}
-
-// MARK: - Textfield delegate
-extension MapViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        validateButtonAction()
-        return true
-    }
 }
 
 // MARK: - PickerView datasource

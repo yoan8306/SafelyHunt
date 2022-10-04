@@ -38,23 +38,23 @@ class AccountSettingsViewController: UIViewController {
     }
 
     private func presentConfirmPassword() {
-        let alertVC = UIAlertController(title: "Confirm password", message: "Enter your password for confirm action", preferredStyle: .alert)
+        let alertViewController = UIAlertController(title: "Confirm password", message: "Enter your password for confirm action", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertVC.addTextField() { textfield in
+        alertViewController.addTextField() { textfield in
             textfield.isSecureTextEntry = true
             textfield.placeholder = "password.."
         }
         let confirmAction = UIAlertAction(title: "Confirm", style: .destructive) { _ in
-            guard let textfield = alertVC.textFields?[0], let password = textfield.text, !password.isEmpty else {
+            guard let textfield = alertViewController.textFields?[0], let password = textfield.text, !password.isEmpty else {
                 self.presentAlertError(alertMessage: "Enter your password")
                 return
             }
             self.deleteAccount(password: password)
         }
-        alertVC.addAction(confirmAction)
-        alertVC.addAction(cancel)
+        alertViewController.addAction(confirmAction)
+        alertViewController.addAction(cancel)
 
-        present(alertVC, animated: true, completion: nil)
+        present(alertViewController, animated: true, completion: nil)
     }
 
     private func deleteAccount(password: String) {

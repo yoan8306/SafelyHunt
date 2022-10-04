@@ -22,10 +22,10 @@ class RegisterViewController: UIViewController {
 // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
-// MARK: - IBAction
+    // MARK: - IBAction
+    /// Sign up a new user
     @IBAction func registerAction() {
         showActivityIndicator(shown: true)
         if checkPassword() {
@@ -38,7 +38,12 @@ class RegisterViewController: UIViewController {
         }
     }
 
-// MARK: - Private functions
+    // MARK: - Private functions
+    /// create a new user in database
+    /// - Parameters:
+    ///   - email: email new user's
+    ///   - password: password new user's
+    ///   - displayName: displayname new user's
     private func createUser(_ email: String, _ password: String, _ displayName: String) {
         UserServices.shared.createUser(email: email, password: password, displayName: displayName) { [weak self] result in
             switch result {
@@ -65,7 +70,9 @@ class RegisterViewController: UIViewController {
         }
     }
 }
-
+    
+    /// transfert to login controller for identification
+    /// - Parameter user: new user create
     private func goToLoginController(user: User) {
         let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
 
@@ -104,7 +111,6 @@ class RegisterViewController: UIViewController {
         activityIndicator.isHidden = !shown
         registerButton.isHidden = shown
     }
-
 }
 
 // MARK: - TextFieldDelegate

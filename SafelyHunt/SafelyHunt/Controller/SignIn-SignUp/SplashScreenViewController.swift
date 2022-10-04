@@ -13,7 +13,8 @@ class SplashScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
+    /// check if user is sign in or not If user is sign in go to main, if not go to login page
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         UserServices.shared.checkUserLogged { hunter in
@@ -25,13 +26,16 @@ class SplashScreenViewController: UIViewController {
             }
         }
     }
-
+    
+    /// remove observer logged user
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(false)
         UserServices.shared.removeStateChangeLoggedListen()
     }
 
-// MARK: - private functions
+    // MARK: - private functions
+    /// transfer to main starter controller
+    /// - Parameter hunter: hunter logged
     private func transferToMainStarter(hunter: Hunter) {
         let mainStarterStoryboard = UIStoryboard(name: "TabbarMain", bundle: nil)
 
@@ -41,7 +45,8 @@ class SplashScreenViewController: UIViewController {
 
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarterViewController, animationOption: .transitionFlipFromBottom)
     }
-
+    
+    /// transfert to LoginView controller
     private func transferToLogin() {
         let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
 

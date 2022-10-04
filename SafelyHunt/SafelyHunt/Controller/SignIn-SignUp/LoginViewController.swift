@@ -9,14 +9,16 @@ import UIKit
 import FirebaseAuth
 
 class LoginViewController: UIViewController {
-
+    // MARK: - Propertie
     var signInMail: String = ""
 
+    // MARK: -  IBOutlet
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.text = signInMail
@@ -31,6 +33,9 @@ class LoginViewController: UIViewController {
         super.viewWillAppear(animated)
     }
 
+    // MARK: - IBAction
+    
+    /// sign In user
     @IBAction func logInActionButton() {
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             presentNativeAlertError(alertMessage: "Enter email and password")
@@ -50,7 +55,8 @@ class LoginViewController: UIViewController {
             }
         }
     }
-
+    
+    /// if user sign in transfert to mainStarterController
     private func transferToMainStarter() {
         let tabBarMain = UIStoryboard(name: "TabbarMain", bundle: nil)
         guard let mainStarter = tabBarMain.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {
@@ -58,7 +64,9 @@ class LoginViewController: UIViewController {
         }
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarter, animationOption: .transitionFlipFromBottom)
     }
-
+    
+    /// show or hide activity indicator
+    /// - Parameter shown: if true activity indicator is show
     private func activityIndicator(shown: Bool) {
         logInButton.isHidden = shown
         activityIndicator.isHidden = !shown

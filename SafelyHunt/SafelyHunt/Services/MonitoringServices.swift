@@ -15,7 +15,7 @@ protocol MonitoringServicesProtocol {
     var monitoring: MonitoringProtocol {get}
     var startMonitoring: Bool {get set}
     func checkUserIsInRadiusAlert(callback: @escaping(Result<[Hunter], Error>) -> Void)
-    func checkUserIsAlwayInArea(area: MKPolygon, positionUser: CLLocationCoordinate2D) -> Bool
+    func checkUserIsAlwayInArea(positionUser: CLLocationCoordinate2D) -> Bool
     func insertDistanceTraveled()
     func getTotalDistanceTraveled(callBack: @escaping(Result<Double, Error>) -> Void)
     func insertMyPosition()
@@ -58,11 +58,10 @@ class MonitoringServices: MonitoringServicesProtocol {
 
     /// checks if the user is still in their hunting area
     /// - Parameters:
-    ///   - area: polygon of area
     ///   - positionUser: user position
     /// - Returns: send true if user is still in their area
-    func checkUserIsAlwayInArea(area: MKPolygon, positionUser: CLLocationCoordinate2D) -> Bool {
-        return area.contain(coordinate: positionUser)
+    func checkUserIsAlwayInArea(positionUser: CLLocationCoordinate2D) -> Bool {
+        monitoring.area.createPolygon().contain(coordinate: positionUser)
     }
 
     /// add new total value of the distance total traveled in database

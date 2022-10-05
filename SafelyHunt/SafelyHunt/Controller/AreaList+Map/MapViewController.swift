@@ -27,7 +27,6 @@ class MapViewController: UIViewController {
     }()
 
     // MARK: - IBOutlet
-
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var sliderUiView: UIView!
     @IBOutlet weak var settingsView: UIView!
@@ -36,6 +35,8 @@ class MapViewController: UIViewController {
     @IBOutlet weak var popUpLabel: UILabel!
     @IBOutlet weak var radiusLabel: UILabel!
     @IBOutlet weak var radiusAlertLabelStatus: UILabel!
+    @IBOutlet weak var distanceTraveledLabel: UILabel!
+    @IBOutlet weak var currentAltitude: UILabel!
 
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var monitoringButton: UIButton!
@@ -46,22 +47,18 @@ class MapViewController: UIViewController {
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var switchButtonRadiusAlert: UISwitch!
     @IBOutlet weak var pickerMapMode: UIPickerView!
-    @IBOutlet weak var distanceTraveledLabel: UILabel!
 
-    @IBOutlet weak var currentAltitude: UILabel!
     // MARK: - Life Cycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        askAuthorizations()
         initializeMapView()
         mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-            drawAreaSelected()
-
+        drawAreaSelected()
+        askAuthorizationsForLocalizationUser()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -83,7 +80,6 @@ class MapViewController: UIViewController {
             let coordinate = mapView.convert(touch.location(in: mapView), toCoordinateFrom: mapView)
             monitoringServices.monitoring.area.coordinatesPoints.append(coordinate)
         }
-
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -103,7 +99,7 @@ class MapViewController: UIViewController {
         }
         mapView.addOverlay(monitoringServices.monitoring.area.createPolygon())
         editingArea = false
-       presentPopUpNewNameArea()
+        presentPopUpNewNameArea()
     }
 
     override func willMove(toParent parent: UIViewController?) {
@@ -114,7 +110,6 @@ class MapViewController: UIViewController {
     }
 
     // MARK: - IBAction
-
     @IBAction func gearButtonAction() {
         settingsView.isHidden = !settingsView.isHidden
     }
@@ -125,7 +120,7 @@ class MapViewController: UIViewController {
         locationManager.allowsBackgroundLocationUpdates = true
     }
 
-// Map mode Editing Area
+    // Map mode Editing Area
     /// drawArea
     @objc func pencilButtonAction() {
         if !editingArea {
@@ -139,7 +134,7 @@ class MapViewController: UIViewController {
         }
     }
 
-// Map mode Editing radius
+    // Map mode Editing radius
     /// define radius
     @IBAction func sliderAction() {
         radiusLabel.text = "\(Int(slider.value)) m"
@@ -157,28 +152,32 @@ class MapViewController: UIViewController {
         sliderAction()
     }
 
-// Map mode Monitoring
+    // Map mode Monitoring
     /// Start / off monitoring
     @IBAction func monitoringAction() {
-            if !monitoringServices.startMonitoring {
-                timerForStart = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(startMonitoring), userInfo: nil, repeats: true)
-            } else {
-                monitoringOff()
-            }
+        if !monitoringServices.startMonitoring {
+            timerForStart = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerBeforeStart), userInfo: nil, repeats: true)
+            monitoringServices.startMonitoring = true
+        } else {
+            monitoringOff()
+        }
     }
 
+    /// enable / disable notification on radius alert
     @IBAction func switchButtonActionRadiusAlert() {
         UserDefaults.standard.set(switchButtonRadiusAlert.isOn, forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert)
         radiusAlertLabelStatus.text = switchButtonRadiusAlert.isOn ? "Radius alert is enable" : "Radius alert is disable"
     }
 
+    /// monitoring user.  action call by tilmer
     @objc func updateMonitoring() {
         checkIfUserIsInsideArea()
         checkIfOthersUsersAreInsideAreaAlert()
         monitoringServices.insertMyPosition()
     }
 
-    @objc func startMonitoring() {
+    /// count timerfor start before start monitoring
+    @objc func timerBeforeStart() {
         if second > 0 {
             monitoringButton.setImage(nil, for: .normal)
             monitoringButton.setTitle(String(second), for: .normal)
@@ -191,27 +190,13 @@ class MapViewController: UIViewController {
             animateButtonMonitoring()
         }
     }
-// MARK: - InitializeView
+
+    // MARK: - InitializeView
     // Private func
-
-    private func askAuthorizations() {
-        mapView.delegate = self
-        locationManager.delegate = self
-        if #available(iOS 14.0, *) {
-            handleAuthorizationStatus(status: locationManager.authorizationStatus)
-        } else {
-            handleAuthorizationStatus(status: CLLocationManager.authorizationStatus())
-        }
-
-        if mapMode != .editingArea {
-            mapView.setUserTrackingMode(.follow, animated: false)
-        }
-    }
-
     private func initializeMapView() {
         let compassButton = MKCompassButton(mapView: mapView)
-        compassButton.frame.origin = CGPoint(x: travelInfoUiView.frame.origin.x + 5, y: travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 20)
-        compassButton.compassVisibility = .adaptive
+        compassButton.frame.origin = CGPoint(x: travelInfoUiView.frame.origin.x + 5, y: locationButton.frame.origin.y)// travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 20)
+        compassButton.compassVisibility = .visible
         view.addSubview(compassButton)
 
         activityIndicator.layer.cornerRadius = activityIndicator.layer.frame.height/2
@@ -219,14 +204,22 @@ class MapViewController: UIViewController {
         locationButton.layer.cornerRadius = locationButton.layer.frame.height/2
         settingsButton.layer.cornerRadius = settingsButton.frame.height / 2
         settingsView.layer.cornerRadius = 8
-        notification.notificationInitialize()
-        initializePickerView()
+
         editingArea = false
         mapView.showsUserLocation = true
         mapView.isZoomEnabled = true
         mapView.showsCompass = false
         mapView.setUserTrackingMode(.follow, animated: false)
+        notification.notificationInitialize()
+        initializePickerView()
         initialzeMapModView()
+    }
+
+    /// set mapStyle
+    /// - Parameter rowSelected: last mapStyle using by user
+    private func initializePickerView(rowSelected: Int = UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.mapTypeSelected)) {
+        pickerMapMode.selectRow(rowSelected, inComponent: 0, animated: true)
+        pickerView(pickerMapMode, didSelectRow: rowSelected, inComponent: 0)
     }
 
     private func initialzeMapModView() {
@@ -238,40 +231,37 @@ class MapViewController: UIViewController {
             initializeEditingRadiusView()
 
         case .monitoring:
-         initializeMonitoringView()
+            initializeMonitoringView()
         }
     }
 
+    /// case editing mode set navigationView
     private func initialzeEditingAreaView() {
         navigationItem.rightBarButtonItem = pencil
         travelInfoUiView.isHidden = true
     }
 
+    /// case editing radius mode showand set  slider
     private func initializeEditingRadiusView() {
         slider.value = Float(UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert))
         radiusLabel.text = "\(Int(slider.value)) m"
-        insertRadius()
         sliderUiView.backgroundColor = nil
         sliderUiView.isHidden = false
         travelInfoUiView.isHidden = true
+        insertRadius()
     }
 
+    /// case monitoring mode show monitioring button and travel information
     private func initializeMonitoringView() {
         monitoringButton.isHidden = false
         settingsView.isHidden = true
         switchButtonRadiusAlert.isOn  = UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert)
-        switchButtonActionRadiusAlert()
         monitoringButton.layer.cornerRadius = monitoringButton.layer.frame.height/2
         travelInfoUiView.isHidden = false
+        switchButtonActionRadiusAlert()
     }
 
-    private func initializePickerView(rowSelected: Int = UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.mapTypeSelected)) {
-        pickerMapMode.selectRow(rowSelected, inComponent: 0, animated: true)
-        pickerView(pickerMapMode, didSelectRow: rowSelected, inComponent: 0)
-
-    }
-
-//    check createPolygon function
+    //    check createPolygon function
     private func createArea(nameArea: String) {
         let coordinateArea = monitoringServices.monitoring.area.coordinatesPoints
         let polygonCreate = MKPolygon(coordinates: coordinateArea, count: coordinateArea.count)
@@ -294,7 +284,7 @@ class MapViewController: UIViewController {
     }
 
     // MARK: - Map mode Editing
-// Private func
+    // Private func
     private func turnOffEditingMode() {
         monitoringServices.monitoring.area.coordinatesPoints = []
         mapView.isUserInteractionEnabled = true
@@ -303,24 +293,32 @@ class MapViewController: UIViewController {
         editingArea = false
     }
 
+    /// Draw area selected if editng mode or monitoring mode
     private func drawAreaSelected() {
         let areaSelected = monitoringServices.monitoring.area
         activityIndicator.isHidden = false
-        AreaServices.shared.getArea(nameArea: areaSelected.name) { [weak self] result in
-            switch result {
-            case .success(let area):
-                self?.insertAreaInMapView(area: area)
-                if self?.mapMode == .monitoring {
-                    self?.monitoringAction()
-                }
-                self?.activityIndicator.isHidden = true
-            case .failure(_):
-                self?.activityIndicator.isHidden = true
-                return
-            }
+        insertAreaInMapView(area: areaSelected)
+        if mapMode == .monitoring {
+            monitoringAction()
         }
+        activityIndicator.isHidden = true
+//        AreaServices.shared.getArea(nameArea: areaSelected.name) { [weak self] result in
+//            switch result {
+//            case .success(let area):
+//                self?.insertAreaInMapView(area: area)
+//                if self?.mapMode == .monitoring {
+//                    self?.monitoringAction()
+//                }
+//                self?.activityIndicator.isHidden = true
+//            case .failure(_):
+//                self?.activityIndicator.isHidden = true
+//                return
+//            }
+//        }
     }
 
+    /// transform area to overlay
+    /// - Parameter area: the area selected
     private func insertAreaInMapView(area: Area) {
         var overlay: [String: MKOverlay] = [:]
         overlay.removeAll()
@@ -334,7 +332,7 @@ class MapViewController: UIViewController {
         mapView.addOverlay(polyLine)
         mapView.addOverlay(polygon)
 
-        // define center map zoom
+        // define center map
         if let center = overlay["polygon"]?.coordinate, mapMode == .editingArea {
             let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
             let region = MKCoordinateRegion(center: center, span: span)
@@ -343,28 +341,24 @@ class MapViewController: UIViewController {
 
     }
 
+    /// insert radius in map
     private func insertRadius() {
         let radius = CLLocationDistance(UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert))
         guard let userPosition = locationManager.location?.coordinate else {
             return
         }
         removeRadiusOverlay()
-
         mapView.addOverlay(monitoringServices.monitoring.area.createCircle(userPosition: userPosition, radius: radius))
     }
 
+    /// remove last radius overlay in map
     private func removeRadiusOverlay() {
-        var overlay: MKOverlay?
-
         for element in  mapView.overlays where element is MKCircle {
-            overlay = element
-        }
-
-        if let overlay = overlay {
-            mapView.removeOverlay(overlay)
+            mapView.removeOverlay(element)
         }
     }
 
+    /// present popUp for set name new area
     private func presentPopUpNewNameArea() {
         let alertViewController = UIAlertController(title: "New area name", message: "Enter name for your new area", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
@@ -393,13 +387,19 @@ class MapViewController: UIViewController {
 // MARK: - MapMode Monitoring
 extension MapViewController {
     // Private funcions
+
+    /// Start monitoring
     private func monitoringOn() {
-        let imageStop = UIImage(systemName: "stop.circle")
+        timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(updateMonitoring), userInfo: nil, repeats: true)
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
+        imageStopMonitoringButton()
         updateMonitoring()
-        timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(updateMonitoring), userInfo: nil, repeats: true)
-        monitoringServices.startMonitoring = !monitoringServices.startMonitoring
+    }
+
+    /// set image button monitoring
+    private func imageStopMonitoringButton() {
+        let imageStop = UIImage(systemName: "stop.circle")
         monitoringButton.setImage(imageStop, for: .normal)
         monitoringButton.tintColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
     }
@@ -411,30 +411,34 @@ extension MapViewController {
         }, completion: nil)
     }
 
+    /// Remove all data in mapView radius, hunters and stop all timers
     private func monitoringOff() {
         let imageStart = UIImage(systemName: "play.fill")
+        monitoringButton.setImage(imageStart, for: .normal)
+        timer?.invalidate()
+        timerForStart?.invalidate()
         locationManager.allowsBackgroundLocationUpdates = false
         locationManager.stopUpdatingLocation()
-        timer?.invalidate()
         monitoringServices.startMonitoring = false
         removeRadiusOverlay()
-        mapView.removeAnnotations(mapView.annotations)
-        monitoringButton.setImage(imageStart, for: .normal)
+        mapView.removeAnnotations(mapView.annotations) // remove hunters
         monitoringButton.layer.removeAllAnimations()
         self.dismiss(animated: true)
     }
 
+    /// check if user is always inside area
     private func checkIfUserIsInsideArea() {
         guard let positionUser = locationManager.location?.coordinate else {
             return
         }
-        if !monitoringServices.checkUserIsAlwayInArea(area: polygonCurrent, positionUser: positionUser) {
+        if !monitoringServices.checkUserIsAlwayInArea(positionUser: positionUser) {
             let banner = NotificationBanner(title: "Attention", subtitle: "You are exit of your area", leftView: nil, rightView: nil, style: .danger, colors: nil)
             notification.sendNotification()
             banner.show()
         }
     }
 
+    /// check if hunters are inside radius alert
     private func checkIfOthersUsersAreInsideAreaAlert() {
         monitoringServices.checkUserIsInRadiusAlert { [weak self] result in
             switch result {
@@ -442,23 +446,19 @@ extension MapViewController {
                 guard usersIsInRadiusAlert.isEmpty == false else {
                     return
                 }
-                let allowsNotification = UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert)
                 self?.mapView.removeAnnotations((self?.mapView.annotations)!)
-                    self?.insertHunterInMap(usersIsInRadiusAlert)
-                    self?.insertRadius()
+                self?.insertHunterInMap(usersIsInRadiusAlert)
+                self?.insertRadius()
+                self?.sendNotificationHuntersInRadius()
 
-                    if allowsNotification {
-                        let bannerRadius = FloatingNotificationBanner(title: "Attention", subtitle: "Others users are near you", style: .info)
-                        bannerRadius.show(cornerRadius: 8, shadowBlurRadius: 16)
-                        self?.notification.sendNotification()
-                    }
-
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure(_):
+                return
             }
         }
     }
 
+    /// insert hunters in map
+    /// - Parameter arrayHunters: list hunters present in radius alert
     private func insertHunterInMap(_ arrayHunters: [Hunter]) {
         if arrayHunters.count > 0 {
             for hunter in arrayHunters {
@@ -477,10 +477,19 @@ extension MapViewController {
         }
     }
 
+    /// send notification of hunters in radius alert
+    private func sendNotificationHuntersInRadius() {
+        if UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert) {
+            let bannerRadius = FloatingNotificationBanner(title: "Attention", subtitle: "Others users are near you", style: .info)
+            bannerRadius.show(cornerRadius: 8, shadowBlurRadius: 16)
+            notification.sendNotification()
+        }
+    }
 }
 
 // MARK: - MapView delegate, CLLocationmanager delegate
 extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
+
     // Location ManagerDelegate
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         if #available(iOS 14.0, *) {
@@ -493,7 +502,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         getInfoDistanceAndAltitude(locations)
         getDistanceTraveled(locations)
-        getPostionUser(locations)
+        updatePostion(locations)
     }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -512,21 +521,59 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         }
     }
 
-   private func handleAuthorizationStatus(status: CLAuthorizationStatus) {
+    private func askAuthorizationsForLocalizationUser() {
+        mapView.delegate = self
+        locationManager.delegate = self
+        if #available(iOS 14.0, *) {
+            handleAuthorizationStatus(status: locationManager.authorizationStatus)
+        } else {
+            handleAuthorizationStatus(status: CLLocationManager.authorizationStatus())
+        }
+
+        if mapMode != .editingArea {
+            mapView.setUserTrackingMode(.follow, animated: false)
+        }
+    }
+
+    private func handleAuthorizationStatus(status: CLAuthorizationStatus) {
         switch status {
         case .authorizedWhenInUse:
-            if locationManager.desiredAccuracy != kCLLocationAccuracyBest {
-                presentAlertError(alertMessage: "I need exact position for best monitoring, you can change in your setting")
+            if #available(iOS 14.0, *) {
+                if locationManager.accuracyAuthorization != .fullAccuracy {
+                   UIApplicationOpenSetting()
+                }
+            } else {
+                locationManager.desiredAccuracy = kCLLocationAccuracyBest
             }
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+
             locationManager.startUpdatingHeading()
             mapView.showsUserLocation = true
         case .denied:
-            presentAlertError(alertMessage: "Go to settings for accept localization")
+           UIApplicationOpenSetting()
+        case .restricted:
+            UIApplicationOpenSetting()
         default:
             locationManager.requestWhenInUseAuthorization()
         }
     }
+
+    private func UIApplicationOpenSetting() {
+        let alertVC = UIAlertController(title: "Error", message: "I need exact position for best monitoring, you can change in your setting", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "cancel", style: .cancel)
+        let openSetting = UIAlertAction(title: "Open setting", style: .default) { _ in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+              return
+            }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: nil)
+            }
+        }
+
+        alertVC.addAction(openSetting)
+        alertVC.addAction(cancel)
+        present(alertVC, animated: true, completion: nil)
+    }
+
     private func getInfoDistanceAndAltitude(_ locations: [CLLocation]) {
         let distanceTraveled = monitoringServices.monitoring.measureDistanceTravelled(locations: locations)
         distanceTraveledLabel.text = String(format: "%.2f", distanceTraveled) + " km"
@@ -534,14 +581,14 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     }
 
     /// Draw polyLine travel
-    /// - Parameter locations: user's travelled 
+    /// - Parameter locations: user's travelled
     private func getDistanceTraveled(_ locations: [CLLocation]) {
         monitoringServices.monitoring.getCurrentTravel(locations: locations)
         monitoringServices.monitoring.area.coordinateTravel = monitoringServices.monitoring.currentTravel
         mapView.addOverlay(monitoringServices.monitoring.area.createPolyLineTravel())
     }
 
-    private func getPostionUser(_ locations: [CLLocation]) {
+    private func updatePostion(_ locations: [CLLocation]) {
         guard let hunter = monitoringServices.monitoring.hunter else {
             return
         }
@@ -571,7 +618,6 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         circleView.alpha = 0.3
         return circleView
     }
-
 }
 
 // MARK: - PickerView datasource
@@ -615,5 +661,4 @@ extension MapViewController: UIPickerViewDelegate {
         }
         return label
     }
-
 }

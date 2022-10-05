@@ -155,11 +155,12 @@ final class TestMonitoringServices: XCTestCase {
         let longitude = -122.0312186
         monitoringServices.monitoring.hunter?.latitude = latitudeUser
         monitoringServices.monitoring.hunter?.longitude = longitude
+        monitoringServices.monitoring.area = createArea()
 
         guard let actualPostion = monitoringServices.monitoring.hunter?.actualPostion else {
             fatalError()
         }
-        XCTAssertTrue(monitoringServices.checkUserIsAlwayInArea(area: createArea().createPolygon(), positionUser: actualPostion.coordinate))
+        XCTAssertTrue(monitoringServices.checkUserIsAlwayInArea(positionUser: actualPostion.coordinate))
     }
 
     /// If user is outside area function return false
@@ -168,11 +169,12 @@ final class TestMonitoringServices: XCTestCase {
         let longitude = -125.0312186
         monitoringServices.monitoring.hunter?.latitude = latitudeUser
         monitoringServices.monitoring.hunter?.longitude = longitude
+        monitoringServices.monitoring.area = createArea()
 
         guard let actualPostion = monitoringServices.monitoring.hunter?.actualPostion else {
             fatalError()
         }
-        XCTAssertFalse(monitoringServices.checkUserIsAlwayInArea(area: createArea().createPolygon(), positionUser: actualPostion.coordinate))
+        XCTAssertFalse(monitoringServices.checkUserIsAlwayInArea(positionUser: actualPostion.coordinate))
     }
 
     /// Create are with coordinate

@@ -8,23 +8,24 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
-
+// MARK: - IBOutlet
     @IBOutlet weak var settingTableView: UITableView!
 
+// MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
 }
 
+// MARK: - TableViewDataSource
 extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MainStarterData().mainSettings.count
+        return MainData().mainSettings.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let title = MainStarterData().mainSettings[indexPath.row]
+        let title = MainData().mainSettings[indexPath.row]
 
         if #available(iOS 14.0, *) {
             var content = cell.defaultContentConfiguration()
@@ -39,8 +40,10 @@ extension SettingsViewController: UITableViewDataSource {
 
 }
 
+// MARK: - TableViewDelegate
 extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         switch indexPath.row {
         case 0:
             transferToProfile()
@@ -57,7 +60,7 @@ extension SettingsViewController: UITableViewDelegate {
         guard let profileViewController = profileStoryboard.instantiateViewController(withIdentifier: "Profile") as? ProfileViewController else {
             return
         }
-
+        profileViewController.navigationItem.title = "Profile"
         navigationController?.pushViewController(profileViewController, animated: true)
     }
 

@@ -11,7 +11,7 @@ import MapKit
 
 class MainStarterViewController: UIViewController {
     // MARK: - Properties
-    let mainStarter = MainStarterData().mainStarter
+    let mainStarter = MainData().mainStarter
     var area: Area?
     var hunter = Hunter()
 
@@ -31,10 +31,6 @@ class MainStarterViewController: UIViewController {
     }
 
     // MARK: - IBAction
-    @IBAction func testCrash(_ sender: UIButton) {
-        fatalError("Test crach")
-    }
-
     @IBAction func startMonitoringButton(_ sender: UIButton) {
         if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" {
             tabBarController?.tabBar.isHidden = true

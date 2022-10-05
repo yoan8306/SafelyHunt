@@ -38,8 +38,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5M0-mE-ypI">
-                                <rect key="frame" x="0.0" y="44" width="320" height="375"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="475"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="sectionIndexBackgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="dS1-zG-FY9">
                                     <rect key="frame" x="0.0" y="134.5" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -113,7 +114,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="5M0-mE-ypI" firstAttribute="top" secondItem="XFk-5Z-EaC" secondAttribute="top" id="Mik-dC-EUZ"/>
-                            <constraint firstItem="XFk-5Z-EaC" firstAttribute="bottom" secondItem="5M0-mE-ypI" secondAttribute="bottom" constant="100" id="eZD-JK-Mke"/>
+                            <constraint firstItem="XFk-5Z-EaC" firstAttribute="bottom" secondItem="5M0-mE-ypI" secondAttribute="bottom" id="eZD-JK-Mke"/>
                             <constraint firstItem="5M0-mE-ypI" firstAttribute="leading" secondItem="XFk-5Z-EaC" secondAttribute="leading" id="nI2-G5-aXs"/>
                             <constraint firstItem="XFk-5Z-EaC" firstAttribute="trailing" secondItem="5M0-mE-ypI" secondAttribute="trailing" id="thz-gH-TtH"/>
                         </constraints>

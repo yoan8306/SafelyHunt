@@ -532,6 +532,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		5FF87C6228EAF4CD00D9087C /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -550,6 +551,7 @@
 		};
 		5FF87C6428EAFAEB00D9087C /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);

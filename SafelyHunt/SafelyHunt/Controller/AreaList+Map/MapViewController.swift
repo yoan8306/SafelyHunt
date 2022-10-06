@@ -123,14 +123,22 @@ class MapViewController: UIViewController {
     /// drawArea
     @objc func pencilButtonAction() {
         if !editingArea {
-            navigationController?.navigationBar.backgroundColor = .red
             mapView.removeOverlays(mapView.overlays)
             mapView.isUserInteractionEnabled = false
             editingArea  = true
-            myNavigationItem.title = "Draw area with finger"
+            setTitleSizeNavigationBar()
         } else {
             turnOffEditingMode()
         }
+    }
+
+    private func setTitleSizeNavigationBar() {
+//        let attributes = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)]
+//        navigationController?.navigationBar.isTranslucent = true
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationController?.navigationBar.largeTitleTextAttributes = attributes
+        navigationController?.navigationBar.backgroundColor = .red
+        title = "Draw area with your finger"
     }
 
     // Map mode Editing radius
@@ -236,12 +244,16 @@ class MapViewController: UIViewController {
 
     /// case editing mode set navigationView
     private func initialzeEditingAreaView() {
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.isTranslucent = true
         navigationItem.rightBarButtonItem = pencil
         travelInfoUiView.isHidden = true
     }
 
     /// case editing radius mode showand set  slider
     private func initializeEditingRadiusView() {
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.isTranslucent = true
         slider.value = Float(UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert))
         radiusLabel.text = "\(Int(slider.value)) m"
         sliderUiView.backgroundColor = nil
@@ -304,19 +316,6 @@ class MapViewController: UIViewController {
             monitoringAction()
         }
         activityIndicator.isHidden = true
-//        AreaServices.shared.getArea(nameArea: areaSelected.name) { [weak self] result in
-//            switch result {
-//            case .success(let area):
-//                self?.insertAreaInMapView(area: area)
-//                if self?.mapMode == .monitoring {
-//                    self?.monitoringAction()
-//                }
-//                self?.activityIndicator.isHidden = true
-//            case .failure(_):
-//                self?.activityIndicator.isHidden = true
-//                return
-//            }
-//        }
     }
 
     /// transform area to overlay
@@ -498,14 +497,14 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             handleAuthorizationStatus(status: CLLocationManager.authorizationStatus())
         }
     }
-    
+
     /// update distance and altitude during monioring
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         transferDistanceAndAltitudeToLabel(locations)
         getDistanceTraveled(locations)
         updatePostion(locations)
     }
-    
+
     /// design polygon polyline and circle
     /// - Parameters:
     ///   - mapView: mapview
@@ -526,8 +525,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             return MKPolylineRenderer(overlay: overlay)
         }
     }
-    
-    /// get authorization and check if change
+
     private func askAuthorizationsForLocalizationUser() {
         mapView.delegate = self
         locationManager.delegate = self
@@ -542,6 +540,8 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         }
     }
 
+    /// check if location authorization status change
+    /// - Parameter status: authorization type selected
     private func handleAuthorizationStatus(status: CLAuthorizationStatus) {
         switch status {
         case .authorizedWhenInUse:
@@ -563,7 +563,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             locationManager.requestWhenInUseAuthorization()
         }
     }
-    
+
     /// open setting app if needed
     private func UIApplicationOpenSetting() {
         let alertVC = UIAlertController(title: "Error", message: "I need exact position for best monitoring, you can change in your setting", preferredStyle: .alert)
@@ -576,12 +576,11 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
                 UIApplication.shared.open(settingsUrl, completionHandler: nil)
             }
         }
-
         alertVC.addAction(openSetting)
         alertVC.addAction(cancel)
         present(alertVC, animated: true, completion: nil)
     }
-    
+
     private func transferDistanceAndAltitudeToLabel(_ locations: [CLLocation]) {
         let distanceTraveled = monitoringServices.monitoring.measureDistanceTravelled(locations: locations)
         distanceTraveledLabel.text = String(format: "%.2f", distanceTraveled) + " km"
@@ -657,16 +656,7 @@ extension MapViewController: UIPickerViewDelegate {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16)
         label.textAlignment = .center
-
-        switch row {
-        case 0:
-            label.text = "standard"
-        case 1:
-            label.text = "muted standard"
-        case 2:
-            label.text = "satellite"
-        default: break
-        }
+        label.text = MainData.pickerMapType[row]
         return label
     }
 }

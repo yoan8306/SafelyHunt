@@ -20,6 +20,8 @@ class AreaListViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        self.navigationController?.navigationBar.isTranslucent = true
         refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
         areaListTableView.addSubview(refreshControl)
         initializeBackgroundTableView()

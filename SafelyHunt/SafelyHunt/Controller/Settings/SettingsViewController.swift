@@ -14,18 +14,20 @@ class SettingsViewController: UIViewController {
 // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.isTranslucent = true
     }
 }
 
 // MARK: - TableViewDataSource
 extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MainData().mainSettings.count
+        return MainData.mainSettings.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let title = MainData().mainSettings[indexPath.row]
+        let title = MainData.mainSettings[indexPath.row]
 
         if #available(iOS 14.0, *) {
             var content = cell.defaultContentConfiguration()

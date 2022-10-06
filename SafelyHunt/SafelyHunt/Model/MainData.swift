@@ -8,6 +8,8 @@
 import Foundation
 
 class MainData {
-    var mainStarter = ["Select your area hunt", "Define your radius alert"]
-    var mainSettings = ["Profile", "Account"]
+   static let mainStarter = ["Select your area hunt", "Define your radius alert"]
+   static let pickerMapType = ["Standard", "Muted standard", "Sattelite"]
+   static let mainSettings = ["Profile", "Account"]
+    private init() {}
 }

@@ -11,7 +11,6 @@ import MapKit
 
 class MainStarterViewController: UIViewController {
     // MARK: - Properties
-    let mainStarter = MainData().mainStarter
     var area: Area?
     var hunter = Hunter()
 
@@ -26,6 +25,8 @@ class MainStarterViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.isTranslucent = true
         getSelectedArea()
         tableView.reloadData()
     }
@@ -76,13 +77,13 @@ class MainStarterViewController: UIViewController {
 // MARK: - TableView DataSource
 extension MainStarterViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mainStarter.count
+        return MainData.mainStarter.count
     }
 
     /// create cell of table view
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellStarter", for: indexPath)
-        let title = mainStarter[indexPath.row]
+        let title = MainData.mainStarter[indexPath.row]
 
         configureCell(cell, title, indexPath)
         return cell
@@ -139,6 +140,7 @@ extension MainStarterViewController: UITableViewDelegate {
         guard let areaListViewController = areaListStoryboard.instantiateViewController(withIdentifier: "AreasList") as? AreaListViewController else {
             return
         }
+
         areaListViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(areaListViewController, animated: true)
     }

@@ -22,7 +22,6 @@ class SafelyHuntUITests: XCTestCase {
         let passwordSecureTextField = app.secureTextFields["Password..."]
 
         signOut()
-
         emailAdressTextField.tap()
         emailAdressTextField.typeText("Im bad email")
         passwordSecureTextField.tap()
@@ -121,7 +120,7 @@ class SafelyHuntUITests: XCTestCase {
         if app.tabBars.element.exists {
             app.tabBars["Tab Bar"].buttons["Contact Photo"].tap()
             app.tables.cells.containing(.staticText, identifier: "Account").element.tap()
-            app/*@START_MENU_TOKEN@*/.staticTexts["Disconnected"]/*[[".buttons[\"Disconnected\"].staticTexts[\"Disconnected\"]",".staticTexts[\"Disconnected\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+            app.staticTexts[" Disconnected"].tap()
         }
     }
 

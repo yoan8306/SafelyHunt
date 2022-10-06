@@ -20,7 +20,6 @@ class MapViewController: UIViewController {
     var timer: Timer?
     var timerForStart: Timer?
     var second = 3
-    var polygonCurrent = MKPolygon()
     let notification = LocalNotification()
     lazy var pencil: UIBarButtonItem = {
         UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(pencilButtonAction))
@@ -295,9 +294,12 @@ class MapViewController: UIViewController {
 
     /// Draw area selected if editng mode or monitoring mode
     private func drawAreaSelected() {
-        let areaSelected = monitoringServices.monitoring.area
+        guard !monitoringServices.monitoring.area.coordinatesPoints.isEmpty else {
+            return
+        }
         activityIndicator.isHidden = false
-        insertAreaInMapView(area: areaSelected)
+        insertAreaInMapView(area: monitoringServices.monitoring.area)
+
         if mapMode == .monitoring {
             monitoringAction()
         }
@@ -324,7 +326,6 @@ class MapViewController: UIViewController {
         overlay.removeAll()
         overlay["polyLine"] = MKPolyline(coordinates: area.coordinatesPoints, count: area.coordinatesPoints.count)
         overlay["polygon"] = MKPolygon(coordinates: area.coordinatesPoints, count: area.coordinatesPoints.count)
-        polygonCurrent = MKPolygon(coordinates: area.coordinatesPoints, count: area.coordinatesPoints.count)
 
         guard let polyLine = overlay["polyLine"], let polygon = overlay["polygon"] else {
             return
@@ -338,7 +339,6 @@ class MapViewController: UIViewController {
             let region = MKCoordinateRegion(center: center, span: span)
             mapView.setRegion(region, animated: true)
         }
-
     }
 
     /// insert radius in map
@@ -498,13 +498,19 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             handleAuthorizationStatus(status: CLLocationManager.authorizationStatus())
         }
     }
-
+    
+    /// update distance and altitude during monioring
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        getInfoDistanceAndAltitude(locations)
+        transferDistanceAndAltitudeToLabel(locations)
         getDistanceTraveled(locations)
         updatePostion(locations)
     }
-
+    
+    /// design polygon polyline and circle
+    /// - Parameters:
+    ///   - mapView: mapview
+    ///   - overlay: overlay designed
+    /// - Returns: overlayRenderer
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         switch overlay {
         case is MKPolyline:
@@ -520,7 +526,8 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             return MKPolylineRenderer(overlay: overlay)
         }
     }
-
+    
+    /// get authorization and check if change
     private func askAuthorizationsForLocalizationUser() {
         mapView.delegate = self
         locationManager.delegate = self
@@ -556,7 +563,8 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             locationManager.requestWhenInUseAuthorization()
         }
     }
-
+    
+    /// open setting app if needed
     private func UIApplicationOpenSetting() {
         let alertVC = UIAlertController(title: "Error", message: "I need exact position for best monitoring, you can change in your setting", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "cancel", style: .cancel)
@@ -573,8 +581,8 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         alertVC.addAction(cancel)
         present(alertVC, animated: true, completion: nil)
     }
-
-    private func getInfoDistanceAndAltitude(_ locations: [CLLocation]) {
+    
+    private func transferDistanceAndAltitudeToLabel(_ locations: [CLLocation]) {
         let distanceTraveled = monitoringServices.monitoring.measureDistanceTravelled(locations: locations)
         distanceTraveledLabel.text = String(format: "%.2f", distanceTraveled) + " km"
         currentAltitude.text = String(format: "%.0f", locations.first!.altitude) + " m"

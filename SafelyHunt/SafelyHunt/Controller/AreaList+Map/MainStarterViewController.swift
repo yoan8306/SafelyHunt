@@ -15,13 +15,17 @@ class MainStarterViewController: UIViewController {
     var hunter = Hunter()
 
     // MARK: - IBOutlet
+    @IBOutlet weak var startMonitoringButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setButton()
+        tableView.isScrollEnabled = false
     }
 
+    /// set interface when view appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
@@ -29,6 +33,12 @@ class MainStarterViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         getSelectedArea()
         tableView.reloadData()
+    }
+
+    /// Show message if no area selected
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presentAlertMessage()
     }
 
     // MARK: - IBAction
@@ -45,15 +55,20 @@ class MainStarterViewController: UIViewController {
     /// Download area selected
     private func getSelectedArea() {
         let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
-
         AreaServices.shared.getArea(nameArea: areaSelected) { [weak self] success in
             switch success {
             case .success(let area):
                 self?.area = area
             case .failure(_):
-                self?.presentAlertError(alertTitle: "👋", alertMessage: "Please select your area in your list.")
                 return
             }
+        }
+    }
+
+    /// If no area selected present alert message
+    private func presentAlertMessage() {
+        if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) == "" {
+            presentAlertError(alertTitle: "👋", alertMessage: "Please select your area in your list.")
         }
     }
 
@@ -72,6 +87,11 @@ class MainStarterViewController: UIViewController {
         mapViewController.myNavigationItem.title = "Ready for monitoring"
         self.present(mapViewController, animated: true)
     }
+
+    private func setButton() {
+        startMonitoringButton.layer.cornerRadius = startMonitoringButton.frame.height/2
+    }
+
 }
 
 // MARK: - TableView DataSource

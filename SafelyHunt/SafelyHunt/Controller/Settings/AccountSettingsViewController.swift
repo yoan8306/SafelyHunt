@@ -8,19 +8,38 @@
 import UIKit
 
 class AccountSettingsViewController: UIViewController {
+    // MARK: - IBOutlet
     @IBOutlet weak var disconnectedButton: UIButton!
     @IBOutlet weak var deleteAccountButton: UIButton!
     @IBOutlet weak var activyIndicator: UIActivityIndicatorView!
 
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpButton()
     }
 
+    // MARK: - IBAction
     @IBAction func disconnectButtonAction() {
-        resetUserDefault()
         disconnectedButton.isHidden = true
         activyIndicator.isHidden = false
+        resetUserDefault()
+       disconnectUserInApplication()
+    }
+
+    @IBAction func deleteAccountButtonAction() {
+        presentConfirmPassword()
+    }
+
+    // MARK: - Private functions
+    /// set up ui button
+    private func setUpButton() {
+        disconnectedButton.layer.cornerRadius = disconnectedButton.frame.height/2
+        deleteAccountButton.layer.cornerRadius = deleteAccountButton.frame.height/2
+    }
+
+    /// Disconnected user in application
+    private func disconnectUserInApplication() {
         UserServices.shared.disconnectCurrentUser { [weak self] result in
             switch result {
             case .failure(let error):
@@ -34,15 +53,7 @@ class AccountSettingsViewController: UIViewController {
         }
     }
 
-    @IBAction func deleteAccountButtonAction() {
-        presentConfirmPassword()
-    }
-
-    private func setUpButton() {
-        disconnectedButton.layer.cornerRadius = disconnectedButton.frame.height/2
-        deleteAccountButton.layer.cornerRadius = deleteAccountButton.frame.height/2
-    }
-
+    /// Show popup for confirm action before deleted action
     private func presentConfirmPassword() {
         let alertViewController = UIAlertController(title: "Confirm password", message: "Enter your password for confirm action", preferredStyle: .alert)
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -63,6 +74,8 @@ class AccountSettingsViewController: UIViewController {
         present(alertViewController, animated: true, completion: nil)
     }
 
+    /// Delete account from firebase database
+    /// - Parameter password: transfer password for credential
     private func deleteAccount(password: String) {
         deleteAccountButton.isHidden = true
         activyIndicator.isHidden = false
@@ -81,6 +94,7 @@ class AccountSettingsViewController: UIViewController {
         }
     }
 
+    /// Transfer to LoginController after action
     private func navigationToLoginViewController() {
         let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
 
@@ -91,6 +105,7 @@ class AccountSettingsViewController: UIViewController {
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginViewController, animationOption: .transitionCrossDissolve)
     }
 
+    /// reset UserDefault after action
     private func resetUserDefault() {
         let userDefault = UserDefaults.standard
         userDefault.set("", forKey: UserDefaultKeys.Keys.areaSelected)

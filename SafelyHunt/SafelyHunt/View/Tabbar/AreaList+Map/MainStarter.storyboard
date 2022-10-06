@@ -38,46 +38,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5M0-mE-ypI">
-                                <rect key="frame" x="0.0" y="91" width="320" height="428"/>
+                                <rect key="frame" x="0.0" y="91" width="320" height="115"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="115" id="wiu-rM-dbZ"/>
+                                </constraints>
                                 <color key="sectionIndexBackgroundColor" systemColor="systemBackgroundColor"/>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="dS1-zG-FY9">
-                                    <rect key="frame" x="0.0" y="134.5" width="320" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jdb-oO-UFe">
-                                            <rect key="frame" x="10" y="2" width="300" height="40"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23p-M0-DBx">
-                                                    <rect key="frame" x="5" y="5" width="290" height="30"/>
-                                                    <color key="backgroundColor" systemColor="linkColor"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="Start monitoring">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="startMonitoringButton:" destination="85s-eW-G3B" eventType="touchUpInside" id="fHL-1Q-JKj"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            <constraints>
-                                                <constraint firstItem="23p-M0-DBx" firstAttribute="leading" secondItem="Jdb-oO-UFe" secondAttribute="leading" constant="5" id="3Ot-2z-JBU"/>
-                                                <constraint firstAttribute="bottom" secondItem="23p-M0-DBx" secondAttribute="bottom" constant="5" id="H0i-AH-im0"/>
-                                                <constraint firstItem="23p-M0-DBx" firstAttribute="top" secondItem="Jdb-oO-UFe" secondAttribute="top" constant="5" id="U2g-4G-KLU"/>
-                                                <constraint firstAttribute="trailing" secondItem="23p-M0-DBx" secondAttribute="trailing" constant="5" id="y9E-Xp-hSL"/>
-                                            </constraints>
-                                        </view>
-                                    </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="Jdb-oO-UFe" secondAttribute="trailing" constant="10" id="YWw-N4-kbJ"/>
-                                        <constraint firstItem="Jdb-oO-UFe" firstAttribute="leading" secondItem="dS1-zG-FY9" secondAttribute="leading" constant="10" id="ZwS-3o-LBy"/>
-                                        <constraint firstItem="Jdb-oO-UFe" firstAttribute="top" secondItem="dS1-zG-FY9" secondAttribute="top" constant="2" id="uhl-q0-1u1"/>
-                                        <constraint firstAttribute="bottom" secondItem="Jdb-oO-UFe" secondAttribute="bottom" constant="2" id="yNW-Et-zGs"/>
-                                    </constraints>
-                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellStarter" textLabel="05s-DJ-2c7" detailTextLabel="wob-iR-OKx" style="IBUITableViewCellStyleSubtitle" id="KfZ-MG-8nw">
                                         <rect key="frame" x="0.0" y="50" width="320" height="56.5"/>
@@ -109,19 +75,37 @@
                                     <outlet property="delegate" destination="85s-eW-G3B" id="hJ8-fl-D7L"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23p-M0-DBx">
+                                <rect key="frame" x="30" y="216" width="260" height="40"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Szs-1w-uNI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Start monitoring">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="startMonitoringButton:" destination="85s-eW-G3B" eventType="touchUpInside" id="fHL-1Q-JKj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XFk-5Z-EaC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="23p-M0-DBx" firstAttribute="centerX" secondItem="iPI-ga-kwn" secondAttribute="centerX" id="EGF-3e-ld5"/>
                             <constraint firstItem="5M0-mE-ypI" firstAttribute="top" secondItem="XFk-5Z-EaC" secondAttribute="top" id="Mik-dC-EUZ"/>
-                            <constraint firstItem="XFk-5Z-EaC" firstAttribute="bottom" secondItem="5M0-mE-ypI" secondAttribute="bottom" id="eZD-JK-Mke"/>
+                            <constraint firstItem="23p-M0-DBx" firstAttribute="leading" secondItem="XFk-5Z-EaC" secondAttribute="leading" constant="30" id="Ve7-EY-Gwk"/>
                             <constraint firstItem="5M0-mE-ypI" firstAttribute="leading" secondItem="XFk-5Z-EaC" secondAttribute="leading" id="nI2-G5-aXs"/>
                             <constraint firstItem="XFk-5Z-EaC" firstAttribute="trailing" secondItem="5M0-mE-ypI" secondAttribute="trailing" id="thz-gH-TtH"/>
+                            <constraint firstItem="23p-M0-DBx" firstAttribute="top" secondItem="5M0-mE-ypI" secondAttribute="bottom" constant="10" id="uX6-AT-QcM"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="map.fill" catalog="system" id="Awt-rT-zLj"/>
                     <navigationItem key="navigationItem" title="Main" id="dtv-ce-Lop"/>
                     <connections>
+                        <outlet property="startMonitoringButton" destination="23p-M0-DBx" id="0J0-u9-O12"/>
                         <outlet property="tableView" destination="5M0-mE-ypI" id="1gk-db-5sA"/>
                     </connections>
                 </viewController>

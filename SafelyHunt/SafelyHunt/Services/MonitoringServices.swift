@@ -40,8 +40,6 @@ class MonitoringServices: MonitoringServicesProtocol {
             return
         }
 
-//        let latitude = hunter.latitude ?? 0
-//        let longitude = hunter.longitude ?? 0
         guard let actualPosition = hunter.actualPostion else {
             return
         }
@@ -74,18 +72,18 @@ class MonitoringServices: MonitoringServicesProtocol {
             return
         }
 
-        getTotalDistanceTraveled() { result in
+        getTotalDistanceTraveled() { [weak self] result in
             switch result {
             case .failure(_):
                 return
             case .success(let distanceTraveled):
                 let newDistanceTraveled = distance + distanceTraveled
-                self.database.child("Database").child("users_list").child(user.uid).child("distance_traveled").setValue([
+                self?.database.child("Database").child("users_list").child(user.uid).child("distance_traveled").setValue([
                     "Total_distance": newDistanceTraveled])
-                self.monitoring.currentDistance = 0
-                self.monitoring.currentTravel = []
-                self.monitoring.lastLocation = nil
-                self.monitoring.firstLocation = nil
+                self?.monitoring.currentDistance = 0
+                self?.monitoring.currentTravel = []
+                self?.monitoring.lastLocation = nil
+                self?.monitoring.firstLocation = nil
             }
         }
     }
@@ -114,7 +112,7 @@ class MonitoringServices: MonitoringServicesProtocol {
         let databaseAllPositions = database.child("Database").child("position_user")
         var hunters: [Hunter] = []
 
-        databaseAllPositions.getData { error, dataSnapshot  in
+        databaseAllPositions.getData { [weak self] error, dataSnapshot  in
             guard error == nil, let dataSnapshot = dataSnapshot else {
                 callBack(.failure(error ?? ServicesError.listUsersPositions))
                 return
@@ -123,7 +121,7 @@ class MonitoringServices: MonitoringServicesProtocol {
                 callBack(.failure(ServicesError.listUsersPositions))
                 return
             }
-            guard let userId = self.firebaseAuth.currentUser?.uid else {
+            guard let userId = self?.firebaseAuth.currentUser?.uid else {
                 return
             }
 
@@ -156,6 +154,7 @@ class MonitoringServices: MonitoringServicesProtocol {
             }
 
             let lastUpdate = Date(timeIntervalSince1970: TimeInterval(dateTimeStamp))
+            print(lastUpdate)
             // check if user is present less 20 minutes ago
             if lastUpdate.addingTimeInterval(1200) > Date() {
                 let latitude = hunter.latitude ?? 0

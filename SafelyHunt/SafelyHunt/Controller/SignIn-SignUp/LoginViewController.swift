@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.text = signInMail
-
+        setLoginButton()
         #if DEBUG
         emailTextField.text = "yoyo@wanadoo.fr"
         passwordTextField.text = "coucou"
@@ -62,7 +62,7 @@ class LoginViewController: UIViewController {
         guard let mainStarter = tabBarMain.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {
             return
         }
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarter, animationOption: .transitionFlipFromBottom)
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarter, animationOption: .transitionFlipFromRight)
     }
 
     /// show or hide activity indicator
@@ -70,5 +70,9 @@ class LoginViewController: UIViewController {
     private func activityIndicator(shown: Bool) {
         logInButton.isHidden = shown
         activityIndicator.isHidden = !shown
+    }
+
+    private func setLoginButton() {
+        logInButton.layer.cornerRadius = logInButton.frame.height/2
     }
 }

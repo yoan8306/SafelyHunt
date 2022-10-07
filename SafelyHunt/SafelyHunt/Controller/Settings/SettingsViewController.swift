@@ -57,7 +57,7 @@ extension SettingsViewController: UITableViewDelegate {
             break
         }
     }
-    
+
     /// Open ProfileController
     private func transferToProfile() {
         let profileStoryboard = UIStoryboard(name: "Profile", bundle: nil)
@@ -67,7 +67,7 @@ extension SettingsViewController: UITableViewDelegate {
         profileViewController.navigationItem.title = "Profile"
         navigationController?.pushViewController(profileViewController, animated: true)
     }
-    
+
     /// Open AccountSettingController
     private func transferToAccountSetting() {
         let accountSettingStoryboard = UIStoryboard(name: "AccountSettings", bundle: nil)
@@ -77,7 +77,7 @@ extension SettingsViewController: UITableViewDelegate {
         accountSettingViewController.navigationItem.title = "Account"
         navigationController?.pushViewController(accountSettingViewController, animated: true)
     }
-    
+
     /// Open setting application
     private func openSettingApp() {
         guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {

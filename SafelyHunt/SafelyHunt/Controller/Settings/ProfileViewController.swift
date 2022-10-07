@@ -38,7 +38,7 @@ class ProfileViewController: UIViewController {
             }
         }
     }
-    
+
     /// set label user information
     private func setLabel() {
         mailLabel.text = FirebaseAuth.Auth.auth().currentUser?.email

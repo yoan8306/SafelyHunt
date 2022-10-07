@@ -105,7 +105,7 @@ class SafelyHuntUITests: XCTestCase {
         let emailAdressTextField = app.textFields["email adress..."]
         let passwordSecureTextField = app.secureTextFields["Password..."]
 
-        if app.textFields["email adress"].exists && !emailAdressTextField.staticTexts["yoyo@wanadoo.fr"].exists {
+        if app.textFields["email adress..."].exists && !emailAdressTextField.staticTexts["yoyo@wanadoo.fr"].exists {
             emailAdressTextField.tap()
             emailAdressTextField.typeText("yoyo@wanadoo.fr")
             passwordSecureTextField.tap()

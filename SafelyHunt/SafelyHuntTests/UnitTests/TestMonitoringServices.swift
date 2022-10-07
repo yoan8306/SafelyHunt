@@ -107,7 +107,6 @@ final class TestMonitoringServices: XCTestCase {
         hunterTwo.displayName = "yoan8306"
         hunterTwo.longitude = -122.0312186
         hunterTwo.latitude = 37.33233141
-        hunterTwo.date = nil
 
         let hunterThree = Hunter()
         hunterThree.displayName = "yoyo"
@@ -180,6 +179,7 @@ final class TestMonitoringServices: XCTestCase {
     /// Create are with coordinate
     /// - Returns: Area
     private func createArea() -> Area {
+    
         let area = Area()
         var coordinate: [CLLocationCoordinate2D] = []
         coordinate.append(CLLocationCoordinate2D(latitude: 37.32428915137889, longitude: -122.06397669446443))

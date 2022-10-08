@@ -133,10 +133,6 @@ class MapViewController: UIViewController {
     }
 
     private func setTitleSizeNavigationBar() {
-//        let attributes = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)]
-//        navigationController?.navigationBar.isTranslucent = true
-//        navigationController?.navigationBar.prefersLargeTitles = true
-//        navigationController?.navigationBar.largeTitleTextAttributes = attributes
         navigationController?.navigationBar.backgroundColor = .red
         title = "Draw area with your finger"
     }
@@ -232,7 +228,7 @@ class MapViewController: UIViewController {
         pickerMapMode.selectRow(rowSelected, inComponent: 0, animated: true)
         pickerView(pickerMapMode, didSelectRow: rowSelected, inComponent: 0)
     }
-    
+
     /// Initialize View
     private func initialzeMapModView() {
         switch mapMode {
@@ -269,7 +265,7 @@ class MapViewController: UIViewController {
             presentInfoRadius()
         }
     }
-    
+
     /// Describe raidus what is radius alert
     private func presentInfoRadius() {
         let alertViewController = UIAlertController(title: "Info", message: "We need exact position for best monitoring, you can change in your setting", preferredStyle: .alert)
@@ -313,6 +309,7 @@ class MapViewController: UIViewController {
             area.city = city
 
             AreaServices.shared.insertArea(area: area, date: Date())
+            self.presentNativeAlertSuccess(alertMessage: "Your area \(nameArea) is recorded")
         }
     }
 
@@ -593,7 +590,6 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             } else {
                 locationManager.desiredAccuracy = kCLLocationAccuracyBest
             }
-
             mapView.showsUserLocation = true
         case .denied, .restricted:
            UIApplicationOpenSetting()

@@ -179,7 +179,7 @@ final class TestMonitoringServices: XCTestCase {
     /// Create are with coordinate
     /// - Returns: Area
     private func createArea() -> Area {
-    
+
         let area = Area()
         var coordinate: [CLLocationCoordinate2D] = []
         coordinate.append(CLLocationCoordinate2D(latitude: 37.32428915137889, longitude: -122.06397669446443))

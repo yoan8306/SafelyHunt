@@ -154,7 +154,6 @@ class MonitoringServices: MonitoringServicesProtocol {
             }
 
             let lastUpdate = Date(timeIntervalSince1970: TimeInterval(dateTimeStamp))
-            print(lastUpdate)
             // check if user is present less 20 minutes ago
             if lastUpdate.addingTimeInterval(1200) > Date() {
                 let latitude = hunter.latitude ?? 0

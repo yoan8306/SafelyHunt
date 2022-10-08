@@ -33,6 +33,7 @@ class MainStarterViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         getSelectedArea()
         tableView.reloadData()
+        insertShimeringInButton()
     }
 
     /// Show message if no area selected
@@ -90,6 +91,14 @@ class MainStarterViewController: UIViewController {
 
     private func setButton() {
         startMonitoringButton.layer.cornerRadius = startMonitoringButton.frame.height/2
+    }
+
+    private func insertShimeringInButton() {
+        if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" {
+            startMonitoringButton.startShimmering()
+        } else {
+            startMonitoringButton.stopShimmering()
+        }
     }
 
 }

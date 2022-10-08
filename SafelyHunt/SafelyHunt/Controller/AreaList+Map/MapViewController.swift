@@ -162,11 +162,13 @@ class MapViewController: UIViewController {
     // Map mode Monitoring
     /// Start / off monitoring
     @IBAction func monitoringAction() {
-        if !monitoringServices.startMonitoring {
-            timerForStart = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerBeforeStart), userInfo: nil, repeats: true)
-            monitoringServices.startMonitoring = true
-        } else {
-            monitoringOff()
+        if statusAuthorizationLocation() {
+            if !monitoringServices.startMonitoring {
+                timerForStart = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerBeforeStart), userInfo: nil, repeats: true)
+                monitoringServices.startMonitoring = true
+            } else {
+                monitoringOff()
+            }
         }
     }
 
@@ -360,14 +362,14 @@ class MapViewController: UIViewController {
     /// present popUp for set name new area
     private func presentPopUpNewNameArea() {
         let alertViewController = UIAlertController(title: "New area name", message: "Enter name for your new area", preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive) { _ in
             self.turnOffEditingMode()
             self.mapView.removeOverlays(self.mapView.overlays)
         }
         alertViewController.addTextField() { textfield in
             textfield.placeholder = "Name area..."
         }
-        let register = UIAlertAction(title: "Register", style: .destructive) { _ in
+        let register = UIAlertAction(title: "Register", style: .default) { _ in
             guard let textfield = alertViewController.textFields?[0], let nameArea = textfield.text, !nameArea.isEmpty else {
                 self.presentAlertError(alertMessage: "Enter a name")
                 return
@@ -386,6 +388,23 @@ class MapViewController: UIViewController {
 // MARK: - MapMode Monitoring
 extension MapViewController {
     // Private funcions
+
+    /// Check if authorization Location is enable
+    /// - Returns: return true if location is enabled
+    private func statusAuthorizationLocation() -> Bool {
+        if #available(iOS 14.0, *) {
+            if locationManager.accuracyAuthorization != .fullAccuracy {
+                UIApplicationOpenSetting()
+               return false
+            }
+        } else {
+            if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
+                UIApplicationOpenSetting()
+                return false
+            }
+        }
+        return true
+    }
 
     /// Start monitoring
     private func monitoringOn() {

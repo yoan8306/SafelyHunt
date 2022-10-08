@@ -13,6 +13,7 @@ class UserDefaultKeys {
         static let radiusAlert = "Radius alert"
         static let allowsNotificationRadiusAlert = "Notification radius alert"
         static let mapTypeSelected = "MapTypeSelected"
+        static let showInfoRadius = "Show radius Info"
     }
 
     static var areaSelected: String {
@@ -48,6 +49,15 @@ class UserDefaultKeys {
         }
         set {
             UserDefaults.standard.integer(forKey: Keys.mapTypeSelected)
+        }
+    }
+
+    static var dontShowRadiusInfo: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: Keys.showInfoRadius)
+        }
+        set {
+            UserDefaults.standard.bool(forKey: Keys.showInfoRadius)
         }
     }
 }

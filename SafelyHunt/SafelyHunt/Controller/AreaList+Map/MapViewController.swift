@@ -56,8 +56,8 @@ class MapViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        drawAreaSelected()
         askAuthorizationsForLocalizationUser()
+        drawAreaSelected()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -166,9 +166,12 @@ class MapViewController: UIViewController {
             if !monitoringServices.startMonitoring {
                 timerForStart = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerBeforeStart), userInfo: nil, repeats: true)
                 monitoringServices.startMonitoring = true
+                self.modalPresentationStyle = .fullScreen
             } else {
                 monitoringOff()
             }
+        } else {
+            monitoringOff()
         }
     }
 
@@ -204,7 +207,7 @@ class MapViewController: UIViewController {
     // Private func
     private func initializeMapView() {
         let compassButton = MKCompassButton(mapView: mapView)
-        compassButton.frame.origin = CGPoint(x: travelInfoUiView.frame.origin.x + 5, y: locationButton.frame.origin.y)// travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 20)
+        compassButton.frame.origin = CGPoint(x: travelInfoUiView.frame.origin.x + 5, y: locationButton.alignmentRectInsets.top)// travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 20)
         compassButton.compassVisibility = .visible
         view.addSubview(compassButton)
 
@@ -218,7 +221,6 @@ class MapViewController: UIViewController {
         mapView.showsUserLocation = true
         mapView.isZoomEnabled = true
         mapView.showsCompass = false
-        mapView.setUserTrackingMode(.follow, animated: false)
         notification.notificationInitialize()
         initializePickerView()
         initialzeMapModView()
@@ -230,7 +232,8 @@ class MapViewController: UIViewController {
         pickerMapMode.selectRow(rowSelected, inComponent: 0, animated: true)
         pickerView(pickerMapMode, didSelectRow: rowSelected, inComponent: 0)
     }
-
+    
+    /// Initialize View
     private func initialzeMapModView() {
         switch mapMode {
         case .editingArea:
@@ -262,6 +265,23 @@ class MapViewController: UIViewController {
         sliderUiView.isHidden = false
         travelInfoUiView.isHidden = true
         insertRadius()
+        if UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.showInfoRadius) {
+            presentInfoRadius()
+        }
+    }
+    
+    /// Describe raidus what is radius alert
+    private func presentInfoRadius() {
+        let alertViewController = UIAlertController(title: "Info", message: "We need exact position for best monitoring, you can change in your setting", preferredStyle: .alert)
+        let dissmiss = UIAlertAction(title: "Dissmiss", style: .default)
+
+        let dontShowInfoRadius = UIAlertAction(title: "Do not see this message again", style: .cancel) { _ in
+            UserDefaults.standard.set(false, forKey: UserDefaultKeys.Keys.showInfoRadius)
+        }
+
+        alertViewController.addAction(dontShowInfoRadius)
+        alertViewController.addAction(dissmiss)
+        present(alertViewController, animated: true, completion: nil)
     }
 
     /// case monitoring mode show monitioring button and travel information
@@ -309,6 +329,7 @@ class MapViewController: UIViewController {
     /// Draw area selected if editng mode or monitoring mode
     private func drawAreaSelected() {
         guard !monitoringServices.monitoring.area.coordinatesPoints.isEmpty else {
+            mapView.setUserTrackingMode(.follow, animated: false)
             return
         }
         activityIndicator.isHidden = false
@@ -317,6 +338,11 @@ class MapViewController: UIViewController {
         if mapMode == .monitoring {
             monitoringAction()
         }
+
+        if mapMode != .editingArea {
+            mapView.setUserTrackingMode(.follow, animated: false)
+        }
+
         activityIndicator.isHidden = true
     }
 
@@ -377,8 +403,8 @@ class MapViewController: UIViewController {
             self.createArea(nameArea: nameArea)
             self.turnOffEditingMode()
         }
-        alertViewController.addAction(register)
         alertViewController.addAction(cancel)
+        alertViewController.addAction(register)
 
         present(alertViewController, animated: true, completion: nil)
     }
@@ -441,7 +467,7 @@ extension MapViewController {
         removeRadiusOverlay()
         mapView.removeAnnotations(mapView.annotations) // remove hunters
         monitoringButton.layer.removeAllAnimations()
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 
     /// check if user is always inside area
@@ -553,17 +579,13 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         } else {
             handleAuthorizationStatus(status: CLLocationManager.authorizationStatus())
         }
-
-        if mapMode != .editingArea {
-            mapView.setUserTrackingMode(.follow, animated: false)
-        }
     }
 
     /// check if location authorization status change
     /// - Parameter status: authorization type selected
     private func handleAuthorizationStatus(status: CLAuthorizationStatus) {
         switch status {
-        case .authorizedWhenInUse:
+        case .authorizedWhenInUse, .authorizedAlways:
             if #available(iOS 14.0, *) {
                 if locationManager.accuracyAuthorization != .fullAccuracy {
                    UIApplicationOpenSetting()
@@ -572,12 +594,9 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
                 locationManager.desiredAccuracy = kCLLocationAccuracyBest
             }
 
-            locationManager.startUpdatingHeading()
             mapView.showsUserLocation = true
-        case .denied:
+        case .denied, .restricted:
            UIApplicationOpenSetting()
-        case .restricted:
-            UIApplicationOpenSetting()
         default:
             locationManager.requestWhenInUseAuthorization()
         }
@@ -586,8 +605,13 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     /// open setting app if needed
     private func UIApplicationOpenSetting() {
         let alertVC = UIAlertController(title: "Error", message: "I need exact position for best monitoring, you can change in your setting", preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "cancel", style: .cancel)
-        let openSetting = UIAlertAction(title: "Open setting", style: .default) { _ in
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive) { _ in
+            if self.mapMode == .monitoring {
+                self.dismiss(animated: true)
+            }
+
+        }
+        let openSetting = UIAlertAction(title: "Open setting", style: .cancel) { _ in
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
               return
             }
@@ -595,8 +619,9 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
                 UIApplication.shared.open(settingsUrl, completionHandler: nil)
             }
         }
-        alertVC.addAction(openSetting)
+
         alertVC.addAction(cancel)
+        alertVC.addAction(openSetting)
         present(alertVC, animated: true, completion: nil)
     }
 

@@ -16,8 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         // set value for the first launch application
         UserDefaults.standard.register(defaults: [UserDefaultKeys.Keys.allowsNotificationRadiusAlert: true])
+        UserDefaults.standard.register(defaults: [UserDefaultKeys.Keys.showInfoRadius: true])
         UserDefaults.standard.register(defaults: [UserDefaultKeys.Keys.radiusAlert: 300])
-
         return true
     }
 

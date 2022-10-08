@@ -112,5 +112,6 @@ class AccountSettingsViewController: UIViewController {
         userDefault.set(true, forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert)
         userDefault.set(300, forKey: UserDefaultKeys.Keys.radiusAlert)
         userDefault.set(0, forKey: UserDefaultKeys.Keys.mapTypeSelected)
+        userDefault.set(true, forKey: UserDefaultKeys.Keys.showInfoRadius)
     }
 }

@@ -34,12 +34,14 @@ class MainStarterViewController: UIViewController {
         getSelectedArea()
         tableView.reloadData()
         insertShimeringInButton()
+
     }
 
     /// Show message if no area selected
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presentAlertMessage()
+        setButton()
     }
 
     // MARK: - IBAction
@@ -91,13 +93,16 @@ class MainStarterViewController: UIViewController {
 
     private func setButton() {
         startMonitoringButton.layer.cornerRadius = startMonitoringButton.frame.height/2
+        startMonitoringButton.setTitleColor(.white, for: .normal)
+        startMonitoringButton.backgroundColor = .black
+        startMonitoringButton.isEnabled = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != ""
     }
 
     private func insertShimeringInButton() {
         if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" {
-            startMonitoringButton.startShimmering()
+            startMonitoringButton.titleLabel?.startShimmering()
         } else {
-            startMonitoringButton.stopShimmering()
+            startMonitoringButton.titleLabel?.stopShimmering()
         }
     }
 

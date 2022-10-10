@@ -20,7 +20,6 @@ class AreaCellTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        accessoryType = .detailButton
     }
 
     func configureCell(infoArea: Area, cellSelected: Bool) {
@@ -52,21 +51,13 @@ class AreaCellTableViewCell: UITableViewCell {
     }
 
     private func setCheckmarck(cellSelected: Bool) {
-//        accessoryType = cellSelected ? .checkmark : .none
-
+        accessoryType = cellSelected ? .checkmark : .detailButton
         areaNameLabel.font = .boldSystemFont(ofSize: 12)
         cityLabel.font = .boldSystemFont(ofSize: 12)
         dateLabel.font = .italicSystemFont(ofSize: 10)
         dateLabel.textColor = .gray
-//        if cellSelected {
-//            areaNameLabel.textColor = .red
-//            dateLabel.textColor = .red
-//            cityLabel.textColor  = .red
-//        } else {
-            areaNameLabel.textColor = .label
-            cityLabel.textColor = .label
-            dateLabel.textColor = .gray
-//
-//        }
+        areaNameLabel.textColor = .label
+        cityLabel.textColor = .label
+        dateLabel.textColor = .gray
     }
 }

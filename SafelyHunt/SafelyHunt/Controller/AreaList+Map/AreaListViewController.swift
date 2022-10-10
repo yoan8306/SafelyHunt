@@ -103,6 +103,7 @@ extension AreaListViewController: UITableViewDataSource {
             }
 
         cell.configureCell(infoArea: listArea[indexPath.row], cellSelected: cellSelected)
+
         return cell
     }
 }

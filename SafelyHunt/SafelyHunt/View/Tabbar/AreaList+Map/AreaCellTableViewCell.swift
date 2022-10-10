@@ -52,6 +52,7 @@ class AreaCellTableViewCell: UITableViewCell {
 
     private func setCheckmarck(cellSelected: Bool) {
         accessoryType = cellSelected ? .checkmark : .detailButton
+        tintColor = .label
         areaNameLabel.font = .boldSystemFont(ofSize: 12)
         cityLabel.font = .boldSystemFont(ofSize: 12)
         dateLabel.font = .italicSystemFont(ofSize: 10)

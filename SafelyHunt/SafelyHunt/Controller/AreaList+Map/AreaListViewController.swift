@@ -111,9 +111,12 @@ extension AreaListViewController: UITableViewDataSource {
 extension AreaListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        monitoringServices.monitoring.area = listArea[indexPath.row]
-        UserDefaults.standard.set(listArea[indexPath.row].name, forKey: UserDefaultKeys.Keys.areaSelected)
-        tableView.reloadData()
+    UserDefaults.standard.set(listArea[indexPath.row].name, forKey: UserDefaultKeys.Keys.areaSelected)
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        tableView.deselectRow(at: indexPath, animated: false)
+
+        cell.accessoryType = .checkmark
+//        tableView.reloadData()
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

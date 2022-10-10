@@ -50,9 +50,9 @@ extension SettingsViewController: UITableViewDelegate {
         case 0:
             transferToProfile()
         case 1:
-            transferToAccountSetting()
-        case 2:
             openSettingApp()
+        case 2:
+            transferToAccountSetting()
         default:
             break
         }

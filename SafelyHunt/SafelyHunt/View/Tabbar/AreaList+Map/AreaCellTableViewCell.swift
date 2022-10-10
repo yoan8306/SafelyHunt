@@ -39,32 +39,34 @@ class AreaCellTableViewCell: UITableViewCell {
             } else {
                 dateLabel.text = DateFormatter.localizedString(from: myDate, dateStyle: .medium, timeStyle: .medium)
             }
-        setLabel(cellSelected: cellSelected)
+        setCheckmarck(cellSelected: cellSelected)
     }
 
-    private func numberDayBetween(from: Date, to: Date) -> Int {
+    private func numberDayBetween(from start: Date, to end: Date) -> Int {
         let cal = Calendar.current
-        let numbersDays = cal.dateComponents([.day], from: from, to: to)
+        let numbersDays = cal.dateComponents([.day], from: start, to: end)
         guard let numbersDays = numbersDays.day else {
             return 0
         }
         return numbersDays
     }
 
-    private func setLabel(cellSelected: Bool) {
+    private func setCheckmarck(cellSelected: Bool) {
+//        accessoryType = cellSelected ? .checkmark : .none
+
         areaNameLabel.font = .boldSystemFont(ofSize: 12)
         cityLabel.font = .boldSystemFont(ofSize: 12)
         dateLabel.font = .italicSystemFont(ofSize: 10)
         dateLabel.textColor = .gray
-        if cellSelected {
-            areaNameLabel.textColor = .red
-            dateLabel.textColor = .red
-            cityLabel.textColor  = .red
-        } else {
+//        if cellSelected {
+//            areaNameLabel.textColor = .red
+//            dateLabel.textColor = .red
+//            cityLabel.textColor  = .red
+//        } else {
             areaNameLabel.textColor = .label
             cityLabel.textColor = .label
             dateLabel.textColor = .gray
-
-        }
+//
+//        }
     }
 }

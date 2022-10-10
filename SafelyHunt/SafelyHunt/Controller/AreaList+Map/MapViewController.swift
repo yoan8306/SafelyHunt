@@ -22,7 +22,12 @@ class MapViewController: UIViewController {
     var second = 3
     let notification = LocalNotification()
     lazy var pencil: UIBarButtonItem = {
-        UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(pencilButtonAction))
+        UIBarButtonItem(
+            image: UIImage(systemName: "square.and.pencil"),
+            style: .plain,
+            target: self,
+            action: #selector(pencilButtonAction)
+        )
     }()
 
     // MARK: - IBOutlet
@@ -58,6 +63,9 @@ class MapViewController: UIViewController {
         super.viewDidAppear(animated)
         askAuthorizationsForLocalizationUser()
         drawAreaSelected()
+        if mapMode == .monitoring {
+            monitoringAction()
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -241,6 +249,7 @@ class MapViewController: UIViewController {
         case .monitoring:
             initializeMonitoringView()
         }
+        trackingMode()
     }
 
     /// case editing mode set navigationView
@@ -266,11 +275,22 @@ class MapViewController: UIViewController {
         }
     }
 
+    private func trackingMode() {
+        if monitoringServices.monitoring.area.coordinatesPoints.isEmpty {
+            mapView.setUserTrackingMode(.follow, animated: false)
+        } else if mapMode != .editingArea {
+            mapView.setUserTrackingMode(.follow, animated: false)
+        }
+    }
+
     /// Describe raidus what is radius alert
     private func presentInfoRadius() {
-        let alertViewController = UIAlertController(title: "Info", message: "We need exact position for best monitoring, you can change in your setting", preferredStyle: .alert)
-        let dissmiss = UIAlertAction(title: "Dissmiss", style: .default)
+        let alertViewController = UIAlertController(
+            title: "Info", message: "Set the alert distance between you and other users. You will be alerted if someone enters your range and it will be displayed on the map.",
+            preferredStyle: .alert
+        )
 
+        let dissmiss = UIAlertAction(title: "Dissmiss", style: .default)
         let dontShowInfoRadius = UIAlertAction(title: "Do not see this message again", style: .cancel) { _ in
             UserDefaults.standard.set(false, forKey: UserDefaultKeys.Keys.showInfoRadius)
         }
@@ -325,21 +345,8 @@ class MapViewController: UIViewController {
 
     /// Draw area selected if editng mode or monitoring mode
     private func drawAreaSelected() {
-        guard !monitoringServices.monitoring.area.coordinatesPoints.isEmpty else {
-            mapView.setUserTrackingMode(.follow, animated: false)
-            return
-        }
         activityIndicator.isHidden = false
         insertAreaInMapView(area: monitoringServices.monitoring.area)
-
-        if mapMode == .monitoring {
-            monitoringAction()
-        }
-
-        if mapMode != .editingArea {
-            mapView.setUserTrackingMode(.follow, animated: false)
-        }
-
         activityIndicator.isHidden = true
     }
 
@@ -392,9 +399,9 @@ class MapViewController: UIViewController {
         alertViewController.addTextField() { textfield in
             textfield.placeholder = "Name area..."
         }
+//        test if empty
         let register = UIAlertAction(title: "Register", style: .default) { _ in
             guard let textfield = alertViewController.textFields?[0], let nameArea = textfield.text, !nameArea.isEmpty else {
-                self.presentAlertError(alertMessage: "Enter a name")
                 return
             }
             self.createArea(nameArea: nameArea)
@@ -409,16 +416,16 @@ class MapViewController: UIViewController {
 }
 
 // MARK: - MapMode Monitoring
-extension MapViewController {
+private extension MapViewController {
     // Private funcions
 
     /// Check if authorization Location is enable
     /// - Returns: return true if location is enabled
-    private func statusAuthorizationLocation() -> Bool {
+    func statusAuthorizationLocation() -> Bool {
         if #available(iOS 14.0, *) {
             if locationManager.accuracyAuthorization != .fullAccuracy {
                 UIApplicationOpenSetting()
-               return false
+                return false
             }
         } else {
             if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
@@ -430,7 +437,7 @@ extension MapViewController {
     }
 
     /// Start monitoring
-    private func monitoringOn() {
+    func monitoringOn() {
         timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(updateMonitoring), userInfo: nil, repeats: true)
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
@@ -439,13 +446,13 @@ extension MapViewController {
     }
 
     /// set image button monitoring
-    private func imageStopMonitoringButton() {
+    func imageStopMonitoringButton() {
         let imageStop = UIImage(systemName: "stop.circle")
         monitoringButton.setImage(imageStop, for: .normal)
         monitoringButton.tintColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
     }
 
-    private func animateButtonMonitoring() {
+    func animateButtonMonitoring() {
         UIView.animate(withDuration: 2, delay: 0, options: [.repeat, .autoreverse, .allowUserInteraction], animations: {
             self.monitoringButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             self.monitoringButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
@@ -453,7 +460,7 @@ extension MapViewController {
     }
 
     /// Remove all data in mapView radius, hunters and stop all timers
-    private func monitoringOff() {
+    func monitoringOff() {
         let imageStart = UIImage(systemName: "play.fill")
         monitoringButton.setImage(imageStart, for: .normal)
         timer?.invalidate()
@@ -468,7 +475,7 @@ extension MapViewController {
     }
 
     /// check if user is always inside area
-    private func checkIfUserIsInsideArea() {
+    func checkIfUserIsInsideArea() {
         guard let positionUser = locationManager.location?.coordinate else {
             return
         }
@@ -480,7 +487,7 @@ extension MapViewController {
     }
 
     /// check if hunters are inside radius alert
-    private func checkIfOthersUsersAreInsideAreaAlert() {
+    func checkIfOthersUsersAreInsideAreaAlert() {
         monitoringServices.checkUserIsInRadiusAlert { [weak self] result in
             switch result {
             case .success(let usersIsInRadiusAlert):
@@ -500,14 +507,19 @@ extension MapViewController {
 
     /// insert hunters in map
     /// - Parameter arrayHunters: list hunters present in radius alert
-    private func insertHunterInMap(_ arrayHunters: [Hunter]) {
+    func insertHunterInMap(_ arrayHunters: [Hunter]) {
         if arrayHunters.count > 0 {
             for hunter in arrayHunters {
                 guard let latitude = hunter.latitude, let longitude = hunter.longitude else {
                     return
                 }
                 let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                let showHunter = PlaceHunters(title: hunter.displayName ?? "no name", coordinate: coordinate, subtitle: "Last view \(Date(timeIntervalSince1970: TimeInterval(hunter.date ?? 0)).getTime())")
+                let showHunter = PlaceHunters(
+                    title: hunter.displayName ?? "no name",
+                    coordinate: coordinate,
+                    subtitle: "Last view \(Date(timeIntervalSince1970: TimeInterval(hunter.date ?? 0)).getTime())"
+                )
+
                 mapView.addAnnotation(showHunter)
                 mapView.register(AnnotationHuntersView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
             }
@@ -519,7 +531,7 @@ extension MapViewController {
     }
 
     /// send notification of hunters in radius alert
-    private func sendNotificationHuntersInRadius() {
+    func sendNotificationHuntersInRadius() {
         if UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert) {
             let bannerRadius = FloatingNotificationBanner(title: "Attention", subtitle: "Others users are near you", style: .info)
             bannerRadius.show(cornerRadius: 8, shadowBlurRadius: 16)

@@ -10,21 +10,24 @@ import Firebase
 import FirebaseAuth
 
 class ProfileViewController: UIViewController {
-
+// MARK: - Properties
     var monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area()))
     var hunter = Hunter()
 
+// MARK: - IBOutlet
     @IBOutlet weak var totalDistanceLabel: UILabel!
     @IBOutlet weak var mailLabel: UILabel!
     @IBOutlet weak var pseudonymeLabel: UILabel!
 
+// MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        pseudonymeLabel.text = FirebaseAuth.Auth.auth().currentUser?.displayName
         getTotalDistance()
-        mailLabel.text = FirebaseAuth.Auth.auth().currentUser?.email
+        setLabel()
     }
 
+    // MARK: - Private functions
+    /// Get distance from database
     private func getTotalDistance() {
         monitoringServices.getTotalDistanceTraveled { [weak self] result in
             switch result {
@@ -34,5 +37,11 @@ class ProfileViewController: UIViewController {
                 self?.totalDistanceLabel.text = String(format: "%.2f", distance / 1000) + " Km"
             }
         }
+    }
+
+    /// set label user information
+    private func setLabel() {
+        mailLabel.text = FirebaseAuth.Auth.auth().currentUser?.email
+        pseudonymeLabel.text = FirebaseAuth.Auth.auth().currentUser?.displayName
     }
 }

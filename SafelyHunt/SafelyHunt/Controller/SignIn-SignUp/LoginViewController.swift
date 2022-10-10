@@ -12,7 +12,7 @@ class LoginViewController: UIViewController {
     // MARK: - Propertie
     var signInMail: String = ""
 
-    // MARK: -  IBOutlet
+    // MARK: - IBOutlet
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var logInButton: UIButton!
@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.text = signInMail
-
+        setLoginButton()
         #if DEBUG
         emailTextField.text = "yoyo@wanadoo.fr"
         passwordTextField.text = "coucou"
@@ -34,7 +34,7 @@ class LoginViewController: UIViewController {
     }
 
     // MARK: - IBAction
-    
+
     /// sign In user
     @IBAction func logInActionButton() {
         guard let email = emailTextField.text, let password = passwordTextField.text else {
@@ -55,20 +55,24 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
+
     /// if user sign in transfert to mainStarterController
     private func transferToMainStarter() {
         let tabBarMain = UIStoryboard(name: "TabbarMain", bundle: nil)
         guard let mainStarter = tabBarMain.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {
             return
         }
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarter, animationOption: .transitionFlipFromBottom)
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarter, animationOption: .transitionFlipFromRight)
     }
-    
+
     /// show or hide activity indicator
     /// - Parameter shown: if true activity indicator is show
     private func activityIndicator(shown: Bool) {
         logInButton.isHidden = shown
         activityIndicator.isHidden = !shown
+    }
+
+    private func setLoginButton() {
+        logInButton.layer.cornerRadius = logInButton.frame.height/2
     }
 }

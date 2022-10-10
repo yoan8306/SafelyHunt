@@ -15,7 +15,7 @@ protocol MonitoringServicesProtocol {
     var monitoring: MonitoringProtocol {get}
     var startMonitoring: Bool {get set}
     func checkUserIsInRadiusAlert(callback: @escaping(Result<[Hunter], Error>) -> Void)
-    func checkUserIsAlwayInArea(area: MKPolygon, positionUser: CLLocationCoordinate2D) -> Bool
+    func checkUserIsAlwayInArea(positionUser: CLLocationCoordinate2D) -> Bool
     func insertDistanceTraveled()
     func getTotalDistanceTraveled(callBack: @escaping(Result<Double, Error>) -> Void)
     func insertMyPosition()
@@ -40,8 +40,6 @@ class MonitoringServices: MonitoringServicesProtocol {
             return
         }
 
-//        let latitude = hunter.latitude ?? 0
-//        let longitude = hunter.longitude ?? 0
         guard let actualPosition = hunter.actualPostion else {
             return
         }
@@ -58,11 +56,10 @@ class MonitoringServices: MonitoringServicesProtocol {
 
     /// checks if the user is still in their hunting area
     /// - Parameters:
-    ///   - area: polygon of area
     ///   - positionUser: user position
     /// - Returns: send true if user is still in their area
-    func checkUserIsAlwayInArea(area: MKPolygon, positionUser: CLLocationCoordinate2D) -> Bool {
-        return area.contain(coordinate: positionUser)
+    func checkUserIsAlwayInArea(positionUser: CLLocationCoordinate2D) -> Bool {
+        monitoring.area.createPolygon().contain(coordinate: positionUser)
     }
 
     /// add new total value of the distance total traveled in database
@@ -75,18 +72,18 @@ class MonitoringServices: MonitoringServicesProtocol {
             return
         }
 
-        getTotalDistanceTraveled() { result in
+        getTotalDistanceTraveled() { [weak self] result in
             switch result {
             case .failure(_):
                 return
             case .success(let distanceTraveled):
                 let newDistanceTraveled = distance + distanceTraveled
-                self.database.child("Database").child("users_list").child(user.uid).child("distance_traveled").setValue([
+                self?.database.child("Database").child("users_list").child(user.uid).child("distance_traveled").setValue([
                     "Total_distance": newDistanceTraveled])
-                self.monitoring.currentDistance = 0
-                self.monitoring.currentTravel = []
-                self.monitoring.lastLocation = nil
-                self.monitoring.firstLocation = nil
+                self?.monitoring.currentDistance = 0
+                self?.monitoring.currentTravel = []
+                self?.monitoring.lastLocation = nil
+                self?.monitoring.firstLocation = nil
             }
         }
     }
@@ -115,7 +112,7 @@ class MonitoringServices: MonitoringServicesProtocol {
         let databaseAllPositions = database.child("Database").child("position_user")
         var hunters: [Hunter] = []
 
-        databaseAllPositions.getData { error, dataSnapshot  in
+        databaseAllPositions.getData { [weak self] error, dataSnapshot  in
             guard error == nil, let dataSnapshot = dataSnapshot else {
                 callBack(.failure(error ?? ServicesError.listUsersPositions))
                 return
@@ -124,7 +121,7 @@ class MonitoringServices: MonitoringServicesProtocol {
                 callBack(.failure(ServicesError.listUsersPositions))
                 return
             }
-            guard let userId = self.firebaseAuth.currentUser?.uid else {
+            guard let userId = self?.firebaseAuth.currentUser?.uid else {
                 return
             }
 

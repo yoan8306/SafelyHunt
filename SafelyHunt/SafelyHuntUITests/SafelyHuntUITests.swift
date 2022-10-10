@@ -22,7 +22,6 @@ class SafelyHuntUITests: XCTestCase {
         let passwordSecureTextField = app.secureTextFields["Password..."]
 
         signOut()
-
         emailAdressTextField.tap()
         emailAdressTextField.typeText("Im bad email")
         passwordSecureTextField.tap()
@@ -51,25 +50,19 @@ class SafelyHuntUITests: XCTestCase {
         confirmPassword.typeText("password")
 
         app.buttons["Register"].tap()
-
         XCTAssertTrue(app.alerts["Error"].exists)
-
     }
 
     /// Draw area with more info inside area list
     func testGivenListAreasWhenTapOnAccessoriesButtonThenDrawAreaSelected() {
         let tablesQuery = app.tables
         let appleAreaCellsQuery = tablesQuery/*@START_MENU_TOKEN@*/.cells.containing(.staticText, identifier: "Apple area")/*[[".cells.containing(.staticText, identifier:\"Cupertino\")",".cells.containing(.staticText, identifier:\"Apple area\")"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
-
         signIn()
-
         tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Select your area hunt"]/*[[".cells.staticTexts[\"Select your area hunt\"]",".staticTexts[\"Select your area hunt\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-
         appleAreaCellsQuery.element.tap()
         appleAreaCellsQuery.buttons["More Info"].tap()
 
         XCTAssertTrue(app.maps.element.exists)
-
     }
 
     /// Draw a new area
@@ -95,7 +88,7 @@ class SafelyHuntUITests: XCTestCase {
         tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Select your area hunt"]/*[[".cells.staticTexts[\"Select your area hunt\"]",".staticTexts[\"Select your area hunt\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         tablesQuery/*@START_MENU_TOKEN@*/.cells.containing(.staticText, identifier: "Apple area")/*[[".cells.containing(.staticText, identifier:\"Cupertino\")",".cells.containing(.staticText, identifier:\"Apple area\")"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.element.tap()
         app.navigationBars["Areas List"].buttons["Main"].tap()
-        tablesQuery.buttons["Start monitoring"].tap()
+        app.buttons["Start monitoring"].tap()
     }
 
     /// Test show profil informations
@@ -109,6 +102,15 @@ class SafelyHuntUITests: XCTestCase {
     }
 
     private func signIn() {
+        let emailAdressTextField = app.textFields["email adress..."]
+        let passwordSecureTextField = app.secureTextFields["Password..."]
+
+        if app.textFields["email adress..."].exists && !emailAdressTextField.staticTexts["yoyo@wanadoo.fr"].exists {
+            emailAdressTextField.tap()
+            emailAdressTextField.typeText("yoyo@wanadoo.fr")
+            passwordSecureTextField.tap()
+            passwordSecureTextField.typeText("coucou")
+        }
         if app.buttons["Log in"].exists {
             app.buttons["Log in"].tap()
         }
@@ -121,8 +123,7 @@ class SafelyHuntUITests: XCTestCase {
         if app.tabBars.element.exists {
             app.tabBars["Tab Bar"].buttons["Contact Photo"].tap()
             app.tables.cells.containing(.staticText, identifier: "Account").element.tap()
-            app/*@START_MENU_TOKEN@*/.staticTexts["Disconnected"]/*[[".buttons[\"Disconnected\"].staticTexts[\"Disconnected\"]",".staticTexts[\"Disconnected\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+            app.staticTexts[" Disconnected"].tap()
         }
     }
-
 }

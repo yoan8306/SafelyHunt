@@ -22,6 +22,7 @@ class RegisterViewController: UIViewController {
 // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setRegisterButton()
     }
 
     // MARK: - IBAction
@@ -70,7 +71,7 @@ class RegisterViewController: UIViewController {
         }
     }
 }
-    
+
     /// transfert to login controller for identification
     /// - Parameter user: new user create
     private func goToLoginController(user: User) {
@@ -110,6 +111,10 @@ class RegisterViewController: UIViewController {
     private func showActivityIndicator(shown: Bool) {
         activityIndicator.isHidden = !shown
         registerButton.isHidden = shown
+    }
+
+    private func setRegisterButton() {
+        registerButton.layer.cornerRadius = registerButton.frame.height/2
     }
 }
 

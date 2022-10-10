@@ -107,7 +107,6 @@ final class TestMonitoringServices: XCTestCase {
         hunterTwo.displayName = "yoan8306"
         hunterTwo.longitude = -122.0312186
         hunterTwo.latitude = 37.33233141
-        hunterTwo.date = nil
 
         let hunterThree = Hunter()
         hunterThree.displayName = "yoyo"
@@ -155,11 +154,12 @@ final class TestMonitoringServices: XCTestCase {
         let longitude = -122.0312186
         monitoringServices.monitoring.hunter?.latitude = latitudeUser
         monitoringServices.monitoring.hunter?.longitude = longitude
+        monitoringServices.monitoring.area = createArea()
 
         guard let actualPostion = monitoringServices.monitoring.hunter?.actualPostion else {
             fatalError()
         }
-        XCTAssertTrue(monitoringServices.checkUserIsAlwayInArea(area: createArea().createPolygon(), positionUser: actualPostion.coordinate))
+        XCTAssertTrue(monitoringServices.checkUserIsAlwayInArea(positionUser: actualPostion.coordinate))
     }
 
     /// If user is outside area function return false
@@ -168,16 +168,18 @@ final class TestMonitoringServices: XCTestCase {
         let longitude = -125.0312186
         monitoringServices.monitoring.hunter?.latitude = latitudeUser
         monitoringServices.monitoring.hunter?.longitude = longitude
+        monitoringServices.monitoring.area = createArea()
 
         guard let actualPostion = monitoringServices.monitoring.hunter?.actualPostion else {
             fatalError()
         }
-        XCTAssertFalse(monitoringServices.checkUserIsAlwayInArea(area: createArea().createPolygon(), positionUser: actualPostion.coordinate))
+        XCTAssertFalse(monitoringServices.checkUserIsAlwayInArea(positionUser: actualPostion.coordinate))
     }
 
     /// Create are with coordinate
     /// - Returns: Area
     private func createArea() -> Area {
+
         let area = Area()
         var coordinate: [CLLocationCoordinate2D] = []
         coordinate.append(CLLocationCoordinate2D(latitude: 37.32428915137889, longitude: -122.06397669446443))

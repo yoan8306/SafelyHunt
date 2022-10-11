@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textColor" systemColor="labelColor"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -90,7 +90,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Log in" id="ul3-9L-3AQ">
                         <barButtonItem key="rightBarButtonItem" title="Register" style="done" id="Vjd-Cj-bth">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" systemColor="labelColor"/>
                             <connections>
                                 <segue destination="lUm-0f-h8W" kind="show" id="bSS-CV-veV"/>
                             </connections>

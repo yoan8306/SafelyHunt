@@ -45,7 +45,7 @@ class MainStarterViewController: UIViewController {
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        startMonitoringButton.stopShimmering()
+        startMonitoringButton.titleLabel?.stopShimmering()
     }
 
     // MARK: - IBAction
@@ -95,24 +95,25 @@ class MainStarterViewController: UIViewController {
         self.present(mapViewController, animated: true)
     }
 
+    /// Set button design
     private func setButton() {
         startMonitoringButton.layer.cornerRadius = startMonitoringButton.frame.height/2
         startMonitoringButton.setTitleColor(.label, for: .normal)
-//        startMonitoringButton.backgroundColor = .black
         startMonitoringButton.isEnabled = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != ""
         if startMonitoringButton.isEnabled {
             startMonitoringButton.backgroundColor = .tertiarySystemFill
         } else {
             startMonitoringButton.backgroundColor = .lightGray
-            startMonitoringButton.setTitleColor(.white, for: .disabled)
+            startMonitoringButton.setTitleColor(.darkGray, for: .disabled)
         }
     }
 
+    /// if area selected start shimering
     private func insertShimeringInButton() {
         if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" {
-            startMonitoringButton.startShimmering()
+            startMonitoringButton.titleLabel?.startShimmering()
         } else {
-            startMonitoringButton.stopShimmering()
+            startMonitoringButton.titleLabel?.stopShimmering()
         }
     }
 

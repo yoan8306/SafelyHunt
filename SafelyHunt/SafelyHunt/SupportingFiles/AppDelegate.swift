@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.register(defaults: [UserDefaultKeys.Keys.allowsNotificationRadiusAlert: true])
         UserDefaults.standard.register(defaults: [UserDefaultKeys.Keys.showInfoRadius: true])
         UserDefaults.standard.register(defaults: [UserDefaultKeys.Keys.radiusAlert: 300])
+        UserDefaults.standard.register(defaults: [UserDefaultKeys.Keys.areaSelected: ""])
         return true
     }
 

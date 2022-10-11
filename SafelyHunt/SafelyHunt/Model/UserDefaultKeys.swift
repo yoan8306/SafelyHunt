@@ -18,7 +18,7 @@ class UserDefaultKeys {
 
     static var areaSelected: String {
         get {
-            return UserDefaults.standard.string(forKey: Keys.areaSelected) ?? "No Selection"
+            return UserDefaults.standard.string(forKey: Keys.areaSelected) ?? ""
         }
         set {
             UserDefaults.standard.set(newValue, forKey: Keys.areaSelected)

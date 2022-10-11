@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="nEj-tY-2tR">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="489"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="KsJ-jM-bmb" customClass="AreaCellTableViewCell" customModule="SafelyHunt" customModuleProvider="target">
@@ -83,7 +83,7 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="nEj-tY-2tR" secondAttribute="trailing" id="6bj-d6-9GB"/>
                             <constraint firstItem="nEj-tY-2tR" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="RSs-In-wxq"/>
                             <constraint firstItem="nEj-tY-2tR" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Zee-Ky-RXb"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="nEj-tY-2tR" secondAttribute="bottom" id="xlX-Rf-yfW"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="nEj-tY-2tR" secondAttribute="bottom" constant="30" id="xlX-Rf-yfW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Areas List" id="jo3-Z5-mMh">

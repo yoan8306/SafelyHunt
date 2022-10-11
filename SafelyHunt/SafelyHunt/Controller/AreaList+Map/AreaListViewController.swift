@@ -137,9 +137,11 @@ extension AreaListViewController: UITableViewDelegate {
         let deletingAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
             self.deleteArea(indexPath)
         }
-        let dismiss = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
+        cancel.setValue(UIColor.label, forKey: "titleTextColor")
+        alertVC.addAction(cancel)
         alertVC.addAction(deletingAction)
-        alertVC.addAction(dismiss)
         present(alertVC, animated: true, completion: nil)
     }
 

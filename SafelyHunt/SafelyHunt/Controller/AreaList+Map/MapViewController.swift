@@ -174,8 +174,6 @@ class MapViewController: UIViewController {
             } else {
                 monitoringOff()
             }
-        } else {
-            monitoringOff()
         }
     }
 
@@ -211,7 +209,7 @@ class MapViewController: UIViewController {
     // Private func
     private func initializeMapView() {
         let compassButton = MKCompassButton(mapView: mapView)
-        compassButton.frame.origin = CGPoint(x: travelInfoUiView.frame.origin.x + 5, y: locationButton.alignmentRectInsets.top)// travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 20)
+        compassButton.frame.origin = CGPoint(x: travelInfoUiView.frame.origin.x + 5, y: locationButton.frame.origin.y)// travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 20)
         compassButton.compassVisibility = .visible
         view.addSubview(compassButton)
 
@@ -294,7 +292,8 @@ class MapViewController: UIViewController {
         let dontShowInfoRadius = UIAlertAction(title: "Do not see this message again", style: .default) { _ in
             UserDefaults.standard.set(false, forKey: UserDefaultKeys.Keys.showInfoRadius)
         }
-
+        dontShowInfoRadius.setValue(UIColor.label, forKey: "titleTextColor")
+        dissmiss.setValue(UIColor.label, forKey: "titleTextColor")
         alertViewController.addAction(dontShowInfoRadius)
         alertViewController.addAction(dissmiss)
         present(alertViewController, animated: true, completion: nil)
@@ -414,7 +413,8 @@ class MapViewController: UIViewController {
         alertViewController.addTextField(configurationHandler: { textfield in
             textfield.placeholder = "Name area..."
         })
-
+        cancel.setValue(UIColor.label, forKey: "titleTextColor")
+        register.setValue(UIColor.label, forKey: "titleTextColor")
         alertViewController.addAction(cancel)
         alertViewController.addAction(register)
 
@@ -500,6 +500,8 @@ private extension MapViewController {
             switch result {
             case .success(let usersIsInRadiusAlert):
                 guard usersIsInRadiusAlert.isEmpty == false else {
+                    self?.mapView.removeAnnotations((self?.mapView.annotations)!)
+                    self?.removeRadiusOverlay()
                     return
                 }
                 self?.mapView.removeAnnotations((self?.mapView.annotations)!)
@@ -625,7 +627,6 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             if self.mapMode == .monitoring {
                 self.dismiss(animated: true)
             }
-
         }
         let openSetting = UIAlertAction(title: "Open setting", style: .default) { _ in
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
@@ -635,7 +636,8 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
                 UIApplication.shared.open(settingsUrl, completionHandler: nil)
             }
         }
-
+        cancel.setValue(UIColor.label, forKey: "titleTextColor")
+        openSetting.setValue(UIColor.label, forKey: "titleTextColor")
         alertVC.addAction(cancel)
         alertVC.addAction(openSetting)
         present(alertVC, animated: true, completion: nil)

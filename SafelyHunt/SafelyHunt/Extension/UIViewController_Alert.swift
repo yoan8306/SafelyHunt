@@ -17,6 +17,7 @@ extension UIViewController {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: titleButton, style: style, handler: nil)
         alertVC.addAction(action)
+        action.setValue(UIColor.label, forKey: "titleTextColor")
         present(alertVC, animated: true, completion: nil)
     }
     func presentAlertSuccess (alertTitle title: String = "Success", alertMessage message: String,
@@ -25,6 +26,7 @@ extension UIViewController {
                let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
                let action = UIAlertAction(title: titleButton, style: style, handler: nil)
                alertVC.addAction(action)
+        action.setValue(UIColor.label, forKey: "titleTextColor")
                present(alertVC, animated: true, completion: nil)
            }
 

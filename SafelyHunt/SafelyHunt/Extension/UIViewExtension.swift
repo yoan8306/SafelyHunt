@@ -25,7 +25,7 @@ extension UIView {
         animation.fromValue = [0.0, 0.1, 0.2]
         animation.toValue = [0.8, 0.9, 1.0]
 
-        animation.duration = 3
+        animation.duration = 5
         animation.repeatCount = HUGE
         gradient.add(animation, forKey: "shimmer")
     }

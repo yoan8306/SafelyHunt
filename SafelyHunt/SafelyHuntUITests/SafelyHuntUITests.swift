@@ -57,9 +57,9 @@ class SafelyHuntUITests: XCTestCase {
     func testGivenListAreasWhenTapOnAccessoriesButtonThenDrawAreaSelected() {
         let tablesQuery = app.tables
         let appleAreaCellsQuery = tablesQuery/*@START_MENU_TOKEN@*/.cells.containing(.staticText, identifier: "Apple area")/*[[".cells.containing(.staticText, identifier:\"Cupertino\")",".cells.containing(.staticText, identifier:\"Apple area\")"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        signOut()
         signIn()
         tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Select your area hunt"]/*[[".cells.staticTexts[\"Select your area hunt\"]",".staticTexts[\"Select your area hunt\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        appleAreaCellsQuery.element.tap()
         appleAreaCellsQuery.buttons["More Info"].tap()
 
         XCTAssertTrue(app.maps.element.exists)

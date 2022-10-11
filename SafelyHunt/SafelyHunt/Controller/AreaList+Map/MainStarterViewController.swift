@@ -34,6 +34,7 @@ class MainStarterViewController: UIViewController {
         getSelectedArea()
         tableView.reloadData()
         insertShimeringInButton()
+        presentIntroduction()
     }
 
     /// Show message if no area selected
@@ -115,6 +116,16 @@ class MainStarterViewController: UIViewController {
         } else {
             startMonitoringButton.titleLabel?.stopShimmering()
         }
+    }
+
+    private func presentIntroduction() {
+        let carouselStoryboard = UIStoryboard(name: "Carousel", bundle: nil)
+
+        guard let carouselVC = carouselStoryboard.instantiateViewController(withIdentifier: "CarouselStoryboard") as? CarouselViewController else {
+            return
+        }
+//        carouselVC.modalPresentationStyle = .pageSheet
+        present(carouselVC, animated: true)
     }
 
 }

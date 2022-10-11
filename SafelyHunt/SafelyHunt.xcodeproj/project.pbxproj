@@ -17,6 +17,8 @@
 		5F1CF30A286B1F2B00A0429D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF309286B1F2B00A0429D /* Assets.xcassets */; };
 		5F1CF331286B1FB500A0429D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */; };
 		5F1CF332286B1FB500A0429D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */; };
+		5F24E60028F602C9002DBF6F /* Carousel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F24E5FF28F602C9002DBF6F /* Carousel.storyboard */; };
+		5F24E60428F6031E002DBF6F /* CarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F24E60328F6031E002DBF6F /* CarouselViewController.swift */; };
 		5F46BEF5289E9E2400D1E020 /* PlaceHunters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46BEF4289E9E2400D1E020 /* PlaceHunters.swift */; };
 		5F46BEF7289E9EEA00D1E020 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46BEF6289E9EEA00D1E020 /* CustomAnnotationView.swift */; };
 		5F46BEF9289EF23A00D1E020 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46BEF8289EF23A00D1E020 /* DateExtension.swift */; };
@@ -100,6 +102,8 @@
 		5F1CF30E286B1F2C00A0429D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F1CF313286B1F2C00A0429D /* SafelyHuntTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafelyHuntTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F1CF330286B1FB500A0429D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5F24E5FF28F602C9002DBF6F /* Carousel.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Carousel.storyboard; sourceTree = "<group>"; };
+		5F24E60328F6031E002DBF6F /* CarouselViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselViewController.swift; sourceTree = "<group>"; };
 		5F46BEF4289E9E2400D1E020 /* PlaceHunters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHunters.swift; sourceTree = "<group>"; };
 		5F46BEF6289E9EEA00D1E020 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		5F46BEF8289EF23A00D1E020 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
@@ -262,6 +266,22 @@
 			path = SafelyHuntTests;
 			sourceTree = "<group>";
 		};
+		5F24E5FE28F602B1002DBF6F /* Carousel */ = {
+			isa = PBXGroup;
+			children = (
+				5F24E5FF28F602C9002DBF6F /* Carousel.storyboard */,
+			);
+			path = Carousel;
+			sourceTree = "<group>";
+		};
+		5F24E60128F602E0002DBF6F /* Carousel */ = {
+			isa = PBXGroup;
+			children = (
+				5F24E60328F6031E002DBF6F /* CarouselViewController.swift */,
+			);
+			path = Carousel;
+			sourceTree = "<group>";
+		};
 		5F7624D928C2215800D6FA65 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +295,7 @@
 		5F7624DA28C221C300D6FA65 /* Tabbar */ = {
 			isa = PBXGroup;
 			children = (
+				5F24E5FE28F602B1002DBF6F /* Carousel */,
 				5FBA014A287453F800D70715 /* TabbarMain.storyboard */,
 				5F7624DB28C2222D00D6FA65 /* AreaList+Map */,
 				5F7624D928C2215800D6FA65 /* Settings */,
@@ -336,6 +357,7 @@
 		5FCDFFB6286CE56C002D83DD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5F24E60128F602E0002DBF6F /* Carousel */,
 				5F14AD242878406B0039002A /* SignIn-SignUp */,
 				5F7624DE28C2228400D6FA65 /* AreaList+Map */,
 				5F7624DF28C222A600D6FA65 /* Settings */,
@@ -520,6 +542,7 @@
 				5F1CF30A286B1F2B00A0429D /* Assets.xcassets in Resources */,
 				5F1CF308286B1F2900A0429D /* Login.storyboard in Resources */,
 				5F78B6C52876E8BC003C58B5 /* MainStarter.storyboard in Resources */,
+				5F24E60028F602C9002DBF6F /* Carousel.storyboard in Resources */,
 				5FFCF681288EB481009D9AE8 /* Launch Screen.storyboard in Resources */,
 				5F14AD2328783B050039002A /* Main.storyboard in Resources */,
 				5FFBFF9028E384F700214FEB /* .swiftlint.yml in Resources */,
@@ -608,6 +631,7 @@
 				5F7F698128932C1000562FDA /* AreaCellTableViewCell.swift in Sources */,
 				5F79FCE5289BB959009F6AE9 /* Polygon.swift in Sources */,
 				5F0B7316289D96160034CB48 /* MapMode.swift in Sources */,
+				5F24E60428F6031E002DBF6F /* CarouselViewController.swift in Sources */,
 				5FFCF683288EB7CF009D9AE8 /* AreaListViewController.swift in Sources */,
 				5F79FCE7289BE389009F6AE9 /* Monitoring.swift in Sources */,
 				5FBEF948287306DD0023E5A5 /* RegisterViewController.swift in Sources */,

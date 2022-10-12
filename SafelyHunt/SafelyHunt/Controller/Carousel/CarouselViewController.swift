@@ -13,12 +13,16 @@ class CarouselViewController: UIViewController {
     @IBOutlet weak var pagesControl: UIPageControl!
     @IBOutlet weak var backwardButton: UIButton!
     @IBOutlet weak var forwardButton: UIButton!
+    @IBOutlet var swipeGestureRight: UISwipeGestureRecognizer!
+    @IBOutlet var swipeGestureLeft: UISwipeGestureRecognizer!
     @IBOutlet weak var imageTuto: UIImageView!
 
     var index = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageTuto.isUserInteractionEnabled = true
+
         pagesControl.numberOfPages = getImages().count
         pagesControl.currentPage = index
         imageTuto.image = getImages()[index]
@@ -26,8 +30,12 @@ class CarouselViewController: UIViewController {
         backwardButton.isHidden = true
     }
 
-    @IBAction func backwardAction() {
+    @IBAction func backwardButtonAction() {
+        if index <= 0 {
+            return
+        }
         index -= 1
+        forwardButton.isHidden = false
         imageTuto.image = getImages()[index]
             descriptionLabel.text = getDescription(page: index)
             pagesControl.currentPage = index
@@ -38,13 +46,28 @@ class CarouselViewController: UIViewController {
 
     @IBAction func forwardButtonAction() {
         backwardButton.isHidden = false
-        if index + 1 >= getImages().count -1 {
+        if index + 1 > getImages().count - 1 {
+            forwardButton.isHidden = true
             return
         }
         index += 1
         imageTuto.image = getImages()[index]
         descriptionLabel.text = getDescription(page: index)
         pagesControl.currentPage = index
+        if index + 1 > getImages().count - 1 {
+            forwardButton.isHidden = true
+        }
+    }
+
+    @IBAction func swipeImage(_ sender: UISwipeGestureRecognizer) {
+        switch sender.direction {
+        case .left, .down, .up:
+            forwardButtonAction()
+        case .right:
+            backwardButtonAction()
+        default:
+            break
+        }
     }
 
     private func getImages() -> [UIImage] {

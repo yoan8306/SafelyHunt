@@ -16,8 +16,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hHA-x7-vNU">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hHA-x7-vNU">
                                 <rect key="frame" x="20" y="181" width="350" height="553"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="P3L-8R-BdY" appends="YES" id="Mhn-N5-Jmf"/>
+                                    <outletCollection property="gestureRecognizers" destination="z89-O0-joe" appends="YES" id="Ztl-Ck-cLS"/>
+                                </connections>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vA-qT-fiE">
                                 <rect key="frame" x="10" y="120.66666666666667" width="370" height="20.333333333333329"/>
@@ -42,10 +47,10 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                         </state>
                                         <connections>
-                                            <action selector="backwardAction" destination="Y6W-OH-hqX" eventType="touchUpInside" id="UgT-j2-1ea"/>
+                                            <action selector="backwardButtonAction" destination="Y6W-OH-hqX" eventType="touchUpInside" id="UgT-j2-1ea"/>
                                         </connections>
                                     </button>
-                                    <pageControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="tYq-bK-udW">
+                                    <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="tYq-bK-udW">
                                         <rect key="frame" x="35.000000000000007" y="0.0" width="115.66666666666669" height="26"/>
                                     </pageControl>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJR-Jh-7vu">
@@ -64,6 +69,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="1vA-qT-fiE" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="0zz-kt-mYH"/>
                             <constraint firstItem="SwV-49-OMG" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="OXE-Nf-ciU"/>
@@ -85,9 +91,21 @@
                         <outlet property="forwardButton" destination="rJR-Jh-7vu" id="eEB-XA-eb6"/>
                         <outlet property="imageTuto" destination="hHA-x7-vNU" id="Y9e-Q3-wqo"/>
                         <outlet property="pagesControl" destination="tYq-bK-udW" id="vtL-EH-VwV"/>
+                        <outlet property="swipeGestureLeft" destination="z89-O0-joe" id="nSd-aV-5hs"/>
+                        <outlet property="swipeGestureRight" destination="P3L-8R-BdY" id="8h4-7o-uEH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="P3L-8R-BdY">
+                    <connections>
+                        <action selector="swipeImage:" destination="Y6W-OH-hqX" id="8yU-mF-BpA"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="z89-O0-joe">
+                    <connections>
+                        <action selector="swipeImage:" destination="Y6W-OH-hqX" id="S45-Km-EXE"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="120" y="-7.1090047393364921"/>
         </scene>

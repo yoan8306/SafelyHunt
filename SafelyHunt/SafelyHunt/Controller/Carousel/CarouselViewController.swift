@@ -13,61 +13,70 @@ class CarouselViewController: UIViewController {
     @IBOutlet weak var pagesControl: UIPageControl!
     @IBOutlet weak var backwardButton: UIButton!
     @IBOutlet weak var forwardButton: UIButton!
-    @IBOutlet var swipeGestureRight: UISwipeGestureRecognizer!
-    @IBOutlet var swipeGestureLeft: UISwipeGestureRecognizer!
+    @IBOutlet weak var uiIViewSwipe: UIView!
     @IBOutlet weak var imageTuto: UIImageView!
 
     var index = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageTuto.isUserInteractionEnabled = true
-
-        pagesControl.numberOfPages = getImages().count
-        pagesControl.currentPage = index
-        imageTuto.image = getImages()[index]
-        descriptionLabel.text = getDescription(page: index)
-        backwardButton.isHidden = true
+        addSwipeGesture()
+        setUIView()
     }
 
     @IBAction func backwardButtonAction() {
         if index <= 0 {
             return
-        }
-        index -= 1
-        forwardButton.isHidden = false
-        imageTuto.image = getImages()[index]
-            descriptionLabel.text = getDescription(page: index)
-            pagesControl.currentPage = index
-        if !(index > 0) {
-            backwardButton.isHidden = true
+        } else {
+            index -= 1
+            forwardButton.isHidden = true
+            backwardButton.isHidden = index + 1 <= 0
+            updateView()
         }
     }
 
     @IBAction func forwardButtonAction() {
-        backwardButton.isHidden = false
-        if index + 1 > getImages().count - 1 {
-            forwardButton.isHidden = true
+        if index >= getImages().count - 1 {
             return
-        }
-        index += 1
-        imageTuto.image = getImages()[index]
-        descriptionLabel.text = getDescription(page: index)
-        pagesControl.currentPage = index
-        if index + 1 > getImages().count - 1 {
-            forwardButton.isHidden = true
+        } else {
+            index += 1
+            backwardButton.isHidden = false
+            forwardButton.isHidden = index + 1 >= getImages().count - 1
+            updateView()
         }
     }
 
-    @IBAction func swipeImage(_ sender: UISwipeGestureRecognizer) {
+    @objc private func swipeImage(_ sender: UISwipeGestureRecognizer) {
         switch sender.direction {
-        case .left, .down, .up:
+        case .left:
             forwardButtonAction()
         case .right:
             backwardButtonAction()
         default:
             break
         }
+    }
+
+    private func addSwipeGesture() {
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipeImage(_:)))
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipeImage(_:)))
+        swipeLeft.direction = .left
+        swipeRight.direction = .right
+        uiIViewSwipe.addGestureRecognizer(swipeLeft)
+        uiIViewSwipe.addGestureRecognizer(swipeRight)
+    }
+
+    private func setUIView() {
+        pagesControl.numberOfPages = getImages().count
+        pagesControl.currentPage = 0
+        backwardButton.isHidden = true
+        updateView()
+    }
+
+    private func updateView() {
+        imageTuto.image = getImages()[index]
+        descriptionLabel.text = getDescription(page: index)
+        pagesControl.currentPage = index
     }
 
     private func getImages() -> [UIImage] {
@@ -104,4 +113,7 @@ class CarouselViewController: UIViewController {
         }
     }
 
+}
+extension CarouselViewController: UIPageControl {
+    
 }

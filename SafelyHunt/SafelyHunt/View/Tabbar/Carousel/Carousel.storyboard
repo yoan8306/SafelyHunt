@@ -19,10 +19,6 @@
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hHA-x7-vNU">
                                 <rect key="frame" x="20" y="181" width="350" height="553"/>
                                 <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="P3L-8R-BdY" appends="YES" id="Mhn-N5-Jmf"/>
-                                    <outletCollection property="gestureRecognizers" destination="z89-O0-joe" appends="YES" id="Ztl-Ck-cLS"/>
-                                </connections>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vA-qT-fiE">
                                 <rect key="frame" x="10" y="120.66666666666667" width="370" height="20.333333333333329"/>
@@ -36,6 +32,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cxV-uM-btl">
+                                <rect key="frame" x="0.0" y="47" width="390" height="717"/>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="F58-63-GB5">
                                 <rect key="frame" x="102.33333333333333" y="764" width="185.66666666666669" height="26"/>
                                 <subviews>
@@ -72,6 +71,7 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="1vA-qT-fiE" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="0zz-kt-mYH"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="cxV-uM-btl" secondAttribute="trailing" id="AeW-th-D74"/>
                             <constraint firstItem="SwV-49-OMG" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="OXE-Nf-ciU"/>
                             <constraint firstItem="1vA-qT-fiE" firstAttribute="top" secondItem="SwV-49-OMG" secondAttribute="bottom" constant="20" id="Q2R-YS-guV"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="F58-63-GB5" secondAttribute="bottom" constant="20" id="TAx-lv-Byq"/>
@@ -82,6 +82,9 @@
                             <constraint firstItem="F58-63-GB5" firstAttribute="top" secondItem="hHA-x7-vNU" secondAttribute="bottom" constant="30" id="oWw-nA-Aa2"/>
                             <constraint firstItem="F58-63-GB5" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="odT-QU-gZV"/>
                             <constraint firstItem="hHA-x7-vNU" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="pcJ-Gk-nVy"/>
+                            <constraint firstItem="cxV-uM-btl" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="sZv-bd-aog"/>
+                            <constraint firstItem="cxV-uM-btl" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="uld-t0-v72"/>
+                            <constraint firstItem="F58-63-GB5" firstAttribute="top" secondItem="cxV-uM-btl" secondAttribute="bottom" id="vbV-7L-zwK"/>
                             <constraint firstItem="hHA-x7-vNU" firstAttribute="top" secondItem="1vA-qT-fiE" secondAttribute="bottom" constant="40" id="yeh-5R-9za"/>
                         </constraints>
                     </view>
@@ -91,21 +94,10 @@
                         <outlet property="forwardButton" destination="rJR-Jh-7vu" id="eEB-XA-eb6"/>
                         <outlet property="imageTuto" destination="hHA-x7-vNU" id="Y9e-Q3-wqo"/>
                         <outlet property="pagesControl" destination="tYq-bK-udW" id="vtL-EH-VwV"/>
-                        <outlet property="swipeGestureLeft" destination="z89-O0-joe" id="nSd-aV-5hs"/>
-                        <outlet property="swipeGestureRight" destination="P3L-8R-BdY" id="8h4-7o-uEH"/>
+                        <outlet property="uiIViewSwipe" destination="cxV-uM-btl" id="Oen-10-WTu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="right" id="P3L-8R-BdY">
-                    <connections>
-                        <action selector="swipeImage:" destination="Y6W-OH-hqX" id="8yU-mF-BpA"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" id="z89-O0-joe">
-                    <connections>
-                        <action selector="swipeImage:" destination="Y6W-OH-hqX" id="S45-Km-EXE"/>
-                    </connections>
-                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="120" y="-7.1090047393364921"/>
         </scene>

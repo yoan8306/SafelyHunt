@@ -58,7 +58,6 @@ class AreaListViewController: UIViewController {
                 self?.listArea = listArea
                 self?.areaListTableView.reloadData()
                 self?.refreshControl.endRefreshing()
-
                 self?.initializeBackgroundTableView()
 
             case .failure(let error):
@@ -70,8 +69,14 @@ class AreaListViewController: UIViewController {
 
     /// set background if user's list is empty
     private func initializeBackgroundTableView() {
+        var backgroundImage = UIImage(named: "Military_Outline-Black")
         if listArea.count == 0 {
-            let backgroundImage = UIImage(named: "listVoid")
+            if self.traitCollection.userInterfaceStyle == .dark {
+                backgroundImage = UIImage(named: "Military_Outline-White")
+            } else {
+                backgroundImage = UIImage(named: "Military_Outline-Black")
+            }
+
             let image = UIImageView(image: backgroundImage)
             image.contentMode = .scaleAspectFit
             areaListTableView.backgroundView = image
@@ -88,20 +93,14 @@ extension AreaListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cellSelected = false
         let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
+        let cellIsSelected = areaSelected == listArea[indexPath.row].name
 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? AreaCellTableViewCell else {
             return UITableViewCell()
         }
-            if areaSelected == listArea[indexPath.row].name {
-                cellSelected = true
-            } else {
-                cellSelected = false
-            }
 
-        cell.configureCell(infoArea: listArea[indexPath.row], cellSelected: cellSelected)
-
+        cell.configureCell(infoArea: listArea[indexPath.row], cellIsSelected: cellIsSelected)
         return cell
     }
 }

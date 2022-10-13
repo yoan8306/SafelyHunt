@@ -22,7 +22,7 @@ class AreaCellTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func configureCell(infoArea: Area, cellSelected: Bool) {
+    func configureCell(infoArea: Area, cellIsSelected: Bool) {
         areaNameLabel.text = infoArea.name
         cityLabel.text = infoArea.city
 
@@ -38,7 +38,7 @@ class AreaCellTableViewCell: UITableViewCell {
             } else {
                 dateLabel.text = DateFormatter.localizedString(from: myDate, dateStyle: .medium, timeStyle: .medium)
             }
-        setCheckmarck(cellSelected: cellSelected)
+        setCheckmarck(cellSelected: cellIsSelected)
     }
 
     private func numberDayBetween(from start: Date, to end: Date) -> Int {

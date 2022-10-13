@@ -48,6 +48,15 @@ class MainStarterViewController: UIViewController {
         startMonitoringButton.titleLabel?.stopShimmering()
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        setButton()
+    }
+
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        setButton()
+
+    }
+
     // MARK: - IBAction
     @IBAction func startMonitoringButton(_ sender: UIButton) {
         if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" {
@@ -96,13 +105,13 @@ class MainStarterViewController: UIViewController {
     /// Set button design
     private func setButton() {
         startMonitoringButton.layer.cornerRadius = startMonitoringButton.frame.height/2
-        startMonitoringButton.setTitleColor(.label, for: .normal)
         startMonitoringButton.isEnabled = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != ""
-        if startMonitoringButton.isEnabled {
-            startMonitoringButton.backgroundColor = .tertiarySystemFill
+        if self.traitCollection.userInterfaceStyle == .dark {
+            startMonitoringButton.backgroundColor = .white
+            startMonitoringButton.setTitleColor(.black, for: .normal)
         } else {
-            startMonitoringButton.backgroundColor = .lightGray
-            startMonitoringButton.setTitleColor(.darkGray, for: .disabled)
+            startMonitoringButton.backgroundColor = .black
+            startMonitoringButton.setTitleColor(.white, for: .normal)
         }
     }
 
@@ -114,7 +123,6 @@ class MainStarterViewController: UIViewController {
             startMonitoringButton.titleLabel?.stopShimmering()
         }
     }
-
 }
 
 // MARK: - TableView DataSource

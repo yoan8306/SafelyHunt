@@ -114,6 +114,4 @@ class CarouselViewController: UIViewController {
     }
 
 }
-extension CarouselViewController: UIPageControl {
-    
-}
+

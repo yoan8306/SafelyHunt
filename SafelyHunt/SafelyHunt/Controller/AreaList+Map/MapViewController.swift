@@ -168,7 +168,14 @@ class MapViewController: UIViewController {
     @IBAction func monitoringAction() {
         if statusAuthorizationLocation() {
             if !monitoringServices.startMonitoring {
-                timerForStart = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerBeforeStart), userInfo: nil, repeats: true)
+                timerForStart = Timer.scheduledTimer(
+                    timeInterval: 1,
+                    target: self,
+                    selector: #selector(timerBeforeStart),
+                    userInfo: nil,
+                    repeats: true
+                )
+
                 monitoringServices.startMonitoring = true
                 self.modalPresentationStyle = .fullScreen
             } else {
@@ -179,7 +186,11 @@ class MapViewController: UIViewController {
 
     /// enable / disable notification on radius alert
     @IBAction func switchButtonActionRadiusAlert() {
-        UserDefaults.standard.set(switchButtonRadiusAlert.isOn, forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert)
+        UserDefaults.standard.set(
+            switchButtonRadiusAlert.isOn,
+            forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert
+        )
+
         radiusAlertLabelStatus.text = switchButtonRadiusAlert.isOn ? "Radius alert is enable" : "Radius alert is disable"
     }
 
@@ -209,7 +220,10 @@ class MapViewController: UIViewController {
     // Private func
     private func initializeMapView() {
         let compassButton = MKCompassButton(mapView: mapView)
-        compassButton.frame.origin = CGPoint(x: travelInfoUiView.frame.origin.x + 5, y: locationButton.frame.origin.y)// travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 20)
+        compassButton.frame.origin = CGPoint(
+            x: travelInfoUiView.frame.origin.x + 5,
+            y: locationButton.frame.origin.y
+        )// travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 20)
         compassButton.compassVisibility = .visible
         view.addSubview(compassButton)
 
@@ -284,7 +298,8 @@ class MapViewController: UIViewController {
     /// Describe raidus what is radius alert
     private func presentInfoRadius() {
         let alertViewController = UIAlertController(
-            title: "Info", message: "Set the alert distance between you and other users. You will be alerted if someone enters your range and it will be displayed on the map.",
+            title: "Info",
+            message: "Set the alert distance between you and other users. You will be alerted if someone enters your range and it will be displayed on the map.",
             preferredStyle: .alert
         )
 
@@ -313,14 +328,17 @@ class MapViewController: UIViewController {
     private func createArea(nameArea: String) {
         let coordinateArea = monitoringServices.monitoring.area.coordinatesPoints
         let polygonCreate = MKPolygon(coordinates: coordinateArea, count: coordinateArea.count)
-        let positionPolygon = CLLocation(latitude: polygonCreate.coordinate.latitude, longitude: polygonCreate.coordinate.longitude)
+        let positionPolygon = CLLocation(
+            latitude: polygonCreate.coordinate.latitude,
+            longitude: polygonCreate.coordinate.longitude
+        )
+
         var city: String?
 
         CLGeocoder().reverseGeocodeLocation(positionPolygon) { places, _ in
-            guard let firstPlace = places?.first else {
-                return
-            }
+            guard let firstPlace = places?.first else {return}
             city = firstPlace.locality
+
             let area = Area()
             area.name = nameArea
             area.date = String(Date().dateToTimeStamp())
@@ -394,7 +412,11 @@ class MapViewController: UIViewController {
 
     /// present popUp for set name new area
     private func presentPopUpNewNameArea() {
-        let alertViewController = UIAlertController(title: "New area name", message: "Enter name for your new area", preferredStyle: .alert)
+        let alertViewController = UIAlertController(
+            title: "New area name",
+            message: "Enter name for your new area",
+            preferredStyle: .alert
+        )
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
             self.turnOffEditingMode()
             self.mapView.removeOverlays(self.mapView.overlays)
@@ -446,7 +468,13 @@ private extension MapViewController {
 
     /// Start monitoring
     func monitoringOn() {
-        timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(updateMonitoring), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(
+            timeInterval: 15,
+            target: self,
+            selector: #selector(updateMonitoring),
+            userInfo: nil,
+            repeats: true
+        )
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
         imageStopMonitoringButton()
@@ -488,7 +516,14 @@ private extension MapViewController {
             return
         }
         if !monitoringServices.checkUserIsAlwayInArea(positionUser: positionUser) {
-            let banner = NotificationBanner(title: "Attention", subtitle: "You are exit of your area", leftView: nil, rightView: nil, style: .danger, colors: nil)
+            let banner = NotificationBanner(
+                title: "Attention",
+                subtitle: "You are exit of your area",
+                leftView: nil,
+                rightView: nil,
+                style: .danger,
+                colors: nil
+            )
             notification.sendNotification()
             banner.show()
         }
@@ -531,7 +566,9 @@ private extension MapViewController {
                 )
 
                 mapView.addAnnotation(showHunter)
-                mapView.register(AnnotationHuntersView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+                mapView.register(AnnotationHuntersView.self,
+                                 forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier
+                )
             }
 
         } else {
@@ -543,7 +580,12 @@ private extension MapViewController {
     /// send notification of hunters in radius alert
     func sendNotificationHuntersInRadius() {
         if UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert) {
-            let bannerRadius = FloatingNotificationBanner(title: "Attention", subtitle: "Others users are near you", style: .info)
+            let bannerRadius = FloatingNotificationBanner(
+                title: "Attention",
+                subtitle: "Others users are near you",
+                style: .info
+            )
+
             bannerRadius.show(cornerRadius: 8, shadowBlurRadius: 16)
             notification.sendNotification()
         }
@@ -622,7 +664,11 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
 
     /// open setting app if needed
     private func UIApplicationOpenSetting() {
-        let alertVC = UIAlertController(title: "Error", message: "I need exact position for best monitoring, you can change in your setting", preferredStyle: .alert)
+        let alertVC = UIAlertController(
+            title: "Error",
+            message: "I need exact position for best monitoring, you can change in your setting",
+            preferredStyle: .alert
+        )
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
             if self.mapMode == .monitoring {
                 self.dismiss(animated: true)

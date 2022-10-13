@@ -82,9 +82,7 @@ class MainStarterViewController: UIViewController {
     /// Transferr to MapViewController with monitoring object
     private func presentMapView() {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
-        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController, let area = area else {
-            return
-        }
+        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController, let area = area else {return}
 
         let monitoringService: MonitoringServicesProtocol = MonitoringServices(monitoring: Monitoring(area: area, hunter: hunter))
 
@@ -182,9 +180,7 @@ extension MainStarterViewController: UITableViewDelegate {
     private func transferToAreaListViewController() {
         let areaListStoryboard = UIStoryboard(name: "AreasList", bundle: nil)
 
-        guard let areaListViewController = areaListStoryboard.instantiateViewController(withIdentifier: "AreasList") as? AreaListViewController else {
-            return
-        }
+        guard let areaListViewController = areaListStoryboard.instantiateViewController(withIdentifier: "AreasList") as? AreaListViewController else {return}
 
         areaListViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(areaListViewController, animated: true)
@@ -193,9 +189,7 @@ extension MainStarterViewController: UITableViewDelegate {
     /// Transfert for set radius alert in MapViewController
     private func transferToMapForSetRadiusAlert() {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
-        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
-            return
-        }
+        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {return}
         let monitoringService = MonitoringServices(monitoring: Monitoring(area: Area()))
         mapViewController.monitoringServices = monitoringService
         mapViewController.mapMode = .editingRadius

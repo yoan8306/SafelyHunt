@@ -105,9 +105,7 @@ class AccountSettingsViewController: UIViewController {
     private func navigationToLoginViewController() {
         let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
 
-        guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "LoginNavigation") as? UINavigationController else {
-            return
-        }
+        guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "LoginNavigation") as? UINavigationController else {return}
 
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginViewController, animationOption: .transitionCrossDissolve)
     }

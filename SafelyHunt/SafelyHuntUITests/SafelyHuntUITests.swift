@@ -56,7 +56,7 @@ class SafelyHuntUITests: XCTestCase {
     /// Draw area with more info inside area list
     func testGivenListAreasWhenTapOnAccessoriesButtonThenDrawAreaSelected() {
         let tablesQuery = app.tables
-        let appleAreaCellsQuery = tablesQuery/*@START_MENU_TOKEN@*/.cells.containing(.staticText, identifier: "Apple area")/*[[".cells.containing(.staticText, identifier:\"Cupertino\")",".cells.containing(.staticText, identifier:\"Apple area\")"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+        let appleAreaCellsQuery = tablesQuery.cells.containing(.staticText, identifier:"Forest of Peyrolles")
         signOut()
         signIn()
         tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Select your area hunt"]/*[[".cells.staticTexts[\"Select your area hunt\"]",".staticTexts[\"Select your area hunt\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
@@ -71,6 +71,7 @@ class SafelyHuntUITests: XCTestCase {
         app.tables/*@START_MENU_TOKEN@*/.staticTexts["Select your area hunt"]/*[[".cells.staticTexts[\"Select your area hunt\"]",".staticTexts[\"Select your area hunt\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         app.navigationBars["Areas List"].buttons["Add"].tap()
         app.navigationBars["Editing area"].buttons["compose"].tap()
+        XCTAssertTrue(app.navigationBars.description == "Draw area with your finger") 
     }
 
     /// Draw radius Alert
@@ -86,9 +87,10 @@ class SafelyHuntUITests: XCTestCase {
         signIn()
         let tablesQuery = app.tables
         tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Select your area hunt"]/*[[".cells.staticTexts[\"Select your area hunt\"]",".staticTexts[\"Select your area hunt\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        tablesQuery/*@START_MENU_TOKEN@*/.cells.containing(.staticText, identifier: "Apple area")/*[[".cells.containing(.staticText, identifier:\"Cupertino\")",".cells.containing(.staticText, identifier:\"Apple area\")"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.element.tap()
+        tablesQuery.cells.containing(.staticText, identifier: "Forest of Peyrolles").element.tap()
         app.navigationBars["Areas List"].buttons["Main"].tap()
         app.buttons["Start monitoring"].tap()
+        XCTAssertTrue(app.maps.element.exists)
     }
 
     /// Test show profil informations

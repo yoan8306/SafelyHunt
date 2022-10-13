@@ -41,9 +41,7 @@ class AreaListViewController: UIViewController {
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
         let mapsStoryboard = UIStoryboard(name: "Maps", bundle: nil)
 
-        guard let mapViewController = mapsStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
-            return
-        }
+        guard let mapViewController = mapsStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {return}
         mapViewController.monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area()))
         mapViewController.mapMode = .editingArea
         mapViewController.modalPresentationStyle = .fullScreen
@@ -118,7 +116,6 @@ extension AreaListViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-
         if editingStyle == .delete {
             askDelete(indexPath: indexPath)
         }
@@ -133,7 +130,12 @@ extension AreaListViewController: UITableViewDelegate {
     /// Ask confirmation before delete area
     /// - Parameter indexPath: index of area selected
     private func askDelete (indexPath: IndexPath) {
-        let alertVC = UIAlertController(title: "Delete area", message: "Are you sure you want delete this area", preferredStyle: .actionSheet)
+        let alertVC = UIAlertController(
+            title: "Delete area",
+            message: "Are you sure you want delete this area",
+            preferredStyle: .actionSheet
+        )
+
         let deletingAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
             self.deleteArea(indexPath)
         }
@@ -162,7 +164,12 @@ extension AreaListViewController: UITableViewDelegate {
                 UserDefaults.standard.set("", forKey: UserDefaultKeys.Keys.areaSelected)
             case.failure(let error):
                 self?.getAreaList()
-                self?.presentAlertError(alertTitle: "Error", alertMessage: error.localizedDescription, buttonTitle: "Dismiss", alertStyle: .cancel)
+                self?.presentAlertError(
+                    alertTitle: "Error",
+                    alertMessage: error.localizedDescription,
+                    buttonTitle: "Dismiss",
+                    alertStyle: .cancel
+                )
             }
         }
     }
@@ -172,9 +179,7 @@ extension AreaListViewController: UITableViewDelegate {
     private func transferToMapViewController(area: Area) {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         let monitoringService = MonitoringServices(monitoring: Monitoring(area: area))
-        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
-            return
-        }
+        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {return}
 
         mapViewController.monitoringServices = monitoringService
         mapViewController.mapMode = .editingArea

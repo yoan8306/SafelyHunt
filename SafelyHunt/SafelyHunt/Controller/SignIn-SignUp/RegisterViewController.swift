@@ -30,11 +30,17 @@ class RegisterViewController: UIViewController {
     @IBAction func registerAction() {
         showActivityIndicator(shown: true)
         if checkPassword() {
-            guard let displayName = pseudonym.text, !displayName.isEmpty, let email = emailAddressTextField.text, !email.isEmpty, let password = passwordTextField.text else {
+            guard let displayName = pseudonym.text,
+                  !displayName.isEmpty,
+                  let email = emailAddressTextField.text,
+                  !email.isEmpty,
+                  let password = passwordTextField.text
+            else {
                 showActivityIndicator(shown: false)
                 presentAlertError(alertMessage: "Complete all field")
                 return
             }
+
             createUser(email, password, displayName)
         }
     }
@@ -46,7 +52,11 @@ class RegisterViewController: UIViewController {
     ///   - password: password new user's
     ///   - displayName: displayname new user's
     private func createUser(_ email: String, _ password: String, _ displayName: String) {
-        UserServices.shared.createUser(email: email, password: password, displayName: displayName) { [weak self] result in
+        UserServices.shared.createUser(
+            email: email,
+            password: password,
+            displayName: displayName
+        ) { [weak self] result in
             switch result {
             case .success(let user):
                 self?.updateDisplayName(displayName: displayName, user: user)
@@ -77,9 +87,8 @@ class RegisterViewController: UIViewController {
     private func goToLoginController(user: User) {
         let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
 
-        guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "Login") as? LoginViewController else {
-            return
-        }
+        guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "Login") as? LoginViewController else {return}
+
         if let userMail = user.email {
             loginViewController.signInMail = userMail
         }
@@ -98,9 +107,8 @@ class RegisterViewController: UIViewController {
     /// Check fields if the same values
     /// - Returns: return true or false if password is good
     private func checkPassword() -> Bool {
-        if passwordTextField.text == confirmPasswordTextField.text {
-            return true
-        }
+        if passwordTextField.text == confirmPasswordTextField.text {return true}
+
         presentAlertError(alertMessage: "Your password is not similar")
         showActivityIndicator(shown: false)
         return false

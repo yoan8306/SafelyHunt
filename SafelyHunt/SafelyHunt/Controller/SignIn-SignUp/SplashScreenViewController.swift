@@ -39,9 +39,8 @@ class SplashScreenViewController: UIViewController {
     private func transferToMainStarter(hunter: Hunter) {
         let mainStarterStoryboard = UIStoryboard(name: "TabbarMain", bundle: nil)
 
-        guard let mainStarterViewController = mainStarterStoryboard.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {
-            return
-        }
+        guard let mainStarterViewController = mainStarterStoryboard.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {return}
+
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarterViewController, animationOption: .transitionCrossDissolve)
     }
 
@@ -49,9 +48,8 @@ class SplashScreenViewController: UIViewController {
     private func transferToLogin() {
         let loginStoryboard = UIStoryboard(name: "Login", bundle: nil)
 
-        guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "LoginNavigation") as? UINavigationController else {
-            return
-        }
+        guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "LoginNavigation") as? UINavigationController else {return}
+
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginViewController, animationOption: .transitionCrossDissolve)
     }
 }

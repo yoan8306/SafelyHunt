@@ -11,7 +11,13 @@ import Firebase
 
 protocol UserServicesProtocol {
     func checkUserLogged(callBack: @escaping (Result<Hunter, Error>) -> Void)
-    func createUser(email: String, password: String, displayName: String, callBack: @escaping (Result<User, Error>) -> Void)
+    func createUser(
+        email: String,
+        password: String,
+        displayName: String,
+        callBack: @escaping (Result<User, Error>) -> Void
+    )
+
     func signInUser(email: String?, password: String?, callBack: @escaping (Result<String, Error>) -> Void)
     func updateProfile(displayName: String, callBack: @escaping (Result<User, Error>) -> Void)
     func deleteAccount(password: String, callBack: @escaping (Result<String, Error>) -> Void)
@@ -93,9 +99,7 @@ class UserServices: UserServicesProtocol {
     ///   - callBack: result of update
     func updateProfile(displayName: String, callBack: @escaping (Result<User, Error>) -> Void) {
         let user = firebaseAuth.currentUser
-        guard let user = user else {
-            return
-        }
+        guard let user = user else {return}
         let changeRequest = user.createProfileChangeRequest()
 
         changeRequest.displayName = displayName
@@ -118,7 +122,7 @@ class UserServices: UserServicesProtocol {
     /// disconnect the current user
     /// - Parameter callBack: return if disconnected is success or not
     func disconnectCurrentUser(callBack: @escaping (Result<String, Error>) -> Void) {
-        try? firebaseAuth.signOut()
+//        try? firebaseAuth.signOut()
 
         do {
             try firebaseAuth.signOut()

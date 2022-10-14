@@ -158,7 +158,8 @@ extension AreaListViewController: UITableViewDelegate {
         AreaServices.shared.removeArea(name: areaName) { [weak self] result in
             switch result {
             case .success(_):
-                self?.getAreaList()
+                self?.listArea.remove(at: indexPath.row)
+                self?.areaListTableView.deleteRows(at: [indexPath], with: .left)
                 self?.presentNativeAlertSuccess(alertMessage: "Area Deleting")
                 UserDefaults.standard.set("", forKey: UserDefaultKeys.Keys.areaSelected)
             case.failure(let error):

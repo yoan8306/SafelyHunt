@@ -59,11 +59,11 @@ class MainStarterViewController: UIViewController {
 
     // MARK: - IBAction
     @IBAction func startMonitoringButton(_ sender: UIButton) {
-        if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" {
+        if area != nil {
             tabBarController?.tabBar.isHidden = true
             presentMapView()
         } else {
-            presentAlertError(alertMessage: "Select an area for start")
+            presentAlertError(alertMessage: "Your area is not loaded go in your area list and try again")
         }
     }
 
@@ -76,7 +76,8 @@ class MainStarterViewController: UIViewController {
             case .success(let area):
                 self?.area = area
             case .failure(_):
-                return
+                guard UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" else {return}
+                self?.presentAlertError(alertMessage: "Check your connection network")
             }
         }
     }

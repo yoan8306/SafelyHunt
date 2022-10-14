@@ -38,7 +38,7 @@ class AreaCellTableViewCell: UITableViewCell {
             } else {
                 dateLabel.text = DateFormatter.localizedString(from: myDate, dateStyle: .medium, timeStyle: .medium)
             }
-        setCheckmarck(cellSelected: cellIsSelected)
+        setLabel(cellSelected: cellIsSelected, numbersDaysIsCreated: numbersDays)
     }
 
     private func numberDayBetween(from start: Date, to end: Date) -> Int {
@@ -50,15 +50,24 @@ class AreaCellTableViewCell: UITableViewCell {
         return numbersDays
     }
 
-    private func setCheckmarck(cellSelected: Bool) {
+    private func setLabel(cellSelected: Bool, numbersDaysIsCreated: Int) {
         accessoryType = cellSelected ? .checkmark : .detailButton
-        tintColor = .label
-        areaNameLabel.font = .boldSystemFont(ofSize: 12)
-        cityLabel.font = .boldSystemFont(ofSize: 12)
-        dateLabel.font = .italicSystemFont(ofSize: 10)
-        dateLabel.textColor = .gray
-        areaNameLabel.textColor = .label
-        cityLabel.textColor = .label
-        dateLabel.textColor = .gray
+        if numbersDaysIsCreated < 2 {
+            let green = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+            tintColor = green
+            dateLabel.textColor = green
+            areaNameLabel.textColor = green
+            cityLabel.textColor = green
+            dateLabel.textColor = green
+        } else {
+            tintColor = .label
+            areaNameLabel.font = .boldSystemFont(ofSize: 12)
+            cityLabel.font = .boldSystemFont(ofSize: 12)
+            dateLabel.font = .italicSystemFont(ofSize: 10)
+            dateLabel.textColor = .gray
+            areaNameLabel.textColor = .label
+            cityLabel.textColor = .label
+            dateLabel.textColor = .gray
+        }
     }
 }

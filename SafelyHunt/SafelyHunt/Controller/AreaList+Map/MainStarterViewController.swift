@@ -34,7 +34,7 @@ class MainStarterViewController: UIViewController {
         getSelectedArea()
         tableView.reloadData()
         insertShimeringInButton()
-        presentIntroduction()
+        presentTutorielIfNeeded()
     }
 
     /// Show message if no area selected
@@ -118,14 +118,15 @@ class MainStarterViewController: UIViewController {
         }
     }
 
-    private func presentIntroduction() {
-        let carouselStoryboard = UIStoryboard(name: "Carousel", bundle: nil)
+    private func presentTutorielIfNeeded() {
+        if !UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.tutorialHasBeenSeen) {
+            let carouselStoryboard = UIStoryboard(name: "Carousel", bundle: nil)
 
-        guard let carouselVC = carouselStoryboard.instantiateViewController(withIdentifier: "CarouselStoryboard") as? CarouselViewController else {
-            return
+            guard let carouselVC = carouselStoryboard.instantiateViewController(withIdentifier: "CarouselStoryboard") as? CarouselViewController else {
+                return
+            }
+            present(carouselVC, animated: true)
         }
-//        carouselVC.modalPresentationStyle = .pageSheet
-        present(carouselVC, animated: true)
     }
 
 }

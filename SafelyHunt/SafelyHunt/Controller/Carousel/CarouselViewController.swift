@@ -24,6 +24,10 @@ class CarouselViewController: UIViewController {
         setUIView()
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        UserDefaults.standard.set(true, forKey: UserDefaultKeys.Keys.tutorialHasBeenSeen)
+    }
+
     @IBAction func backwardButtonAction() {
         if index <= 0 {
             return
@@ -114,4 +118,3 @@ class CarouselViewController: UIViewController {
     }
 
 }
-

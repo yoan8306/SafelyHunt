@@ -17,18 +17,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hHA-x7-vNU">
-                                <rect key="frame" x="20" y="181" width="350" height="553"/>
+                                <rect key="frame" x="20" y="127.33333333333331" width="350" height="606.66666666666674"/>
                                 <gestureRecognizers/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vA-qT-fiE">
-                                <rect key="frame" x="10" y="120.66666666666667" width="370" height="20.333333333333329"/>
+                                <rect key="frame" x="10" y="67" width="370" height="20.333333333333329"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Introduction" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SwV-49-OMG">
-                                <rect key="frame" x="122.66666666666669" y="67" width="145" height="33.666666666666657"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -72,11 +66,9 @@
                         <constraints>
                             <constraint firstItem="1vA-qT-fiE" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="0zz-kt-mYH"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="cxV-uM-btl" secondAttribute="trailing" id="AeW-th-D74"/>
-                            <constraint firstItem="SwV-49-OMG" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="OXE-Nf-ciU"/>
-                            <constraint firstItem="1vA-qT-fiE" firstAttribute="top" secondItem="SwV-49-OMG" secondAttribute="bottom" constant="20" id="Q2R-YS-guV"/>
+                            <constraint firstItem="1vA-qT-fiE" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="FGI-YR-1Rs"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="F58-63-GB5" secondAttribute="bottom" constant="20" id="TAx-lv-Byq"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="1vA-qT-fiE" secondAttribute="trailing" constant="10" id="WVR-qt-N9w"/>
-                            <constraint firstItem="SwV-49-OMG" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="cgd-0j-qRX"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="hHA-x7-vNU" secondAttribute="trailing" constant="20" id="jBq-U9-d86"/>
                             <constraint firstItem="1vA-qT-fiE" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="10" id="mdX-Uo-4dm"/>
                             <constraint firstItem="F58-63-GB5" firstAttribute="top" secondItem="hHA-x7-vNU" secondAttribute="bottom" constant="30" id="oWw-nA-Aa2"/>

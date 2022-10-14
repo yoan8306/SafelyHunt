@@ -34,6 +34,7 @@ class MainStarterViewController: UIViewController {
         getSelectedArea()
         tableView.reloadData()
         insertShimeringInButton()
+        presentTutorielIfNeeded()
     }
 
     /// Show message if no area selected
@@ -124,6 +125,18 @@ class MainStarterViewController: UIViewController {
             startMonitoringButton.titleLabel?.stopShimmering()
         }
     }
+
+    private func presentTutorielIfNeeded() {
+        if !UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.tutorialHasBeenSeen) {
+            let carouselStoryboard = UIStoryboard(name: "Carousel", bundle: nil)
+
+            guard let carouselVC = carouselStoryboard.instantiateViewController(withIdentifier: "CarouselStoryboard") as? CarouselViewController else {
+                return
+            }
+            present(carouselVC, animated: true)
+        }
+    }
+
 }
 
 // MARK: - TableView DataSource

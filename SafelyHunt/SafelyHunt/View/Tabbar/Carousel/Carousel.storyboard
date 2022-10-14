@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Carousel View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="CarouselStoryboard" id="Y6W-OH-hqX" customClass="CarouselViewController" customModule="SafelyHunt" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hHA-x7-vNU">
+                                <rect key="frame" x="20" y="127.33333333333331" width="350" height="606.66666666666674"/>
+                                <gestureRecognizers/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vA-qT-fiE">
+                                <rect key="frame" x="10" y="67" width="370" height="20.333333333333329"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cxV-uM-btl">
+                                <rect key="frame" x="0.0" y="47" width="390" height="717"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="F58-63-GB5">
+                                <rect key="frame" x="102.33333333333333" y="764" width="185.66666666666669" height="26"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7nR-fn-JJn">
+                                        <rect key="frame" x="0.0" y="0.0" width="25" height="26"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="backward.end.fill" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backwardButtonAction" destination="Y6W-OH-hqX" eventType="touchUpInside" id="UgT-j2-1ea"/>
+                                        </connections>
+                                    </button>
+                                    <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="tYq-bK-udW">
+                                        <rect key="frame" x="35.000000000000007" y="0.0" width="115.66666666666669" height="26"/>
+                                    </pageControl>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJR-Jh-7vu">
+                                        <rect key="frame" x="160.66666666666669" y="0.0" width="25" height="26"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="forward.end.fill" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="forwardButtonAction" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Gz3-fU-Zan"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="1vA-qT-fiE" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="0zz-kt-mYH"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="cxV-uM-btl" secondAttribute="trailing" id="AeW-th-D74"/>
+                            <constraint firstItem="1vA-qT-fiE" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="FGI-YR-1Rs"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="F58-63-GB5" secondAttribute="bottom" constant="20" id="TAx-lv-Byq"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="1vA-qT-fiE" secondAttribute="trailing" constant="10" id="WVR-qt-N9w"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="hHA-x7-vNU" secondAttribute="trailing" constant="20" id="jBq-U9-d86"/>
+                            <constraint firstItem="1vA-qT-fiE" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="10" id="mdX-Uo-4dm"/>
+                            <constraint firstItem="F58-63-GB5" firstAttribute="top" secondItem="hHA-x7-vNU" secondAttribute="bottom" constant="30" id="oWw-nA-Aa2"/>
+                            <constraint firstItem="F58-63-GB5" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="odT-QU-gZV"/>
+                            <constraint firstItem="hHA-x7-vNU" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="pcJ-Gk-nVy"/>
+                            <constraint firstItem="cxV-uM-btl" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="sZv-bd-aog"/>
+                            <constraint firstItem="cxV-uM-btl" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="uld-t0-v72"/>
+                            <constraint firstItem="F58-63-GB5" firstAttribute="top" secondItem="cxV-uM-btl" secondAttribute="bottom" id="vbV-7L-zwK"/>
+                            <constraint firstItem="hHA-x7-vNU" firstAttribute="top" secondItem="1vA-qT-fiE" secondAttribute="bottom" constant="40" id="yeh-5R-9za"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backwardButton" destination="7nR-fn-JJn" id="YIw-6b-Dup"/>
+                        <outlet property="descriptionLabel" destination="1vA-qT-fiE" id="3gT-dD-P0y"/>
+                        <outlet property="forwardButton" destination="rJR-Jh-7vu" id="eEB-XA-eb6"/>
+                        <outlet property="imageTuto" destination="hHA-x7-vNU" id="Y9e-Q3-wqo"/>
+                        <outlet property="pagesControl" destination="tYq-bK-udW" id="vtL-EH-VwV"/>
+                        <outlet property="uiIViewSwipe" destination="cxV-uM-btl" id="Oen-10-WTu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="120" y="-7.1090047393364921"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="backward.end.fill" catalog="system" width="128" height="101"/>
+        <image name="forward.end.fill" catalog="system" width="128" height="101"/>
+    </resources>
+</document>

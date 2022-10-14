@@ -52,6 +52,8 @@ extension SettingsViewController: UITableViewDelegate {
         case 1:
             openSettingApp()
         case 2:
+            presentTutorial()
+        case 3:
             transferToAccountSetting()
         default:
             break
@@ -73,6 +75,15 @@ extension SettingsViewController: UITableViewDelegate {
 
         accountSettingViewController.navigationItem.title = "Account"
         navigationController?.pushViewController(accountSettingViewController, animated: true)
+    }
+
+    private func presentTutorial() {
+        let carouselStoryboard = UIStoryboard(name: "Carousel", bundle: nil)
+
+        guard let carouselVC = carouselStoryboard.instantiateViewController(withIdentifier: "CarouselStoryboard") as? CarouselViewController else {
+            return
+        }
+        present(carouselVC, animated: true)
     }
 
     /// Open setting application

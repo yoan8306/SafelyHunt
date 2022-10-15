@@ -61,13 +61,13 @@ class AreaCellTableViewCell: UITableViewCell {
             dateLabel.textColor = green
         } else {
             tintColor = .label
-            areaNameLabel.font = .boldSystemFont(ofSize: 12)
-            cityLabel.font = .boldSystemFont(ofSize: 12)
-            dateLabel.font = .italicSystemFont(ofSize: 10)
             dateLabel.textColor = .gray
             areaNameLabel.textColor = .label
             cityLabel.textColor = .label
             dateLabel.textColor = .gray
         }
+        areaNameLabel.font = .boldSystemFont(ofSize: 12)
+        cityLabel.font = .boldSystemFont(ofSize: 12)
+        dateLabel.font = .italicSystemFont(ofSize: 10)
     }
 }

@@ -55,7 +55,6 @@ class MainStarterViewController: UIViewController {
 
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         setButton()
-
     }
 
     // MARK: - IBAction
@@ -126,6 +125,7 @@ class MainStarterViewController: UIViewController {
         }
     }
 
+    /// Present carousel tutorial
     private func presentTutorielIfNeeded() {
         if !UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.tutorialHasBeenSeen) {
             let carouselStoryboard = UIStoryboard(name: "Carousel", bundle: nil)
@@ -136,7 +136,6 @@ class MainStarterViewController: UIViewController {
             present(carouselVC, animated: true)
         }
     }
-
 }
 
 // MARK: - TableView DataSource

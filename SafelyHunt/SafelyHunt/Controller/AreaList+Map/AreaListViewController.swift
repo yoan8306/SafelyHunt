@@ -162,6 +162,7 @@ extension AreaListViewController: UITableViewDelegate {
                 self?.areaListTableView.deleteRows(at: [indexPath], with: .left)
                 self?.presentNativeAlertSuccess(alertMessage: "Area Deleting")
                 UserDefaults.standard.set("", forKey: UserDefaultKeys.Keys.areaSelected)
+                self?.initializeBackgroundTableView()
             case.failure(let error):
                 self?.getAreaList()
                 self?.presentAlertError(

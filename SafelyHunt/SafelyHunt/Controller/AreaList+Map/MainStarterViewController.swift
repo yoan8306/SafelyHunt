@@ -109,7 +109,7 @@ class MainStarterViewController: UIViewController {
         startMonitoringButton.isEnabled = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != ""
         guard startMonitoringButton.isEnabled else {
             startMonitoringButton.backgroundColor = .lightGray
-            startMonitoringButton.backgroundColor = .darkGray
+            startMonitoringButton.setTitleColor(.darkGray, for: .disabled)
             return
         }
 

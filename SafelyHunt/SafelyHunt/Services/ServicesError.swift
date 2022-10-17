@@ -8,7 +8,16 @@
 import Foundation
 
 enum ServicesError: Error {
-    case createAccountError, emailAlreadyExist, signIn, resetPassword, noAreaRecordedFound, errorDeletingArea, errorTask, listUsersPositions, deleteAccountError, disconnected, distanceTraveled
+    case createAccountError,
+         emailAlreadyExist,
+         signIn,
+         noAreaRecordedFound,
+         errorDeletingArea,
+         errorTask,
+         listUsersPositions,
+         deleteAccountError,
+         disconnected,
+         distanceTraveled
 }
 
 extension ServicesError: LocalizedError {
@@ -22,9 +31,6 @@ extension ServicesError: LocalizedError {
 
         case .signIn:
             return "Authentification failed"
-
-        case .resetPassword:
-            return "Error during reset your password"
 
         case .noAreaRecordedFound:
             return "You doesn't have an area recorded. Click on + for add your first area"

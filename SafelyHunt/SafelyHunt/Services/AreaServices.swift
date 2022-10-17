@@ -86,15 +86,12 @@ class AreaServices: AreaServicesProtocol {
                 let date = list?["date"]
                 let city = list?["city"]
                 let foldercoordinate = dataArea.childSnapshot(forPath: "coordinate").children.allObjects as? [DataSnapshot]
-                guard let foldercoordinate = foldercoordinate else {
-                    return
-                }
+
+                guard let foldercoordinate = foldercoordinate else {return}
 
                 let coordinateArea = self.createCoordinate(data: foldercoordinate)
 
-                guard let name = name as? String, let date = date as? String else {
-                    return
-                }
+                guard let name = name as? String, let date = date as? String else {return}
 
                 let area = Area()
                 area.name = name
@@ -120,7 +117,13 @@ class AreaServices: AreaServicesProtocol {
             return
         }
 
-        let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list").child(nameArea).child("coordinate")
+        let databaseArea = database
+            .child("Database")
+            .child("users_list")
+            .child(user.uid)
+            .child("area_list")
+            .child(nameArea)
+            .child("coordinate")
 
         databaseArea.getData { error, dataSnapshot in
             guard error == nil, let dataSnapshot = dataSnapshot else {

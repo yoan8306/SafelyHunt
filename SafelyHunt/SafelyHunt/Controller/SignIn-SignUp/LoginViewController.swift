@@ -59,9 +59,8 @@ class LoginViewController: UIViewController {
     /// if user sign in transfert to mainStarterController
     private func transferToMainStarter() {
         let tabBarMain = UIStoryboard(name: "TabbarMain", bundle: nil)
-        guard let mainStarter = tabBarMain.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {
-            return
-        }
+        guard let mainStarter = tabBarMain.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {return}
+
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarter, animationOption: .transitionFlipFromRight)
     }
 

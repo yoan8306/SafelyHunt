@@ -49,11 +49,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ///   - vc: ViewController
     ///   - animated: if transition is animated or not
     ///   - animationOption: select animation option
-    func changeRootViewController(_ vc: UIViewController, animationOption: UIView.AnimationOptions) {
+    func changeRootViewController(_ viewController: UIViewController, animationOption: UIView.AnimationOptions) {
         guard let window = window else {
             return
         }
-        window.rootViewController = vc
+        window.rootViewController = viewController
 
         UIView.transition(with: window,
                           duration: 0.5,

@@ -52,7 +52,11 @@ final class TestMonitoringServices: XCTestCase {
             fatalError()
         }
 
-        let huntersInRadiusAlert = monitoringServices.addHuntersIntoList(huntersList: hunters, actualPostion: actualPostion, radiusAlert: 300)
+        let huntersInRadiusAlert = monitoringServices.addHuntersIntoList(
+            huntersList: hunters,
+            actualPostion: actualPostion,
+            radiusAlert: 300
+        )
 
         XCTAssertTrue(huntersInRadiusAlert.count == hunters.count)
     }
@@ -64,35 +68,47 @@ final class TestMonitoringServices: XCTestCase {
         hunterOne.longitude = 200.02957434
         hunterOne.latitude = 17.33070248
         hunterOne.date = Date().dateToTimeStamp()
-
+        
         let hunterTwo = Hunter()
         hunterTwo.displayName = "yoan8306"
         hunterTwo.longitude = -122.0312186
         hunterTwo.latitude = 37.33233141
         hunterTwo.date = Date().dateToTimeStamp()
-
+        
         let hunterThree = Hunter()
         hunterThree.displayName = "yoyo"
         hunterThree.latitude = 37.33233141
         hunterThree.longitude = -122.0312186
         hunterThree.date = Date().dateToTimeStamp()
-
+        
         hunters.append(hunterOne)
         hunters.append(hunterTwo)
         hunters.append(hunterThree)
-
+        
         let latitudeUser = 37.33233141
         let longitudeUser = -122.0312186
         monitoringServices.monitoring.hunter?.latitude = latitudeUser
         monitoringServices.monitoring.hunter?.longitude = longitudeUser
-
+        
         guard let actualPosition = monitoringServices.monitoring.hunter?.actualPostion else {
             fatalError()
         }
-
-        let huntersInRadiusAlert = monitoringServices.addHuntersIntoList(huntersList: hunters, actualPostion: actualPosition, radiusAlert: 300)
-
+        
+        let huntersInRadiusAlert = monitoringServices.addHuntersIntoList(
+            huntersList: hunters,
+            actualPostion: actualPosition,
+            radiusAlert: 300
+        )
+        
         XCTAssertTrue(2 == huntersInRadiusAlert.count)
+        XCTAssertTrue(huntersInRadiusAlert.contains { hunter in
+            hunter.displayName == hunterTwo.displayName
+        }
+        )
+        XCTAssertTrue(huntersInRadiusAlert.contains { hunter in
+            hunter.displayName == hunterThree.displayName
+        }
+)
     }
 
     /// 3hunters inside area but one hunter they are no date updated
@@ -127,9 +143,19 @@ final class TestMonitoringServices: XCTestCase {
             fatalError()
         }
 
-        let huntersInRadiusAlert = monitoringServices.addHuntersIntoList(huntersList: hunters, actualPostion: actualPostion, radiusAlert: 300)
+        let huntersInRadiusAlert = monitoringServices.addHuntersIntoList(
+            huntersList: hunters,
+            actualPostion: actualPostion,
+            radiusAlert: 300
+        )
 
         XCTAssertTrue(huntersInRadiusAlert.count == hunters.count-1)
+        XCTAssertTrue(huntersInRadiusAlert.contains(where: { hunter in
+            hunter.displayName == hunterThree.displayName
+        }))
+        XCTAssertTrue(huntersInRadiusAlert.contains(where: { hunter in
+            hunter.displayName == hunterOne.displayName
+        }))
     }
 
     /// Test radius alert if no hunters
@@ -143,7 +169,11 @@ final class TestMonitoringServices: XCTestCase {
             fatalError()
         }
 
-        let huntersInRadiusAlert = monitoringServices.addHuntersIntoList(huntersList: hunters, actualPostion: actualPostion, radiusAlert: 300)
+        let huntersInRadiusAlert = monitoringServices.addHuntersIntoList(
+            huntersList: hunters,
+            actualPostion: actualPostion,
+            radiusAlert: 300
+        )
 
         XCTAssertTrue(huntersInRadiusAlert.count == 0)
     }
@@ -159,6 +189,7 @@ final class TestMonitoringServices: XCTestCase {
         guard let actualPostion = monitoringServices.monitoring.hunter?.actualPostion else {
             fatalError()
         }
+
         XCTAssertTrue(monitoringServices.checkUserIsAlwayInArea(positionUser: actualPostion.coordinate))
     }
 
@@ -179,7 +210,6 @@ final class TestMonitoringServices: XCTestCase {
     /// Create are with coordinate
     /// - Returns: Area
     private func createArea() -> Area {
-
         let area = Area()
         var coordinate: [CLLocationCoordinate2D] = []
         coordinate.append(CLLocationCoordinate2D(latitude: 37.32428915137889, longitude: -122.06397669446443))

@@ -63,9 +63,7 @@ extension SettingsViewController: UITableViewDelegate {
     /// Open ProfileController
     private func transferToProfile() {
         let profileStoryboard = UIStoryboard(name: "Profile", bundle: nil)
-        guard let profileViewController = profileStoryboard.instantiateViewController(withIdentifier: "Profile") as? ProfileViewController else {
-            return
-        }
+        guard let profileViewController = profileStoryboard.instantiateViewController(withIdentifier: "Profile") as? ProfileViewController else {return}
         profileViewController.navigationItem.title = "Profile"
         navigationController?.pushViewController(profileViewController, animated: true)
     }
@@ -73,9 +71,8 @@ extension SettingsViewController: UITableViewDelegate {
     /// Open AccountSettingController
     private func transferToAccountSetting() {
         let accountSettingStoryboard = UIStoryboard(name: "AccountSettings", bundle: nil)
-        guard let accountSettingViewController = accountSettingStoryboard.instantiateViewController(withIdentifier: "AccountSettings") as? AccountSettingsViewController else {
-            return
-        }
+        guard let accountSettingViewController = accountSettingStoryboard.instantiateViewController(withIdentifier: "AccountSettings") as? AccountSettingsViewController else {return}
+
         accountSettingViewController.navigationItem.title = "Account"
         navigationController?.pushViewController(accountSettingViewController, animated: true)
     }
@@ -91,9 +88,8 @@ extension SettingsViewController: UITableViewDelegate {
 
     /// Open setting application
     private func openSettingApp() {
-        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-          return
-        }
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {return}
+
         if UIApplication.shared.canOpenURL(settingsUrl) {
             UIApplication.shared.open(settingsUrl, completionHandler: nil)
         }

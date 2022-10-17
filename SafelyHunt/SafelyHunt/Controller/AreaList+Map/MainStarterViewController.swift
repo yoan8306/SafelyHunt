@@ -49,13 +49,21 @@ class MainStarterViewController: UIViewController {
         startMonitoringButton.titleLabel?.stopShimmering()
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        setButton()
+    }
+
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        setButton()
+    }
+
     // MARK: - IBAction
     @IBAction func startMonitoringButton(_ sender: UIButton) {
-        if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" {
+        if area != nil {
             tabBarController?.tabBar.isHidden = true
             presentMapView()
         } else {
-            presentAlertError(alertMessage: "Select an area for start")
+            presentAlertError(alertMessage: "Your area is not loaded go in your area list and try again")
         }
     }
 
@@ -68,7 +76,8 @@ class MainStarterViewController: UIViewController {
             case .success(let area):
                 self?.area = area
             case .failure(_):
-                return
+                guard UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" else {return}
+                self?.presentAlertError(alertMessage: "Check your connection network")
             }
         }
     }
@@ -83,9 +92,7 @@ class MainStarterViewController: UIViewController {
     /// Transferr to MapViewController with monitoring object
     private func presentMapView() {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
-        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController, let area = area else {
-            return
-        }
+        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController, let area = area else {return}
 
         let monitoringService: MonitoringServicesProtocol = MonitoringServices(monitoring: Monitoring(area: area, hunter: hunter))
 
@@ -99,13 +106,13 @@ class MainStarterViewController: UIViewController {
     /// Set button design
     private func setButton() {
         startMonitoringButton.layer.cornerRadius = startMonitoringButton.frame.height/2
-        startMonitoringButton.setTitleColor(.label, for: .normal)
         startMonitoringButton.isEnabled = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != ""
-        if startMonitoringButton.isEnabled {
-            startMonitoringButton.backgroundColor = .tertiarySystemFill
+        if self.traitCollection.userInterfaceStyle == .dark {
+            startMonitoringButton.backgroundColor = .white
+            startMonitoringButton.setTitleColor(.black, for: .normal)
         } else {
-            startMonitoringButton.backgroundColor = .lightGray
-            startMonitoringButton.setTitleColor(.darkGray, for: .disabled)
+            startMonitoringButton.backgroundColor = .black
+            startMonitoringButton.setTitleColor(.white, for: .normal)
         }
     }
 
@@ -118,6 +125,7 @@ class MainStarterViewController: UIViewController {
         }
     }
 
+    /// Present carousel tutorial
     private func presentTutorielIfNeeded() {
         if !UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.tutorialHasBeenSeen) {
             let carouselStoryboard = UIStoryboard(name: "Carousel", bundle: nil)
@@ -128,7 +136,6 @@ class MainStarterViewController: UIViewController {
             present(carouselVC, animated: true)
         }
     }
-
 }
 
 // MARK: - TableView DataSource
@@ -194,9 +201,7 @@ extension MainStarterViewController: UITableViewDelegate {
     private func transferToAreaListViewController() {
         let areaListStoryboard = UIStoryboard(name: "AreasList", bundle: nil)
 
-        guard let areaListViewController = areaListStoryboard.instantiateViewController(withIdentifier: "AreasList") as? AreaListViewController else {
-            return
-        }
+        guard let areaListViewController = areaListStoryboard.instantiateViewController(withIdentifier: "AreasList") as? AreaListViewController else {return}
 
         areaListViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(areaListViewController, animated: true)
@@ -205,9 +210,7 @@ extension MainStarterViewController: UITableViewDelegate {
     /// Transfert for set radius alert in MapViewController
     private func transferToMapForSetRadiusAlert() {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
-        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
-            return
-        }
+        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {return}
         let monitoringService = MonitoringServices(monitoring: Monitoring(area: Area()))
         mapViewController.monitoringServices = monitoringService
         mapViewController.mapMode = .editingRadius

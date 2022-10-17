@@ -10,12 +10,18 @@ import UIKit
 
 extension UIView {
     func startShimmering() {
-        let light = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1).cgColor
-        let dark = UIColor.black.cgColor
+//        let dark = UIColor(red: 0, green: 0, blue: 0, alpha: 0.90)
+        let alpha = UIColor.white.withAlphaComponent(0.7).cgColor
+        let light = UIColor.white.cgColor
 
         let gradient: CAGradientLayer = CAGradientLayer()
-        gradient.colors = [dark, light, dark]
-        gradient.frame = CGRect(x: -self.bounds.size.width, y: 0, width: 3*self.bounds.size.width, height: self.bounds.size.height)
+        gradient.colors = [alpha, light, alpha]
+        gradient.frame = CGRect(
+            x: -self.bounds.size.width,
+            y: 0, width: 3*self.bounds.size.width,
+            height: self.bounds.size.height
+        )
+
         gradient.startPoint = CGPoint(x: 0.0, y: 0.525)
         gradient.endPoint = CGPoint(x: 1.0, y: 0.525)
         gradient.locations = [0.4, 0.5, 0.6]
@@ -25,7 +31,7 @@ extension UIView {
         animation.fromValue = [0.0, 0.1, 0.2]
         animation.toValue = [0.8, 0.9, 1.0]
 
-        animation.duration = 5
+        animation.duration = 2.8
         animation.repeatCount = HUGE
         gradient.add(animation, forKey: "shimmer")
     }

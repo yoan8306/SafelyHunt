@@ -41,9 +41,7 @@ class AreaListViewController: UIViewController {
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
         let mapsStoryboard = UIStoryboard(name: "Maps", bundle: nil)
 
-        guard let mapViewController = mapsStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
-            return
-        }
+        guard let mapViewController = mapsStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {return}
         mapViewController.monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area()))
         mapViewController.mapMode = .editingArea
         mapViewController.modalPresentationStyle = .fullScreen
@@ -60,7 +58,6 @@ class AreaListViewController: UIViewController {
                 self?.listArea = listArea
                 self?.areaListTableView.reloadData()
                 self?.refreshControl.endRefreshing()
-
                 self?.initializeBackgroundTableView()
 
             case .failure(let error):
@@ -72,8 +69,14 @@ class AreaListViewController: UIViewController {
 
     /// set background if user's list is empty
     private func initializeBackgroundTableView() {
+        var backgroundImage = UIImage(named: "Military_Outline-Black")
         if listArea.count == 0 {
-            let backgroundImage = UIImage(named: "listVoid")
+            if self.traitCollection.userInterfaceStyle == .dark {
+                backgroundImage = UIImage(named: "Military_Outline-White")
+            } else {
+                backgroundImage = UIImage(named: "Military_Outline-Black")
+            }
+
             let image = UIImageView(image: backgroundImage)
             image.contentMode = .scaleAspectFit
             areaListTableView.backgroundView = image
@@ -90,20 +93,14 @@ extension AreaListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cellSelected = false
         let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
+        let cellIsSelected = areaSelected == listArea[indexPath.row].name
 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? AreaCellTableViewCell else {
             return UITableViewCell()
         }
-            if areaSelected == listArea[indexPath.row].name {
-                cellSelected = true
-            } else {
-                cellSelected = false
-            }
 
-        cell.configureCell(infoArea: listArea[indexPath.row], cellSelected: cellSelected)
-
+        cell.configureCell(infoArea: listArea[indexPath.row], cellIsSelected: cellIsSelected)
         return cell
     }
 }
@@ -118,7 +115,6 @@ extension AreaListViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-
         if editingStyle == .delete {
             askDelete(indexPath: indexPath)
         }
@@ -133,7 +129,12 @@ extension AreaListViewController: UITableViewDelegate {
     /// Ask confirmation before delete area
     /// - Parameter indexPath: index of area selected
     private func askDelete (indexPath: IndexPath) {
-        let alertVC = UIAlertController(title: "Delete area", message: "Are you sure you want delete this area", preferredStyle: .actionSheet)
+        let alertVC = UIAlertController(
+            title: "Delete area",
+            message: "Are you sure you want delete this area",
+            preferredStyle: .actionSheet
+        )
+
         let deletingAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
             self.deleteArea(indexPath)
         }
@@ -157,12 +158,19 @@ extension AreaListViewController: UITableViewDelegate {
         AreaServices.shared.removeArea(name: areaName) { [weak self] result in
             switch result {
             case .success(_):
-                self?.getAreaList()
+                self?.listArea.remove(at: indexPath.row)
+                self?.areaListTableView.deleteRows(at: [indexPath], with: .left)
                 self?.presentNativeAlertSuccess(alertMessage: "Area Deleting")
                 UserDefaults.standard.set("", forKey: UserDefaultKeys.Keys.areaSelected)
+                self?.initializeBackgroundTableView()
             case.failure(let error):
                 self?.getAreaList()
-                self?.presentAlertError(alertTitle: "Error", alertMessage: error.localizedDescription, buttonTitle: "Dismiss", alertStyle: .cancel)
+                self?.presentAlertError(
+                    alertTitle: "Error",
+                    alertMessage: error.localizedDescription,
+                    buttonTitle: "Dismiss",
+                    alertStyle: .cancel
+                )
             }
         }
     }
@@ -172,9 +180,7 @@ extension AreaListViewController: UITableViewDelegate {
     private func transferToMapViewController(area: Area) {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         let monitoringService = MonitoringServices(monitoring: Monitoring(area: area))
-        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {
-            return
-        }
+        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {return}
 
         mapViewController.monitoringServices = monitoringService
         mapViewController.mapMode = .editingArea

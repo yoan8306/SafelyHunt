@@ -47,7 +47,12 @@ class MonitoringServices: MonitoringServicesProtocol {
         getPositionUsers { result in
             switch result {
             case .success(let hunters):
-                callback(.success( self.addHuntersIntoList(huntersList: hunters, actualPostion: actualPosition, radiusAlert: UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert))))
+                callback(.success( self.addHuntersIntoList(
+                    huntersList: hunters,
+                    actualPostion: actualPosition,
+                    radiusAlert: UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert)
+                )
+                ))
             case .failure(let error):
                 callback(.failure(error))
             }
@@ -78,8 +83,15 @@ class MonitoringServices: MonitoringServicesProtocol {
                 return
             case .success(let distanceTraveled):
                 let newDistanceTraveled = distance + distanceTraveled
-                self?.database.child("Database").child("users_list").child(user.uid).child("distance_traveled").setValue([
-                    "Total_distance": newDistanceTraveled])
+                self?.database
+                    .child("Database")
+                    .child("users_list")
+                    .child(user.uid)
+                    .child("distance_traveled").setValue(
+                        [
+                            "Total_distance": newDistanceTraveled
+                        ]
+                    )
                 self?.monitoring.currentDistance = 0
                 self?.monitoring.currentTravel = []
                 self?.monitoring.lastLocation = nil
@@ -96,11 +108,19 @@ class MonitoringServices: MonitoringServicesProtocol {
         guard let user = firebaseAuth.currentUser else {
             return
         }
-        database.child("Database").child("users_list").child(user.uid).child("distance_traveled").child("Total_distance").getData { error, dataSnapshot in
+        database
+            .child("Database")
+            .child("users_list")
+            .child(user.uid)
+            .child("distance_traveled")
+            .child("Total_distance")
+            .getData { error, dataSnapshot in
+
             guard error == nil, let dataSnapshot = dataSnapshot else {
                 callBack(.failure(error ?? ServicesError.distanceTraveled))
                 return
             }
+
             let distance = dataSnapshot.value as? Double
             callBack(.success(distance ?? 0.0))
         }
@@ -173,15 +193,19 @@ class MonitoringServices: MonitoringServicesProtocol {
     ///   - userPosition: position user
     ///   - user: current user
     ///   - date: date of insert position
-     func insertMyPosition() {
-         guard let user = firebaseAuth.currentUser, let latitude = monitoring.hunter?.latitude, let longitude = monitoring.hunter?.longitude else {
-             return
-         }
-        database.child("Database").child("position_user").child(user.uid).setValue([
-            "name": user.displayName ?? "no name",
-            "date": String(Int(Date().timeIntervalSince1970)),
-            "latitude": latitude,
-            "longitude": longitude
-        ])
+    func insertMyPosition() {
+        guard let user = firebaseAuth.currentUser,
+              let latitude = monitoring.hunter?.latitude,
+              let longitude = monitoring.hunter?.longitude
+        else {return}
+
+        database.child("Database").child("position_user").child(user.uid).setValue(
+            [
+                "name": user.displayName ?? "no name",
+                "date": String(Int(Date().timeIntervalSince1970)),
+                "latitude": latitude,
+                "longitude": longitude
+            ]
+        )
     }
 }

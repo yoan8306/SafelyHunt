@@ -98,10 +98,23 @@ class CarouselViewController: UIViewController {
         let image0 = UIImage(named: "page1")
         let image1 = UIImage(named: "page2")
         let image2 = UIImage(named: "page3")
-        let image3 = UIImage(named: "GiveNameArea")
-        let image4 = UIImage(named: "AreaList")
-        let image5 = UIImage(named: "SetYourRadius")
-        guard let image0, let image1, let image2, let image3, let image4, let image5 else {return [] }
+        let image3 = UIImage(named: "page4")
+        let image4 = UIImage(named: "page5")
+        let image5 = UIImage(named: "page6")
+        let image6 = UIImage(named: "page7")
+        let image7 = UIImage(named: "page8")
+        let image8 = UIImage(named: "page9")
+
+        guard let image0,
+              let image1,
+              let image2,
+              let image3,
+              let image4,
+              let image5,
+              let image6,
+              let image7,
+              let image8
+        else {return []}
 
         collectionImages.append(image0)
         collectionImages.append(image1)
@@ -109,6 +122,9 @@ class CarouselViewController: UIViewController {
         collectionImages.append(image3)
         collectionImages.append(image4)
         collectionImages.append(image5)
+        collectionImages.append(image6)
+        collectionImages.append(image7)
+        collectionImages.append(image8)
         return collectionImages
     }
 
@@ -118,19 +134,33 @@ class CarouselViewController: UIViewController {
     private func getDescription(page: Int) -> String {
         switch page {
         case 0:
-            return "Hello, for start click on select your area for create an area or select an area created"
+            return "Hello, \nFor start click on \"Select your area\" for create an area or select an area created"
+
         case 1:
             return "For create a new area click on \"+\". "
+
         case 2:
-            return "Position your map where you want create area and click on button in corner right for draw your area with your finger"
+            return "Position your map and click on button for draw your area with your finger"
+
         case 3:
             return "Give a new name at your area"
+
         case 4:
-            return "Select your area"
+            return "Go back and select your area"
+
         case 5:
-            return "If another user is near of you, you are alerted"
+            return "You can be alerted if someone is near you. To do this, set the distance where you want to receive the alert by clicking on \"Set your radius alert\""
+        case 6:
+            return "Set the distance with slider"
+
+        case 7:
+            return "Your are ready! \nYou can click \"Start Monitoring\""
+
+        case 8:
+            return "You can reduce application. You will receive an alert if you exit your area or if another user is near you. \nYou can show again this tutorial in your setting. Enjoy !"
+
         default:
-            return "Welcome"
+            return ""
         }
     }
 }

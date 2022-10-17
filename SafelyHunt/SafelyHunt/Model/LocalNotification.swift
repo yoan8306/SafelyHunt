@@ -15,31 +15,39 @@ class LocalNotification {
     let notification = UNMutableNotificationContent()
     var alertSong: AVAudioPlayer?
 
+    /// Initialize notification
     func notificationInitialize() {
-        prepareMyAlert()
-        notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { (_, _) in
+        prepareAlert()
+        notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) {(_, _) in
         }
     }
 
+    /// send notification
     func sendNotification() {
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
-        let notificationRequest = UNNotificationRequest(identifier:
-                                                            UUID().uuidString, content: notification, trigger: trigger)
+        let notificationRequest = UNNotificationRequest(
+            identifier: UUID().uuidString,
+            content: notification,
+            trigger: trigger
+        )
+
         notificationCenter.add(notificationRequest)
         UIApplication.shared.applicationIconBadgeNumber += 1
         playAlert()
     }
 
-    private func prepareMyAlert() {
-        let notificationSound = UNNotificationSoundName.init(rawValue: "scanning-alarm.mp3")
+    /// initiatilaze info into notification
+    private func prepareAlert() {
+        let notificationSound = UNNotificationSoundName.init(rawValue: "orchestralEmergency.caf")
         notification.title = "Attention !!!"
         notification.body = "Required your attention"
         notification.categoryIdentifier = "StopMonitoring.category"
         notification.sound = UNNotificationSound(named: notificationSound)
     }
 
+    /// play custom song notification
     private func playAlert() {
-        let path = Bundle.main.path(forResource: "scanning-alarm.mp3", ofType: nil)!
+        let path = Bundle.main.path(forResource: "orchestralEmergency.caf", ofType: nil)!
         let url = URL(fileURLWithPath: path)
 
         do {

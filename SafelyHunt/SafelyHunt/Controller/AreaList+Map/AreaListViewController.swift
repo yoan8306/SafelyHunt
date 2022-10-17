@@ -24,6 +24,8 @@ class AreaListViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
         areaListTableView.addSubview(refreshControl)
+//        areaListTableView.allowsMultipleSelectionDuringEditing = true
+//        areaListTableView.setEditing(true, animated: true)
         initializeBackgroundTableView()
     }
 
@@ -100,7 +102,7 @@ extension AreaListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.configureCell(infoArea: listArea[indexPath.row], cellIsSelected: cellIsSelected)
+        cell.configureCell(area: listArea[indexPath.row], cellIsSelected: cellIsSelected)
         return cell
     }
 }
@@ -109,9 +111,9 @@ extension AreaListViewController: UITableViewDataSource {
 extension AreaListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    UserDefaults.standard.set(listArea[indexPath.row].name, forKey: UserDefaultKeys.Keys.areaSelected)
-    tableView.deselectRow(at: indexPath, animated: false)
-    tableView.reloadData()
+        UserDefaults.standard.set(listArea[indexPath.row].name, forKey: UserDefaultKeys.Keys.areaSelected)
+        tableView.deselectRow(at: indexPath, animated: false)
+        tableView.reloadData()
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

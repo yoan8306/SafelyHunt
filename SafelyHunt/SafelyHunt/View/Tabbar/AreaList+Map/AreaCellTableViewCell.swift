@@ -9,28 +9,34 @@ import UIKit
 
 class AreaCellTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var checkmarkImage: UIImageView!
     @IBOutlet weak var areaNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
+    /// insert accessory type
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        accessoryType = .detailButton
     }
 
-    func configureCell(infoArea: Area, cellIsSelected: Bool) {
-        areaNameLabel.text = infoArea.name
-        cityLabel.text = infoArea.city
+    /// configure cell
+    /// - Parameters:
+    ///   - area: area at index
+    ///   - cellIsSelected: cell selected by user
+    func configureCell(area: Area, cellIsSelected: Bool) {
+        areaNameLabel.text = area.name
+        cityLabel.text = area.city
 
-        guard let double = Double(infoArea.date ?? "0") else {
+        guard let timeStampe = Double(area.date ?? "0") else {
                 return
             }
 
-            let myDate = Date(timeIntervalSince1970: TimeInterval(double))
+            let myDate = Date(timeIntervalSince1970: TimeInterval(timeStampe))
             let numbersDays = numberDayBetween(from: myDate, to: Date())
 
             if numbersDays < 20 {
@@ -38,9 +44,14 @@ class AreaCellTableViewCell: UITableViewCell {
             } else {
                 dateLabel.text = DateFormatter.localizedString(from: myDate, dateStyle: .medium, timeStyle: .medium)
             }
-        setLabel(cellSelected: cellIsSelected, numbersDaysIsCreated: numbersDays)
+        setCell(cellSelected: cellIsSelected)
     }
 
+    /// set date to display it's date relative if date create is < to 20 day
+    /// - Parameters:
+    ///   - start: date created area
+    ///   - end: date now
+    /// - Returns: number days
     private func numberDayBetween(from start: Date, to end: Date) -> Int {
         let cal = Calendar.current
         let numbersDays = cal.dateComponents([.day], from: start, to: end)
@@ -50,22 +61,20 @@ class AreaCellTableViewCell: UITableViewCell {
         return numbersDays
     }
 
-    private func setLabel(cellSelected: Bool, numbersDaysIsCreated: Int) {
-        accessoryType = cellSelected ? .checkmark : .detailButton
-        if numbersDaysIsCreated < 2 {
-            let green = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-            tintColor = green
-            dateLabel.textColor = green
-            areaNameLabel.textColor = green
-            cityLabel.textColor = green
-            dateLabel.textColor = green
-        } else {
-            tintColor = .label
-            dateLabel.textColor = .gray
-            areaNameLabel.textColor = .label
-            cityLabel.textColor = .label
-            dateLabel.textColor = .gray
-        }
+    /// set cell
+    /// - Parameter cellSelected: it's area selected 
+    private func setCell(cellSelected: Bool) {
+        let checkmarck = UIImage(systemName: "checkmark.circle.fill")
+        let circle = UIImage(systemName: "circle")
+
+        checkmarkImage.image = (cellSelected) ? checkmarck : circle
+
+        tintColor = .label
+        dateLabel.textColor = .gray
+        areaNameLabel.textColor = .label
+        cityLabel.textColor = .label
+        dateLabel.textColor = .gray
+
         areaNameLabel.font = .boldSystemFont(ofSize: 12)
         cityLabel.font = .boldSystemFont(ofSize: 12)
         dateLabel.font = .italicSystemFont(ofSize: 10)

@@ -101,7 +101,7 @@ class AreaServices: AreaServicesProtocol {
                 areaList.append(area)
 
                 if index == data.count-1 {
-                    callBack(.success(areaList))
+                    callBack(.success(areaList.sorted( by: { Int($0.date ?? "0") ?? 0 > Int($1.date ?? "0") ?? 0 })))
                 }
             }
         }

@@ -30,7 +30,7 @@
             </objects>
             <point key="canvasLocation" x="109" y="-376"/>
         </scene>
-        <!--Main-->
+        <!--Menu-->
         <scene sceneID="gT4-Xe-VXt">
             <objects>
                 <viewController storyboardIdentifier="MainStarter" id="85s-eW-G3B" customClass="MainStarterViewController" customModule="SafelyHunt" customModuleProvider="target" sceneMemberID="viewController">
@@ -104,7 +104,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="map.fill" catalog="system" id="Awt-rT-zLj"/>
-                    <navigationItem key="navigationItem" title="Main" id="dtv-ce-Lop"/>
+                    <navigationItem key="navigationItem" title="Menu" id="dtv-ce-Lop"/>
                     <connections>
                         <outlet property="startMonitoringButton" destination="23p-M0-DBx" id="0J0-u9-O12"/>
                         <outlet property="tableView" destination="5M0-mE-ypI" id="1gk-db-5sA"/>

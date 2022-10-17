@@ -59,7 +59,7 @@ class SafelyHuntUITests: XCTestCase {
         let appleAreaCellsQuery = tablesQuery.cells.containing(.staticText, identifier:"Forest of Peyrolles")
         signOut()
         signIn()
-        tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Select your area hunt"]/*[[".cells.staticTexts[\"Select your area hunt\"]",".staticTexts[\"Select your area hunt\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        tablesQuery.staticTexts["Select your hunting area"].tap()
         appleAreaCellsQuery.buttons["More Info"].tap()
 
         XCTAssertTrue(app.maps.element.exists)
@@ -68,7 +68,7 @@ class SafelyHuntUITests: XCTestCase {
     /// Draw a new area
     func testGivenNewAreaWhenPressMapForDrawAreaThenPolygonAreCreated() {
         signIn()
-        app.tables/*@START_MENU_TOKEN@*/.staticTexts["Select your area hunt"]/*[[".cells.staticTexts[\"Select your area hunt\"]",".staticTexts[\"Select your area hunt\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app.tables.staticTexts["Select your hunting area"].tap()
         app.navigationBars["Areas List"].buttons["Add"].tap()
         app.navigationBars["Editing area"].buttons["compose"].tap()
        XCTAssertTrue(app.navigationBars["Draw area with your finger"].exists)
@@ -87,9 +87,9 @@ class SafelyHuntUITests: XCTestCase {
     func testGivenAreaSelectedWhenStartMonitoringThenMonitoringIsStart() {
         signIn()
         let tablesQuery = app.tables
-        tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Select your area hunt"]/*[[".cells.staticTexts[\"Select your area hunt\"]",".staticTexts[\"Select your area hunt\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        tablesQuery.staticTexts["Select your hunting area"].tap()
         tablesQuery.cells.containing(.staticText, identifier: "Forest of Peyrolles").element.tap()
-        app.navigationBars["Areas List"].buttons["Main"].tap()
+        app.navigationBars["Areas List"].buttons["Menu"].tap()
         app.buttons["Start monitoring"].tap()
         XCTAssertTrue(app.maps.element.exists)
     }

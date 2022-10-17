@@ -222,7 +222,7 @@ class MapViewController: UIViewController {
         let compassButton = MKCompassButton(mapView: mapView)
         compassButton.frame.origin = CGPoint(
             x: travelInfoUiView.frame.origin.x + 5,
-            y: locationButton.frame.origin.y
+            y: locationButton.frame.origin.y + 30
         )// travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 20)
         compassButton.compassVisibility = .visible
         view.addSubview(compassButton)

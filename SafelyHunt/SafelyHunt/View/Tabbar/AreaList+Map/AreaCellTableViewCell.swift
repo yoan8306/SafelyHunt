@@ -51,9 +51,10 @@ class AreaCellTableViewCell: UITableViewCell {
     }
 
     private func setLabel(cellSelected: Bool, numbersDaysIsCreated: Int) {
-        accessoryType = cellSelected ? .checkmark : .detailButton
+        accessoryType = (cellSelected) ? .checkmark : .detailButton
+    
         if numbersDaysIsCreated < 2 {
-            let green = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+            let green = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
             tintColor = green
             dateLabel.textColor = green
             areaNameLabel.textColor = green

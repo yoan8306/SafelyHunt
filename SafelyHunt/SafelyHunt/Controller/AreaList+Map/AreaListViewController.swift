@@ -24,6 +24,7 @@ class AreaListViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
         areaListTableView.addSubview(refreshControl)
+//        areaListTableView.setEditing(true, animated: false)
         initializeBackgroundTableView()
     }
 

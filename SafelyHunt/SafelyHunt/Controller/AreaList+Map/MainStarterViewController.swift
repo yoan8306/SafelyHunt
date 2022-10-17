@@ -107,6 +107,12 @@ class MainStarterViewController: UIViewController {
     private func setButton() {
         startMonitoringButton.layer.cornerRadius = startMonitoringButton.frame.height/2
         startMonitoringButton.isEnabled = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != ""
+        guard startMonitoringButton.isEnabled else {
+            startMonitoringButton.backgroundColor = .lightGray
+            startMonitoringButton.backgroundColor = .darkGray
+            return
+        }
+
         if self.traitCollection.userInterfaceStyle == .dark {
             startMonitoringButton.backgroundColor = .white
             startMonitoringButton.setTitleColor(.black, for: .normal)

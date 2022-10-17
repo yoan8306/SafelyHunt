@@ -9,6 +9,7 @@ import UIKit
 
 class AreaCellTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var checkmarkImage: UIImageView!
     @IBOutlet weak var areaNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
@@ -20,6 +21,7 @@ class AreaCellTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        accessoryType = .detailButton
     }
 
     func configureCell(infoArea: Area, cellIsSelected: Bool) {
@@ -51,15 +53,18 @@ class AreaCellTableViewCell: UITableViewCell {
     }
 
     private func setLabel(cellSelected: Bool, numbersDaysIsCreated: Int) {
-        accessoryType = (cellSelected) ? .checkmark : .detailButton
-    
+        let checkmarck = UIImage(systemName: "checkmark.circle.fill")
+        let circle = UIImage(systemName: "circle")
+
+        checkmarkImage.image = (cellSelected) ? checkmarck : circle
+
         if numbersDaysIsCreated < 2 {
-            let green = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
-            tintColor = green
-            dateLabel.textColor = green
-            areaNameLabel.textColor = green
-            cityLabel.textColor = green
-            dateLabel.textColor = green
+            let blue = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+            tintColor = blue
+            dateLabel.textColor = blue
+            areaNameLabel.textColor = blue
+            cityLabel.textColor = blue
+            dateLabel.textColor = blue
         } else {
             tintColor = .label
             dateLabel.textColor = .gray

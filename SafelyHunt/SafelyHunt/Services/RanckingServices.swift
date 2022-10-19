@@ -42,7 +42,12 @@ class RankingService {
 
                 guard let distance = distance as? Double,
                       let displayName = displayName as? String,
-                      let email = email as? String else {continue}
+                      let email = email as? String else {
+                    if index == data.count-1 {
+                        callBack(.success(hunters.sorted( by: { $0.totalDistance ?? 0 > $1.totalDistance ?? 0})))
+                        return
+                    }
+                    continue}
 
                 let hunter = Hunter()
                 hunter.totalDistance = distance

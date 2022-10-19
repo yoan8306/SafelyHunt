@@ -49,13 +49,13 @@ extension RankingViewController: UITableViewDataSource {
 
         if #available(iOS 14.0, *) {
             var content = cell.defaultContentConfiguration()
-            content.text = "\(indexPath.row) - \(String(describing: hunter.displayName))"
-            content.secondaryText = String(describing: hunter.totalDistance)
+            content.text = "\(indexPath.row) - \(String(describing: hunter.displayName!))"
+            content.secondaryText = String(describing: hunter.totalDistance!)
 
             cell.contentConfiguration = content
         } else {
-            cell.textLabel?.text =  "\(indexPath.row) - \(String(describing: hunter.displayName))"
-            cell.detailTextLabel?.text =  String(describing: hunter.totalDistance)
+            cell.textLabel?.text =  "\(indexPath.row) - \(String(describing: hunter.displayName!))"
+            cell.detailTextLabel?.text =  String(describing: hunter.totalDistance!)
 
         }
 

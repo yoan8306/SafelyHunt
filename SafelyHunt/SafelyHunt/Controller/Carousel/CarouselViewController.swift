@@ -134,7 +134,7 @@ class CarouselViewController: UIViewController {
     private func getDescription(page: Int) -> String {
         switch page {
         case 0:
-            return "Hello, \nFor start click on \"Select your area\" for create an area or select an area created"
+            return "Hello, \nFor start click on \"Select your hunting area\" for create an area or select an area created"
 
         case 1:
             return "For create a new area click on \"+\". "

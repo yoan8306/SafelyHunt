@@ -16,6 +16,7 @@ class Hunter {
     var latitude: Double?
     var longitude: Double?
     var totalDistance: Double?
+    var email: String?
     var actualPostion: CLLocation? {
         let position = CLLocation(latitude: latitude ?? 0, longitude: longitude ?? 0)
         return position

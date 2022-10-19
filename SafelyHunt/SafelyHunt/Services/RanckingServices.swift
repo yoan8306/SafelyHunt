@@ -18,6 +18,8 @@ class RankingService {
 
     func getRanking(callBack: @escaping (Result<[Hunter], Error>) -> Void) {
         let databaseHunterInfo = database.child("Database").child("users_list")
+        var hunters: [Hunter] = []
+        hunters .removeAll()
 
         databaseHunterInfo.getData { error, dataSnapshot in
             guard error == nil, let dataSnapshot = dataSnapshot else {
@@ -29,15 +31,28 @@ class RankingService {
                 return
             }
 
-            for hunterId in data {
+            for (index, hunterId) in data.enumerated() {
                 let pathDistanceHunter = hunterId.childSnapshot(forPath: "distance_traveled")
-                let valueDistance = pathDistanceHunter.value as? NSDictionary
-                let distance = valueDistance?["Total_distance"]
-                print(distance)
-                guard let distance = distance as? Double else {return}
+                let folderDistance = pathDistanceHunter.value as? NSDictionary
+                let distance = folderDistance?["Total_distance"]
+                let pathUserInfo = hunterId.childSnapshot(forPath: "info_user")
+                let folderInfoUser = pathUserInfo.value as? NSDictionary
+                let displayName = folderInfoUser?["name"]
+                let email = folderInfoUser?["email"]
+
+                guard let distance = distance as? Double,
+                      let displayName = displayName as? String,
+                      let email = email as? String else {continue}
 
                 let hunter = Hunter()
                 hunter.totalDistance = distance
+                hunter.displayName = displayName
+                hunter.email = email
+                hunters.append(hunter)
+
+                if index == data.count-1 {
+                    callBack(.success(hunters.sorted( by: { $0.totalDistance ?? 0 > $1.totalDistance ?? 0})))
+                }
             }
         }
     }

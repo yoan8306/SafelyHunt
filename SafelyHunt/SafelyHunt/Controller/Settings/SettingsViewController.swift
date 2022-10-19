@@ -54,6 +54,8 @@ extension SettingsViewController: UITableViewDelegate {
         case 2:
             presentTutorial()
         case 3:
+            presentRanking()
+        case 4:
             transferToAccountSetting()
         default:
             break
@@ -84,6 +86,16 @@ extension SettingsViewController: UITableViewDelegate {
             return
         }
         present(carouselVC, animated: true)
+    }
+
+    private func presentRanking() {
+        let rankingStoryboard = UIStoryboard(name: "Ranking", bundle: nil)
+
+        guard let rankingViewController = rankingStoryboard.instantiateViewController(withIdentifier: "Ranking") as? RankingViewController else {return}
+
+        rankingViewController.navigationItem.title = "Ranking"
+        navigationController?.pushViewController(rankingViewController, animated: true)
+
     }
 
     /// Open setting application

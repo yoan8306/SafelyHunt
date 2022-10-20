@@ -11,10 +11,12 @@ import FirebaseAuth
 class RankingViewController: UIViewController {
     var rankingHunters: [Hunter] = []
 
+    // MARK: - IBOutlet
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var yourPositionLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
 
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         showView(shown: false)
@@ -25,6 +27,7 @@ class RankingViewController: UIViewController {
         getRanking()
     }
 
+    // MARK: - Privates functions
     private func getRanking() {
         showView(shown: false)
         RankingService.shared.getRanking { [weak self] success in
@@ -47,6 +50,7 @@ class RankingViewController: UIViewController {
     }
 }
 
+// MARK: - UITableView DataSource
 extension RankingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rankingHunters.count

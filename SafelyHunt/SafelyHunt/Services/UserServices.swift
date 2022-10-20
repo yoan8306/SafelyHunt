@@ -18,7 +18,7 @@ protocol UserServicesProtocol {
         callBack: @escaping (Result<User, Error>) -> Void
     )
 
-    func signInUser(email: String?, password: String?, callBack: @escaping (Result<String, Error>) -> Void)
+    func signInUser(email: String?, password: String?, callBack: @escaping (Result<Bool, Error>) -> Void)
     func updateProfile(displayName: String, callBack: @escaping (Result<User, Error>) -> Void)
     func deleteAccount(password: String, callBack: @escaping (Result<String, Error>) -> Void)
 }
@@ -38,7 +38,7 @@ class UserServices: UserServicesProtocol {
     /// - Parameter callBack: if user is logged callback egual success
     func checkUserLogged(callBack: @escaping (Result<Hunter, Error>) -> Void) {
         handle = firebaseAuth.addStateDidChangeListener { _, user in
-            if let user = user {
+            if let user = user, user.isEmailVerified {
                 let hunter = Hunter(displayName: user.displayName,
                                     user: user)
                 callBack(.success(hunter))
@@ -66,8 +66,17 @@ class UserServices: UserServicesProtocol {
                     callBack(.failure(error ?? ServicesError.createAccountError))
                     return
                 }
+                self.sendEmailmVerification()
                 callBack(.success(user))
             }
+        }
+    }
+    
+    /// Send emai verification
+    func sendEmailmVerification() {
+        guard let authUser = firebaseAuth.currentUser else {return}
+        if !authUser.isEmailVerified {
+            authUser.sendEmailVerification()
         }
     }
 
@@ -76,7 +85,7 @@ class UserServices: UserServicesProtocol {
     ///   - email: email's user sign in
     ///   - password: password user
     ///   - callBack: check if sign in is success
-    func signInUser(email: String?, password: String?, callBack: @escaping (Result<String, Error>) -> Void) {
+    func signInUser(email: String?, password: String?, callBack: @escaping (Result<Bool, Error>) -> Void) {
         guard let email = email, let password = password else {
             callBack(.failure(ServicesError.signIn))
             return
@@ -88,7 +97,12 @@ class UserServices: UserServicesProtocol {
                     callBack(.failure(error ?? ServicesError.signIn))
                     return
                 }
-                callBack(.success("UserSignIn"))
+                guard let authUser = self.firebaseAuth.currentUser else { return }
+                if authUser.isEmailVerified {
+                    callBack(.success(true))
+                } else {
+                    callBack(.success(false))
+                }
             }
         }
     }

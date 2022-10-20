@@ -74,7 +74,8 @@ class RegisterViewController: UIViewController {
             switch updateResult {
             case .success(let user):
                 self?.showActivityIndicator(shown: false)
-                self?.presentNativeAlertSuccess(alertMessage: "User \(user.displayName ?? "User") is created")
+                self?.presentAlertSuccess(alertMessage: "User \(user.displayName ?? "User") is created. /nGo in your emailbox for confirm your adress. We go often in spam.")
+//                self?.presentNativeAlertSuccess(alertMessage: "User \(user.displayName ?? "User") is created")
                 self?.goToLoginController(user: user)
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)

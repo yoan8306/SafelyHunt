@@ -45,9 +45,15 @@ class LoginViewController: UIViewController {
 
         UserServices.shared.signInUser(email: email, password: password) { [weak self] authResult in
             switch authResult {
-            case .success(_):
-                self?.transferToMainStarter()
-                self?.activityIndicator(shown: false)
+            case .success(let emailIsChecked):
+                switch emailIsChecked {
+                case true:
+                    self?.transferToMainStarter()
+                    self?.activityIndicator(shown: false)
+                case false:
+                    self?.activityIndicator(shown: false)
+                    self?.presentSendEmailVerification()
+                }
 
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
@@ -73,5 +79,29 @@ class LoginViewController: UIViewController {
 
     private func setLoginButton() {
         logInButton.layer.cornerRadius = logInButton.frame.height/2
+    }
+
+    private func presentSendEmailVerification() {
+        let alertVC = UIAlertController(
+            title: "Your adress mail is not verify",
+            message: "Go in your email box and click on link. Checked your spam. /nWould you like send a new mail",
+            preferredStyle: .alert
+        )
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                self.dismiss(animated: true)
+        }
+        let openSetting = UIAlertAction(title: "Send email", style: .default) { _ in
+            guard let authUser = FirebaseAuth.Auth.auth().currentUser else {
+                print("no user identify")
+                return
+            }
+            print(authUser.email ?? "no email")
+            UserServices.shared.sendEmailmVerification()
+        }
+        cancel.setValue(UIColor.label, forKey: "titleTextColor")
+        openSetting.setValue(UIColor.label, forKey: "titleTextColor")
+        alertVC.addAction(cancel)
+        alertVC.addAction(openSetting)
+        present(alertVC, animated: true, completion: nil)
     }
 }

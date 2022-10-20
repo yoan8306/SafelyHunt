@@ -17,7 +17,7 @@ class RankingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        hideShowView(shown: false)
+        showView(shown: false)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -26,31 +26,27 @@ class RankingViewController: UIViewController {
     }
 
     private func getRanking() {
-        hideShowView(shown: false)
+        showView(shown: false)
         RankingService.shared.getRanking { [weak self] success in
             switch success {
             case .success(let hunters):
                 self?.rankingHunters = hunters
                 self?.tableView.reloadData()
-                self?.hideShowView(shown: true)
+                self?.showView(shown: true)
             case .failure(let error):
-                self?.hideShowView(shown: false)
+                self?.showView(shown: false)
                 self?.presentAlertError(alertMessage: error.localizedDescription)
             }
         }
     }
 
-    private func hideShowView(shown: Bool) {
+    private func showView(shown: Bool) {
         tableView.isHidden = !shown
         activityIndicator.isHidden = shown
         yourPositionLabel.isHidden = !shown
     }
-
 }
 
-extension RankingViewController: UITableViewDelegate {
-
-}
 extension RankingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rankingHunters.count
@@ -65,15 +61,16 @@ extension RankingViewController: UITableViewDataSource {
         }
 
         let stringTotalDistance = String(format: "%.2f", totalDistance / 1000)
+
         if hunter.email! == FirebaseAuth.Auth.auth().currentUser?.email {
-            yourPositionLabel.text = "Your are at \(indexPath.row + 1) \(displayname) \(stringTotalDistance) km"
+            yourPositionLabel.text = "Your are in the \(indexPath.row + 1) place of ranking with \(stringTotalDistance) km"
+            cell.backgroundColor = #colorLiteral(red: 0.3669730425, green: 0.603628695, blue: 0.7744702697, alpha: 1)
         }
 
         if #available(iOS 14.0, *) {
             var content = cell.defaultContentConfiguration()
             content.text = "\(indexPath.row + 1)/  \(String(describing: displayname))"
             content.secondaryText = "\(stringTotalDistance) km"
-
             cell.contentConfiguration = content
         } else {
             cell.textLabel?.text =  "\(indexPath.row + 1) - \(String(describing: displayname))"

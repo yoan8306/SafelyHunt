@@ -11,11 +11,13 @@ import FirebaseAuth
 class RankingViewController: UIViewController {
     var rankingHunters: [Hunter] = []
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var yourPositionLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideShowView(shown: false)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -24,15 +26,24 @@ class RankingViewController: UIViewController {
     }
 
     private func getRanking() {
+        hideShowView(shown: false)
         RankingService.shared.getRanking { [weak self] success in
             switch success {
             case .success(let hunters):
                 self?.rankingHunters = hunters
                 self?.tableView.reloadData()
+                self?.hideShowView(shown: true)
             case .failure(let error):
-                print(error.localizedDescription)
+                self?.hideShowView(shown: false)
+                self?.presentAlertError(alertMessage: error.localizedDescription)
             }
         }
+    }
+
+    private func hideShowView(shown: Bool) {
+        tableView.isHidden = !shown
+        activityIndicator.isHidden = shown
+        yourPositionLabel.isHidden = !shown
     }
 
 }
@@ -48,11 +59,11 @@ extension RankingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RankingCell", for: indexPath)
         let hunter = rankingHunters[indexPath.row]
-        
+
         guard let displayname = hunter.displayName, let totalDistance = hunter.totalDistance else {
             return cell
         }
-        
+
         let stringTotalDistance = String(format: "%.2f", totalDistance / 1000)
         if hunter.email! == FirebaseAuth.Auth.auth().currentUser?.email {
             yourPositionLabel.text = "Your are at \(indexPath.row + 1) \(displayname) \(stringTotalDistance) km"
@@ -71,5 +82,4 @@ extension RankingViewController: UITableViewDataSource {
 
         return cell
     }
-
 }

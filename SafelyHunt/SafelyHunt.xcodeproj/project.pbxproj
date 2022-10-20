@@ -22,6 +22,9 @@
 		5F46BEF5289E9E2400D1E020 /* PlaceHunters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46BEF4289E9E2400D1E020 /* PlaceHunters.swift */; };
 		5F46BEF7289E9EEA00D1E020 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46BEF6289E9EEA00D1E020 /* CustomAnnotationView.swift */; };
 		5F46BEF9289EF23A00D1E020 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F46BEF8289EF23A00D1E020 /* DateExtension.swift */; };
+		5F576C7E290084FE004B4A91 /* Ranking.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F576C7D290084FE004B4A91 /* Ranking.storyboard */; };
+		5F576C80290089A1004B4A91 /* RanckingServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F576C7F290089A1004B4A91 /* RanckingServices.swift */; };
+		5F576C82290091E3004B4A91 /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F576C81290091E3004B4A91 /* RankingViewController.swift */; };
 		5F62872A28A522B600AD51E2 /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F62872928A522B600AD51E2 /* LocalNotification.swift */; };
 		5F62872E28A5230F00AD51E2 /* orchestralEmergency.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5F62872C28A5230E00AD51E2 /* orchestralEmergency.caf */; };
 		5F7624D428C2159800D6FA65 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F7624D228C2159800D6FA65 /* Settings.storyboard */; };
@@ -107,6 +110,9 @@
 		5F46BEF4289E9E2400D1E020 /* PlaceHunters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHunters.swift; sourceTree = "<group>"; };
 		5F46BEF6289E9EEA00D1E020 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		5F46BEF8289EF23A00D1E020 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		5F576C7D290084FE004B4A91 /* Ranking.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Ranking.storyboard; sourceTree = "<group>"; };
+		5F576C7F290089A1004B4A91 /* RanckingServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanckingServices.swift; sourceTree = "<group>"; };
+		5F576C81290091E3004B4A91 /* RankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewController.swift; sourceTree = "<group>"; };
 		5F62872928A522B600AD51E2 /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
 		5F62872C28A5230E00AD51E2 /* orchestralEmergency.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = orchestralEmergency.caf; sourceTree = "<group>"; };
 		5F7624D328C2159800D6FA65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
@@ -198,6 +204,7 @@
 				5FB4BCCC28C6821000C69E8F /* MonitoringServices.swift */,
 				5FBEF94C2873706D0023E5A5 /* AreaServices.swift */,
 				5FBEF94E287375050023E5A5 /* ServicesError.swift */,
+				5F576C7F290089A1004B4A91 /* RanckingServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -288,6 +295,7 @@
 				5F7624D228C2159800D6FA65 /* Settings.storyboard */,
 				5F7624D528C215E700D6FA65 /* AccountSettings.storyboard */,
 				5F7624DC28C2227500D6FA65 /* Profile.storyboard */,
+				5F576C7D290084FE004B4A91 /* Ranking.storyboard */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -330,6 +338,7 @@
 				5F78B6C62876F13F003C58B5 /* SettingsViewController.swift */,
 				5F7624D728C216AC00D6FA65 /* AccountSettingsViewController.swift */,
 				5F7624E028C224CD00D6FA65 /* ProfileViewController.swift */,
+				5F576C81290091E3004B4A91 /* RankingViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -549,6 +558,7 @@
 				5F984C5E28C76321003E9A65 /* scanning-alarm.mp3 in Resources */,
 				5FC7538E2894063900BC3DB7 /* Maps.storyboard in Resources */,
 				5FBEF94B2873073A0023E5A5 /* Register.storyboard in Resources */,
+				5F576C7E290084FE004B4A91 /* Ranking.storyboard in Resources */,
 				5FBA014B287453F800D70715 /* TabbarMain.storyboard in Resources */,
 				5F7624D628C215E700D6FA65 /* AccountSettings.storyboard in Resources */,
 				5F7624DD28C2227500D6FA65 /* Profile.storyboard in Resources */,
@@ -631,6 +641,7 @@
 				5F7F698128932C1000562FDA /* AreaCellTableViewCell.swift in Sources */,
 				5F79FCE5289BB959009F6AE9 /* Polygon.swift in Sources */,
 				5F0B7316289D96160034CB48 /* MapMode.swift in Sources */,
+				5F576C80290089A1004B4A91 /* RanckingServices.swift in Sources */,
 				5F24E60428F6031E002DBF6F /* CarouselViewController.swift in Sources */,
 				5FFCF683288EB7CF009D9AE8 /* AreaListViewController.swift in Sources */,
 				5F79FCE7289BE389009F6AE9 /* Monitoring.swift in Sources */,
@@ -651,6 +662,7 @@
 				5F78B6C72876F13F003C58B5 /* SettingsViewController.swift in Sources */,
 				5FC753922894892B00BC3DB7 /* Area.swift in Sources */,
 				5FC75390289408E600BC3DB7 /* MapViewController.swift in Sources */,
+				5F576C82290091E3004B4A91 /* RankingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

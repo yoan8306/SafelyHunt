@@ -134,30 +134,30 @@ class CarouselViewController: UIViewController {
     private func getDescription(page: Int) -> String {
         switch page {
         case 0:
-            return "Hello, \nFor start click on \"Select your hunting area\" for create an area or select an area created"
+            return "Hello, \nFor start click on \"Select your hunting area\" for create an area or select an area created".localized(tableName: "LocalizableCarousel")
 
         case 1:
-            return "For create a new area click on \"+\". "
+            return "For create a new area click on \"+\".".localized(tableName: "LocalizableCarousel")
 
         case 2:
-            return "Position your map and click on button for draw your area with your finger"
+            return "Position your map and click on button for draw your area with your finger.".localized(tableName: "LocalizableCarousel")
 
         case 3:
-            return "Give a new name at your area"
+            return "Give a new name at your area".localized(tableName: "LocalizableCarousel")
 
         case 4:
-            return "Go back and select your area"
+            return "Go back and select your area.".localized(tableName: "LocalizableCarousel")
 
         case 5:
-            return "You can be alerted if someone is near you. To do this, set the distance where you want to receive the alert by clicking on \"Set your radius alert\""
+            return "You can be alerted if someone is near you. To do this, set the distance where you want to receive the alert by clicking on \"Set your radius alert\".".localized(tableName: "LocalizableCarousel")
         case 6:
-            return "Set the distance with slider"
+            return "Set the distance with slider.".localized(tableName: "LocalizableCarousel")
 
         case 7:
-            return "Your are ready! \nYou can click \"Start Monitoring\""
+            return "Your are ready! \nYou can click \"Start Monitoring\".".localized(tableName: "LocalizableCarousel")
 
         case 8:
-            return "You can reduce application. You will receive an alert if you exit your area or if another user is near you. \nYou can show again this tutorial in your setting. Enjoy !"
+            return "You can reduce application. You will receive an alert if you exit your area or if another user is near you. \nYou can show again this tutorial in your setting. Enjoy !".localized(tableName: "LocalizableCarousel")
 
         default:
             return ""

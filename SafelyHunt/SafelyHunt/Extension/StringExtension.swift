@@ -8,10 +8,10 @@
 import Foundation
 
 extension String {
-    func localized() -> String {
+    func localized(tableName: String) -> String {
         return NSLocalizedString(
             self,
-            tableName: "Localizable",
+            tableName: tableName,
             comment: self
         )
     }

@@ -88,17 +88,17 @@ class LoginViewController: UIViewController {
 
     private func presentSendEmailVerification() {
         let alertVC = UIAlertController(
-            title: "Your adress mail is not verify".localized(),
-            message: "Go in your email box and click on link. Checked your spam. \nWould you like send a new mail".localized(),
+            title: "Your adress mail is not verify".localized(tableName: "LocalizableLoginController"),
+            message: "Go in your email box and click on link. Checked your spam. \nWould you like send a new mail".localized(tableName: "LocalizableLoginController"),
             preferredStyle: .alert
         )
-        let cancel = UIAlertAction(title: "Cancel".localized(), style: .cancel) { _ in
+        let cancel = UIAlertAction(title: "Cancel".localized(tableName: "LocalizableLoginController"), style: .cancel) { _ in
                 self.dismiss(animated: true)
         }
-        let sendEmail = UIAlertAction(title: "Send email".localized(), style: .default) { _ in
+        let sendEmail = UIAlertAction(title: "Send email".localized(tableName: "LocalizableLoginController"), style: .default) { _ in
             guard  FirebaseAuth.Auth.auth().currentUser != nil else {return}
             UserServices.shared.sendEmailmVerification()
-            self.presentNativeAlertSuccess(alertMessage: "Email sended".localized())
+            self.presentNativeAlertSuccess(alertMessage: "Email sended".localized(tableName: "LocalizableLoginController"))
         }
         cancel.setValue(UIColor.label, forKey: "titleTextColor")
         sendEmail.setValue(UIColor.label, forKey: "titleTextColor")
@@ -109,24 +109,24 @@ class LoginViewController: UIViewController {
 
     private func presentResetPassword() {
         let alertViewController = UIAlertController(
-            title: "Reset password".localized(),
-            message: "Enter your email for reset your password".localized(),
+            title: "Reset password".localized(tableName: "LocalizableLoginController"),
+            message: "Enter your email for reset your password".localized(tableName: "LocalizableLoginController"),
             preferredStyle: .alert
         )
-        let cancel = UIAlertAction(title: "Cancel".localized(), style: .cancel) { _ in
+        let cancel = UIAlertAction(title: "Cancel".localized(tableName: "LocalizableLoginController"), style: .cancel) { _ in
             self.dismiss(animated: true)
         }
 
         //        test if empty
-        let resetPassword = UIAlertAction(title: "Send".localized(), style: .default) { _ in
+        let resetPassword = UIAlertAction(title: "Send".localized(tableName: "LocalizableLoginController"), style: .default) { _ in
             if let textfield = alertViewController.textFields?[0], let email = textfield.text, !email.isEmpty {
                 Auth.auth().sendPasswordReset(withEmail: email)
-                self.presentNativeAlertSuccess(alertMessage: "An email has been sending".localized())
+                self.presentNativeAlertSuccess(alertMessage: "An email has been sending".localized(tableName: "LocalizableLoginController"))
             }
         }
 
         alertViewController.addTextField(configurationHandler: { textfield in
-            textfield.placeholder = "Your email...".localized()
+            textfield.placeholder = "Your email...".localized(tableName: "LocalizableLoginController")
         })
         cancel.setValue(UIColor.label, forKey: "titleTextColor")
         resetPassword.setValue(UIColor.label, forKey: "titleTextColor")

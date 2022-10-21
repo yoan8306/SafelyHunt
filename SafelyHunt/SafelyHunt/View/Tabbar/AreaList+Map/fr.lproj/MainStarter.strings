@@ -1,0 +1,12 @@
+
+/* Class = "UILabel"; text = "Select area hunt"; ObjectID = "05s-DJ-2c7"; */
+"05s-DJ-2c7.text" = "Selectionner votre zone de chasse";
+
+/* Class = "UIButton"; normalTitle = "Start monitoring"; ObjectID = "23p-M0-DBx"; */
+"23p-M0-DBx.normalTitle" = "Commencer la surveillance";
+
+/* Class = "UINavigationItem"; title = "Menu"; ObjectID = "dtv-ce-Lop"; */
+"dtv-ce-Lop.title" = "Menu";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "wob-iR-OKx"; */
+"wob-iR-OKx.text" = "Subtitle";

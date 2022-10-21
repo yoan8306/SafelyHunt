@@ -1,0 +1,18 @@
+
+/* Class = "UITextField"; placeholder = "Confirm password..."; ObjectID = "C3h-PT-Yev"; */
+"C3h-PT-Yev.placeholder" = "Confirmer mot de passe...";
+
+/* Class = "UITextField"; placeholder = "Pseudonym..."; ObjectID = "T7L-hR-Z0M"; */
+"T7L-hR-Z0M.placeholder" = "Pseudonyme...";
+
+/* Class = "UITextField"; placeholder = "email adress..."; ObjectID = "Yah-Kj-08b"; */
+"Yah-Kj-08b.placeholder" = "Adresse email...";
+
+/* Class = "UIButton"; normalTitle = "Register"; ObjectID = "i4O-go-aK5"; */
+"i4O-go-aK5.normalTitle" = "S'inscrire";
+
+/* Class = "UITextField"; placeholder = "Password..."; ObjectID = "nFk-Sa-yso"; */
+"nFk-Sa-yso.placeholder" = "Mot de passe...";
+
+/* Class = "UINavigationItem"; title = "Register"; ObjectID = "xKM-VS-Ac2"; */
+"xKM-VS-Ac2.title" = "Inscription";

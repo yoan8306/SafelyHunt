@@ -1,0 +1,22 @@
+/* 
+  Localizable.strings
+  SafelyHunt
+
+  Created by Yoan on 21/10/2022.
+  
+*/
+"Cancel" = "Annuler";
+// LoginViewController
+    // Send Email Verification
+"Your adress mail is not verify" = "Votre adresse mail n'est pas vérifié";
+"Go in your email box and click on link. Checked your spam. \nWould you like send a new mail" = "Allez dans votre boîte mail et cliquer sur lien. \nRegarder dans vos spam si vous ne le recevez pas.\nVoulez vous le recevoir de nouveau?";
+
+"Send email" = "Envoyer";
+"Email sended" = "Email envoyé";
+
+    // Reset password
+"Reset password" = "Reinitialiser le mot de passe";
+"Enter your email for reset your password" = "Entrer votre adresse mail pour réinitialiser le mot de passe";
+"Send" = "Envoyer";
+"An email has been sending" = "Un email a bien été envoyé";
+"Your email..." = "Votre email..."

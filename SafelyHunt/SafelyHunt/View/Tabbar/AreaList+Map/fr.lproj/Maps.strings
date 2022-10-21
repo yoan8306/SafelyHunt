@@ -1,0 +1,18 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "0VL-KW-Rxn"; */
+"0VL-KW-Rxn.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "MyTitle"; ObjectID = "4a2-nG-jdr"; */
+"4a2-nG-jdr.title" = "MyTitle";
+
+/* Class = "UILabel"; text = "0.00 km"; ObjectID = "S4k-jk-a5r"; */
+"S4k-jk-a5r.text" = "0.00 km";
+
+/* Class = "UILabel"; text = "Radius alert is enabled"; ObjectID = "SEp-a3-8OR"; */
+"SEp-a3-8OR.text" = "Rayon d'alerte activé";
+
+/* Class = "UILabel"; text = "0 m"; ObjectID = "fbt-gl-wQX"; */
+"fbt-gl-wQX.text" = "0 m";
+
+/* Class = "UILabel"; text = "Map type"; ObjectID = "yC5-pj-6LL"; */
+"yC5-pj-6LL.text" = "Map type";

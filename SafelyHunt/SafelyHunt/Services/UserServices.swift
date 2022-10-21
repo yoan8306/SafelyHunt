@@ -71,7 +71,7 @@ class UserServices: UserServicesProtocol {
             }
         }
     }
-    
+
     /// Send emai verification
     func sendEmailmVerification() {
         guard let authUser = firebaseAuth.currentUser else {return}

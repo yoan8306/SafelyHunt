@@ -1,0 +1,11 @@
+/* 
+  LocalizableMainStarter.strings
+  SafelyHunt
+  Created by Yoan on 21/10/2022.
+*/
+
+"Your area is not loaded go in your area list and try again" = "Votre zone n'est pas chargé. Retournez dans votre liste de zone et réessayez de nouveau";
+"Check your connection network" = "Vérifez votre connexion internet";
+"Please select your area in your list." = "Veuillez séléctionner une zone avant de commencer";
+"Ready for monitoring" = "Prêt pour la surveillance";
+"Set radius alert" = "Régler votre rayon";

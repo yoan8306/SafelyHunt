@@ -1,0 +1,13 @@
+/* 
+  LocalizableAccountSetting.strings
+  SafelyHunt
+  Created by Yoan on 21/10/2022.
+*/
+
+"Confirm action" = "Confirmez l'action";
+"Enter your password for confirm action" = "Entrez votre mot de passe pour confimer l'action";
+"password..." = "mot de passe...";
+"Confirm" = "Confirmer";
+"Enter your password" = "Entrez votre mot de passe";
+"Your are in the " = "Vous êtes à la ";
+" place of ranking with " = " place du classement avec ";

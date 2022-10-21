@@ -39,8 +39,8 @@ class LocalNotification {
     /// initiatilaze info into notification
     private func prepareAlert() {
         let notificationSound = UNNotificationSoundName.init(rawValue: "orchestralEmergency.caf")
-        notification.title = "Attention !!!"
-        notification.body = "Required your attention"
+        notification.title = "Attention !!!".localized(tableName: "LocalizableLocalNotification")
+        notification.body = "Required your attention".localized(tableName: "LocalizableLocalNotification")
         notification.categoryIdentifier = "StopMonitoring.category"
         notification.sound = UNNotificationSound(named: notificationSound)
     }

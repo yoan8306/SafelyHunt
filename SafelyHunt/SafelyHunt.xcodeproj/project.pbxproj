@@ -49,7 +49,15 @@
 		5F98BFDA2902AFFB0063CCA9 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F98BFD92902AFFB0063CCA9 /* StringExtension.swift */; };
 		5F98BFDD2902BCBF0063CCA9 /* LocalizableLoginController.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98BFDF2902BCBF0063CCA9 /* LocalizableLoginController.strings */; };
 		5F98BFE52902C7A20063CCA9 /* LocalizableCarousel.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98BFE72902C7A20063CCA9 /* LocalizableCarousel.strings */; };
-		5F98BFEA2902CE170063CCA9 /* LocalizableMainData.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98BFE92902CE170063CCA9 /* LocalizableMainData.strings */; };
+		5F98BFEF290322570063CCA9 /* LocalizableLocalNotification.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98BFF1290322570063CCA9 /* LocalizableLocalNotification.strings */; };
+		5F98BFF2290322660063CCA9 /* LocalizableRegisterViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98BFF4290322660063CCA9 /* LocalizableRegisterViewController.strings */; };
+		5F98BFF82903258B0063CCA9 /* LocalizableMainStarter.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98BFFA2903258B0063CCA9 /* LocalizableMainStarter.strings */; };
+		5F98BFFD290328410063CCA9 /* LocalizableAreaListViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98BFFF290328410063CCA9 /* LocalizableAreaListViewController.strings */; };
+		5F98C002290329E70063CCA9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98C004290329E70063CCA9 /* Localizable.strings */; };
+		5F98C00729032BCE0063CCA9 /* LocalizableMapView.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98C00929032BCE0063CCA9 /* LocalizableMapView.strings */; };
+		5F98C00C290332FB0063CCA9 /* LocalizableAccountSetting.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98C00E290332FB0063CCA9 /* LocalizableAccountSetting.strings */; };
+		5F98C010290334B00063CCA9 /* LocalizableServicesError.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98C00F290334B00063CCA9 /* LocalizableServicesError.strings */; };
+		5F98C0112903413B0063CCA9 /* LocalizableMainData.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98C0132903413B0063CCA9 /* LocalizableMainData.strings */; };
 		5FB4BCCB28C681F500C69E8F /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4BCCA28C681F500C69E8F /* UserServices.swift */; };
 		5FB4BCCD28C6821000C69E8F /* MonitoringServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4BCCC28C6821000C69E8F /* MonitoringServices.swift */; };
 		5FBEF946287306C80023E5A5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF945287306C80023E5A5 /* LoginViewController.swift */; };
@@ -155,7 +163,15 @@
 		5F98BFD92902AFFB0063CCA9 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		5F98BFDE2902BCBF0063CCA9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LocalizableLoginController.strings; sourceTree = "<group>"; };
 		5F98BFE62902C7A20063CCA9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LocalizableCarousel.strings; sourceTree = "<group>"; };
-		5F98BFE92902CE170063CCA9 /* LocalizableMainData.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = LocalizableMainData.strings; sourceTree = "<group>"; };
+		5F98BFF0290322570063CCA9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LocalizableLocalNotification.strings; sourceTree = "<group>"; };
+		5F98BFF3290322660063CCA9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LocalizableRegisterViewController.strings; sourceTree = "<group>"; };
+		5F98BFF92903258B0063CCA9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LocalizableMainStarter.strings; sourceTree = "<group>"; };
+		5F98BFFE290328410063CCA9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LocalizableAreaListViewController.strings; sourceTree = "<group>"; };
+		5F98C003290329E70063CCA9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5F98C00829032BCE0063CCA9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LocalizableMapView.strings; sourceTree = "<group>"; };
+		5F98C00D290332FB0063CCA9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LocalizableAccountSetting.strings; sourceTree = "<group>"; };
+		5F98C00F290334B00063CCA9 /* LocalizableServicesError.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = LocalizableServicesError.strings; sourceTree = "<group>"; };
+		5F98C0122903413B0063CCA9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LocalizableMainData.strings; sourceTree = "<group>"; };
 		5FB4BCCA28C681F500C69E8F /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
 		5FB4BCCC28C6821000C69E8F /* MonitoringServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoringServices.swift; sourceTree = "<group>"; };
 		5FBEF945287306C80023E5A5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -385,7 +401,15 @@
 			children = (
 				5F98BFDF2902BCBF0063CCA9 /* LocalizableLoginController.strings */,
 				5F98BFE72902C7A20063CCA9 /* LocalizableCarousel.strings */,
-				5F98BFE92902CE170063CCA9 /* LocalizableMainData.strings */,
+				5F98C0132903413B0063CCA9 /* LocalizableMainData.strings */,
+				5F98BFF1290322570063CCA9 /* LocalizableLocalNotification.strings */,
+				5F98BFF4290322660063CCA9 /* LocalizableRegisterViewController.strings */,
+				5F98BFFA2903258B0063CCA9 /* LocalizableMainStarter.strings */,
+				5F98BFFF290328410063CCA9 /* LocalizableAreaListViewController.strings */,
+				5F98C004290329E70063CCA9 /* Localizable.strings */,
+				5F98C00929032BCE0063CCA9 /* LocalizableMapView.strings */,
+				5F98C00E290332FB0063CCA9 /* LocalizableAccountSetting.strings */,
+				5F98C00F290334B00063CCA9 /* LocalizableServicesError.strings */,
 			);
 			path = French;
 			sourceTree = "<group>";
@@ -587,6 +611,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F98BFFD290328410063CCA9 /* LocalizableAreaListViewController.strings in Resources */,
+				5F98C010290334B00063CCA9 /* LocalizableServicesError.strings in Resources */,
 				5F98BFB92902AB630063CCA9 /* AreasList.storyboard in Resources */,
 				5F1CF331286B1FB500A0429D /* GoogleService-Info.plist in Resources */,
 				5F62872E28A5230F00AD51E2 /* orchestralEmergency.caf in Resources */,
@@ -595,17 +621,23 @@
 				5F98BFB62902AB5E0063CCA9 /* MainStarter.storyboard in Resources */,
 				5F98BFD42902AE450063CCA9 /* Carousel.storyboard in Resources */,
 				5FFCF681288EB481009D9AE8 /* Launch Screen.storyboard in Resources */,
+				5F98C002290329E70063CCA9 /* Localizable.strings in Resources */,
 				5F98BFB02902AB510063CCA9 /* Main.storyboard in Resources */,
 				5FFBFF9028E384F700214FEB /* .swiftlint.yml in Resources */,
+				5F98BFEF290322570063CCA9 /* LocalizableLocalNotification.strings in Resources */,
 				5F984C5E28C76321003E9A65 /* scanning-alarm.mp3 in Resources */,
 				5F98BFBC2902AB6B0063CCA9 /* Maps.storyboard in Resources */,
 				5FBEF94B2873073A0023E5A5 /* Register.storyboard in Resources */,
 				5F98BFC52902AB7C0063CCA9 /* Ranking.storyboard in Resources */,
+				5F98BFF82903258B0063CCA9 /* LocalizableMainStarter.strings in Resources */,
+				5F98C00C290332FB0063CCA9 /* LocalizableAccountSetting.strings in Resources */,
 				5F98BFB32902AB580063CCA9 /* TabbarMain.storyboard in Resources */,
+				5F98C00729032BCE0063CCA9 /* LocalizableMapView.strings in Resources */,
 				5F98BFE52902C7A20063CCA9 /* LocalizableCarousel.strings in Resources */,
-				5F98BFEA2902CE170063CCA9 /* LocalizableMainData.strings in Resources */,
+				5F98C0112903413B0063CCA9 /* LocalizableMainData.strings in Resources */,
 				5F98BFBF2902AB730063CCA9 /* AccountSettings.storyboard in Resources */,
 				5F98BFDD2902BCBF0063CCA9 /* LocalizableLoginController.strings in Resources */,
+				5F98BFF2290322660063CCA9 /* LocalizableRegisterViewController.strings in Resources */,
 				5F98BFC22902AB770063CCA9 /* Profile.storyboard in Resources */,
 				5F7624D428C2159800D6FA65 /* Settings.storyboard in Resources */,
 			);
@@ -859,6 +891,70 @@
 				5F98BFE62902C7A20063CCA9 /* fr */,
 			);
 			name = LocalizableCarousel.strings;
+			sourceTree = "<group>";
+		};
+		5F98BFF1290322570063CCA9 /* LocalizableLocalNotification.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5F98BFF0290322570063CCA9 /* fr */,
+			);
+			name = LocalizableLocalNotification.strings;
+			sourceTree = "<group>";
+		};
+		5F98BFF4290322660063CCA9 /* LocalizableRegisterViewController.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5F98BFF3290322660063CCA9 /* fr */,
+			);
+			name = LocalizableRegisterViewController.strings;
+			sourceTree = "<group>";
+		};
+		5F98BFFA2903258B0063CCA9 /* LocalizableMainStarter.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5F98BFF92903258B0063CCA9 /* fr */,
+			);
+			name = LocalizableMainStarter.strings;
+			sourceTree = "<group>";
+		};
+		5F98BFFF290328410063CCA9 /* LocalizableAreaListViewController.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5F98BFFE290328410063CCA9 /* fr */,
+			);
+			name = LocalizableAreaListViewController.strings;
+			sourceTree = "<group>";
+		};
+		5F98C004290329E70063CCA9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5F98C003290329E70063CCA9 /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		5F98C00929032BCE0063CCA9 /* LocalizableMapView.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5F98C00829032BCE0063CCA9 /* fr */,
+			);
+			name = LocalizableMapView.strings;
+			sourceTree = "<group>";
+		};
+		5F98C00E290332FB0063CCA9 /* LocalizableAccountSetting.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5F98C00D290332FB0063CCA9 /* fr */,
+			);
+			name = LocalizableAccountSetting.strings;
+			sourceTree = "<group>";
+		};
+		5F98C0132903413B0063CCA9 /* LocalizableMainData.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5F98C0122903413B0063CCA9 /* fr */,
+			);
+			name = LocalizableMainData.strings;
 			sourceTree = "<group>";
 		};
 		5FBEF9492873073A0023E5A5 /* Register.storyboard */ = {

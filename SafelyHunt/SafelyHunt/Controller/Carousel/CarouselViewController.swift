@@ -134,7 +134,7 @@ class CarouselViewController: UIViewController {
     private func getDescription(page: Int) -> String {
         switch page {
         case 0:
-            return "Hello, \nFor start click on \"Select your hunting area\" for create an area or select an area created".localized(tableName: "LocalizableCarousel")
+            return "Hello, \nFor start click on \"Select your hunting area\" for create an area or select.".localized(tableName: "LocalizableCarousel")
 
         case 1:
             return "For create a new area click on \"+\".".localized(tableName: "LocalizableCarousel")

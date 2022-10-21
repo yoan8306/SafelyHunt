@@ -56,7 +56,7 @@ class SafelyHuntUITests: XCTestCase {
     /// Draw area with more info inside area list
     func testGivenListAreasWhenTapOnAccessoriesButtonThenDrawAreaSelected() {
         let tablesQuery = app.tables
-        let appleAreaCellsQuery = tablesQuery.cells.containing(.staticText, identifier:"Forest of Peyrolles")
+        let appleAreaCellsQuery = tablesQuery.cells.containing(.staticText, identifier:"Large zone apple")
         signOut()
         signIn()
         tablesQuery.staticTexts["Select your hunting area"].tap()
@@ -71,7 +71,7 @@ class SafelyHuntUITests: XCTestCase {
         app.tables.staticTexts["Select your hunting area"].tap()
         app.navigationBars["Areas List"].buttons["Add"].tap()
         app.navigationBars["Editing area"].buttons["compose"].tap()
-       XCTAssertTrue(app.navigationBars["Draw area with your finger"].exists)
+        XCTAssertTrue(app.navigationBars["Draw area with your finger"].exists)
     }
 
     /// Draw radius Alert
@@ -88,7 +88,7 @@ class SafelyHuntUITests: XCTestCase {
         signIn()
         let tablesQuery = app.tables
         tablesQuery.staticTexts["Select your hunting area"].tap()
-        tablesQuery.cells.containing(.staticText, identifier: "Forest of Peyrolles").element.tap()
+        tablesQuery.cells.containing(.staticText, identifier: "Large zone apple").element.tap()
         app.navigationBars["Areas List"].buttons["Menu"].tap()
         app.buttons["Start monitoring"].tap()
         XCTAssertTrue(app.maps.element.exists)
@@ -100,8 +100,8 @@ class SafelyHuntUITests: XCTestCase {
         app.tabBars["Tab Bar"].buttons["Contact Photo"].tap()
         app.tables.cells.containing(.staticText, identifier: "Profile").element.tap()
 
-        XCTAssertTrue(app.staticTexts["yoyo"].exists)
-        XCTAssertTrue(app.staticTexts["yoyo@wanadoo.fr"].exists)
+        XCTAssertTrue(app.staticTexts["yoan8306"].exists)
+        XCTAssertTrue(app.staticTexts["yoan8306@wanadoo.fr"].exists)
     }
 
     private func signIn() {
@@ -110,7 +110,7 @@ class SafelyHuntUITests: XCTestCase {
 
         if app.textFields["email adress..."].exists {
             emailAdressTextField.tap()
-            emailAdressTextField.typeText("yoyo@wanadoo.fr")
+            emailAdressTextField.typeText("yoan8306@wanadoo.fr")
             passwordSecureTextField.tap()
             passwordSecureTextField.typeText("coucou")
         } else {
@@ -121,8 +121,8 @@ class SafelyHuntUITests: XCTestCase {
         app.swipeLeft(velocity: XCUIGestureVelocity.fast)
         app.swipeDown(velocity: XCUIGestureVelocity.fast)
         
-        if app.buttons["Dissmiss"].exists {
-            app.buttons["Dissmiss"].tap()
+        if app.buttons["Dismiss"].exists {
+            app.buttons["Dismiss"].tap()
         }
     }
 

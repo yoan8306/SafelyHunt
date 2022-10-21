@@ -25,7 +25,7 @@ class LoginViewController: UIViewController {
         emailTextField.text = signInMail
         setLoginButton()
         #if DEBUG
-        emailTextField.text = "yoyo@wanadoo.fr"
+        emailTextField.text = "yoan8306@wanadoo.fr"
         passwordTextField.text = "coucou"
         #endif
     }

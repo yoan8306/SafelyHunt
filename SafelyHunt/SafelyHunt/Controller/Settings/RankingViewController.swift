@@ -67,7 +67,7 @@ extension RankingViewController: UITableViewDataSource {
         let stringTotalDistance = String(format: "%.2f", totalDistance / 1000)
 
         if hunter.email! == FirebaseAuth.Auth.auth().currentUser?.email {
-            yourPositionLabel.text = "Your are in the \(indexPath.row + 1) place of ranking with \(stringTotalDistance) km"
+            yourPositionLabel.text = "Your are in the ".localized(tableName: "LocalizableAccountSetting") + "\(indexPath.row + 1)" + " place of ranking with ".localized(tableName: "LocalizableAccountSetting") + "\(stringTotalDistance) km"
             cell.backgroundColor = #colorLiteral(red: 0.3669730425, green: 0.603628695, blue: 0.7744702697, alpha: 1)
         }
 

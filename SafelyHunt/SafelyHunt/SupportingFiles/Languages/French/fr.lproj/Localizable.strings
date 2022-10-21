@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  SafelyHunt
+
+  Created by Yoan on 21/10/2022.
+  
+*/
+"Delete" = "Supprimer";
+"Cancel" = "Annuler";
+"Error" = "Erreur";
+"Dismiss" = "Ok";
+"Success" = "Succès";

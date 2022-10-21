@@ -75,7 +75,7 @@ extension SettingsViewController: UITableViewDelegate {
         let accountSettingStoryboard = UIStoryboard(name: "AccountSettings", bundle: nil)
         guard let accountSettingViewController = accountSettingStoryboard.instantiateViewController(withIdentifier: "AccountSettings") as? AccountSettingsViewController else {return}
 
-        accountSettingViewController.navigationItem.title = "Account"
+        accountSettingViewController.navigationItem.title = "Account".localized(tableName: "LocalizableMainData")
         navigationController?.pushViewController(accountSettingViewController, animated: true)
     }
 
@@ -93,7 +93,7 @@ extension SettingsViewController: UITableViewDelegate {
 
         guard let rankingViewController = rankingStoryboard.instantiateViewController(withIdentifier: "Ranking") as? RankingViewController else {return}
 
-        rankingViewController.navigationItem.title = "Ranking"
+        rankingViewController.navigationItem.title = "Ranking".localized(tableName: "LocalizableMainData")
         navigationController?.pushViewController(rankingViewController, animated: true)
 
     }

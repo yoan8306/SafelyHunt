@@ -1,0 +1,10 @@
+/* 
+  LocalizableAreaListViewController.strings
+  SafelyHunt
+  Created by Yoan on 21/10/2022.
+*/
+
+"Editing area" = "Edition de zone";
+"Delete area" = "Supprimer la zone";
+"Are you sure you want delete this area" = "Êtes-vous sur de vouloir supprimer la zone";
+"Area deleting" = "Zone supprimée";

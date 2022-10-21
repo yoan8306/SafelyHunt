@@ -63,7 +63,7 @@ class MainStarterViewController: UIViewController {
             tabBarController?.tabBar.isHidden = true
             presentMapView()
         } else {
-            presentAlertError(alertMessage: "Your area is not loaded go in your area list and try again")
+            presentAlertError(alertMessage: "Your area is not loaded go in your area list and try again".localized(tableName: "LocalizableMainStarter"))
         }
     }
 
@@ -77,7 +77,7 @@ class MainStarterViewController: UIViewController {
                 self?.area = area
             case .failure(_):
                 guard UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" else {return}
-                self?.presentAlertError(alertMessage: "Check your connection network")
+                self?.presentAlertError(alertMessage: "Check your connection network".localized(tableName: "LocalizableMainStarter"))
             }
         }
     }
@@ -85,7 +85,7 @@ class MainStarterViewController: UIViewController {
     /// If no area selected present alert message
     private func presentAlertMessage() {
         if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) == "" {
-            presentAlertError(alertTitle: "👋", alertMessage: "Please select your area in your list.")
+            presentAlertError(alertTitle: "👋", alertMessage: "Please select your area in your list.".localized(tableName: "LocalizableMainStarter"))
         }
     }
 
@@ -99,7 +99,7 @@ class MainStarterViewController: UIViewController {
         mapViewController.monitoringServices = monitoringService
         mapViewController.mapMode = .monitoring
         mapViewController.modalPresentationStyle = .fullScreen
-        mapViewController.myNavigationItem.title = "Ready for monitoring"
+        mapViewController.myNavigationItem.title = "Ready for monitoring".localized(tableName: "LocalizableMainStarter")
         self.present(mapViewController, animated: true)
     }
 
@@ -220,7 +220,7 @@ extension MainStarterViewController: UITableViewDelegate {
         let monitoringService = MonitoringServices(monitoring: Monitoring(area: Area()))
         mapViewController.monitoringServices = monitoringService
         mapViewController.mapMode = .editingRadius
-        mapViewController.myNavigationItem.title = "Set radius alert"
+        mapViewController.myNavigationItem.title = "Set radius alert".localized(tableName: "LocalizableMainStarter")
         mapViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(mapViewController, animated: true)
     }

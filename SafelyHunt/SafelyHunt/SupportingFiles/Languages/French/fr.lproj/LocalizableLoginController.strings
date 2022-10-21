@@ -4,7 +4,7 @@
   Created by Yoan on 21/10/2022.
 */
 
-
+    //Verification mail alert
 "Your adress mail is not verify" = "Votre adresse mail n'est pas vérifié";
 "Go in your email box and click on link. Checked your spam. \nWould you like send a new mail" = "Allez dans votre boîte mail et cliquer sur lien. \nRegarder dans vos spam si vous ne le recevez pas.\nVoulez vous le recevoir de nouveau?";
 
@@ -12,7 +12,7 @@
 "Email sended" = "Email envoyé";
 "Cancel" = "Annuler";
 
-    // Reset password
+    // Reset password alert
 "Reset password" = "Reinitialiser le mot de passe";
 "Enter your email for reset your password" = "Entrer votre adresse mail pour réinitialiser le mot de passe";
 "Send" = "Envoyer";

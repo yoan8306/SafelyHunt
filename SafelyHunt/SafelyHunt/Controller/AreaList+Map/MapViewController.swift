@@ -442,7 +442,6 @@ class MapViewController: UIViewController {
 
         present(alertViewController, animated: true, completion: nil)
     }
-
 }
 
 // MARK: - MapMode Monitoring

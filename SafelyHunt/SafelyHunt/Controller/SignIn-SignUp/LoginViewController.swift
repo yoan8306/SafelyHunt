@@ -17,6 +17,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var resetPasswordButton: UIButton!
 
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -62,6 +63,10 @@ class LoginViewController: UIViewController {
         }
     }
 
+    @IBAction func resetPasswordAction() {
+        presentResetPassword()
+    }
+
     /// if user sign in transfert to mainStarterController
     private func transferToMainStarter() {
         let tabBarMain = UIStoryboard(name: "TabbarMain", bundle: nil)
@@ -103,5 +108,34 @@ class LoginViewController: UIViewController {
         alertVC.addAction(cancel)
         alertVC.addAction(openSetting)
         present(alertVC, animated: true, completion: nil)
+    }
+
+    private func presentResetPassword() {
+        let alertViewController = UIAlertController(
+            title: "Reset password",
+            message: "Enter your email for reset your password",
+            preferredStyle: .alert
+        )
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            self.dismiss(animated: true)
+        }
+
+        //        test if empty
+        let resetPassword = UIAlertAction(title: "Send reset password", style: .default) { _ in
+            if let textfield = alertViewController.textFields?[0], let email = textfield.text, !email.isEmpty {
+                Auth.auth().sendPasswordReset(withEmail: email)
+                self.presentNativeAlertSuccess(alertMessage: "An email has been sending")
+            }
+        }
+
+        alertViewController.addTextField(configurationHandler: { textfield in
+            textfield.placeholder = "Your email..."
+        })
+        cancel.setValue(UIColor.label, forKey: "titleTextColor")
+        resetPassword.setValue(UIColor.label, forKey: "titleTextColor")
+        alertViewController.addAction(cancel)
+        alertViewController.addAction(resetPassword)
+
+        present(alertViewController, animated: true, completion: nil)
     }
 }

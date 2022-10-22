@@ -1,0 +1,16 @@
+/* 
+  LocalizableCarousel.strings
+  SafelyHunt
+  Created by Yoan on 21/10/2022.
+*/
+
+"Hello, \nFor start click on \"Select your hunting area\" for create an area or select." = "Bonjour,\n Pour commencer cliquer sur \"Selectionner votre zone de chasse\" pour créer ou séléctionner une zone.";
+
+"For create a new area click on \"+\"." = "Pour crééer une zone cliquez sur \"+\".";
+"Position your map and click on button for draw your area with your finger." = "Positionner la carte à l'endroit désiré et cliquez sur le bouton pour dessiner votre zone avec votre doigt.";
+"Give a new name at your area" = "Donnez un nom à votre zone.";
+"Go back and select your area." = "Retournez en arrière et séléctionner votre zone.";
+"You can be alerted if someone is near you. To do this, set the distance where you want to receive the alert by clicking on \"Set your radius alert\"." = "Vous pouvez être alerté si une personne est proche de vous. Pour ça réglez a quel distance vous souhaitez être alerté en cliquant sur \"Réglez votre rayon d'alerte\".";
+"Set the distance with slider." = "Réglez la distance de votre rayon.";
+"Your are ready! \nYou can click \"Start Monitoring\"." = "Vous être prêt ! \nVous pouvez cliquer sur \"Commencer la surveillance\".";
+"You can reduce application. You will receive an alert if you exit your area or if another user is near you. \nYou can show again this tutorial in your setting. Enjoy !" = "Vous pouvez réduire l'application. Vous recevrez une alerte si vous quittez la zone ou si une personne se présente dans votre rayon. \nVous pouvez retrouver ce tutoriel dans vos paramètres. Profitez bien !";

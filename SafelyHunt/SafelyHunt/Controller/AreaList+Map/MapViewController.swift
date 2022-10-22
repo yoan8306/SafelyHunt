@@ -142,7 +142,7 @@ class MapViewController: UIViewController {
 
     private func setTitleSizeNavigationBar() {
         navigationController?.navigationBar.backgroundColor = .red
-        title = "Draw area with your finger"
+        title = "Draw area with your finger".localized(tableName: "LocalizableMapView")
     }
 
     // Map mode Editing radius
@@ -191,7 +191,7 @@ class MapViewController: UIViewController {
             forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert
         )
 
-        radiusAlertLabelStatus.text = switchButtonRadiusAlert.isOn ? "Radius alert is enable" : "Radius alert is disable"
+        radiusAlertLabelStatus.text = switchButtonRadiusAlert.isOn ? "Radius alert is enable".localized(tableName: "LocalizableMapView") : "Radius alert is disable".localized(tableName: "LocalizableMapView")
     }
 
     /// monitoring user.  action call by tilmer
@@ -299,12 +299,12 @@ class MapViewController: UIViewController {
     private func presentInfoRadius() {
         let alertViewController = UIAlertController(
             title: "Info",
-            message: "Set the alert distance between you and other users. You will be alerted if someone enters your range and it will be displayed on the map.",
+            message: "Set the alert distance between you and other users. You will be alerted if someone enters your range and it will be displayed on the map.".localized(tableName: "LocalizableMapView"),
             preferredStyle: .alert
         )
 
-        let dissmiss = UIAlertAction(title: "Dissmiss", style: .cancel)
-        let dontShowInfoRadius = UIAlertAction(title: "Do not see this message again", style: .default) { _ in
+        let dissmiss = UIAlertAction(title: "Dismiss".localized(tableName: "Localizable"), style: .cancel)
+        let dontShowInfoRadius = UIAlertAction(title: "Do not see this message again".localized(tableName: "LocalizableMapView"), style: .default) { _ in
             UserDefaults.standard.set(false, forKey: UserDefaultKeys.Keys.showInfoRadius)
         }
         dontShowInfoRadius.setValue(UIColor.label, forKey: "titleTextColor")
@@ -346,7 +346,7 @@ class MapViewController: UIViewController {
             area.city = city
 
             AreaServices.shared.insertArea(area: area, date: Date())
-            self.presentNativeAlertSuccess(alertMessage: "Your area \(nameArea) is recorded success")
+            self.presentNativeAlertSuccess(alertMessage: nameArea + " is recorded success".localized(tableName: "LocalizableMapView"))
         }
     }
 
@@ -358,7 +358,7 @@ class MapViewController: UIViewController {
         navigationController?.navigationBar.backgroundColor = .clear
         navigationController?.navigationBar.isOpaque = true
         navigationController?.navigationBar.isTranslucent = true
-        myNavigationItem.title = "Editing area"
+        myNavigationItem.title = "Editing area".localized(tableName: "LocalizableAreaListViewController")
         editingArea = false
     }
 
@@ -413,17 +413,17 @@ class MapViewController: UIViewController {
     /// present popUp for set name new area
     private func presentPopUpNewNameArea() {
         let alertViewController = UIAlertController(
-            title: "New area name",
-            message: "Enter name for your new area",
+            title: "New area name".localized(tableName: "LocalizableMapView"),
+            message: "Enter name for your new area".localized(tableName: "LocalizableMapView"),
             preferredStyle: .alert
         )
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+        let cancel = UIAlertAction(title: "Cancel".localized(tableName: "Localizable"), style: .cancel) { _ in
             self.turnOffEditingMode()
             self.mapView.removeOverlays(self.mapView.overlays)
         }
 
         //        test if empty
-        let register = UIAlertAction(title: "Register", style: .default) { _ in
+        let register = UIAlertAction(title: "Register".localized(tableName: "LocalizableMapView"), style: .default) { _ in
             if let textfield = alertViewController.textFields?[0], let nameArea = textfield.text, !nameArea.isEmpty {
                 self.createArea(nameArea: nameArea)
                 self.turnOffEditingMode()
@@ -433,7 +433,7 @@ class MapViewController: UIViewController {
         }
 
         alertViewController.addTextField(configurationHandler: { textfield in
-            textfield.placeholder = "Name area..."
+            textfield.placeholder = "Name area...".localized(tableName: "LocalizableMapView")
         })
         cancel.setValue(UIColor.label, forKey: "titleTextColor")
         register.setValue(UIColor.label, forKey: "titleTextColor")
@@ -517,7 +517,7 @@ private extension MapViewController {
         if !monitoringServices.checkUserIsAlwayInArea(positionUser: positionUser) {
             let banner = NotificationBanner(
                 title: "Attention",
-                subtitle: "You are exit of your area",
+                subtitle: "You are exit of your area!".localized(tableName: "LocalizableMapView"),
                 leftView: nil,
                 rightView: nil,
                 style: .danger,
@@ -561,7 +561,7 @@ private extension MapViewController {
                 let showHunter = PlaceHunters(
                     title: hunter.displayName ?? "no name",
                     coordinate: coordinate,
-                    subtitle: "Last view \(Date(timeIntervalSince1970: TimeInterval(hunter.date ?? 0)).getTime())"
+                    subtitle: "Last view ".localized(tableName: "LocalizableMapView") +  Date(timeIntervalSince1970: TimeInterval(hunter.date ?? 0)).getTime()
                 )
 
                 mapView.addAnnotation(showHunter)
@@ -581,7 +581,7 @@ private extension MapViewController {
         if UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.allowsNotificationRadiusAlert) {
             let bannerRadius = FloatingNotificationBanner(
                 title: "Attention",
-                subtitle: "Others users are near you",
+                subtitle: "Others users are near you".localized(tableName: "LocalizableMapView"),
                 style: .info
             )
 
@@ -664,11 +664,11 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     /// open setting app if needed
     private func UIApplicationOpenSetting() {
         let alertVC = UIAlertController(
-            title: "Error",
-            message: "I need exact position for best monitoring, you can change in your setting",
+            title: "Error".localized(tableName: "Localizable"),
+            message: "We need exact position for best monitoring, you can change in your setting".localized(tableName: "LocalizableMapView"),
             preferredStyle: .alert
         )
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+        let cancel = UIAlertAction(title: "Cancel".localized(tableName: "Localizable"), style: .cancel) { _ in
             if self.mapMode == .monitoring {
                 self.dismiss(animated: true)
             }

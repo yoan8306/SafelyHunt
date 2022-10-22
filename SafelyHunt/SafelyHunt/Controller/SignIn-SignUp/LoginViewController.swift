@@ -25,7 +25,7 @@ class LoginViewController: UIViewController {
         emailTextField.text = signInMail
         setLoginButton()
         #if DEBUG
-        emailTextField.text = "yoyo@wanadoo.fr"
+        emailTextField.text = "yoan8306@wanadoo.fr"
         passwordTextField.text = "coucou"
         #endif
     }
@@ -88,48 +88,45 @@ class LoginViewController: UIViewController {
 
     private func presentSendEmailVerification() {
         let alertVC = UIAlertController(
-            title: "Your adress mail is not verify",
-            message: "Go in your email box and click on link. Checked your spam. /nWould you like send a new mail",
+            title: "Your adress mail is not verify".localized(tableName: "LocalizableLoginController"),
+            message: "Go in your email box and click on link. Checked your spam. \nWould you like send a new mail".localized(tableName: "LocalizableLoginController"),
             preferredStyle: .alert
         )
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+        let cancel = UIAlertAction(title: "Cancel".localized(tableName: "LocalizableLoginController"), style: .cancel) { _ in
                 self.dismiss(animated: true)
         }
-        let openSetting = UIAlertAction(title: "Send email", style: .default) { _ in
-            guard let authUser = FirebaseAuth.Auth.auth().currentUser else {
-                print("no user identify")
-                return
-            }
-            print(authUser.email ?? "no email")
+        let sendEmail = UIAlertAction(title: "Send email".localized(tableName: "LocalizableLoginController"), style: .default) { _ in
+            guard  FirebaseAuth.Auth.auth().currentUser != nil else {return}
             UserServices.shared.sendEmailmVerification()
+            self.presentNativeAlertSuccess(alertMessage: "Email sended".localized(tableName: "LocalizableLoginController"))
         }
         cancel.setValue(UIColor.label, forKey: "titleTextColor")
-        openSetting.setValue(UIColor.label, forKey: "titleTextColor")
+        sendEmail.setValue(UIColor.label, forKey: "titleTextColor")
         alertVC.addAction(cancel)
-        alertVC.addAction(openSetting)
+        alertVC.addAction(sendEmail)
         present(alertVC, animated: true, completion: nil)
     }
 
     private func presentResetPassword() {
         let alertViewController = UIAlertController(
-            title: "Reset password",
-            message: "Enter your email for reset your password",
+            title: "Reset password".localized(tableName: "LocalizableLoginController"),
+            message: "Enter your email for reset your password".localized(tableName: "LocalizableLoginController"),
             preferredStyle: .alert
         )
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+        let cancel = UIAlertAction(title: "Cancel".localized(tableName: "LocalizableLoginController"), style: .cancel) { _ in
             self.dismiss(animated: true)
         }
 
         //        test if empty
-        let resetPassword = UIAlertAction(title: "Send reset password", style: .default) { _ in
+        let resetPassword = UIAlertAction(title: "Send".localized(tableName: "LocalizableLoginController"), style: .default) { _ in
             if let textfield = alertViewController.textFields?[0], let email = textfield.text, !email.isEmpty {
                 Auth.auth().sendPasswordReset(withEmail: email)
-                self.presentNativeAlertSuccess(alertMessage: "An email has been sending")
+                self.presentNativeAlertSuccess(alertMessage: "An email has been sending".localized(tableName: "LocalizableLoginController"))
             }
         }
 
         alertViewController.addTextField(configurationHandler: { textfield in
-            textfield.placeholder = "Your email..."
+            textfield.placeholder = "Your email...".localized(tableName: "LocalizableLoginController")
         })
         cancel.setValue(UIColor.label, forKey: "titleTextColor")
         resetPassword.setValue(UIColor.label, forKey: "titleTextColor")

@@ -10,9 +10,9 @@ import UIKit
 import SPAlert
 
 extension UIViewController {
-    func presentAlertError (alertTitle title: String = "Error",
+    func presentAlertError (alertTitle title: String = "Error".localized(tableName: "Localizable"),
                             alertMessage message: String,
-                            buttonTitle titleButton: String = "Dissmiss",
+                            buttonTitle titleButton: String = "Dismiss".localized(tableName: "Localizable"),
                             alertStyle style: UIAlertAction.Style = .cancel ) {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: titleButton, style: style, handler: nil)
@@ -30,13 +30,13 @@ extension UIViewController {
                present(alertVC, animated: true, completion: nil)
            }
 
-    func presentNativeAlertSuccess(alertTitle title: String = "Success", alertMessage message: String) {
+    func presentNativeAlertSuccess(alertTitle title: String = "Success".localized(tableName: "Localizable"), alertMessage message: String) {
         let alertView = SPAlertView(title: title, message: message, preset: .done)
         alertView.duration = 3
         alertView.present()
     }
 
-    func presentNativeAlertError(alertTitle title: String = "Error", alertMessage message: String) {
+    func presentNativeAlertError(alertTitle title: String = "Error".localized(tableName: "Localizable"), alertMessage message: String) {
         let alertView = SPAlertView(title: title, message: message, preset: .error)
         alertView.duration = 3
         alertView.present()

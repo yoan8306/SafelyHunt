@@ -56,21 +56,21 @@ class AccountSettingsViewController: UIViewController {
     /// Show popup for confirm action before deleted action
     private func presentConfirmPassword() {
         let alertViewController = UIAlertController(
-            title: "Confirm password",
-            message: "Enter your password for confirm action",
+            title: "Confirm action".localized(tableName: "LocalizableAccountSetting"),
+            message: "Enter your password for confirm action".localized(tableName: "LocalizableAccountSetting"),
             preferredStyle: .alert
         )
 
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "Cancel".localized(tableName: "Localizable"), style: .cancel, handler: nil)
         alertViewController.addTextField() { textfield in
             textfield.isSecureTextEntry = true
-            textfield.placeholder = "password.."
+            textfield.placeholder = "password...".localized(tableName: "LocalizableAccountSetting")
         }
-        let confirmAction = UIAlertAction(title: "Confirm", style: .destructive) { _ in
+        let confirmAction = UIAlertAction(title: "Confirm".localized(tableName: "LocalizableAccountSetting"), style: .destructive) { _ in
             guard let textfield = alertViewController.textFields?[0],
                     let password = textfield.text,
                     !password.isEmpty else {
-                self.presentAlertError(alertMessage: "Enter your password")
+                self.presentAlertError(alertMessage: "Enter your password".localized(tableName: "LocalizableAccountSetting"))
                 return
             }
             self.deleteAccount(password: password)

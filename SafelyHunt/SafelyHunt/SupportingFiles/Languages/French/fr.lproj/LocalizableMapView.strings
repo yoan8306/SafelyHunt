@@ -1,0 +1,21 @@
+/* 
+  LocalizableMapView.strings
+  SafelyHunt
+  Created by Yoan on 21/10/2022.
+*/
+
+"Draw area with your finger" = "Dessinez votre zone avec votre doigt";
+"Radius alert is enable" = "Rayon d'alerte activé";
+"Radius alert is disable" = "Rayon d'alerte désactivé";
+"Set the alert distance between you and other users. You will be alerted if someone enters your range and it will be displayed on the map." = "Définissez la distance d'alerte entre vous et les autres utilisateurs. Vous serez alerté si quelqu'un entre dans votre périmètre et il sera affiché sur la carte.";
+"Do not see this message again" = "Ne plus voir ce message";
+" is recorded success" = " est enregistrée avec succès";
+"New area name" = "Nom de votre nouvelle zone";
+"Enter name for your new area" = "Entrer le nom de votre nouvelle zone";
+"Register" = "Enregistrer";
+"Name area..." = "Nom de la zone...";
+"You are exit of your area!" = "Vous êtes sortis de votre zone!";
+"Last view " = "Vue à: ";
+"Others users are near you" = "D'autres utilisateurs sont proches de vous";
+"We need exact position for best monitoring, you can change in your setting" = "Nous avons besoin d'accéder à votre position exacte pour une meilleur surveillance. Vous pouvez changer ce paramètre dans les réglages.";
+"Open setting" = "Ouvrir les réglages";

@@ -24,8 +24,6 @@ class AreaListViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
         areaListTableView.addSubview(refreshControl)
-//        areaListTableView.allowsMultipleSelectionDuringEditing = true
-//        areaListTableView.setEditing(true, animated: true)
         initializeBackgroundTableView()
     }
 
@@ -47,7 +45,7 @@ class AreaListViewController: UIViewController {
         mapViewController.monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area()))
         mapViewController.mapMode = .editingArea
         mapViewController.modalPresentationStyle = .fullScreen
-        mapViewController.myNavigationItem.title = "Editing area"
+        mapViewController.myNavigationItem.title = "Editing area".localized(tableName: "LocalizableAreaListViewController")
         navigationController?.pushViewController(mapViewController, animated: true)
     }
 
@@ -132,15 +130,15 @@ extension AreaListViewController: UITableViewDelegate {
     /// - Parameter indexPath: index of area selected
     private func askDelete (indexPath: IndexPath) {
         let alertVC = UIAlertController(
-            title: "Delete area",
-            message: "Are you sure you want delete this area",
+            title: "Delete area".localized(tableName: "LocalizableAreaListViewController"),
+            message: "Are you sure you want delete this area".localized(tableName: "LocalizableAreaListViewController"),
             preferredStyle: .actionSheet
         )
 
-        let deletingAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+        let deletingAction = UIAlertAction(title: "Delete".localized(tableName: "Localizable"), style: .destructive) { _ in
             self.deleteArea(indexPath)
         }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "Cancel".localized(tableName: "Localizable"), style: .cancel, handler: nil)
 
         cancel.setValue(UIColor.label, forKey: "titleTextColor")
         alertVC.addAction(cancel)
@@ -162,15 +160,15 @@ extension AreaListViewController: UITableViewDelegate {
             case .success(_):
                 self?.listArea.remove(at: indexPath.row)
                 self?.areaListTableView.deleteRows(at: [indexPath], with: .left)
-                self?.presentNativeAlertSuccess(alertMessage: "Area Deleting")
+                self?.presentNativeAlertSuccess(alertMessage: "Area deleting".localized(tableName: "LocalizableAreaListViewController"))
                 UserDefaults.standard.set("", forKey: UserDefaultKeys.Keys.areaSelected)
                 self?.initializeBackgroundTableView()
             case.failure(let error):
                 self?.getAreaList()
                 self?.presentAlertError(
-                    alertTitle: "Error",
+                    alertTitle: "Error".localized(tableName: "Localizable"),
                     alertMessage: error.localizedDescription,
-                    buttonTitle: "Dismiss",
+                    buttonTitle: "Dismiss".localized(tableName: "Localizable"),
                     alertStyle: .cancel
                 )
             }
@@ -187,7 +185,7 @@ extension AreaListViewController: UITableViewDelegate {
         mapViewController.monitoringServices = monitoringService
         mapViewController.mapMode = .editingArea
         mapViewController.modalPresentationStyle = .fullScreen
-        mapViewController.myNavigationItem.title = "Editing area"
+        mapViewController.myNavigationItem.title = "Editing area".localized(tableName: "LocalizableAreaListViewController")
         navigationController?.pushViewController(mapViewController, animated: true)
     }
 }

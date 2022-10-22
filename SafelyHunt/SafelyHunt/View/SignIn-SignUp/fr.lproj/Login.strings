@@ -1,0 +1,21 @@
+
+/* Class = "UINavigationItem"; title = "Navigation"; ObjectID = "IMa-TZ-fbA"; */
+"IMa-TZ-fbA.title" = "Navigation";
+
+/* Class = "UIButton"; normalTitle = "Forget password"; ObjectID = "Jra-d1-bQh"; */
+"Jra-d1-bQh.normalTitle" = "Mot de passe oublié";
+
+/* Class = "UIBarButtonItem"; title = "Register"; ObjectID = "Vjd-Cj-bth"; */
+"Vjd-Cj-bth.title" = "Inscription";
+
+/* Class = "UITextField"; placeholder = "email adress..."; ObjectID = "p8s-qR-kwB"; */
+"p8s-qR-kwB.placeholder" = "Adresse email...";
+
+/* Class = "UIButton"; normalTitle = "Log in"; ObjectID = "s51-eu-qdl"; */
+"s51-eu-qdl.normalTitle" = "Connexion";
+
+/* Class = "UINavigationItem"; title = "Log in"; ObjectID = "ul3-9L-3AQ"; */
+"ul3-9L-3AQ.title" = "Connexion";
+
+/* Class = "UITextField"; placeholder = "Password..."; ObjectID = "xbP-TP-91o"; */
+"xbP-TP-91o.placeholder" = "Mot de passe...";

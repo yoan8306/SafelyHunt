@@ -56,6 +56,8 @@ extension SettingsViewController: UITableViewDelegate {
         case 3:
             presentTutorial()
         case 4:
+            ""
+        case 5:
             transferToAccountSetting()
         default:
             break

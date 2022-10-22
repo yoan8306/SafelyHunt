@@ -15,6 +15,7 @@ class UserDefaultKeys {
         static let mapTypeSelected = "MapTypeSelected"
         static let showInfoRadius = "Show radius Info"
         static let tutorialHasBeenSeen = "Tutoriel has been viewed"
+        static let notificationSoundName = "Sound notification"
     }
 
     static var areaSelected: String {
@@ -68,6 +69,15 @@ class UserDefaultKeys {
         }
         set {
             UserDefaults.standard.bool(forKey: Keys.tutorialHasBeenSeen)
+        }
+    }
+
+    static var notificationSoundName: String {
+        get {
+            return UserDefaults.standard.string(forKey: Keys.notificationSoundName) ?? "orchestralEmergency.caf"
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Keys.notificationSoundName)
         }
     }
 }

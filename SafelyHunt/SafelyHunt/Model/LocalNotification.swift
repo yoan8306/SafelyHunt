@@ -14,6 +14,7 @@ class LocalNotification {
     let notificationCenter = UNUserNotificationCenter.current()
     let notification = UNMutableNotificationContent()
     var alertSong: AVAudioPlayer?
+    let nameSoundNotification = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.notificationSoundName)
 
     /// Initialize notification
     func notificationInitialize() {
@@ -38,7 +39,7 @@ class LocalNotification {
 
     /// initiatilaze info into notification
     private func prepareAlert() {
-        let notificationSound = UNNotificationSoundName.init(rawValue: "orchestralEmergency.caf")
+        let notificationSound = UNNotificationSoundName.init(rawValue: nameSoundNotification ?? "")
         notification.title = "Attention !!!".localized(tableName: "LocalizableLocalNotification")
         notification.body = "Required your attention".localized(tableName: "LocalizableLocalNotification")
         notification.categoryIdentifier = "StopMonitoring.category"
@@ -47,7 +48,7 @@ class LocalNotification {
 
     /// play custom song notification
     private func playAlert() {
-        let path = Bundle.main.path(forResource: "orchestralEmergency.caf", ofType: nil)!
+        let path = Bundle.main.path(forResource: nameSoundNotification, ofType: nil)!
         let url = URL(fileURLWithPath: path)
 
         do {

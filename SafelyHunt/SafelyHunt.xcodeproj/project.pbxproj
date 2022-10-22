@@ -58,6 +58,7 @@
 		5F98C00C290332FB0063CCA9 /* LocalizableAccountSetting.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98C00E290332FB0063CCA9 /* LocalizableAccountSetting.strings */; };
 		5F98C010290334B00063CCA9 /* LocalizableServicesError.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98C00F290334B00063CCA9 /* LocalizableServicesError.strings */; };
 		5F98C0112903413B0063CCA9 /* LocalizableMainData.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98C0132903413B0063CCA9 /* LocalizableMainData.strings */; };
+		5F98C01929048ABD0063CCA9 /* ListSoundNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F98C01829048ABD0063CCA9 /* ListSoundNotificationViewController.swift */; };
 		5FB4BCCB28C681F500C69E8F /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4BCCA28C681F500C69E8F /* UserServices.swift */; };
 		5FB4BCCD28C6821000C69E8F /* MonitoringServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4BCCC28C6821000C69E8F /* MonitoringServices.swift */; };
 		5FBEF946287306C80023E5A5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF945287306C80023E5A5 /* LoginViewController.swift */; };
@@ -172,6 +173,7 @@
 		5F98C00D290332FB0063CCA9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LocalizableAccountSetting.strings; sourceTree = "<group>"; };
 		5F98C00F290334B00063CCA9 /* LocalizableServicesError.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = LocalizableServicesError.strings; sourceTree = "<group>"; };
 		5F98C0122903413B0063CCA9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LocalizableMainData.strings; sourceTree = "<group>"; };
+		5F98C01829048ABD0063CCA9 /* ListSoundNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSoundNotificationViewController.swift; sourceTree = "<group>"; };
 		5FB4BCCA28C681F500C69E8F /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
 		5FB4BCCC28C6821000C69E8F /* MonitoringServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoringServices.swift; sourceTree = "<group>"; };
 		5FBEF945287306C80023E5A5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 				5F7624D728C216AC00D6FA65 /* AccountSettingsViewController.swift */,
 				5F7624E028C224CD00D6FA65 /* ProfileViewController.swift */,
 				5F576C81290091E3004B4A91 /* RankingViewController.swift */,
+				5F98C01829048ABD0063CCA9 /* ListSoundNotificationViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -709,6 +712,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FBEF946287306C80023E5A5 /* LoginViewController.swift in Sources */,
+				5F98C01929048ABD0063CCA9 /* ListSoundNotificationViewController.swift in Sources */,
 				5F46BEF7289E9EEA00D1E020 /* CustomAnnotationView.swift in Sources */,
 				5F79FCE9289BF911009F6AE9 /* Hunter.swift in Sources */,
 				5FB4BCCB28C681F500C69E8F /* UserServices.swift in Sources */,

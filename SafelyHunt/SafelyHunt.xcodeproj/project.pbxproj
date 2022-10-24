@@ -23,7 +23,7 @@
 		5F576C80290089A1004B4A91 /* RanckingServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F576C7F290089A1004B4A91 /* RanckingServices.swift */; };
 		5F576C82290091E3004B4A91 /* RankingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F576C81290091E3004B4A91 /* RankingViewController.swift */; };
 		5F62872A28A522B600AD51E2 /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F62872928A522B600AD51E2 /* LocalNotification.swift */; };
-		5F62872E28A5230F00AD51E2 /* orchestralEmergency.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5F62872C28A5230E00AD51E2 /* orchestralEmergency.caf */; };
+		5F62872E28A5230F00AD51E2 /* Orchestral-emergency.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5F62872C28A5230E00AD51E2 /* Orchestral-emergency.caf */; };
 		5F7624D428C2159800D6FA65 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F7624D228C2159800D6FA65 /* Settings.storyboard */; };
 		5F7624D828C216AC00D6FA65 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7624D728C216AC00D6FA65 /* AccountSettingsViewController.swift */; };
 		5F7624E128C224CE00D6FA65 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7624E028C224CD00D6FA65 /* ProfileViewController.swift */; };
@@ -36,7 +36,6 @@
 		5F7E5F7228E6E92F0035A38C /* SafelyHuntUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7E5F7128E6E92F0035A38C /* SafelyHuntUITests.swift */; };
 		5F7F698128932C1000562FDA /* AreaCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */; };
 		5F9390D728F15D8600768C15 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9390D628F15D8600768C15 /* UIViewExtension.swift */; };
-		5F984C5E28C76321003E9A65 /* scanning-alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5F984C5D28C76320003E9A65 /* scanning-alarm.mp3 */; };
 		5F98BFB02902AB510063CCA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F98BFB22902AB510063CCA9 /* Main.storyboard */; };
 		5F98BFB32902AB580063CCA9 /* TabbarMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F98BFB52902AB580063CCA9 /* TabbarMain.storyboard */; };
 		5F98BFB62902AB5E0063CCA9 /* MainStarter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F98BFB82902AB5E0063CCA9 /* MainStarter.storyboard */; };
@@ -59,6 +58,8 @@
 		5F98C010290334B00063CCA9 /* LocalizableServicesError.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98C00F290334B00063CCA9 /* LocalizableServicesError.strings */; };
 		5F98C0112903413B0063CCA9 /* LocalizableMainData.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F98C0132903413B0063CCA9 /* LocalizableMainData.strings */; };
 		5F98C01929048ABD0063CCA9 /* ListSoundNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F98C01829048ABD0063CCA9 /* ListSoundNotificationViewController.swift */; };
+		5FA61BB129067DEF00FD3B88 /* SoundNotification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FA61BB029067DEF00FD3B88 /* SoundNotification.storyboard */; };
+		5FA61BB329069BF600FD3B88 /* Scanning-alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FA61BB229069BF600FD3B88 /* Scanning-alarm.caf */; };
 		5FB4BCCB28C681F500C69E8F /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4BCCA28C681F500C69E8F /* UserServices.swift */; };
 		5FB4BCCD28C6821000C69E8F /* MonitoringServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB4BCCC28C6821000C69E8F /* MonitoringServices.swift */; };
 		5FBEF946287306C80023E5A5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBEF945287306C80023E5A5 /* LoginViewController.swift */; };
@@ -124,7 +125,7 @@
 		5F576C7F290089A1004B4A91 /* RanckingServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RanckingServices.swift; sourceTree = "<group>"; };
 		5F576C81290091E3004B4A91 /* RankingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingViewController.swift; sourceTree = "<group>"; };
 		5F62872928A522B600AD51E2 /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
-		5F62872C28A5230E00AD51E2 /* orchestralEmergency.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = orchestralEmergency.caf; sourceTree = "<group>"; };
+		5F62872C28A5230E00AD51E2 /* Orchestral-emergency.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Orchestral-emergency.caf"; sourceTree = "<group>"; };
 		5F7624D328C2159800D6FA65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		5F7624D728C216AC00D6FA65 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		5F7624E028C224CD00D6FA65 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -138,7 +139,6 @@
 		5F7E5F7128E6E92F0035A38C /* SafelyHuntUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafelyHuntUITests.swift; sourceTree = "<group>"; };
 		5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaCellTableViewCell.swift; sourceTree = "<group>"; };
 		5F9390D628F15D8600768C15 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
-		5F984C5D28C76320003E9A65 /* scanning-alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "scanning-alarm.mp3"; sourceTree = "<group>"; };
 		5F98BFB12902AB510063CCA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5F98BFB42902AB580063CCA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TabbarMain.storyboard; sourceTree = "<group>"; };
 		5F98BFB72902AB5E0063CCA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainStarter.storyboard; sourceTree = "<group>"; };
@@ -174,6 +174,8 @@
 		5F98C00F290334B00063CCA9 /* LocalizableServicesError.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = LocalizableServicesError.strings; sourceTree = "<group>"; };
 		5F98C0122903413B0063CCA9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LocalizableMainData.strings; sourceTree = "<group>"; };
 		5F98C01829048ABD0063CCA9 /* ListSoundNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSoundNotificationViewController.swift; sourceTree = "<group>"; };
+		5FA61BB029067DEF00FD3B88 /* SoundNotification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SoundNotification.storyboard; sourceTree = "<group>"; };
+		5FA61BB229069BF600FD3B88 /* Scanning-alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Scanning-alarm.caf"; sourceTree = "<group>"; };
 		5FB4BCCA28C681F500C69E8F /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
 		5FB4BCCC28C6821000C69E8F /* MonitoringServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoringServices.swift; sourceTree = "<group>"; };
 		5FBEF945287306C80023E5A5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				5F98BFC12902AB730063CCA9 /* AccountSettings.storyboard */,
 				5F98BFC42902AB770063CCA9 /* Profile.storyboard */,
 				5F98BFC72902AB7C0063CCA9 /* Ranking.storyboard */,
+				5FA61BB029067DEF00FD3B88 /* SoundNotification.storyboard */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -470,8 +473,8 @@
 			children = (
 				5F98BFE22902C5AB0063CCA9 /* Languages */,
 				5F1CF300286B1F2900A0429D /* AppDelegate.swift */,
-				5F62872C28A5230E00AD51E2 /* orchestralEmergency.caf */,
-				5F984C5D28C76320003E9A65 /* scanning-alarm.mp3 */,
+				5F62872C28A5230E00AD51E2 /* Orchestral-emergency.caf */,
+				5FA61BB229069BF600FD3B88 /* Scanning-alarm.caf */,
 				5F1CF302286B1F2900A0429D /* SceneDelegate.swift */,
 				5F1CF30E286B1F2C00A0429D /* Info.plist */,
 				5F1CF309286B1F2B00A0429D /* Assets.xcassets */,
@@ -618,7 +621,7 @@
 				5F98C010290334B00063CCA9 /* LocalizableServicesError.strings in Resources */,
 				5F98BFB92902AB630063CCA9 /* AreasList.storyboard in Resources */,
 				5F1CF331286B1FB500A0429D /* GoogleService-Info.plist in Resources */,
-				5F62872E28A5230F00AD51E2 /* orchestralEmergency.caf in Resources */,
+				5F62872E28A5230F00AD51E2 /* Orchestral-emergency.caf in Resources */,
 				5F1CF30A286B1F2B00A0429D /* Assets.xcassets in Resources */,
 				5F1CF308286B1F2900A0429D /* Login.storyboard in Resources */,
 				5F98BFB62902AB5E0063CCA9 /* MainStarter.storyboard in Resources */,
@@ -628,11 +631,12 @@
 				5F98BFB02902AB510063CCA9 /* Main.storyboard in Resources */,
 				5FFBFF9028E384F700214FEB /* .swiftlint.yml in Resources */,
 				5F98BFEF290322570063CCA9 /* LocalizableLocalNotification.strings in Resources */,
-				5F984C5E28C76321003E9A65 /* scanning-alarm.mp3 in Resources */,
+				5FA61BB129067DEF00FD3B88 /* SoundNotification.storyboard in Resources */,
 				5F98BFBC2902AB6B0063CCA9 /* Maps.storyboard in Resources */,
 				5FBEF94B2873073A0023E5A5 /* Register.storyboard in Resources */,
 				5F98BFC52902AB7C0063CCA9 /* Ranking.storyboard in Resources */,
 				5F98BFF82903258B0063CCA9 /* LocalizableMainStarter.strings in Resources */,
+				5FA61BB329069BF600FD3B88 /* Scanning-alarm.caf in Resources */,
 				5F98C00C290332FB0063CCA9 /* LocalizableAccountSetting.strings in Resources */,
 				5F98BFB32902AB580063CCA9 /* TabbarMain.storyboard in Resources */,
 				5F98C00729032BCE0063CCA9 /* LocalizableMapView.strings in Resources */,

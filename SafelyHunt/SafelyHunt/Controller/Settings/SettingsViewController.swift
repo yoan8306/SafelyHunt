@@ -56,7 +56,7 @@ extension SettingsViewController: UITableViewDelegate {
         case 3:
             presentTutorial()
         case 4:
-            ""
+            presentListSoundNotification()
         case 5:
             transferToAccountSetting()
         default:
@@ -107,5 +107,12 @@ extension SettingsViewController: UITableViewDelegate {
         if UIApplication.shared.canOpenURL(settingsUrl) {
             UIApplication.shared.open(settingsUrl, completionHandler: nil)
         }
+    }
+
+    private func presentListSoundNotification() {
+        let soundsNotificationStoryboard = UIStoryboard(name: "SoundNotification", bundle: nil)
+        guard let soundsNotificationViewController = soundsNotificationStoryboard.instantiateViewController(withIdentifier: "SoundNotification") as? ListSoundNotificationViewController else {return}
+
+        present(soundsNotificationViewController, animated: true)
     }
 }

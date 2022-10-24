@@ -119,6 +119,6 @@ class AccountSettingsViewController: UIViewController {
         userDefault.set(0, forKey: UserDefaultKeys.Keys.mapTypeSelected)
         userDefault.set(true, forKey: UserDefaultKeys.Keys.showInfoRadius)
         userDefault.set(false, forKey: UserDefaultKeys.Keys.tutorialHasBeenSeen)
-        userDefault.set("orchestralEmergency.caf", forKey: UserDefaultKeys.Keys.notificationSoundName)
+        userDefault.set("Orchestral-emergency", forKey: UserDefaultKeys.Keys.notificationSoundName)
     }
 }

@@ -8,15 +8,20 @@
 import UIKit
 
 class ListSoundNotificationViewController: UIViewController {
-
+// MARK: - Properties
     let sounds: [String] = ["Orchestral-emergency", "Scanning-alarm"]
     let notification = LocalNotification()
+
+// MARK: - IBOutlet
     @IBOutlet weak var soundsTableView: UITableView!
+
+// MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 }
 
+// MARK: - UITableView DataSource
 extension ListSoundNotificationViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sounds.count
@@ -44,12 +49,11 @@ extension ListSoundNotificationViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableView Delegate
 extension ListSoundNotificationViewController: UITableViewDelegate {
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let soundSelected = sounds[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
-        UserDefaults.standard.set(soundSelected, forKey: UserDefaultKeys.Keys.notificationSoundName)
+        UserDefaults.standard.set(sounds[indexPath.row], forKey: UserDefaultKeys.Keys.notificationSoundName)
         tableView.reloadData()
        notification.playAlert()
     }

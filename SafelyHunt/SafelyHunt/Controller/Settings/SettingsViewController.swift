@@ -39,7 +39,6 @@ extension SettingsViewController: UITableViewDataSource {
 
         return cell
     }
-
 }
 
 // MARK: - TableViewDelegate
@@ -56,6 +55,8 @@ extension SettingsViewController: UITableViewDelegate {
         case 3:
             presentTutorial()
         case 4:
+            presentListSoundNotification()
+        case 5:
             transferToAccountSetting()
         default:
             break
@@ -101,9 +102,15 @@ extension SettingsViewController: UITableViewDelegate {
     /// Open setting application
     private func openSettingApp() {
         guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {return}
-
         if UIApplication.shared.canOpenURL(settingsUrl) {
             UIApplication.shared.open(settingsUrl, completionHandler: nil)
         }
+    }
+
+    private func presentListSoundNotification() {
+        let soundsNotificationStoryboard = UIStoryboard(name: "SoundNotification", bundle: nil)
+        guard let soundsNotificationViewController = soundsNotificationStoryboard.instantiateViewController(withIdentifier: "SoundNotification") as? ListSoundNotificationViewController else {return}
+        soundsNotificationViewController.navigationItem.title = "Change alerts sound".localized(tableName: "LocalizableMainData")
+        navigationController?.pushViewController(soundsNotificationViewController, animated: true)
     }
 }

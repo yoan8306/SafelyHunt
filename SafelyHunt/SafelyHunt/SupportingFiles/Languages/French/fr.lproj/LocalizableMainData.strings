@@ -3,9 +3,10 @@
   SafelyHunt
   Created by Yoan on 21/10/2022.
 */
-"Select your hunting area" = "Sélectionnez votre zone de chasse";
-"Define your radius alert" = "Réglez votre rayon d'alerte";
+"Select your hunting area" = "Sélectionner votre zone de chasse";
+"Define your radius alert" = "Régler votre rayon d'alerte";
 "Ranking" = "Classement";
 "Activate location" = "Activer la localisation";
 "Show tutorial" = "Revoir le tutoriel";
 "Account" = "Compte";
+"Change alerts sound" = "Changer le son des alertes";

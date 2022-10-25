@@ -6,7 +6,7 @@
 "Error during create account." = "Erreur durant la création du compte.";
 "This email already exist." = "Cette email existe déjà.";
 "Authentification failed." = "Echec de l'authentification.";
-"You doesn't have an area recorded. Click on \"+\" for add your first area." = "Vous n'avez pas de zone d'enregister. Clique sur \"+\"; pour ajouter votre première zone.";
+"You doesn't have an area recorded. Click on \"+\" for add your first area." = "Vous n'avez pas de zone d'enregistrer. Clique sur \"+\"; pour ajouter votre première zone.";
 "Error during deleting." = "Erreur durant la suppression de la zone.";
 "Error during task." = "Erreur durant la tâche.";
 "Error during delete account." = "Erreur durant la suppression de votre compte.";

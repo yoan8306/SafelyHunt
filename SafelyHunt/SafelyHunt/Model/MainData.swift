@@ -19,6 +19,7 @@ class MainData {
     "Ranking".localized(tableName: "LocalizableMainData"),
     "Activate location".localized(tableName: "LocalizableMainData"),
     "Show tutorial".localized(tableName: "LocalizableMainData"),
+    "Change alerts sound".localized(tableName: "LocalizableMainData"),
     "Account".localized(tableName: "LocalizableMainData")
    ]
     private init() {}

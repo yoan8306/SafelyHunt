@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 enum MapMode {
-case editingArea, editingRadius, monitoring
+    case editingArea, editingRadius, monitoring
 }

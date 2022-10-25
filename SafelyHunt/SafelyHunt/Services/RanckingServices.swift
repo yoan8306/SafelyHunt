@@ -16,12 +16,12 @@ class RankingService {
 
     private init() {}
 
-    func getRanking(callBack: @escaping (Result<[Hunter], Error>) -> Void) {
-        let databaseHunterInfo = database.child("Database").child("users_list")
-        var hunters: [Hunter] = []
-        hunters .removeAll()
+    func getRanking(callBack: @escaping (Result<[Person], Error>) -> Void) {
+        let databasePersonInfo = database.child("Database").child("users_list")
+        var persons: [Person] = []
+        persons .removeAll()
 
-        databaseHunterInfo.getData { error, dataSnapshot in
+        databasePersonInfo.getData { error, dataSnapshot in
             guard error == nil, let dataSnapshot = dataSnapshot else {
                 callBack(.failure(error ?? ServicesError.errorTask))
                 return
@@ -31,11 +31,11 @@ class RankingService {
                 return
             }
 
-            for (index, hunterId) in data.enumerated() {
-                let pathDistanceHunter = hunterId.childSnapshot(forPath: "distance_traveled")
+            for (index, personID) in data.enumerated() {
+                let pathDistanceHunter = personID.childSnapshot(forPath: "distance_traveled")
                 let folderDistance = pathDistanceHunter.value as? NSDictionary
                 let distance = folderDistance?["Total_distance"]
-                let pathUserInfo = hunterId.childSnapshot(forPath: "info_user")
+                let pathUserInfo = personID.childSnapshot(forPath: "info_user")
                 let folderInfoUser = pathUserInfo.value as? NSDictionary
                 let displayName = folderInfoUser?["name"]
                 let email = folderInfoUser?["email"]
@@ -45,20 +45,20 @@ class RankingService {
                       let email = email as? String else {
                     // if last index
                     if index == data.count-1 {
-                        callBack(.success(hunters.sorted( by: { $0.totalDistance ?? 0 > $1.totalDistance ?? 0})))
+                        callBack(.success(persons.sorted( by: { $0.totalDistance ?? 0 > $1.totalDistance ?? 0})))
                         return
                     }
                     continue // next index
                 }
 
-                let hunter = Hunter()
-                hunter.totalDistance = distance
-                hunter.displayName = displayName
-                hunter.email = email
-                hunters.append(hunter)
+                let person = Person()
+                person.totalDistance = distance
+                person.displayName = displayName
+                person.email = email
+                persons.append(person)
 
                 if index == data.count-1 {
-                    callBack(.success(hunters.sorted( by: { $0.totalDistance ?? 0 > $1.totalDistance ?? 0})))
+                    callBack(.success(persons.sorted( by: { $0.totalDistance ?? 0 > $1.totalDistance ?? 0})))
                 }
             }
         }

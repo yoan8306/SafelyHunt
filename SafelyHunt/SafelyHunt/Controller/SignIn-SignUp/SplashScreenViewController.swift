@@ -36,7 +36,7 @@ class SplashScreenViewController: UIViewController {
     // MARK: - private functions
     /// transfer to main starter controller
     /// - Parameter hunter: hunter logged
-    private func transferToMainStarter(hunter: Hunter) {
+    private func transferToMainStarter(hunter: Person) {
         let mainStarterStoryboard = UIStoryboard(name: "TabbarMain", bundle: nil)
 
         guard let mainStarterViewController = mainStarterStoryboard.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {return}

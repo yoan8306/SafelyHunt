@@ -12,7 +12,7 @@ import MapKit
 class MainStarterViewController: UIViewController {
     // MARK: - Properties
     var area: Area?
-    var hunter = Hunter()
+    var person = Person()
 
     // MARK: - IBOutlet
     @IBOutlet weak var startMonitoringButton: UIButton!
@@ -94,7 +94,7 @@ class MainStarterViewController: UIViewController {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController, let area = area else {return}
 
-        let monitoringService: MonitoringServicesProtocol = MonitoringServices(monitoring: Monitoring(area: area, hunter: hunter))
+        let monitoringService: MonitoringServicesProtocol = MonitoringServices(monitoring: Monitoring(area: area, person: person))
 
         mapViewController.monitoringServices = monitoringService
         mapViewController.mapMode = .monitoring

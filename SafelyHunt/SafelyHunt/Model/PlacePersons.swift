@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-class PlaceHunters: NSObject, MKAnnotation {
+class PlacePersons: NSObject, MKAnnotation {
     var title: String?
     var coordinate: CLLocationCoordinate2D
     var subtitle: String?
@@ -20,7 +20,7 @@ class PlaceHunters: NSObject, MKAnnotation {
     }
 }
 
-class AnnotationHuntersView: MKAnnotationView {
+class AnnotationPersonsView: MKAnnotationView {
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         image = UIImage(named: "hunterPosition36")

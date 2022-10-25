@@ -539,7 +539,7 @@ private extension MapViewController {
                     return
                 }
                 self?.mapView.removeAnnotations((self?.mapView.annotations)!)
-                self?.insertHunterInMap(usersIsInRadiusAlert)
+                self?.insertPersonsInMap(usersIsInRadiusAlert)
                 self?.insertRadius()
                 self?.sendNotificationHuntersInRadius()
 
@@ -551,21 +551,22 @@ private extension MapViewController {
 
     /// insert hunters in map
     /// - Parameter arrayHunters: list hunters present in radius alert
-    func insertHunterInMap(_ arrayHunters: [Hunter]) {
-        if arrayHunters.count > 0 {
-            for hunter in arrayHunters {
-                guard let latitude = hunter.latitude, let longitude = hunter.longitude else {
+    func insertPersonsInMap(_ persons: [Person]) {
+        if persons.count > 0 {
+            for person in persons {
+                guard let latitude = person.latitude, let longitude = person.longitude else {
                     return
                 }
                 let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                let showHunter = PlaceHunters(
-                    title: hunter.displayName ?? "no name",
+                let showHunter = PlacePersons(
+                    title: person.displayName ?? "no name"
+                    + "(\(String(describing: person.personMode?.rawValue.localized(tableName: "Localizable"))))",
                     coordinate: coordinate,
-                    subtitle: "Last view ".localized(tableName: "LocalizableMapView") +  Date(timeIntervalSince1970: TimeInterval(hunter.date ?? 0)).getTime()
+                    subtitle: "Last view ".localized(tableName: "LocalizableMapView") +  Date(timeIntervalSince1970: TimeInterval(person.date ?? 0)).getTime()
                 )
 
                 mapView.addAnnotation(showHunter)
-                mapView.register(AnnotationHuntersView.self,
+                mapView.register(AnnotationPersonsView.self,
                                  forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier
                 )
             }
@@ -703,11 +704,11 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     }
 
     private func updatePostion(_ locations: [CLLocation]) {
-        guard let hunter = monitoringServices.monitoring.hunter else {
+        guard let person = monitoringServices.monitoring.person else {
             return
         }
-        hunter.latitude = locations.first?.coordinate.latitude
-        hunter.longitude = locations.first?.coordinate.longitude
+        person.latitude = locations.first?.coordinate.latitude
+        person.longitude = locations.first?.coordinate.longitude
     }
 
     private func createPolyLineRenderer(_ overlay: MKOverlay) -> MKOverlayRenderer {

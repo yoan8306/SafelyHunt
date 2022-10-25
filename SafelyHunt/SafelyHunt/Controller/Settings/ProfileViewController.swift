@@ -12,7 +12,7 @@ import FirebaseAuth
 class ProfileViewController: UIViewController {
 // MARK: - Properties
     var monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area()))
-    var hunter = Hunter()
+    var person = Person()
 
 // MARK: - IBOutlet
     @IBOutlet weak var totalDistanceLabel: UILabel!

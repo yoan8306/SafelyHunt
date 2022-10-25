@@ -14,7 +14,7 @@ import MapKit
 protocol MonitoringServicesProtocol {
     var monitoring: MonitoringProtocol {get}
     var startMonitoring: Bool {get set}
-    func checkUserIsInRadiusAlert(callback: @escaping(Result<[Hunter], Error>) -> Void)
+    func checkUserIsInRadiusAlert(callback: @escaping(Result<[Person], Error>) -> Void)
     func checkUserIsAlwayInArea(positionUser: CLLocationCoordinate2D) -> Bool
     func insertDistanceTraveled()
     func getTotalDistanceTraveled(callBack: @escaping(Result<Double, Error>) -> Void)
@@ -34,21 +34,21 @@ class MonitoringServices: MonitoringServicesProtocol {
 
     /// check if they are hunters in the radius of the user
     /// - Parameter callback: send true if an other hunter is in  radius
-    func checkUserIsInRadiusAlert(callback: @escaping(Result<[Hunter], Error>) -> Void) {
-        guard let hunter = monitoring.hunter else {
+    func checkUserIsInRadiusAlert(callback: @escaping(Result<[Person], Error>) -> Void) {
+        guard let person = monitoring.person else {
             callback(.failure(ServicesError.signIn))
             return
         }
 
-        guard let actualPosition = hunter.actualPostion else {
+        guard let actualPosition = person.actualPostion else {
             return
         }
 
         getPositionUsers { result in
             switch result {
-            case .success(let hunters):
-                callback(.success( self.addHuntersIntoList(
-                    huntersList: hunters,
+            case .success(let persons):
+                callback(.success( self.addPersonsIntoList(
+                    persons: persons,
                     actualPostion: actualPosition,
                     radiusAlert: UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert)
                 )
@@ -128,9 +128,9 @@ class MonitoringServices: MonitoringServicesProtocol {
 
     /// get position of all users available in database
     /// - Parameter callBack: call result send array of hunter
-    private func getPositionUsers(callBack: @escaping (Result<[Hunter], Error>) -> Void) {
+    private func getPositionUsers(callBack: @escaping (Result<[Person], Error>) -> Void) {
         let databaseAllPositions = database.child("Database").child("position_user")
-        var hunters: [Hunter] = []
+        var persons: [Person] = []
 
         databaseAllPositions.getData { [weak self] error, dataSnapshot  in
             guard error == nil, let dataSnapshot = dataSnapshot else {
@@ -151,41 +151,45 @@ class MonitoringServices: MonitoringServicesProtocol {
                 let latitude = dictElement?["latitude"] as? Double
                 let longitude = dictElement?["longitude"] as? Double
                 let dateString = dictElement?["date"] as? String
+                let personMode = dictElement?["person_Mode"] as? String
+                let personType = PersonMode(rawValue: personMode ?? "hunter")
                 let date = Int(dateString ?? "0")
-                let hunter = Hunter()
-                hunter.displayName = displayName
-                hunter.latitude = latitude
-                hunter.longitude = longitude
-                hunter.date = date
-                hunters.append(hunter)
+                let person = Person()
+                person.displayName = displayName
+                person.latitude = latitude
+                person.longitude = longitude
+                person.date = date
+                person.personMode = personType
+                
+                persons.append(person)
             }
-            callBack(.success(hunters))
+            callBack(.success(persons))
         }
     }
 
     /// insert hunters if they were seen less than 20 minutes ago
     /// - Parameter huntersList: all hunters in database
-    func addHuntersIntoList(huntersList: [Hunter], actualPostion: CLLocation, radiusAlert: Int) -> [Hunter] {
-        var hunterInradiusAlert: [Hunter] = []
+    func addPersonsIntoList(persons: [Person], actualPostion: CLLocation, radiusAlert: Int) -> [Person] {
+        var personInradiusAlert: [Person] = []
 
-        for hunter in huntersList {
-            guard let dateTimeStamp = hunter.date else {
+        for person in persons {
+            guard let dateTimeStamp = person.date else {
                 continue
             }
 
             let lastUpdate = Date(timeIntervalSince1970: TimeInterval(dateTimeStamp))
             // check if user is present less 20 minutes ago
             if lastUpdate.addingTimeInterval(1200) > Date() {
-                let latitude = hunter.latitude ?? 0
-                let longitude = hunter.longitude ?? 0
-                let hunterPositionFind = CLLocation(latitude: latitude, longitude: longitude)
-                let distance = actualPostion.distance(from: hunterPositionFind)
+                let latitude = person.latitude ?? 0
+                let longitude = person.longitude ?? 0
+                let personPositionFind = CLLocation(latitude: latitude, longitude: longitude)
+                let distance = actualPostion.distance(from: personPositionFind)
                 if Int(distance) < radiusAlert {
-                    hunterInradiusAlert.append(hunter)
+                    personInradiusAlert.append(person)
                 }
             }
         }
-        return hunterInradiusAlert
+        return personInradiusAlert
     }
 
     /// insert position of current user in database
@@ -195,8 +199,9 @@ class MonitoringServices: MonitoringServicesProtocol {
     ///   - date: date of insert position
     func insertMyPosition() {
         guard let user = firebaseAuth.currentUser,
-              let latitude = monitoring.hunter?.latitude,
-              let longitude = monitoring.hunter?.longitude
+              let latitude = monitoring.person?.latitude,
+              let longitude = monitoring.person?.longitude,
+              let personMode = monitoring.person?.personMode?.rawValue
         else {return}
 
         database.child("Database").child("position_user").child(user.uid).setValue(
@@ -204,7 +209,8 @@ class MonitoringServices: MonitoringServicesProtocol {
                 "name": user.displayName ?? "no name",
                 "date": String(Int(Date().timeIntervalSince1970)),
                 "latitude": latitude,
-                "longitude": longitude
+                "longitude": longitude,
+                "person_Mode": personMode
             ]
         )
     }

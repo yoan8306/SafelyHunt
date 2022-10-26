@@ -11,7 +11,8 @@ import MapKit
 
 class Person {
     var displayName: String?
-    var user: User?
+//    var user: User?
+    var uId: String?
     var date: Int?
     var latitude: Double?
     var longitude: Double?
@@ -27,14 +28,14 @@ class Person {
             return personMode
         }
         set {
-            let personMode = PersonMode(rawValue: "unknown")
-//            return personMode
+            self.personMode = newValue
         }
     }
 
-    init(displayName: String? = nil, user: User? = nil, date: Int? = nil, personMode: PersonMode = .unknown) {
+    init(displayName: String? = nil, uId: String? = nil, date: Int? = nil, personMode: PersonMode = .unknown) {
         self.displayName = displayName
-        self.user = user
+        self.uId = uId
+//        self.user = user
         self.date = date
         self.personMode = personMode
     }

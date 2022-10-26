@@ -37,10 +37,9 @@ class UserServices: UserServicesProtocol {
     /// Check if an user is logged
     /// - Parameter callBack: if user is logged callback egual success
     func checkUserLogged(callBack: @escaping (Result<Person, Error>) -> Void) {
-        handle = firebaseAuth.addStateDidChangeListener { _, user in
-            if let user = user, user.isEmailVerified {
-                let person = Person(displayName: user.displayName,
-                                    user: user)
+        handle = firebaseAuth.addStateDidChangeListener { _, person in
+            if let person = person, person.isEmailVerified {
+                let person = Person(displayName: person.displayName)
                 callBack(.success(person))
             } else {
                 callBack(.failure(ServicesError.signIn))

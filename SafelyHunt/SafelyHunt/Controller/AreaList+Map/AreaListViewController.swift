@@ -13,6 +13,7 @@ class AreaListViewController: UIViewController {
     // MARK: - Properties
     var listArea: [Area] = []
     var refreshControl = UIRefreshControl()
+    var person = Person()
 
     // MARK: - IBOutlet
     @IBOutlet weak var areaListTableView: UITableView!
@@ -42,7 +43,7 @@ class AreaListViewController: UIViewController {
         let mapsStoryboard = UIStoryboard(name: "Maps", bundle: nil)
 
         guard let mapViewController = mapsStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {return}
-        mapViewController.monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area()))
+        mapViewController.monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area(), person: person))
         mapViewController.mapMode = .editingArea
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.myNavigationItem.title = "Editing area".localized(tableName: "LocalizableAreaListViewController")

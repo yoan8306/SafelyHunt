@@ -11,7 +11,7 @@ import Firebase
 import MapKit
 
 protocol AreaServicesProtocol {
-    func insertArea(area: Area, date: Date)
+    func insertArea(area: Area, date: Date, uId: String?)
     func getAreaList(callBack: @escaping (Result<[Area], Error>) -> Void)
     func getArea(nameArea: String?, callBack: @escaping (Result<Area, Error>) -> Void)
     func removeArea(name: String, callBack: @escaping(Result<String, Error>) -> Void)
@@ -31,12 +31,12 @@ class AreaServices: AreaServicesProtocol {
     /// - Parameters:
     ///   - area: object area to insert
     ///   - date: date of creation
-    func insertArea(area: Area, date: Date) {
+    func insertArea(area: Area, date: Date, uId: String?) {
         var index = 0
-        guard let user = firebaseAuth.currentUser else {
+        guard let uId = uId else {
             return
         }
-        let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list")
+        let databaseArea = database.child("Database").child("users_list").child(uId).child("area_list")
 
         databaseArea.child(area.name!).setValue([
             "name": area.name,
@@ -46,6 +46,35 @@ class AreaServices: AreaServicesProtocol {
 
         for point in area.coordinatesPoints {
             databaseArea.child(area.name!).child("coordinate").child("coordinate\(index)").setValue([
+                "index": index,
+                "latitude": point.latitude,
+                "longitude": point.longitude
+            ])
+            index += 1
+        }
+    }
+    
+    /// insert to database of the user specific the area of the current hunter
+    /// - Parameters:
+    ///   - uId: Id of the user specific
+    ///   - area: area of current user
+    func transfertAreaIntoUserInForbidden(uId: String?, area: Area) {
+        var index = 0
+        guard let uId = uId else {return}
+        let databaseAreaShared = database
+            .child("Database")
+            .child("users_list")
+            .child(uId)
+            .child("forbidden_area")
+
+        databaseAreaShared.setValue([
+            "name": area.name,
+            "date": area.date,
+            "city": area.city
+        ])
+
+        for point in area.coordinatesPoints {
+            databaseAreaShared.child("coordinate").child("coordinate\(index)").setValue([
                 "index": index,
                 "latitude": point.latitude,
                 "longitude": point.longitude

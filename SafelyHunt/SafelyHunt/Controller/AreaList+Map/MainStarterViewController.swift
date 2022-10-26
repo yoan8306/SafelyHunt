@@ -22,6 +22,7 @@ class MainStarterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setButton()
+        initPerson()
         tableView.isScrollEnabled = false
     }
 
@@ -68,6 +69,14 @@ class MainStarterViewController: UIViewController {
     }
 
     // MARK: - Private functions
+
+    private func initPerson() {
+        let currentUser = FirebaseAuth.Auth.auth().currentUser
+        person.uId = currentUser?.uid
+        person.displayName = currentUser?.displayName
+        person.email = currentUser?.email
+    }
+
     /// Download area selected
     private func getSelectedArea() {
         let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
@@ -208,7 +217,7 @@ extension MainStarterViewController: UITableViewDelegate {
         let areaListStoryboard = UIStoryboard(name: "AreasList", bundle: nil)
 
         guard let areaListViewController = areaListStoryboard.instantiateViewController(withIdentifier: "AreasList") as? AreaListViewController else {return}
-
+        areaListViewController.person = person
         areaListViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(areaListViewController, animated: true)
     }
@@ -217,7 +226,7 @@ extension MainStarterViewController: UITableViewDelegate {
     private func transferToMapForSetRadiusAlert() {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {return}
-        let monitoringService = MonitoringServices(monitoring: Monitoring(area: Area()))
+        let monitoringService = MonitoringServices(monitoring: Monitoring(area: Area(), person: person))
         mapViewController.monitoringServices = monitoringService
         mapViewController.mapMode = .editingRadius
         mapViewController.myNavigationItem.title = "Set radius alert".localized(tableName: "LocalizableMainStarter")

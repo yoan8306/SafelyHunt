@@ -222,7 +222,7 @@ class MapViewController: UIViewController {
         let compassButton = MKCompassButton(mapView: mapView)
         compassButton.frame.origin = CGPoint(
             x: travelInfoUiView.frame.origin.x + 5,
-            y: locationButton.frame.origin.y + 30
+            y: locationButton.layer.position.y
         )// travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 20)
         compassButton.compassVisibility = .visible
         view.addSubview(compassButton)
@@ -335,7 +335,9 @@ class MapViewController: UIViewController {
 
         var city: String?
 
-        CLGeocoder().reverseGeocodeLocation(positionPolygon) { places, _ in
+        CLGeocoder().reverseGeocodeLocation(positionPolygon) { [weak self] places, _ in
+            guard let personId = self?.monitoringServices.monitoring.person?.uId else {return}
+
             guard let firstPlace = places?.first else {return}
             city = firstPlace.locality
 
@@ -345,8 +347,8 @@ class MapViewController: UIViewController {
             area.coordinatesPoints = coordinateArea
             area.city = city
 
-            AreaServices.shared.insertArea(area: area, date: Date())
-            self.presentNativeAlertSuccess(alertMessage: nameArea + " is recorded success".localized(tableName: "LocalizableMapView"))
+            AreaServices.shared.insertArea(area: area, date: Date(), uId: personId)
+            self?.presentNativeAlertSuccess(alertMessage: nameArea + " is recorded success".localized(tableName: "LocalizableMapView"))
         }
     }
 
@@ -548,6 +550,13 @@ private extension MapViewController {
             }
         }
     }
+    
+    /// share area of hunt with an other
+    /// - Parameter person: <#person description#>
+    private func sharedAreaForbbiden(person:Person) {
+        let area = monitoringServices.monitoring.area
+        AreaServices.shared.transfertAreaIntoUserInForbidden(uId: person.uId, area: area)
+    }
 
     /// insert hunters in map
     /// - Parameter arrayHunters: list hunters present in radius alert
@@ -564,6 +573,10 @@ private extension MapViewController {
                     coordinate: coordinate,
                     subtitle: "Last view ".localized(tableName: "LocalizableMapView") +  Date(timeIntervalSince1970: TimeInterval(person.date ?? 0)).getTime()
                 )
+
+                if person.personMode != .hunter {
+                    sharedAreaForbbiden(person: person)
+                }
 
                 mapView.addAnnotation(showHunter)
                 mapView.register(AnnotationPersonsView.self,

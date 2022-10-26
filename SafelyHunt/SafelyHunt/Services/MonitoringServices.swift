@@ -160,6 +160,7 @@ class MonitoringServices: MonitoringServicesProtocol {
                 person.longitude = longitude
                 person.date = date
                 person.personMode = personType
+                person.uId = element.key
 
                 persons.append(person)
             }

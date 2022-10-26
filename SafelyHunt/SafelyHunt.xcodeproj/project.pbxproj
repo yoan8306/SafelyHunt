@@ -25,6 +25,8 @@
 		5F62872A28A522B600AD51E2 /* LocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F62872928A522B600AD51E2 /* LocalNotification.swift */; };
 		5F62872E28A5230F00AD51E2 /* Orchestral-emergency.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5F62872C28A5230E00AD51E2 /* Orchestral-emergency.caf */; };
 		5F6483222907AF8700C27FEA /* PersonMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6483212907AF8700C27FEA /* PersonMode.swift */; };
+		5F6483242907F2DA00C27FEA /* PersonMode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F6483232907F2DA00C27FEA /* PersonMode.storyboard */; };
+		5F64832629085DD400C27FEA /* PersonModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F64832529085DD400C27FEA /* PersonModeViewController.swift */; };
 		5F7624D428C2159800D6FA65 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F7624D228C2159800D6FA65 /* Settings.storyboard */; };
 		5F7624D828C216AC00D6FA65 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7624D728C216AC00D6FA65 /* AccountSettingsViewController.swift */; };
 		5F7624E128C224CE00D6FA65 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7624E028C224CD00D6FA65 /* ProfileViewController.swift */; };
@@ -128,6 +130,8 @@
 		5F62872928A522B600AD51E2 /* LocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotification.swift; sourceTree = "<group>"; };
 		5F62872C28A5230E00AD51E2 /* Orchestral-emergency.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Orchestral-emergency.caf"; sourceTree = "<group>"; };
 		5F6483212907AF8700C27FEA /* PersonMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonMode.swift; sourceTree = "<group>"; };
+		5F6483232907F2DA00C27FEA /* PersonMode.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PersonMode.storyboard; sourceTree = "<group>"; };
+		5F64832529085DD400C27FEA /* PersonModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonModeViewController.swift; sourceTree = "<group>"; };
 		5F7624D328C2159800D6FA65 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		5F7624D728C216AC00D6FA65 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		5F7624E028C224CD00D6FA65 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -352,6 +356,7 @@
 				5F98BFB52902AB580063CCA9 /* TabbarMain.storyboard */,
 				5F7624DB28C2222D00D6FA65 /* AreaList+Map */,
 				5F7624D928C2215800D6FA65 /* Settings */,
+				5F6483232907F2DA00C27FEA /* PersonMode.storyboard */,
 			);
 			path = Tabbar;
 			sourceTree = "<group>";
@@ -443,6 +448,7 @@
 				5F14AD242878406B0039002A /* SignIn-SignUp */,
 				5F7624DE28C2228400D6FA65 /* AreaList+Map */,
 				5F7624DF28C222A600D6FA65 /* Settings */,
+				5F64832529085DD400C27FEA /* PersonModeViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -625,6 +631,7 @@
 				5F98BFB92902AB630063CCA9 /* AreasList.storyboard in Resources */,
 				5F1CF331286B1FB500A0429D /* GoogleService-Info.plist in Resources */,
 				5F62872E28A5230F00AD51E2 /* Orchestral-emergency.caf in Resources */,
+				5F6483242907F2DA00C27FEA /* PersonMode.storyboard in Resources */,
 				5F1CF30A286B1F2B00A0429D /* Assets.xcassets in Resources */,
 				5F1CF308286B1F2900A0429D /* Login.storyboard in Resources */,
 				5F98BFB62902AB5E0063CCA9 /* MainStarter.storyboard in Resources */,
@@ -738,6 +745,7 @@
 				5F14AD1F2878284C0039002A /* UserDefaultKeys.swift in Sources */,
 				5F7624E128C224CE00D6FA65 /* ProfileViewController.swift in Sources */,
 				5FB4BCCD28C6821000C69E8F /* MonitoringServices.swift in Sources */,
+				5F64832629085DD400C27FEA /* PersonModeViewController.swift in Sources */,
 				5F62872A28A522B600AD51E2 /* LocalNotification.swift in Sources */,
 				5FBEF952287380050023E5A5 /* UIViewController_Alert.swift in Sources */,
 				5F98BFDA2902AFFB0063CCA9 /* StringExtension.swift in Sources */,

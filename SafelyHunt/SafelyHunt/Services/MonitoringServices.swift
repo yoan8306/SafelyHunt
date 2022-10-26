@@ -160,7 +160,7 @@ class MonitoringServices: MonitoringServicesProtocol {
                 person.longitude = longitude
                 person.date = date
                 person.personMode = personType
-                
+
                 persons.append(person)
             }
             callBack(.success(persons))

@@ -16,6 +16,8 @@ class UserDefaultKeys {
         static let showInfoRadius = "Show radius Info"
         static let tutorialHasBeenSeen = "Tutoriel has been viewed"
         static let notificationSoundName = "Sound notification"
+        static let personMode = "PersonMode"
+        static let savedDate = "savedDate"
     }
 
     static var areaSelected: String {
@@ -77,7 +79,25 @@ class UserDefaultKeys {
             return UserDefaults.standard.string(forKey: Keys.notificationSoundName) ?? "orchestralEmergency.caf"
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: Keys.notificationSoundName)
+            UserDefaults.standard.string(forKey: Keys.notificationSoundName)
+        }
+    }
+
+    static var personMode: String {
+        get {
+            UserDefaults.standard.string(forKey: Keys.personMode) ?? "unknown"
+        }
+        set {
+            UserDefaults.standard.string(forKey: Keys.personMode)
+        }
+    }
+
+    static var savedDate: Int {
+        get {
+           return UserDefaults.standard.integer(forKey: Keys.savedDate)
+        }
+        set {
+            UserDefaults.standard.integer(forKey: Keys.savedDate)
         }
     }
 }

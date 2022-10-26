@@ -8,6 +8,7 @@
 import Foundation
 
 enum PersonMode: String, CaseIterable {
-    case hunter = "hunter"
-    case walker = "walker"
+    case hunter // = "hunter"
+    case walker // = "walker"
+    case unknown // = "unknown"
 }

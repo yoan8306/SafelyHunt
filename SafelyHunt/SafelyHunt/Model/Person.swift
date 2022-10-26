@@ -21,9 +21,18 @@ class Person {
         let position = CLLocation(latitude: latitude ?? 0, longitude: longitude ?? 0)
         return position
     }
-    var personMode: PersonMode?
+    var personMode: PersonMode? {
+        get { let personModeValue = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.personMode) ?? "unknown"
+            let personMode = PersonMode(rawValue: personModeValue)
+            return personMode
+        }
+        set {
+            let personMode = PersonMode(rawValue: "unknown")
+//            return personMode
+        }
+    }
 
-    init(displayName: String? = nil, user: User? = nil, date: Int? = nil, personMode: PersonMode = .hunter) {
+    init(displayName: String? = nil, user: User? = nil, date: Int? = nil, personMode: PersonMode = .unknown) {
         self.displayName = displayName
         self.user = user
         self.date = date

@@ -16,6 +16,7 @@ class MainData {
    static let pickerMapType = ["Standard", "Muted standard", "Sattelite"]
    static let mainSettings = [
     "Profile",
+    "Hunt / Walker".localized(tableName: "LocalizableMainData"),
     "Ranking".localized(tableName: "LocalizableMainData"),
     "Activate location".localized(tableName: "LocalizableMainData"),
     "Show tutorial".localized(tableName: "LocalizableMainData"),

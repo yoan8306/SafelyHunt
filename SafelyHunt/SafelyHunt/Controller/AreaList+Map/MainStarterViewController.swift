@@ -24,6 +24,7 @@ class MainStarterViewController: UIViewController {
         setButton()
         initPerson()
         tableView.isScrollEnabled = false
+        tableView.isHidden = person.personMode != .hunter
     }
 
     /// set interface when view appear
@@ -31,16 +32,19 @@ class MainStarterViewController: UIViewController {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationItem.title = "Menu - \(String(describing: person.personMode?.rawValue))"
         self.navigationController?.navigationBar.isTranslucent = true
-        getSelectedArea()
+        if person.personMode == .hunter {
+            getSelectedArea()
+        }
         tableView.reloadData()
         insertShimeringInButton()
-        presentTutorielIfNeeded()
     }
 
     /// Show message if no area selected
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        presentTutorielIfNeeded()
         presentAlertMessage()
         initPerson()
         setButton()
@@ -61,11 +65,14 @@ class MainStarterViewController: UIViewController {
 
     // MARK: - IBAction
     @IBAction func startMonitoringButton(_ sender: UIButton) {
-        if area != nil {
-            tabBarController?.tabBar.isHidden = true
-            presentMapView()
+        if person.personMode == .hunter {
+            if checkIfAreaIsLoaded() {
+                presentMapView()
+            } else {
+                presentAlertError(alertMessage: "Your area is not loaded go in your area list and try again".localized(tableName: "LocalizableMainStarter"))
+            }
         } else {
-            presentAlertError(alertMessage: "Your area is not loaded go in your area list and try again".localized(tableName: "LocalizableMainStarter"))
+            presentMapView()
         }
     }
 
@@ -95,35 +102,48 @@ class MainStarterViewController: UIViewController {
 
     /// If no area selected present alert message
     private func presentAlertMessage() {
-        if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) == "" {
+        if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) == "" && person.personMode == .hunter {
             presentAlertError(alertTitle: "👋", alertMessage: "Please select your area in your list.".localized(tableName: "LocalizableMainStarter"))
+        } else if person.personMode == .walker {
+            presentAlertSuccess(alertTitle: "👋", alertMessage: "Hello, You can start monitoring. You receive an alert and see the hunting area if you will near  you")
         }
     }
 
     /// Transferr to MapViewController with monitoring object
     private func presentMapView() {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
-        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController, let area = area else {return}
+        guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {return}
 
-        let monitoringService: MonitoringServicesProtocol = MonitoringServices(monitoring: Monitoring(area: area, person: person))
+        let monitoringService: MonitoringServicesProtocol = MonitoringServices(monitoring: Monitoring(area: area ?? Area(), person: person))
 
         mapViewController.monitoringServices = monitoringService
         mapViewController.mapMode = .monitoring
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.myNavigationItem.title = "Ready for monitoring".localized(tableName: "LocalizableMainStarter")
+        tabBarController?.tabBar.isHidden = true
         self.present(mapViewController, animated: true)
     }
 
     /// Set button design
     private func setButton() {
         startMonitoringButton.layer.cornerRadius = startMonitoringButton.frame.height/2
-        startMonitoringButton.isEnabled = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != ""
+       enableButtonIfPossible()
         guard startMonitoringButton.isEnabled else {
             startMonitoringButton.backgroundColor = .lightGray
             startMonitoringButton.setTitleColor(.darkGray, for: .disabled)
             return
         }
+        setButtonLightOrDarkMode()
+    }
+    private func enableButtonIfPossible() {
+        if person.personMode == .hunter {
+            startMonitoringButton.isEnabled = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != ""
+        } else {
+            startMonitoringButton.isEnabled = true
+        }
+    }
 
+    private func setButtonLightOrDarkMode() {
         if self.traitCollection.userInterfaceStyle == .dark {
             startMonitoringButton.backgroundColor = .white
             startMonitoringButton.setTitleColor(.black, for: .normal)
@@ -153,6 +173,11 @@ class MainStarterViewController: UIViewController {
             present(carouselVC, animated: true)
         }
     }
+
+    private func checkIfAreaIsLoaded() -> Bool {
+         area != nil
+    }
+
 }
 
 // MARK: - TableView DataSource

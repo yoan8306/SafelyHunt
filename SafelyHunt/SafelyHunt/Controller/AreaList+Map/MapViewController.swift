@@ -203,9 +203,8 @@ class MapViewController: UIViewController {
             checkIfUserIsInsideArea()
             checkIfOthersUsersAreInsideAreaAlert()
         default:
-            print("")
+            checkIfOthersUsersAreInsideAreaAlert()
         }
-
         monitoringServices.insertUserPosition()
     }
 
@@ -230,9 +229,9 @@ class MapViewController: UIViewController {
         let compassButton = MKCompassButton(mapView: mapView)
         compassButton.frame.origin = CGPoint(
             x: travelInfoUiView.frame.origin.x + 5,
-            y: locationButton.layer.position.y
-        )// travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 20)
-        compassButton.compassVisibility = .visible
+            y: travelInfoUiView.frame.height + 80
+        )
+        compassButton.compassVisibility = .adaptive
         view.addSubview(compassButton)
 
         activityIndicator.layer.cornerRadius = activityIndicator.layer.frame.height/2
@@ -381,6 +380,20 @@ class MapViewController: UIViewController {
         }
     }
 
+    private func getAreaForbidden() {
+        guard let person = monitoringServices.monitoring.person else {return}
+        mapView.removeOverlays(mapView.overlays)
+        AreaServices.shared.getAreaForbidden(uId: person.uId) { [weak self] success in
+            switch success {
+            case .failure(_):
+                return
+            case.success(let area):
+                self?.monitoringServices.monitoring.area = area
+                self?.drawAreaSelected()
+            }
+        }
+    }
+
     /// transform area to overlay
     /// - Parameter area: the area selected
     private func insertAreaInMapView(area: Area) {
@@ -405,10 +418,14 @@ class MapViewController: UIViewController {
 
     /// insert radius in map
     private func insertRadius() {
-        let radius = CLLocationDistance(UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert))
+        let radiusSaved = CLLocationDistance(UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert))
+        let personMode = monitoringServices.monitoring.person?.personMode
+        let radius = (personMode == .hunter) ? radiusSaved : 1000
+
         guard let userPosition = locationManager.location?.coordinate else {
             return
         }
+
         removeRadiusOverlay()
         mapView.addOverlay(monitoringServices.monitoring.area.createCircle(userPosition: userPosition, radius: radius))
     }
@@ -432,7 +449,6 @@ class MapViewController: UIViewController {
             self.mapView.removeOverlays(self.mapView.overlays)
         }
 
-        //        test if empty
         let register = UIAlertAction(title: "Register".localized(tableName: "LocalizableMapView"), style: .default) { _ in
             if let textfield = alertViewController.textFields?[0], let nameArea = textfield.text, !nameArea.isEmpty {
                 self.createArea(nameArea: nameArea)
@@ -542,17 +558,25 @@ private extension MapViewController {
 
     /// check if hunters are inside radius alert
     func checkIfOthersUsersAreInsideAreaAlert() {
+        mapView.removeAnnotations((mapView.annotations))
         monitoringServices.checkUserIsInRadiusAlert { [weak self] result in
             switch result {
             case .success(let usersIsInRadiusAlert):
                 guard usersIsInRadiusAlert.isEmpty == false else {
-                    self?.mapView.removeAnnotations((self?.mapView.annotations)!)
-                    self?.removeRadiusOverlay()
+                    switch self?.monitoringServices.monitoring.person?.personMode {
+                    case .hunter:
+                        self?.removeRadiusOverlay()
+                    default:
+                        self?.mapView.removeOverlays((self?.mapView.overlays)!)
+
+                    }
                     return
                 }
-                self?.mapView.removeAnnotations((self?.mapView.annotations)!)
                 self?.insertPersonsInMap(usersIsInRadiusAlert)
                 self?.insertRadius()
+                if self?.monitoringServices.monitoring.person?.personMode == .walker {
+                    self?.getAreaForbidden()
+                }
                 self?.sendNotificationHuntersInRadius()
 
             case .failure(_):

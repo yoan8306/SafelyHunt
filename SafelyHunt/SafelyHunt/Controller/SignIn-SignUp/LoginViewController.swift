@@ -49,7 +49,7 @@ class LoginViewController: UIViewController {
             case .success(let emailIsChecked):
                 switch emailIsChecked {
                 case true:
-                    self?.transferToMainStarter()
+                    self?.transferToSplashScreen()
                     self?.activityIndicator(shown: false)
                 case false:
                     self?.activityIndicator(shown: false)
@@ -68,11 +68,11 @@ class LoginViewController: UIViewController {
     }
 
     /// if user sign in transfert to mainStarterController
-    private func transferToMainStarter() {
-        let tabBarMain = UIStoryboard(name: "TabbarMain", bundle: nil)
-        guard let mainStarter = tabBarMain.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {return}
+    private func transferToSplashScreen() {
+        let splashScreen = UIStoryboard(name: "Main", bundle: nil)
+        guard let splashScreenViewController = splashScreen.instantiateViewController(withIdentifier: "SplashScreen") as? SplashScreenViewController else {return}
 
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarter, animationOption: .transitionFlipFromRight)
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(splashScreenViewController, animationOption: .transitionFlipFromRight)
     }
 
     /// show or hide activity indicator

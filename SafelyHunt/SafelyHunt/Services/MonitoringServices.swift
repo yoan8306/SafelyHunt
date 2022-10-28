@@ -12,7 +12,7 @@ import CoreLocation
 import MapKit
 
 protocol MonitoringServicesProtocol {
-    var monitoring: MonitoringProtocol {get}
+    var monitoring: MonitoringProtocol {get set}
     var startMonitoring: Bool {get set}
     func checkUserIsInRadiusAlert(callback: @escaping(Result<[Person], Error>) -> Void)
     func checkUserIsAlwayInArea(positionUser: CLLocationCoordinate2D) -> Bool
@@ -186,7 +186,7 @@ class MonitoringServices: MonitoringServicesProtocol {
                 let personPositionFind = CLLocation(latitude: latitude, longitude: longitude)
                 let distance = actualPostion.distance(from: personPositionFind)
 
-                switch person.personMode {
+                switch monitoring.person?.personMode {
                 case .hunter:
                     if Int(distance) < radiusAlert || (Int(distance) < (1000) && person.personMode == .walker) {
                         personInradiusAlert.append(person)

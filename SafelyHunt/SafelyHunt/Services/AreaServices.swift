@@ -166,10 +166,10 @@ class AreaServices: AreaServicesProtocol {
             callBack(.success(area))
         }
     }
-    
+
     /// Get area hunt
     /// - Parameter uId: user id for access
-    func getAreaForbidden(uId: String?) {
+    func getAreaForbidden(uId: String?, callback: @escaping (Result <Area, Error>) -> Void) {
         guard let uId else {return}
         let databaseAreaForbidden = database
             .child("Database")
@@ -186,8 +186,8 @@ class AreaServices: AreaServicesProtocol {
             else {return}
             let area = Area()
             area.coordinatesPoints = self.createCoordinate(data: data)
+            callback(.success(area))
             }
-
         }
 
     /// delete area selected

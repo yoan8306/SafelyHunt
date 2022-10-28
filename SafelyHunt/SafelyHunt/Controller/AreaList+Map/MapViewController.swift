@@ -196,9 +196,17 @@ class MapViewController: UIViewController {
 
     /// monitoring user.  action call by tilmer
     @objc func updateMonitoring() {
-        checkIfUserIsInsideArea()
-        checkIfOthersUsersAreInsideAreaAlert()
-        monitoringServices.insertMyPosition()
+        guard let person = monitoringServices.monitoring.person else {return}
+
+        switch person.personMode {
+        case .hunter:
+            checkIfUserIsInsideArea()
+            checkIfOthersUsersAreInsideAreaAlert()
+        default:
+            print("")
+        }
+
+        monitoringServices.insertUserPosition()
     }
 
     /// count timerfor start before start monitoring
@@ -513,10 +521,12 @@ private extension MapViewController {
 
     /// check if user is always inside area
     func checkIfUserIsInsideArea() {
-        guard let positionUser = locationManager.location?.coordinate else {
+        let person = monitoringServices.monitoring.person
+        guard let positionUser = locationManager.location?.coordinate, let person else {
             return
         }
-        if !monitoringServices.checkUserIsAlwayInArea(positionUser: positionUser) {
+
+        if !monitoringServices.checkUserIsAlwayInArea(positionUser: positionUser) && person.personMode == .hunter {
             let banner = NotificationBanner(
                 title: "Attention",
                 subtitle: "You are exit of your area!".localized(tableName: "LocalizableMapView"),
@@ -550,10 +560,10 @@ private extension MapViewController {
             }
         }
     }
-    
+
     /// share area of hunt with an other
-    /// - Parameter person: <#person description#>
-    private func sharedAreaForbbiden(person:Person) {
+    /// - Parameter person: person identifier
+    private func sharedAreaForbbiden(person: Person) {
         let area = monitoringServices.monitoring.area
         AreaServices.shared.transfertAreaIntoUserInForbidden(uId: person.uId, area: area)
     }
@@ -563,13 +573,13 @@ private extension MapViewController {
     func insertPersonsInMap(_ persons: [Person]) {
         if persons.count > 0 {
             for person in persons {
-                guard let latitude = person.latitude, let longitude = person.longitude else {
-                    return
+                guard let latitude = person.latitude, let longitude = person.longitude, let personMode = person.personMode else {
+                    continue
                 }
                 let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                let showHunter = PlacePersons(
-                    title: person.displayName ?? "no name"
-                    + "(\(String(describing: person.personMode?.rawValue.localized(tableName: "Localizable"))))",
+                let personAnnotation = AnnotationPerson(
+                    title: (person.displayName ?? "no name")
+                    + "(\(personMode.rawValue.localized(tableName: "Localizable")))",
                     coordinate: coordinate,
                     subtitle: "Last view ".localized(tableName: "LocalizableMapView") +  Date(timeIntervalSince1970: TimeInterval(person.date ?? 0)).getTime()
                 )
@@ -578,7 +588,7 @@ private extension MapViewController {
                     sharedAreaForbbiden(person: person)
                 }
 
-                mapView.addAnnotation(showHunter)
+                mapView.addAnnotation(personAnnotation)
                 mapView.register(AnnotationPersonsView.self,
                                  forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier
                 )
@@ -670,6 +680,8 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             mapView.showsUserLocation = true
         case .denied, .restricted:
             UIApplicationOpenSetting()
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
         default:
             locationManager.requestWhenInUseAuthorization()
         }

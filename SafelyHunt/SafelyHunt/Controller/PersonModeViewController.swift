@@ -21,6 +21,7 @@ class PersonModeViewController: UIViewController {
     @IBAction func walkerButtonAction() {
         setView()
         UserDefaults.standard.set("walker", forKey: UserDefaultKeys.Keys.personMode)
+        transferToMainStarter()
     }
 
     @IBAction func huntButtonAction() {
@@ -58,7 +59,7 @@ class PersonModeViewController: UIViewController {
 
         guard let mainStarterViewController = mainStarterStoryboard.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {return}
 
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarterViewController, animationOption: .transitionCrossDissolve)
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarterViewController, animationOption: .layoutSubviews)
     }
 
 }

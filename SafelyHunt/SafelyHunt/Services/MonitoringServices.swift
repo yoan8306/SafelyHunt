@@ -18,7 +18,7 @@ protocol MonitoringServicesProtocol {
     func checkUserIsAlwayInArea(positionUser: CLLocationCoordinate2D) -> Bool
     func insertDistanceTraveled()
     func getTotalDistanceTraveled(callBack: @escaping(Result<Double, Error>) -> Void)
-    func insertMyPosition()
+    func insertUserPosition()
 }
 
 class MonitoringServices: MonitoringServicesProtocol {
@@ -169,6 +169,7 @@ class MonitoringServices: MonitoringServicesProtocol {
     }
 
     /// insert hunters if they were seen less than 20 minutes ago
+    /// If person are walker they are inside list if are less 1500 meter of hunter
     /// - Parameter huntersList: all hunters in database
     func addPersonsIntoList(persons: [Person], actualPostion: CLLocation, radiusAlert: Int) -> [Person] {
         var personInradiusAlert: [Person] = []
@@ -177,7 +178,6 @@ class MonitoringServices: MonitoringServicesProtocol {
             guard let dateTimeStamp = person.date else {
                 continue
             }
-
             let lastUpdate = Date(timeIntervalSince1970: TimeInterval(dateTimeStamp))
             // check if user is present less 20 minutes ago
             if lastUpdate.addingTimeInterval(1200) > Date() {
@@ -185,8 +185,16 @@ class MonitoringServices: MonitoringServicesProtocol {
                 let longitude = person.longitude ?? 0
                 let personPositionFind = CLLocation(latitude: latitude, longitude: longitude)
                 let distance = actualPostion.distance(from: personPositionFind)
-                if Int(distance) < radiusAlert {
-                    personInradiusAlert.append(person)
+
+                switch person.personMode {
+                case .hunter:
+                    if Int(distance) < radiusAlert || (Int(distance) < (1000) && person.personMode == .walker) {
+                        personInradiusAlert.append(person)
+                    }
+                default:
+                    if Int(distance) < (1000) && person.personMode != .walker {
+                        personInradiusAlert.append(person)
+                    }
                 }
             }
         }
@@ -198,7 +206,7 @@ class MonitoringServices: MonitoringServicesProtocol {
     ///   - userPosition: position user
     ///   - user: current user
     ///   - date: date of insert position
-    func insertMyPosition() {
+    func insertUserPosition() {
         guard let user = firebaseAuth.currentUser,
               let latitude = monitoring.person?.latitude,
               let longitude = monitoring.person?.longitude,

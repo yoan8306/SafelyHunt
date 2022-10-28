@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-class PlacePersons: NSObject, MKAnnotation {
+class AnnotationPerson: NSObject, MKAnnotation {
     var title: String?
     var coordinate: CLLocationCoordinate2D
     var subtitle: String?

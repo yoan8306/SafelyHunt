@@ -42,6 +42,7 @@ class MainStarterViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         presentAlertMessage()
+        initPerson()
         setButton()
     }
 
@@ -75,6 +76,7 @@ class MainStarterViewController: UIViewController {
         person.uId = currentUser?.uid
         person.displayName = currentUser?.displayName
         person.email = currentUser?.email
+        person.personMode = PersonMode(rawValue: UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.personMode) ?? "unknown")
     }
 
     /// Download area selected

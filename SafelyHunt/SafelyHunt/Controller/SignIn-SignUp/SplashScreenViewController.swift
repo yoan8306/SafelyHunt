@@ -21,7 +21,7 @@ class SplashScreenViewController: UIViewController {
             switch person {
             case .success(let person):
                 let date = Date()
-               let timeStampeSaved = UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.savedDate)
+                let timeStampeSaved = UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.savedDate)
                 let savedDate = Date(timeIntervalSince1970: TimeInterval(timeStampeSaved))
 
                 if  Calendar.current.compare(date, to: savedDate, toGranularity: .day)  == .orderedDescending {

@@ -26,7 +26,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Xn-an-Eaz">
                                 <rect key="frame" x="170" y="185.5" width="140" height="140"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="140" id="ZyL-X7-LYy"/>
+                                    <constraint firstAttribute="width" secondItem="1Xn-an-Eaz" secondAttribute="height" multiplier="1:1" id="Dlp-w7-iHW"/>
                                     <constraint firstAttribute="height" constant="140" id="agI-yA-can"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
@@ -43,8 +43,8 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iJS-Fa-Qoe">
                                 <rect key="frame" x="10" y="185.5" width="140" height="140"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="140" id="Aql-gO-zd2"/>
                                     <constraint firstAttribute="height" constant="140" id="Q8C-5y-QyC"/>
+                                    <constraint firstAttribute="width" secondItem="iJS-Fa-Qoe" secondAttribute="height" multiplier="1:1" id="aQF-rF-m3w"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -57,14 +57,26 @@
                                     <action selector="huntButtonAction" destination="Y6W-OH-hqX" eventType="touchUpInside" id="vb7-IL-RTb"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qB7-Aq-V6V">
+                                <rect key="frame" x="270" y="10" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="qB7-Aq-V6V" secondAttribute="height" multiplier="1:1" id="JsX-WV-Eoe"/>
+                                    <constraint firstAttribute="height" constant="40" id="s6t-Vk-TbH"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <connections>
+                                    <action selector="closeButtonAction" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Kfd-wF-Tym"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="qB7-Aq-V6V" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="71y-NJ-Ibr"/>
                             <constraint firstItem="1Xn-an-Eaz" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" multiplier="0.9" id="A9i-dv-Nja"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="qB7-Aq-V6V" secondAttribute="trailing" constant="10" id="BC2-3L-F0W"/>
                             <constraint firstItem="1Xn-an-Eaz" firstAttribute="top" secondItem="iJS-Fa-Qoe" secondAttribute="top" id="GBY-cO-zfZ"/>
                             <constraint firstItem="iJS-Fa-Qoe" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" multiplier="1/2" id="MM3-6n-VQo"/>
-                            <constraint firstAttribute="trailing" secondItem="zgz-3S-fp0" secondAttribute="trailing" id="VfG-cp-Zb7"/>
                             <constraint firstItem="1Xn-an-Eaz" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" multiplier="1.5" id="dxR-5T-xPJ"/>
                             <constraint firstItem="zgz-3S-fp0" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="lDu-Jb-wUy"/>
                             <constraint firstItem="zgz-3S-fp0" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="qzD-fG-KVw"/>

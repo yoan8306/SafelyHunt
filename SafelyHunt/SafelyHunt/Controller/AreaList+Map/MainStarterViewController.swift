@@ -155,7 +155,7 @@ class MainStarterViewController: UIViewController {
 
     /// if area selected start shimering
     private func insertShimeringInButton() {
-        if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" {
+        if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" || person.personMode == .walker {
             startMonitoringButton.titleLabel?.startShimmering()
         } else {
             startMonitoringButton.titleLabel?.stopShimmering()
@@ -164,18 +164,24 @@ class MainStarterViewController: UIViewController {
 
     /// Present carousel tutorial
     private func presentTutorielIfNeeded() {
-        if !UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.tutorialHasBeenSeen) {
-            let carouselStoryboard = UIStoryboard(name: "Carousel", bundle: nil)
-
-            guard let carouselVC = carouselStoryboard.instantiateViewController(withIdentifier: "CarouselStoryboard") as? CarouselViewController else {
-                return
+        if person.personMode == .hunter {
+            if !UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.tutorialHasBeenSeen) {
+               presentCarousel()
             }
-            present(carouselVC, animated: true)
         }
     }
 
     private func checkIfAreaIsLoaded() -> Bool {
          area != nil
+    }
+
+    private func presentCarousel() {
+        let carouselStoryboard = UIStoryboard(name: "Carousel", bundle: nil)
+
+        guard let carouselVC = carouselStoryboard.instantiateViewController(withIdentifier: "CarouselStoryboard") as? CarouselViewController else {
+            return
+        }
+        present(carouselVC, animated: true)
     }
 
 }

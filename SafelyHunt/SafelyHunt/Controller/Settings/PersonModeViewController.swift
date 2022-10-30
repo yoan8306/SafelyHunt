@@ -15,7 +15,17 @@ class PersonModeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setView()
+    }
 
+    @IBAction func closeButtonAction() {
+        let personModeChoose = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.personMode)
+        let personModeEnum = PersonMode(rawValue: personModeChoose ?? "unknown")
+        switch personModeEnum {
+        case .hunter, .walker:
+        transferToMainStarter()
+        default:
+            presentAlertError(alertMessage: "Select a choice".localized(tableName: "Localizable"))
+        }
     }
 
     @IBAction func walkerButtonAction() {
@@ -59,7 +69,6 @@ class PersonModeViewController: UIViewController {
 
         guard let mainStarterViewController = mainStarterStoryboard.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {return}
 
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarterViewController, animationOption: .layoutSubviews)
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarterViewController, animationOption: .curveLinear)
     }
-
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1mI-uG-1Q5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1mI-uG-1Q5">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -39,13 +39,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eoZ-Lf-t6S">
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="jMg-Am-C07">
                                 <rect key="frame" x="30" y="84" width="260" height="80"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email adress..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p8s-qR-kwB">
                                         <rect key="frame" x="0.0" y="0.0" width="260" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="email"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" textContentType="email"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xbP-TP-91o">
                                         <rect key="frame" x="0.0" y="46" width="260" height="34"/>
@@ -92,15 +95,19 @@
                             <constraint firstItem="Jra-d1-bQh" firstAttribute="leading" secondItem="y6F-oG-RM2" secondAttribute="leading" id="Ed5-cx-mvX"/>
                             <constraint firstItem="HIH-7D-Rw1" firstAttribute="trailing" secondItem="jMg-Am-C07" secondAttribute="trailing" constant="30" id="GoZ-NQ-6cJ"/>
                             <constraint firstItem="s51-eu-qdl" firstAttribute="leading" secondItem="HIH-7D-Rw1" secondAttribute="leading" constant="60" id="Q7c-8q-7Ib"/>
+                            <constraint firstItem="HIH-7D-Rw1" firstAttribute="bottom" secondItem="eoZ-Lf-t6S" secondAttribute="bottom" id="WAr-S2-602"/>
                             <constraint firstItem="y6F-oG-RM2" firstAttribute="trailing" secondItem="s51-eu-qdl" secondAttribute="trailing" id="ZYi-r0-rz9"/>
+                            <constraint firstItem="HIH-7D-Rw1" firstAttribute="trailing" secondItem="eoZ-Lf-t6S" secondAttribute="trailing" id="Zn9-W9-cBN"/>
                             <constraint firstItem="y6F-oG-RM2" firstAttribute="bottom" secondItem="s51-eu-qdl" secondAttribute="bottom" id="bIz-Th-6OV"/>
                             <constraint firstItem="y6F-oG-RM2" firstAttribute="leading" secondItem="s51-eu-qdl" secondAttribute="leading" id="eVR-QD-t1B"/>
                             <constraint firstItem="Jra-d1-bQh" firstAttribute="top" secondItem="s51-eu-qdl" secondAttribute="bottom" constant="10" id="fEo-ZE-aKW"/>
                             <constraint firstItem="jMg-Am-C07" firstAttribute="leading" secondItem="HIH-7D-Rw1" secondAttribute="leading" constant="30" id="j9N-CR-Ofj"/>
                             <constraint firstItem="jMg-Am-C07" firstAttribute="centerX" secondItem="XxW-8t-vFE" secondAttribute="centerX" id="ouC-Ke-OXF"/>
                             <constraint firstItem="s51-eu-qdl" firstAttribute="top" secondItem="jMg-Am-C07" secondAttribute="bottom" constant="10" id="qBt-nB-GmO"/>
+                            <constraint firstItem="eoZ-Lf-t6S" firstAttribute="leading" secondItem="HIH-7D-Rw1" secondAttribute="leading" id="qKx-h1-h5x"/>
                             <constraint firstItem="y6F-oG-RM2" firstAttribute="top" secondItem="s51-eu-qdl" secondAttribute="top" id="s9E-JC-m5Q"/>
                             <constraint firstItem="Jra-d1-bQh" firstAttribute="trailing" secondItem="y6F-oG-RM2" secondAttribute="trailing" id="ykO-Ce-enD"/>
+                            <constraint firstItem="eoZ-Lf-t6S" firstAttribute="top" secondItem="HIH-7D-Rw1" secondAttribute="top" id="zEk-uj-59a"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Log in" id="ul3-9L-3AQ">
@@ -117,6 +124,7 @@
                         <outlet property="logInButton" destination="s51-eu-qdl" id="aU0-0P-4GW"/>
                         <outlet property="passwordTextField" destination="xbP-TP-91o" id="en6-xy-fPU"/>
                         <outlet property="resetPasswordButton" destination="Jra-d1-bQh" id="ywd-ly-kFG"/>
+                        <outlet property="viewLoginController" destination="eoZ-Lf-t6S" id="hKY-Km-UXT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6aB-ex-HYs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

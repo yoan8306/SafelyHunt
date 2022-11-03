@@ -20,16 +20,16 @@ class SplashScreenViewController: UIViewController {
         UserServices.shared.checkUserLogged { [weak self] person in
             switch person {
             case .success(let person):
-                let date = Date()
-                let timeStampeSaved = UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.savedDate)
-                let savedDate = Date(timeIntervalSince1970: TimeInterval(timeStampeSaved))
-
-                if  Calendar.current.compare(date, to: savedDate, toGranularity: .day)  == .orderedDescending {
-
-                    UserDefaults.standard.setValue(date.dateToTimeStamp(), forKey: UserDefaultKeys.Keys.savedDate)
-                    self?.presentPersonMode()
+                guard let self = self else {
+                    self?.transferToLogin()
+                    return
+                }
+                if self.dayAreSaved() {
+                    UserDefaults.standard.setValue(Date().dateToTimeStamp(), forKey: UserDefaultKeys.Keys.savedDate)
+                    UserDefaults.standard.setValue("unknown", forKey: UserDefaultKeys.Keys.personMode)
+                    self.presentPersonMode()
                 } else {
-                    self?.transferToMainStarter(person: person)
+                    self.transferToMainStarter(person: person)
                 }
 
             case .failure(_):
@@ -69,5 +69,12 @@ class SplashScreenViewController: UIViewController {
         guard let loginViewController = loginStoryboard.instantiateViewController(withIdentifier: "LoginNavigation") as? UINavigationController else {return}
 
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginViewController, animationOption: .transitionCrossDissolve)
+    }
+
+    private func dayAreSaved() -> Bool {
+        let date = Date()
+        let timeStampeSaved = UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.savedDate)
+        let savedDate = Date(timeIntervalSince1970: TimeInterval(timeStampeSaved))
+        return  Calendar.current.compare(date, to: savedDate, toGranularity: .day)  == .orderedDescending
     }
 }

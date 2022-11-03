@@ -105,7 +105,7 @@ class MainStarterViewController: UIViewController {
         if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) == "" && person.personMode == .hunter {
             presentAlertError(alertTitle: "👋", alertMessage: "Please select your area in your list.".localized(tableName: "LocalizableMainStarter"))
         } else if person.personMode == .walker {
-            presentAlertSuccess(alertTitle: "👋", alertMessage: "Hello, You can start monitoring. You receive an alert and see the hunting area if you will near  you")
+            presentAlertSuccess(alertTitle: "👋", alertMessage: "Hello, You can start monitoring. You will receive an alert and you will see the hunting area if you are nearby.".localized(tableName: "LocalizableMainStarter"))
         }
     }
 

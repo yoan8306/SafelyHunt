@@ -82,6 +82,16 @@
 		5FC1A7DA28F0D906000C03BD /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 5FC1A7D928F0D906000C03BD /* FirebaseFunctions */; };
 		5FC75390289408E600BC3DB7 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC7538F289408E600BC3DB7 /* MapViewController.swift */; };
 		5FC753922894892B00BC3DB7 /* Area.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC753912894892B00BC3DB7 /* Area.swift */; };
+		5FCE8FD82913ED730037BBCC /* musical-alert-notification.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE8FCE2913ED700037BBCC /* musical-alert-notification.caf */; };
+		5FCE8FD92913ED730037BBCC /* security-facility-breach-alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE8FCF2913ED700037BBCC /* security-facility-breach-alarm.caf */; };
+		5FCE8FDA2913ED730037BBCC /* morning-clock-alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE8FD02913ED710037BBCC /* morning-clock-alarm.caf */; };
+		5FCE8FDB2913ED730037BBCC /* melodical-flute-music-notification.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE8FD12913ED710037BBCC /* melodical-flute-music-notification.caf */; };
+		5FCE8FDC2913ED730037BBCC /* space-shooter-alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE8FD22913ED710037BBCC /* space-shooter-alarm.caf */; };
+		5FCE8FDD2913ED730037BBCC /* street-public-alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE8FD32913ED710037BBCC /* street-public-alarm.caf */; };
+		5FCE8FDE2913ED730037BBCC /* spaceship-alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE8FD42913ED720037BBCC /* spaceship-alarm.caf */; };
+		5FCE8FDF2913ED730037BBCC /* uplifting-flute-notification.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE8FD52913ED720037BBCC /* uplifting-flute-notification.caf */; };
+		5FCE8FE02913ED730037BBCC /* warning-alarm-buzzer.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE8FD62913ED720037BBCC /* warning-alarm-buzzer.caf */; };
+		5FCE8FE12913ED730037BBCC /* retro-game-emergency-alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE8FD72913ED730037BBCC /* retro-game-emergency-alarm.caf */; };
 		5FD577B728D2529F00F464F6 /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5FD577B628D2529F00F464F6 /* NotificationBannerSwift */; };
 		5FD577BA28D252F100F464F6 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 5FD577B928D252F100F464F6 /* SPAlert */; };
 		5FED75EF28E5EDD2009A68E9 /* TestDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FED75EB28E5EDD1009A68E9 /* TestDateExtension.swift */; };
@@ -193,6 +203,16 @@
 		5FBEF951287380050023E5A5 /* UIViewController_Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController_Alert.swift; sourceTree = "<group>"; };
 		5FC7538F289408E600BC3DB7 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5FC753912894892B00BC3DB7 /* Area.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Area.swift; sourceTree = "<group>"; };
+		5FCE8FCE2913ED700037BBCC /* musical-alert-notification.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "musical-alert-notification.caf"; sourceTree = "<group>"; };
+		5FCE8FCF2913ED700037BBCC /* security-facility-breach-alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "security-facility-breach-alarm.caf"; sourceTree = "<group>"; };
+		5FCE8FD02913ED710037BBCC /* morning-clock-alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "morning-clock-alarm.caf"; sourceTree = "<group>"; };
+		5FCE8FD12913ED710037BBCC /* melodical-flute-music-notification.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "melodical-flute-music-notification.caf"; sourceTree = "<group>"; };
+		5FCE8FD22913ED710037BBCC /* space-shooter-alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "space-shooter-alarm.caf"; sourceTree = "<group>"; };
+		5FCE8FD32913ED710037BBCC /* street-public-alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "street-public-alarm.caf"; sourceTree = "<group>"; };
+		5FCE8FD42913ED720037BBCC /* spaceship-alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "spaceship-alarm.caf"; sourceTree = "<group>"; };
+		5FCE8FD52913ED720037BBCC /* uplifting-flute-notification.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "uplifting-flute-notification.caf"; sourceTree = "<group>"; };
+		5FCE8FD62913ED720037BBCC /* warning-alarm-buzzer.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "warning-alarm-buzzer.caf"; sourceTree = "<group>"; };
+		5FCE8FD72913ED730037BBCC /* retro-game-emergency-alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "retro-game-emergency-alarm.caf"; sourceTree = "<group>"; };
 		5FED75EB28E5EDD1009A68E9 /* TestDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDateExtension.swift; sourceTree = "<group>"; };
 		5FED75EC28E5EDD2009A68E9 /* TestMonitoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMonitoring.swift; sourceTree = "<group>"; };
 		5FED75ED28E5EDD2009A68E9 /* TestMonitoringServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMonitoringServices.swift; sourceTree = "<group>"; };
@@ -481,15 +501,33 @@
 		5FCDFFB9286CE595002D83DD /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				5FCE8FCD2913E8D60037BBCC /* sound */,
 				5F98BFE22902C5AB0063CCA9 /* Languages */,
 				5F1CF300286B1F2900A0429D /* AppDelegate.swift */,
-				5F62872C28A5230E00AD51E2 /* Orchestral-emergency.caf */,
-				5FA61BB229069BF600FD3B88 /* Scanning-alarm.caf */,
 				5F1CF302286B1F2900A0429D /* SceneDelegate.swift */,
 				5F1CF30E286B1F2C00A0429D /* Info.plist */,
 				5F1CF309286B1F2B00A0429D /* Assets.xcassets */,
 			);
 			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		5FCE8FCD2913E8D60037BBCC /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				5FCE8FD12913ED710037BBCC /* melodical-flute-music-notification.caf */,
+				5FCE8FD02913ED710037BBCC /* morning-clock-alarm.caf */,
+				5FCE8FCE2913ED700037BBCC /* musical-alert-notification.caf */,
+				5FCE8FD72913ED730037BBCC /* retro-game-emergency-alarm.caf */,
+				5FCE8FCF2913ED700037BBCC /* security-facility-breach-alarm.caf */,
+				5FCE8FD22913ED710037BBCC /* space-shooter-alarm.caf */,
+				5FCE8FD42913ED720037BBCC /* spaceship-alarm.caf */,
+				5FCE8FD32913ED710037BBCC /* street-public-alarm.caf */,
+				5FCE8FD52913ED720037BBCC /* uplifting-flute-notification.caf */,
+				5FCE8FD62913ED720037BBCC /* warning-alarm-buzzer.caf */,
+				5F62872C28A5230E00AD51E2 /* Orchestral-emergency.caf */,
+				5FA61BB229069BF600FD3B88 /* Scanning-alarm.caf */,
+			);
+			path = sound;
 			sourceTree = "<group>";
 		};
 		5FED75E928E5EDB9009A68E9 /* UnitTests */ = {
@@ -633,29 +671,39 @@
 				5F1CF331286B1FB500A0429D /* GoogleService-Info.plist in Resources */,
 				5F62872E28A5230F00AD51E2 /* Orchestral-emergency.caf in Resources */,
 				5FB1A9D8290F05AE001B3093 /* PersonMode.storyboard in Resources */,
+				5FCE8FDC2913ED730037BBCC /* space-shooter-alarm.caf in Resources */,
 				5F1CF30A286B1F2B00A0429D /* Assets.xcassets in Resources */,
 				5F1CF308286B1F2900A0429D /* Login.storyboard in Resources */,
+				5FCE8FDD2913ED730037BBCC /* street-public-alarm.caf in Resources */,
 				5F98BFB62902AB5E0063CCA9 /* MainStarter.storyboard in Resources */,
 				5F98BFD42902AE450063CCA9 /* Carousel.storyboard in Resources */,
 				5FFCF681288EB481009D9AE8 /* Launch Screen.storyboard in Resources */,
 				5F98C002290329E70063CCA9 /* Localizable.strings in Resources */,
 				5F98BFB02902AB510063CCA9 /* Main.storyboard in Resources */,
+				5FCE8FD92913ED730037BBCC /* security-facility-breach-alarm.caf in Resources */,
 				5FFBFF9028E384F700214FEB /* .swiftlint.yml in Resources */,
 				5F98BFEF290322570063CCA9 /* LocalizableLocalNotification.strings in Resources */,
 				5FA61BB129067DEF00FD3B88 /* SoundNotification.storyboard in Resources */,
+				5FCE8FE12913ED730037BBCC /* retro-game-emergency-alarm.caf in Resources */,
 				5F98BFBC2902AB6B0063CCA9 /* Maps.storyboard in Resources */,
+				5FCE8FDB2913ED730037BBCC /* melodical-flute-music-notification.caf in Resources */,
 				5FBEF94B2873073A0023E5A5 /* Register.storyboard in Resources */,
 				5F98BFC52902AB7C0063CCA9 /* Ranking.storyboard in Resources */,
 				5F98BFF82903258B0063CCA9 /* LocalizableMainStarter.strings in Resources */,
 				5FA61BB329069BF600FD3B88 /* Scanning-alarm.caf in Resources */,
+				5FCE8FDA2913ED730037BBCC /* morning-clock-alarm.caf in Resources */,
 				5F98C00C290332FB0063CCA9 /* LocalizableAccountSetting.strings in Resources */,
 				5F98BFB32902AB580063CCA9 /* TabbarMain.storyboard in Resources */,
 				5F98C00729032BCE0063CCA9 /* LocalizableMapView.strings in Resources */,
 				5F98BFE52902C7A20063CCA9 /* LocalizableCarousel.strings in Resources */,
 				5F98C0112903413B0063CCA9 /* LocalizableMainData.strings in Resources */,
+				5FCE8FE02913ED730037BBCC /* warning-alarm-buzzer.caf in Resources */,
+				5FCE8FDF2913ED730037BBCC /* uplifting-flute-notification.caf in Resources */,
 				5F98BFBF2902AB730063CCA9 /* AccountSettings.storyboard in Resources */,
 				5F98BFDD2902BCBF0063CCA9 /* LocalizableLoginController.strings in Resources */,
+				5FCE8FDE2913ED730037BBCC /* spaceship-alarm.caf in Resources */,
 				5F98BFF2290322660063CCA9 /* LocalizableRegisterViewController.strings in Resources */,
+				5FCE8FD82913ED730037BBCC /* musical-alert-notification.caf in Resources */,
 				5F98BFC22902AB770063CCA9 /* Profile.storyboard in Resources */,
 				5F7624D428C2159800D6FA65 /* Settings.storyboard in Resources */,
 			);

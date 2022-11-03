@@ -9,7 +9,19 @@ import UIKit
 
 class ListSoundNotificationViewController: UIViewController {
 // MARK: - Properties
-    let sounds: [String] = ["Orchestral-emergency", "Scanning-alarm"]
+    let sounds: [String] = [
+        "Orchestral-emergency",
+        "Scanning-alarm",
+        "melodical-flute-music-notification",
+        "morning-clock-alarm",
+        "musical-alert-notification",
+        "retro-game-emergency-alarm",
+        "security-facility-breach-alarm",
+        "space-shooter-alarm",
+        "street-public-alarm",
+        "uplifting-flute-notification",
+        "warning-alarm-buzzer"
+    ]
     let notification = LocalNotification()
 
 // MARK: - IBOutlet

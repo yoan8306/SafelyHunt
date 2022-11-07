@@ -14,6 +14,7 @@ class LoginViewController: UIViewController {
 
     // MARK: - IBOutlet
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var viewLoginController: UIView!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -24,6 +25,10 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         emailTextField.text = signInMail
         setLoginButton()
+       addGesture()
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+
         #if DEBUG
         emailTextField.text = "yoan8306@wanadoo.fr"
         passwordTextField.text = "coucou"
@@ -49,7 +54,7 @@ class LoginViewController: UIViewController {
             case .success(let emailIsChecked):
                 switch emailIsChecked {
                 case true:
-                    self?.transferToMainStarter()
+                    self?.transferToSplashScreen()
                     self?.activityIndicator(shown: false)
                 case false:
                     self?.activityIndicator(shown: false)
@@ -67,12 +72,24 @@ class LoginViewController: UIViewController {
         presentResetPassword()
     }
 
-    /// if user sign in transfert to mainStarterController
-    private func transferToMainStarter() {
-        let tabBarMain = UIStoryboard(name: "TabbarMain", bundle: nil)
-        guard let mainStarter = tabBarMain.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {return}
+    @objc func dismissKeyboard() {
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+    }
 
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarter, animationOption: .transitionFlipFromRight)
+// MARK: - Private functions
+
+    private func addGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        viewLoginController.addGestureRecognizer(tapGesture)
+    }
+
+    /// if user sign in transfert to mainStarterController
+    private func transferToSplashScreen() {
+        let splashScreen = UIStoryboard(name: "Main", bundle: nil)
+        guard let splashScreenViewController = splashScreen.instantiateViewController(withIdentifier: "SplashScreen") as? SplashScreenViewController else {return}
+
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(splashScreenViewController, animationOption: .transitionFlipFromRight)
     }
 
     /// show or hide activity indicator
@@ -135,4 +152,21 @@ class LoginViewController: UIViewController {
 
         present(alertViewController, animated: true, completion: nil)
     }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case emailTextField:
+            passwordTextField.becomeFirstResponder()
+        case passwordTextField:
+            passwordTextField.resignFirstResponder()
+            logInActionButton()
+        default:
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+
 }

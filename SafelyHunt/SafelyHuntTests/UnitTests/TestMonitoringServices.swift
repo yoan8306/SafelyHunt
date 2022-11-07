@@ -12,7 +12,7 @@ import MapKit
 
 final class TestMonitoringServices: XCTestCase {
     var monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area()), startMonitoring: false)
-    var hunters: [Hunter] = []
+    var hunters: [Person] = []
     override func setUp() {
         super.setUp()
         monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area()), startMonitoring: false)
@@ -21,39 +21,39 @@ final class TestMonitoringServices: XCTestCase {
 
     /// Test addHunters return all hunters
     func testGivenTheyHunterAreInRadiusAlertWhenGetPositionsHunterThenCallbackHunters() {
-        let hunterOne = Hunter()
-        hunterOne.displayName = "yoan83"
-        hunterOne.longitude = -122.02957434
-        hunterOne.latitude = 37.33070248
-        hunterOne.date = Date().dateToTimeStamp()
+        let personOne = Person()
+        personOne.displayName = "yoan83"
+        personOne.longitude = -122.02957434
+        personOne.latitude = 37.33070248
+        personOne.date = Date().dateToTimeStamp()
 
-        let hunterTwo = Hunter()
-        hunterTwo.displayName = "yoan8306"
-        hunterTwo.longitude = -122.0312186
-        hunterTwo.latitude = 37.33233141
-        hunterTwo.date = Date().dateToTimeStamp()
+        let personTwo = Person()
+        personTwo.displayName = "yoan8306"
+        personTwo.longitude = -122.0312186
+        personTwo.latitude = 37.33233141
+        personTwo.date = Date().dateToTimeStamp()
 
-        let hunterThree = Hunter()
-        hunterThree.displayName = "yoyo"
-        hunterThree.latitude = 37.33233141
-        hunterThree.longitude = -122.0312186
-        hunterThree.date = Date().dateToTimeStamp()
+        let personThree = Person()
+        personThree.displayName = "yoyo"
+        personThree.latitude = 37.33233141
+        personThree.longitude = -122.0312186
+        personThree.date = Date().dateToTimeStamp()
 
-        hunters.append(hunterOne)
-        hunters.append(hunterTwo)
-        hunters.append(hunterThree)
+        hunters.append(personOne)
+        hunters.append(personTwo)
+        hunters.append(personThree)
 
         let latitudeUser = 37.33233141
         let longitude = -122.0312186
-        monitoringServices.monitoring.hunter?.latitude = latitudeUser
-        monitoringServices.monitoring.hunter?.longitude = longitude
+        monitoringServices.monitoring.person?.latitude = latitudeUser
+        monitoringServices.monitoring.person?.longitude = longitude
 
-        guard let actualPostion = monitoringServices.monitoring.hunter?.actualPostion else {
+        guard let actualPostion = monitoringServices.monitoring.person?.actualPostion else {
             fatalError()
         }
 
-        let huntersInRadiusAlert = monitoringServices.addHuntersIntoList(
-            huntersList: hunters,
+        let huntersInRadiusAlert = monitoringServices.addPersonsIntoList(
+            persons: hunters,
             actualPostion: actualPostion,
             radiusAlert: 300
         )
@@ -63,19 +63,19 @@ final class TestMonitoringServices: XCTestCase {
 
     /// In radius alert they are 2 hunters on 3 hunters
     func testGivenThreeHuntersWhenTheyAreTwoHuntersInRadiusAlertThenCallbackTwoHunters() {
-        let hunterOne = Hunter()
+        let hunterOne = Person()
         hunterOne.displayName = "yoan83"
         hunterOne.longitude = 200.02957434
         hunterOne.latitude = 17.33070248
         hunterOne.date = Date().dateToTimeStamp()
         
-        let hunterTwo = Hunter()
+        let hunterTwo = Person()
         hunterTwo.displayName = "yoan8306"
         hunterTwo.longitude = -122.0312186
         hunterTwo.latitude = 37.33233141
         hunterTwo.date = Date().dateToTimeStamp()
         
-        let hunterThree = Hunter()
+        let hunterThree = Person()
         hunterThree.displayName = "yoyo"
         hunterThree.latitude = 37.33233141
         hunterThree.longitude = -122.0312186
@@ -87,15 +87,15 @@ final class TestMonitoringServices: XCTestCase {
         
         let latitudeUser = 37.33233141
         let longitudeUser = -122.0312186
-        monitoringServices.monitoring.hunter?.latitude = latitudeUser
-        monitoringServices.monitoring.hunter?.longitude = longitudeUser
+        monitoringServices.monitoring.person?.latitude = latitudeUser
+        monitoringServices.monitoring.person?.longitude = longitudeUser
         
-        guard let actualPosition = monitoringServices.monitoring.hunter?.actualPostion else {
+        guard let actualPosition = monitoringServices.monitoring.person?.actualPostion else {
             fatalError()
         }
         
-        let huntersInRadiusAlert = monitoringServices.addHuntersIntoList(
-            huntersList: hunters,
+        let huntersInRadiusAlert = monitoringServices.addPersonsIntoList(
+            persons: hunters,
             actualPostion: actualPosition,
             radiusAlert: 300
         )
@@ -111,20 +111,20 @@ final class TestMonitoringServices: XCTestCase {
 )
     }
 
-    /// 3hunters inside area but one hunter they are no date updated
+    /// 3hunters inside area but one person they are no date updated
     func testGiven3HuntersWhen1hunterTheyAreNoDateThenCanNotInsertThisHunter() {
-        let hunterOne = Hunter()
+        let hunterOne = Person()
         hunterOne.displayName = "yoan83"
         hunterOne.longitude = -122.02957434
         hunterOne.latitude = 37.33070248
         hunterOne.date = Date().dateToTimeStamp()
 
-        let hunterTwo = Hunter()
+        let hunterTwo = Person()
         hunterTwo.displayName = "yoan8306"
         hunterTwo.longitude = -122.0312186
         hunterTwo.latitude = 37.33233141
 
-        let hunterThree = Hunter()
+        let hunterThree = Person()
         hunterThree.displayName = "yoyo"
         hunterThree.latitude = 37.33233141
         hunterThree.longitude = -122.0312186
@@ -136,15 +136,15 @@ final class TestMonitoringServices: XCTestCase {
 
         let latitudeUser = 37.33233141
         let longitude = -122.0312186
-        monitoringServices.monitoring.hunter?.latitude = latitudeUser
-        monitoringServices.monitoring.hunter?.longitude = longitude
+        monitoringServices.monitoring.person?.latitude = latitudeUser
+        monitoringServices.monitoring.person?.longitude = longitude
 
-        guard let actualPostion = monitoringServices.monitoring.hunter?.actualPostion else {
+        guard let actualPostion = monitoringServices.monitoring.person?.actualPostion else {
             fatalError()
         }
 
-        let huntersInRadiusAlert = monitoringServices.addHuntersIntoList(
-            huntersList: hunters,
+        let huntersInRadiusAlert = monitoringServices.addPersonsIntoList(
+            persons: hunters,
             actualPostion: actualPostion,
             radiusAlert: 300
         )
@@ -162,15 +162,15 @@ final class TestMonitoringServices: XCTestCase {
     func testGivenNoPositionHunterFindedWhenAddHunterIntoRadiusAlertThenNoHunter() {
         let latitudeUser = 37.33233141
         let longitude = -122.0312186
-        monitoringServices.monitoring.hunter?.latitude = latitudeUser
-        monitoringServices.monitoring.hunter?.longitude = longitude
+        monitoringServices.monitoring.person?.latitude = latitudeUser
+        monitoringServices.monitoring.person?.longitude = longitude
 
-        guard let actualPostion = monitoringServices.monitoring.hunter?.actualPostion else {
+        guard let actualPostion = monitoringServices.monitoring.person?.actualPostion else {
             fatalError()
         }
 
-        let huntersInRadiusAlert = monitoringServices.addHuntersIntoList(
-            huntersList: hunters,
+        let huntersInRadiusAlert = monitoringServices.addPersonsIntoList(
+            persons: hunters,
             actualPostion: actualPostion,
             radiusAlert: 300
         )
@@ -182,11 +182,11 @@ final class TestMonitoringServices: XCTestCase {
     func testGivenUserIsInAreaWhenCheckUserThenAreaContainsReturnTrue() {
         let latitudeUser = 37.33233141
         let longitude = -122.0312186
-        monitoringServices.monitoring.hunter?.latitude = latitudeUser
-        monitoringServices.monitoring.hunter?.longitude = longitude
+        monitoringServices.monitoring.person?.latitude = latitudeUser
+        monitoringServices.monitoring.person?.longitude = longitude
         monitoringServices.monitoring.area = createArea()
 
-        guard let actualPostion = monitoringServices.monitoring.hunter?.actualPostion else {
+        guard let actualPostion = monitoringServices.monitoring.person?.actualPostion else {
             fatalError()
         }
 
@@ -197,11 +197,11 @@ final class TestMonitoringServices: XCTestCase {
     func testGivenUserIsOutsideAreaWhenCheckUserAndAreaThenReturnFalse() {
         let latitudeUser = 40.34245
         let longitude = -125.0312186
-        monitoringServices.monitoring.hunter?.latitude = latitudeUser
-        monitoringServices.monitoring.hunter?.longitude = longitude
+        monitoringServices.monitoring.person?.latitude = latitudeUser
+        monitoringServices.monitoring.person?.longitude = longitude
         monitoringServices.monitoring.area = createArea()
 
-        guard let actualPostion = monitoringServices.monitoring.hunter?.actualPostion else {
+        guard let actualPostion = monitoringServices.monitoring.person?.actualPostion else {
             fatalError()
         }
         XCTAssertFalse(monitoringServices.checkUserIsAlwayInArea(positionUser: actualPostion.coordinate))

@@ -11,7 +11,7 @@ import MapKit
 
 protocol MonitoringProtocol {
     var area: Area {get set}
-    var hunter: Hunter? {get set}
+    var person: Person? {get set}
     var currentDistance: Double {get set}
     var currentTravel: [CLLocationCoordinate2D] {get set}
     var lastLocation: CLLocation? {get set}
@@ -23,15 +23,15 @@ protocol MonitoringProtocol {
 
 class Monitoring: MonitoringProtocol {
     var area: Area
-    var hunter: Hunter?
+    var person: Person?
     var currentDistance: Double = 0.0
     var currentTravel: [CLLocationCoordinate2D] = []
     var lastLocation: CLLocation?
     var firstLocation: CLLocation?
 
-    init(monitoringIsOn: Bool = false, area: Area, hunter: Hunter = Hunter()) {
+    init(monitoringIsOn: Bool = false, area: Area, person: Person = Person()) {
         self.area = area
-        self.hunter = hunter
+        self.person = person
     }
 
     func getCurrentTravel(locations: [CLLocation]) {

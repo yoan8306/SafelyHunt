@@ -32,11 +32,12 @@ extension SettingsViewController: UITableViewDataSource {
         if #available(iOS 14.0, *) {
             var content = cell.defaultContentConfiguration()
             content.text = title
+            content.textProperties.color = .black
             cell.contentConfiguration = content
         } else {
+            cell.textLabel?.textColor = .black
             cell.textLabel?.text = title
         }
-
         return cell
     }
 }
@@ -49,14 +50,16 @@ extension SettingsViewController: UITableViewDelegate {
         case 0:
             transferToProfile()
         case 1:
-            presentRanking()
+            presentPersonMode()
         case 2:
-            openSettingApp()
+            presentRanking()
         case 3:
-            presentTutorial()
+            openSettingApp()
         case 4:
-            presentListSoundNotification()
+            presentTutorial()
         case 5:
+            presentListSoundNotification()
+        case 6:
             transferToAccountSetting()
         default:
             break
@@ -69,6 +72,12 @@ extension SettingsViewController: UITableViewDelegate {
         guard let profileViewController = profileStoryboard.instantiateViewController(withIdentifier: "Profile") as? ProfileViewController else {return}
         profileViewController.navigationItem.title = "Profile"
         navigationController?.pushViewController(profileViewController, animated: true)
+    }
+
+    private func presentPersonMode() {
+        let personModeStoryboard = UIStoryboard(name: "PersonMode", bundle: nil)
+        guard let personModeViewController = personModeStoryboard.instantiateViewController(withIdentifier: "PersonMode") as? PersonModeViewController else {return}
+        present(personModeViewController, animated: true)
     }
 
     /// Open AccountSettingController

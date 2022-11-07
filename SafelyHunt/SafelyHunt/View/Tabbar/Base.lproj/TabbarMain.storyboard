@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qTo-3F-dtq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qTo-3F-dtq">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,9 +14,13 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="69q-Ya-u54">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <color key="selectedImageTintColor" systemColor="labelColor"/>
-                        <tabBarAppearance key="standardAppearance"/>
+                        <color key="backgroundColor" red="0.30223849419999999" green="0.4197221994" blue="0.30826809999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.30223849419999999" green="0.4197221994" blue="0.30826809999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="0.66592890019999995" green="0.54535347219999997" blue="0.33762454990000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <tabBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" red="0.30223849419999999" green="0.4197221994" blue="0.30826809999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="selectionIndicatorTintColor" red="0.92125511169999996" green="0.90211021899999999" blue="0.79121857880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </tabBarAppearance>
                     </tabBar>
                     <connections>
                         <segue destination="ehH-Rn-fhJ" kind="relationship" relationship="viewControllers" id="0zu-Ka-43c"/>
@@ -51,11 +54,5 @@
     </scenes>
     <resources>
         <image name="map.fill" catalog="system" width="128" height="110"/>
-        <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

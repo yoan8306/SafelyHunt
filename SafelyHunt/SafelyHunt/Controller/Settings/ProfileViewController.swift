@@ -12,18 +12,20 @@ import FirebaseAuth
 class ProfileViewController: UIViewController {
 // MARK: - Properties
     var monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area()))
-    var hunter = Hunter()
+    var person = Person()
 
 // MARK: - IBOutlet
     @IBOutlet weak var totalDistanceLabel: UILabel!
     @IBOutlet weak var mailLabel: UILabel!
     @IBOutlet weak var pseudonymeLabel: UILabel!
+    @IBOutlet weak var stackViewContener: UIStackView!
 
 // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         getTotalDistance()
         setLabel()
+        stackViewContener.layer.cornerRadius = 8
     }
 
     // MARK: - Private functions

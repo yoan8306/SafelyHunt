@@ -11,7 +11,7 @@ import Firebase
 import MapKit
 
 protocol AreaServicesProtocol {
-    func insertArea(area: Area, date: Date)
+    func insertArea(area: Area, date: Date, uId: String?)
     func getAreaList(callBack: @escaping (Result<[Area], Error>) -> Void)
     func getArea(nameArea: String?, callBack: @escaping (Result<Area, Error>) -> Void)
     func removeArea(name: String, callBack: @escaping(Result<String, Error>) -> Void)
@@ -31,12 +31,12 @@ class AreaServices: AreaServicesProtocol {
     /// - Parameters:
     ///   - area: object area to insert
     ///   - date: date of creation
-    func insertArea(area: Area, date: Date) {
+    func insertArea(area: Area, date: Date, uId: String?) {
         var index = 0
-        guard let user = firebaseAuth.currentUser else {
+        guard let uId = uId else {
             return
         }
-        let databaseArea = database.child("Database").child("users_list").child(user.uid).child("area_list")
+        let databaseArea = database.child("Database").child("users_list").child(uId).child("area_list")
 
         databaseArea.child(area.name!).setValue([
             "name": area.name,
@@ -46,6 +46,35 @@ class AreaServices: AreaServicesProtocol {
 
         for point in area.coordinatesPoints {
             databaseArea.child(area.name!).child("coordinate").child("coordinate\(index)").setValue([
+                "index": index,
+                "latitude": point.latitude,
+                "longitude": point.longitude
+            ])
+            index += 1
+        }
+    }
+
+    /// insert to database of the user specific the area of the current hunter
+    /// - Parameters:
+    ///   - uId: Id of the user specific
+    ///   - area: area of current user
+    func transfertAreaIntoUserInForbidden(uId: String?, area: Area) {
+        var index = 0
+        guard let uId = uId else {return}
+        let databaseAreaShared = database
+            .child("Database")
+            .child("users_list")
+            .child(uId)
+            .child("forbidden_area")
+
+        databaseAreaShared.setValue([
+            "name": area.name,
+            "date": area.date,
+            "city": area.city
+        ])
+
+        for point in area.coordinatesPoints {
+            databaseAreaShared.child("coordinate").child("coordinate\(index)").setValue([
                 "index": index,
                 "latitude": point.latitude,
                 "longitude": point.longitude
@@ -66,19 +95,18 @@ class AreaServices: AreaServicesProtocol {
         areaList.removeAll()
 
         databaseArea.child(user.uid).child("area_list").getData { error, dataSnapshot in
-            guard error == nil, let dataSnapshot = dataSnapshot else {
+            guard error == nil,
+                  let dataSnapshot = dataSnapshot,
+                  let data = dataSnapshot.children.allObjects as? [DataSnapshot],
+                  data.count > 0
+            else {
                 callBack(.failure(error ?? ServicesError.noAreaRecordedFound))
                 return
             }
-            guard let data = dataSnapshot.children.allObjects as? [DataSnapshot] else {
-                callBack(.failure(ServicesError.noAreaRecordedFound))
-                return
-            }
-
-            guard data.count > 0  else {
-                callBack(.failure(ServicesError.noAreaRecordedFound))
-                return
-            }
+            //            guard let data = dataSnapshot.children.allObjects as? [DataSnapshot], data.count > 0 else {
+            //                callBack(.failure(ServicesError.noAreaRecordedFound))
+            //                return
+            //            }
 
             for (index, dataArea) in data.enumerated() {
                 let list = dataArea.value as? NSDictionary
@@ -88,16 +116,14 @@ class AreaServices: AreaServicesProtocol {
                 let foldercoordinate = dataArea.childSnapshot(forPath: "coordinate").children.allObjects as? [DataSnapshot]
 
                 guard let foldercoordinate = foldercoordinate else {return}
-
-                let coordinateArea = self.createCoordinate(data: foldercoordinate)
-
+                //                let coordinateArea = self.createCoordinate(data: foldercoordinate)
                 guard let name = name as? String, let date = date as? String else {return}
 
                 let area = Area()
                 area.name = name
                 area.date = date
                 area.city = city as? String
-                area.coordinatesPoints = coordinateArea
+                area.coordinatesPoints = self.createCoordinate(data: foldercoordinate)
                 areaList.append(area)
 
                 if index == data.count-1 {
@@ -126,23 +152,43 @@ class AreaServices: AreaServicesProtocol {
             .child("coordinate")
 
         databaseArea.getData { error, dataSnapshot in
-            guard error == nil, let dataSnapshot = dataSnapshot else {
+            guard error == nil,
+                  let dataSnapshot = dataSnapshot,
+                  let data = dataSnapshot.children.allObjects as? [DataSnapshot]
+            else {
                 callBack(.failure(error ?? ServicesError.noAreaRecordedFound))
                 return
             }
-            guard let data = dataSnapshot.children.allObjects as? [DataSnapshot] else {
-                callBack(.failure(ServicesError.noAreaRecordedFound))
-                return
-            }
-
-            let coordinateArea = self.createCoordinate(data: data)
 
             let area = Area()
             area.name = nameArea
-            area.coordinatesPoints = coordinateArea
+            area.coordinatesPoints = self.createCoordinate(data: data)
             callBack(.success(area))
         }
     }
+
+    /// Get area hunt
+    /// - Parameter uId: user id for access
+    func getAreaForbidden(uId: String?, callback: @escaping (Result <Area, Error>) -> Void) {
+        guard let uId else {return}
+        let databaseAreaForbidden = database
+            .child("Database")
+            .child("users_list")
+            .child(uId)
+            .child("forbidden_area")
+            .child("coordinate")
+
+        databaseAreaForbidden.getData { error, dataSnapshot in
+            guard error == nil,
+                  let dataSnapshot,
+                  let data = dataSnapshot.children.allObjects as? [DataSnapshot]
+
+            else {return}
+            let area = Area()
+            area.coordinatesPoints = self.createCoordinate(data: data)
+            callback(.success(area))
+            }
+        }
 
     /// delete area selected
     /// - Parameters:

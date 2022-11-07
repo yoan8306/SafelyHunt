@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1mI-uG-1Q5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1mI-uG-1Q5">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,10 +16,13 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uWu-sl-vgy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" systemColor="labelColor"/>
-                        <color key="barTintColor" systemColor="labelColor"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" systemColor="labelColor"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -39,13 +41,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eoZ-Lf-t6S">
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="jMg-Am-C07">
                                 <rect key="frame" x="30" y="84" width="260" height="80"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email adress..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p8s-qR-kwB">
                                         <rect key="frame" x="0.0" y="0.0" width="260" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="email"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" textContentType="email"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xbP-TP-91o">
                                         <rect key="frame" x="0.0" y="46" width="260" height="34"/>
@@ -56,14 +61,14 @@
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s51-eu-qdl">
                                 <rect key="frame" x="60" y="174" width="200" height="40"/>
-                                <color key="backgroundColor" systemColor="systemFillColor"/>
+                                <color key="backgroundColor" red="0.66592890019999995" green="0.54535347219999997" blue="0.33762454990000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="2ZO-wi-gXa"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Log in">
-                                    <color key="titleColor" systemColor="labelColor"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="logInActionButton" destination="Zt0-lv-8N8" eventType="touchUpInside" id="a0x-EQ-6fa"/>
@@ -78,34 +83,40 @@
                                     <constraint firstAttribute="height" constant="40" id="lLO-0v-M8X"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Forget password"/>
+                                <state key="normal" title="Forget password">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="resetPasswordAction" destination="Zt0-lv-8N8" eventType="touchUpInside" id="2C2-Mv-wgq"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HIH-7D-Rw1"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.30223849419999999" green="0.4197221994" blue="0.30826809999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="jMg-Am-C07" firstAttribute="top" secondItem="HIH-7D-Rw1" secondAttribute="top" constant="40" id="319-zo-pi2"/>
                             <constraint firstItem="HIH-7D-Rw1" firstAttribute="trailing" secondItem="s51-eu-qdl" secondAttribute="trailing" constant="60" id="Dsa-AU-CNZ"/>
                             <constraint firstItem="Jra-d1-bQh" firstAttribute="leading" secondItem="y6F-oG-RM2" secondAttribute="leading" id="Ed5-cx-mvX"/>
                             <constraint firstItem="HIH-7D-Rw1" firstAttribute="trailing" secondItem="jMg-Am-C07" secondAttribute="trailing" constant="30" id="GoZ-NQ-6cJ"/>
                             <constraint firstItem="s51-eu-qdl" firstAttribute="leading" secondItem="HIH-7D-Rw1" secondAttribute="leading" constant="60" id="Q7c-8q-7Ib"/>
+                            <constraint firstItem="HIH-7D-Rw1" firstAttribute="bottom" secondItem="eoZ-Lf-t6S" secondAttribute="bottom" id="WAr-S2-602"/>
                             <constraint firstItem="y6F-oG-RM2" firstAttribute="trailing" secondItem="s51-eu-qdl" secondAttribute="trailing" id="ZYi-r0-rz9"/>
+                            <constraint firstItem="HIH-7D-Rw1" firstAttribute="trailing" secondItem="eoZ-Lf-t6S" secondAttribute="trailing" id="Zn9-W9-cBN"/>
                             <constraint firstItem="y6F-oG-RM2" firstAttribute="bottom" secondItem="s51-eu-qdl" secondAttribute="bottom" id="bIz-Th-6OV"/>
                             <constraint firstItem="y6F-oG-RM2" firstAttribute="leading" secondItem="s51-eu-qdl" secondAttribute="leading" id="eVR-QD-t1B"/>
                             <constraint firstItem="Jra-d1-bQh" firstAttribute="top" secondItem="s51-eu-qdl" secondAttribute="bottom" constant="10" id="fEo-ZE-aKW"/>
                             <constraint firstItem="jMg-Am-C07" firstAttribute="leading" secondItem="HIH-7D-Rw1" secondAttribute="leading" constant="30" id="j9N-CR-Ofj"/>
                             <constraint firstItem="jMg-Am-C07" firstAttribute="centerX" secondItem="XxW-8t-vFE" secondAttribute="centerX" id="ouC-Ke-OXF"/>
                             <constraint firstItem="s51-eu-qdl" firstAttribute="top" secondItem="jMg-Am-C07" secondAttribute="bottom" constant="10" id="qBt-nB-GmO"/>
+                            <constraint firstItem="eoZ-Lf-t6S" firstAttribute="leading" secondItem="HIH-7D-Rw1" secondAttribute="leading" id="qKx-h1-h5x"/>
                             <constraint firstItem="y6F-oG-RM2" firstAttribute="top" secondItem="s51-eu-qdl" secondAttribute="top" id="s9E-JC-m5Q"/>
                             <constraint firstItem="Jra-d1-bQh" firstAttribute="trailing" secondItem="y6F-oG-RM2" secondAttribute="trailing" id="ykO-Ce-enD"/>
+                            <constraint firstItem="eoZ-Lf-t6S" firstAttribute="top" secondItem="HIH-7D-Rw1" secondAttribute="top" id="zEk-uj-59a"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Log in" id="ul3-9L-3AQ">
                         <barButtonItem key="rightBarButtonItem" title="Register" style="done" id="Vjd-Cj-bth">
-                            <color key="tintColor" systemColor="labelColor"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="lUm-0f-h8W" kind="show" id="bSS-CV-veV"/>
                             </connections>
@@ -117,6 +128,7 @@
                         <outlet property="logInButton" destination="s51-eu-qdl" id="aU0-0P-4GW"/>
                         <outlet property="passwordTextField" destination="xbP-TP-91o" id="en6-xy-fPU"/>
                         <outlet property="resetPasswordButton" destination="Jra-d1-bQh" id="ywd-ly-kFG"/>
+                        <outlet property="viewLoginController" destination="eoZ-Lf-t6S" id="hKY-Km-UXT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6aB-ex-HYs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -134,15 +146,4 @@
             <point key="canvasLocation" x="2783" y="-85"/>
         </scene>
     </scenes>
-    <resources>
-        <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemFillColor">
-            <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-    </resources>
 </document>

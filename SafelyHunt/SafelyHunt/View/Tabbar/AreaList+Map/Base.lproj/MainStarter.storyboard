@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="LTA-Zs-Xrb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="LTA-Zs-Xrb">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,14 +12,22 @@
         <scene sceneID="gh8-QU-Dio">
             <objects>
                 <navigationController storyboardIdentifier="NavigationMain" toolbarHidden="NO" id="LTA-Zs-Xrb" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="APe-fd-4sZ">
+                    <navigationBar key="navigationBar" contentMode="scaleAspectFit" largeTitles="YES" id="APe-fd-4sZ">
                         <rect key="frame" x="0.0" y="48" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                        <color key="tintColor" systemColor="labelColor"/>
+                        <color key="backgroundColor" red="0.30223849419999999" green="0.4197221994" blue="0.30826809999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.30223849419999999" green="0.4197221994" blue="0.30826809999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
                             <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
-                        <navigationBarAppearance key="scrollEdgeAppearance" backgroundImageContentMode="scaleAspectFit"/>
+                        <navigationBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" red="0.30223849419999999" green="0.4197221994" blue="0.30826809999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </navigationBarAppearance>
                     </navigationBar>
                     <connections>
                         <segue destination="85s-eW-G3B" kind="relationship" relationship="rootViewController" id="NSs-cr-Qvo"/>
@@ -38,37 +45,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5M0-mE-ypI">
-                                <rect key="frame" x="0.0" y="92" width="414" height="115"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5M0-mE-ypI">
+                                <rect key="frame" x="0.0" y="144" width="414" height="115"/>
+                                <color key="backgroundColor" red="0.30223849419999999" green="0.4197221994" blue="0.30826809999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="115" id="wiu-rM-dbZ"/>
                                 </constraints>
-                                <color key="sectionIndexBackgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="separatorColor" red="0.30223849419999999" green="0.4197221994" blue="0.30826809999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.30223849419999999" green="0.4197221994" blue="0.30826809999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellStarter" textLabel="05s-DJ-2c7" detailTextLabel="wob-iR-OKx" style="IBUITableViewCellStyleSubtitle" id="KfZ-MG-8nw">
-                                        <rect key="frame" x="0.0" y="50" width="414" height="56.5"/>
+                                        <rect key="frame" x="20" y="38" width="374" height="56.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KfZ-MG-8nw" id="joJ-2k-j4q">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="56.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="56.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Select area hunt" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="05s-DJ-2c7">
                                                     <rect key="frame" x="20" y="10" width="124" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wob-iR-OKx">
                                                     <rect key="frame" x="20" y="32.5" width="40.5" height="13.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="italicSystem" pointSize="11"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.92125511169999996" green="0.90211021899999999" blue="0.79121857880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -77,15 +86,15 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23p-M0-DBx">
-                                <rect key="frame" x="30" y="217" width="354" height="40"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="30" y="269" width="354" height="40"/>
+                                <color key="backgroundColor" red="0.66592890019999995" green="0.54535347219999997" blue="0.33762454990000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Szs-1w-uNI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Start monitoring">
-                                    <color key="titleColor" systemColor="labelColor"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="startMonitoringButton:" destination="85s-eW-G3B" eventType="touchUpInside" id="fHL-1Q-JKj"/>
@@ -93,7 +102,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XFk-5Z-EaC"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.30223849419999999" green="0.4197221994" blue="0.30826809999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="23p-M0-DBx" firstAttribute="centerX" secondItem="iPI-ga-kwn" secondAttribute="centerX" id="EGF-3e-ld5"/>
                             <constraint firstItem="5M0-mE-ypI" firstAttribute="top" secondItem="XFk-5Z-EaC" secondAttribute="top" id="Mik-dC-EUZ"/>
@@ -117,11 +126,5 @@
     </scenes>
     <resources>
         <image name="map.fill" catalog="system" width="128" height="110"/>
-        <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

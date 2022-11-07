@@ -135,7 +135,8 @@ extension RegisterViewController: UITextFieldDelegate {
         case passwordTextField:
             confirmPasswordTextField.becomeFirstResponder()
         case confirmPasswordTextField:
-            print("continue")
+            confirmPasswordTextField.resignFirstResponder()
+           registerAction()
         default:
             textField.resignFirstResponder()
         }

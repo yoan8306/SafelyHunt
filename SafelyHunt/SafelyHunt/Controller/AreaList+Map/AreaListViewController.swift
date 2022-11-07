@@ -13,6 +13,7 @@ class AreaListViewController: UIViewController {
     // MARK: - Properties
     var listArea: [Area] = []
     var refreshControl = UIRefreshControl()
+    var person = Person()
 
     // MARK: - IBOutlet
     @IBOutlet weak var areaListTableView: UITableView!
@@ -21,7 +22,7 @@ class AreaListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.prefersLargeTitles = false
-        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.3022384942, green: 0.4197221994, blue: 0.3082681, alpha: 1)
         refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
         areaListTableView.addSubview(refreshControl)
         initializeBackgroundTableView()
@@ -42,7 +43,7 @@ class AreaListViewController: UIViewController {
         let mapsStoryboard = UIStoryboard(name: "Maps", bundle: nil)
 
         guard let mapViewController = mapsStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {return}
-        mapViewController.monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area()))
+        mapViewController.monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area(), person: person))
         mapViewController.mapMode = .editingArea
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.myNavigationItem.title = "Editing area".localized(tableName: "LocalizableAreaListViewController")

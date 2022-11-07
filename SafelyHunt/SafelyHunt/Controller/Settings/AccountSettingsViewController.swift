@@ -120,5 +120,7 @@ class AccountSettingsViewController: UIViewController {
         userDefault.set(true, forKey: UserDefaultKeys.Keys.showInfoRadius)
         userDefault.set(false, forKey: UserDefaultKeys.Keys.tutorialHasBeenSeen)
         userDefault.set("Orchestral-emergency", forKey: UserDefaultKeys.Keys.notificationSoundName)
+        userDefault.set("unknown", forKey: UserDefaultKeys.Keys.personMode)
+        userDefault.set(1665993610, forKey: UserDefaultKeys.Keys.savedDate)
     }
 }

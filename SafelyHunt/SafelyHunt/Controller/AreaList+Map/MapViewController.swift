@@ -196,9 +196,16 @@ class MapViewController: UIViewController {
 
     /// monitoring user.  action call by tilmer
     @objc func updateMonitoring() {
-        checkIfUserIsInsideArea()
-        checkIfOthersUsersAreInsideAreaAlert()
-        monitoringServices.insertMyPosition()
+        guard let person = monitoringServices.monitoring.person else {return}
+
+        switch person.personMode {
+        case .hunter:
+            checkIfUserIsInsideArea()
+            checkIfOthersUsersAreInsideAreaAlert()
+        default:
+            checkIfOthersUsersAreInsideAreaAlert()
+        }
+        monitoringServices.insertUserPosition()
     }
 
     /// count timerfor start before start monitoring
@@ -222,9 +229,9 @@ class MapViewController: UIViewController {
         let compassButton = MKCompassButton(mapView: mapView)
         compassButton.frame.origin = CGPoint(
             x: travelInfoUiView.frame.origin.x + 5,
-            y: locationButton.frame.origin.y + 30
-        )// travelInfoUiView.frame.origin.y + travelInfoUiView.frame.height + 20)
-        compassButton.compassVisibility = .visible
+            y: travelInfoUiView.frame.height + 80
+        )
+        compassButton.compassVisibility = .adaptive
         view.addSubview(compassButton)
 
         activityIndicator.layer.cornerRadius = activityIndicator.layer.frame.height/2
@@ -335,7 +342,9 @@ class MapViewController: UIViewController {
 
         var city: String?
 
-        CLGeocoder().reverseGeocodeLocation(positionPolygon) { places, _ in
+        CLGeocoder().reverseGeocodeLocation(positionPolygon) { [weak self] places, _ in
+            guard let personId = self?.monitoringServices.monitoring.person?.uId else {return}
+
             guard let firstPlace = places?.first else {return}
             city = firstPlace.locality
 
@@ -345,8 +354,8 @@ class MapViewController: UIViewController {
             area.coordinatesPoints = coordinateArea
             area.city = city
 
-            AreaServices.shared.insertArea(area: area, date: Date())
-            self.presentNativeAlertSuccess(alertMessage: nameArea + " is recorded success".localized(tableName: "LocalizableMapView"))
+            AreaServices.shared.insertArea(area: area, date: Date(), uId: personId)
+            self?.presentNativeAlertSuccess(alertMessage: nameArea + " is recorded success".localized(tableName: "LocalizableMapView"))
         }
     }
 
@@ -368,6 +377,20 @@ class MapViewController: UIViewController {
             activityIndicator.isHidden = false
             insertAreaInMapView(area: monitoringServices.monitoring.area)
             activityIndicator.isHidden = true
+        }
+    }
+
+    private func getAreaForbidden() {
+        guard let person = monitoringServices.monitoring.person else {return}
+        mapView.removeOverlays(mapView.overlays)
+        AreaServices.shared.getAreaForbidden(uId: person.uId) { [weak self] success in
+            switch success {
+            case .failure(_):
+                return
+            case.success(let area):
+                self?.monitoringServices.monitoring.area = area
+                self?.drawAreaSelected()
+            }
         }
     }
 
@@ -395,10 +418,14 @@ class MapViewController: UIViewController {
 
     /// insert radius in map
     private func insertRadius() {
-        let radius = CLLocationDistance(UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert))
+        let radiusSaved = CLLocationDistance(UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert))
+        let personMode = monitoringServices.monitoring.person?.personMode
+        let radius = (personMode == .hunter) ? radiusSaved : 1000
+
         guard let userPosition = locationManager.location?.coordinate else {
             return
         }
+
         removeRadiusOverlay()
         mapView.addOverlay(monitoringServices.monitoring.area.createCircle(userPosition: userPosition, radius: radius))
     }
@@ -422,7 +449,6 @@ class MapViewController: UIViewController {
             self.mapView.removeOverlays(self.mapView.overlays)
         }
 
-        //        test if empty
         let register = UIAlertAction(title: "Register".localized(tableName: "LocalizableMapView"), style: .default) { _ in
             if let textfield = alertViewController.textFields?[0], let nameArea = textfield.text, !nameArea.isEmpty {
                 self.createArea(nameArea: nameArea)
@@ -511,10 +537,12 @@ private extension MapViewController {
 
     /// check if user is always inside area
     func checkIfUserIsInsideArea() {
-        guard let positionUser = locationManager.location?.coordinate else {
+        let person = monitoringServices.monitoring.person
+        guard let positionUser = locationManager.location?.coordinate, let person else {
             return
         }
-        if !monitoringServices.checkUserIsAlwayInArea(positionUser: positionUser) {
+
+        if !monitoringServices.checkUserIsAlwayInArea(positionUser: positionUser) && person.personMode == .hunter {
             let banner = NotificationBanner(
                 title: "Attention",
                 subtitle: "You are exit of your area!".localized(tableName: "LocalizableMapView"),
@@ -530,17 +558,25 @@ private extension MapViewController {
 
     /// check if hunters are inside radius alert
     func checkIfOthersUsersAreInsideAreaAlert() {
+        mapView.removeAnnotations((mapView.annotations))
         monitoringServices.checkUserIsInRadiusAlert { [weak self] result in
             switch result {
             case .success(let usersIsInRadiusAlert):
                 guard usersIsInRadiusAlert.isEmpty == false else {
-                    self?.mapView.removeAnnotations((self?.mapView.annotations)!)
-                    self?.removeRadiusOverlay()
+                    switch self?.monitoringServices.monitoring.person?.personMode {
+                    case .hunter:
+                        self?.removeRadiusOverlay()
+                    default:
+                        self?.mapView.removeOverlays((self?.mapView.overlays)!)
+
+                    }
                     return
                 }
-                self?.mapView.removeAnnotations((self?.mapView.annotations)!)
-                self?.insertHunterInMap(usersIsInRadiusAlert)
+                self?.insertPersonsInMap(usersIsInRadiusAlert)
                 self?.insertRadius()
+                if self?.monitoringServices.monitoring.person?.personMode == .walker {
+                    self?.getAreaForbidden()
+                }
                 self?.sendNotificationHuntersInRadius()
 
             case .failure(_):
@@ -549,23 +585,35 @@ private extension MapViewController {
         }
     }
 
+    /// share area of hunt with an other
+    /// - Parameter person: person identifier
+    private func sharedAreaForbbiden(person: Person) {
+        let area = monitoringServices.monitoring.area
+        AreaServices.shared.transfertAreaIntoUserInForbidden(uId: person.uId, area: area)
+    }
+
     /// insert hunters in map
     /// - Parameter arrayHunters: list hunters present in radius alert
-    func insertHunterInMap(_ arrayHunters: [Hunter]) {
-        if arrayHunters.count > 0 {
-            for hunter in arrayHunters {
-                guard let latitude = hunter.latitude, let longitude = hunter.longitude else {
-                    return
+    func insertPersonsInMap(_ persons: [Person]) {
+        if persons.count > 0 {
+            for person in persons {
+                guard let latitude = person.latitude, let longitude = person.longitude, let personMode = person.personMode else {
+                    continue
                 }
                 let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                let showHunter = PlaceHunters(
-                    title: hunter.displayName ?? "no name",
+                let personAnnotation = AnnotationPerson(
+                    title: (person.displayName ?? "no name")
+                    + "(\(personMode.rawValue.localized(tableName: "Localizable")))",
                     coordinate: coordinate,
-                    subtitle: "Last view ".localized(tableName: "LocalizableMapView") +  Date(timeIntervalSince1970: TimeInterval(hunter.date ?? 0)).getTime()
+                    subtitle: "Last view ".localized(tableName: "LocalizableMapView") +  Date(timeIntervalSince1970: TimeInterval(person.date ?? 0)).getTime()
                 )
 
-                mapView.addAnnotation(showHunter)
-                mapView.register(AnnotationHuntersView.self,
+                if person.personMode != .hunter {
+                    sharedAreaForbbiden(person: person)
+                }
+
+                mapView.addAnnotation(personAnnotation)
+                mapView.register(AnnotationPersonsView.self,
                                  forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier
                 )
             }
@@ -656,6 +704,8 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             mapView.showsUserLocation = true
         case .denied, .restricted:
             UIApplicationOpenSetting()
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
         default:
             locationManager.requestWhenInUseAuthorization()
         }
@@ -703,11 +753,11 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     }
 
     private func updatePostion(_ locations: [CLLocation]) {
-        guard let hunter = monitoringServices.monitoring.hunter else {
+        guard let person = monitoringServices.monitoring.person else {
             return
         }
-        hunter.latitude = locations.first?.coordinate.latitude
-        hunter.longitude = locations.first?.coordinate.longitude
+        person.latitude = locations.first?.coordinate.latitude
+        person.longitude = locations.first?.coordinate.longitude
     }
 
     private func createPolyLineRenderer(_ overlay: MKOverlay) -> MKOverlayRenderer {

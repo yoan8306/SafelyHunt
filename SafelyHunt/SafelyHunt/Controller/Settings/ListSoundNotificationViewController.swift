@@ -9,7 +9,19 @@ import UIKit
 
 class ListSoundNotificationViewController: UIViewController {
 // MARK: - Properties
-    let sounds: [String] = ["Orchestral-emergency", "Scanning-alarm"]
+    let sounds: [String] = [
+        "Orchestral-emergency",
+        "Scanning-alarm",
+        "melodical-flute-music-notification",
+        "morning-clock-alarm",
+        "musical-alert-notification",
+        "retro-game-emergency-alarm",
+        "security-facility-breach-alarm",
+        "space-shooter-alarm",
+        "street-public-alarm",
+        "uplifting-flute-notification",
+        "warning-alarm-buzzer"
+    ]
     let notification = LocalNotification()
 
 // MARK: - IBOutlet
@@ -34,6 +46,7 @@ extension ListSoundNotificationViewController: UITableViewDataSource {
         if #available(iOS 14.0, *) {
             var content = cell.defaultContentConfiguration()
             content.text = nameSound
+            content.textProperties.color = .black
             cell.contentConfiguration = content
         } else {
             cell.textLabel?.text = nameSound
@@ -44,7 +57,7 @@ extension ListSoundNotificationViewController: UITableViewDataSource {
         } else {
             cell.accessoryType = .none
         }
-
+        cell.tintColor = #colorLiteral(red: 0.2238582075, green: 0.3176955879, blue: 0.2683802545, alpha: 1)
         return cell
     }
 }

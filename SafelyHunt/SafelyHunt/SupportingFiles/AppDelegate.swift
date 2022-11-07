@@ -21,7 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaultKeys.Keys.tutorialHasBeenSeen: false,
             UserDefaultKeys.Keys.radiusAlert: 300,
             UserDefaultKeys.Keys.areaSelected: "",
-            UserDefaultKeys.Keys.notificationSoundName: "Orchestral-emergency"
+            UserDefaultKeys.Keys.notificationSoundName: "Orchestral-emergency",
+            UserDefaultKeys.Keys.savedDate: 1665993610
         ])
         return true
     }

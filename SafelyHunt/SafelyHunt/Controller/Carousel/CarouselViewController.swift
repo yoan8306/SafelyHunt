@@ -53,6 +53,10 @@ class CarouselViewController: UIViewController {
         }
     }
 
+    @IBAction func closeButtonAction() {
+        dismiss(animated: true)
+    }
+
     @objc private func swipeImage(_ sender: UISwipeGestureRecognizer) {
         switch sender.direction {
         case .left:

@@ -10,12 +10,11 @@ import UIKit
 
 extension UIView {
     func startShimmering() {
-//        let dark = UIColor(red: 0, green: 0, blue: 0, alpha: 0.90)
         let alpha = UIColor.white.withAlphaComponent(0.7).cgColor
         let light = UIColor.white.cgColor
 
         let gradient: CAGradientLayer = CAGradientLayer()
-        gradient.colors = [alpha, light, alpha]
+        gradient.colors = [light, alpha, light]
         gradient.frame = CGRect(
             x: -self.bounds.size.width,
             y: 0, width: 3*self.bounds.size.width,

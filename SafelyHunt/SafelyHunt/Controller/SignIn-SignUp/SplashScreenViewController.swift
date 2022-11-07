@@ -59,7 +59,6 @@ class SplashScreenViewController: UIViewController {
         let personModeStoryboard = UIStoryboard(name: "PersonMode", bundle: nil)
         guard let personModeViewController = personModeStoryboard.instantiateViewController(withIdentifier: "PersonMode") as? PersonModeViewController else {return}
         present(personModeViewController, animated: true)
-        print("je reviens")
     }
 
     /// transfert to LoginView controller

@@ -18,12 +18,14 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var totalDistanceLabel: UILabel!
     @IBOutlet weak var mailLabel: UILabel!
     @IBOutlet weak var pseudonymeLabel: UILabel!
+    @IBOutlet weak var stackViewContener: UIStackView!
 
 // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         getTotalDistance()
         setLabel()
+        stackViewContener.layer.cornerRadius = 8
     }
 
     // MARK: - Private functions

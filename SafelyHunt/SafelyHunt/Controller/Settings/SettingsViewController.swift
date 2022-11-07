@@ -32,11 +32,12 @@ extension SettingsViewController: UITableViewDataSource {
         if #available(iOS 14.0, *) {
             var content = cell.defaultContentConfiguration()
             content.text = title
+            content.textProperties.color = .black
             cell.contentConfiguration = content
         } else {
+            cell.textLabel?.textColor = .black
             cell.textLabel?.text = title
         }
-
         return cell
     }
 }

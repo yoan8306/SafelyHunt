@@ -22,6 +22,7 @@ class AreaCellTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         accessoryType = .detailButton
+
     }
 
     /// configure cell
@@ -69,10 +70,11 @@ class AreaCellTableViewCell: UITableViewCell {
 
         checkmarkImage.image = (cellSelected) ? checkmarck : circle
 
-        tintColor = .label
+        layer.backgroundColor = #colorLiteral(red: 0.9212551117, green: 0.902110219, blue: 0.7912185788, alpha: 1)
+        tintColor = #colorLiteral(red: 0.2238582075, green: 0.3176955879, blue: 0.2683802545, alpha: 1)
         dateLabel.textColor = .gray
-        areaNameLabel.textColor = .label
-        cityLabel.textColor = .label
+        areaNameLabel.textColor = .black
+        cityLabel.textColor = .black
         dateLabel.textColor = .gray
 
         areaNameLabel.font = .boldSystemFont(ofSize: 12)

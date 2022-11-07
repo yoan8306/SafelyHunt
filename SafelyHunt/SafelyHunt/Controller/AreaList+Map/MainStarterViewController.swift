@@ -32,8 +32,7 @@ class MainStarterViewController: UIViewController {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.navigationItem.title = "Menu - \(String(describing: person.personMode?.rawValue))"
-        self.navigationController?.navigationBar.isTranslucent = true
+//        self.navigationController?.navigationBar.isTranslucent = true
         if person.personMode == .hunter {
             getSelectedArea()
         }
@@ -129,17 +128,22 @@ class MainStarterViewController: UIViewController {
         startMonitoringButton.layer.cornerRadius = startMonitoringButton.frame.height/2
        enableButtonIfPossible()
         guard startMonitoringButton.isEnabled else {
-            startMonitoringButton.backgroundColor = .lightGray
+            startMonitoringButton.backgroundColor = #colorLiteral(red: 0.2238582075, green: 0.3176955879, blue: 0.2683802545, alpha: 1)
             startMonitoringButton.setTitleColor(.darkGray, for: .disabled)
+            startMonitoringButton.layer.opacity = 0.75
             return
         }
-        setButtonLightOrDarkMode()
+        startMonitoringButton.backgroundColor = #colorLiteral(red: 0.6659289002, green: 0.5453534722, blue: 0.3376245499, alpha: 1)
+        startMonitoringButton.setTitleColor(.black, for: .normal)
+        startMonitoringButton.layer.opacity = 1
     }
+
     private func enableButtonIfPossible() {
         if person.personMode == .hunter {
             startMonitoringButton.isEnabled = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != ""
         } else {
             startMonitoringButton.isEnabled = true
+
         }
     }
 
@@ -156,9 +160,9 @@ class MainStarterViewController: UIViewController {
     /// if area selected start shimering
     private func insertShimeringInButton() {
         if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" || person.personMode == .walker {
-            startMonitoringButton.titleLabel?.startShimmering()
+            startMonitoringButton.startShimmering()
         } else {
-            startMonitoringButton.titleLabel?.stopShimmering()
+            startMonitoringButton.stopShimmering()
         }
     }
 
@@ -211,11 +215,14 @@ extension MainStarterViewController: UITableViewDataSource {
             switch indexPath.row {
             case 0:
                 content.secondaryText = areaSelected
+
             case 1:
                 content.secondaryText = "\(radiusAlert) m"
             default:
                 break
             }
+            content.textProperties.color = .black
+            content.secondaryTextProperties.color = .black
             cell.contentConfiguration = content
         } else {
             cell.textLabel?.text = title

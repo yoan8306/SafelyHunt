@@ -10,23 +10,26 @@ import UIKit
 import SPAlert
 
 extension UIViewController {
+
     func presentAlertError (alertTitle title: String = "Error".localized(tableName: "Localizable"),
                             alertMessage message: String,
                             buttonTitle titleButton: String = "Dismiss".localized(tableName: "Localizable"),
                             alertStyle style: UIAlertAction.Style = .cancel ) {
+        let colorTintButton = #colorLiteral(red: 0.6659289002, green: 0.5453534722, blue: 0.3376245499, alpha: 1)
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: titleButton, style: style, handler: nil)
         alertVC.addAction(action)
-        action.setValue(UIColor.label, forKey: "titleTextColor")
+        action.setValue(colorTintButton, forKey: "titleTextColor")
         present(alertVC, animated: true, completion: nil)
     }
     func presentAlertSuccess (alertTitle title: String = "Success", alertMessage message: String,
                               buttonTitle titleButton: String = "Ok",
                               alertStyle style: UIAlertAction.Style = .cancel ) {
+        let colorTintButton = #colorLiteral(red: 0.6659289002, green: 0.5453534722, blue: 0.3376245499, alpha: 1)
                let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
                let action = UIAlertAction(title: titleButton, style: style, handler: nil)
                alertVC.addAction(action)
-        action.setValue(UIColor.label, forKey: "titleTextColor")
+        action.setValue(colorTintButton, forKey: "titleTextColor")
                present(alertVC, animated: true, completion: nil)
            }
 

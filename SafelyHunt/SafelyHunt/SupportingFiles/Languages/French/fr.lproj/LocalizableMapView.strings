@@ -4,7 +4,7 @@
   Created by Yoan on 21/10/2022.
 */
 
-"Draw area with your finger" = "Dessinez votre zone avec votre doigt";
+"Draw your area" = "Dessinez votre zone";
 "Radius alert is enable" = "Rayon d'alerte activé";
 "Radius alert is disable" = "Rayon d'alerte désactivé";
 "Set the alert distance between you and other users. You will be alerted if someone enters your range and it will be displayed on the map." = "Définissez la distance d'alerte entre vous et les autres utilisateurs. Vous serez alerté si quelqu'un entre dans votre périmètre et il sera affiché sur la carte.";

@@ -25,7 +25,7 @@ class PersonModeViewController: UIViewController {
         let personModeEnum = PersonMode(rawValue: personModeChoose ?? "unknown")
         switch personModeEnum {
         case .hunter, .walker:
-            transferToMainStarter()
+            dismiss(animated: true)
         default:
             presentAlertError(alertMessage: "Select a choice".localized(tableName: "Localizable"))
         }
@@ -34,13 +34,13 @@ class PersonModeViewController: UIViewController {
     @IBAction func walkerButtonAction() {
         setView()
         UserDefaults.standard.set("walker", forKey: UserDefaultKeys.Keys.personMode)
-        closeButtonAction()
+        transferToMainStarter()
     }
 
     @IBAction func huntButtonAction() {
         setView()
         UserDefaults.standard.set("hunter", forKey: UserDefaultKeys.Keys.personMode)
-        closeButtonAction()
+        transferToMainStarter()
     }
 
 // MARK: - Privates functions
@@ -72,7 +72,7 @@ class PersonModeViewController: UIViewController {
         let mainStarterStoryboard = UIStoryboard(name: "TabbarMain", bundle: nil)
 
         guard let mainStarterViewController = mainStarterStoryboard.instantiateViewController(withIdentifier: "TabbarMain") as? UITabBarController else {return}
-        dismiss(animated: true)
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarterViewController, animationOption: .curveLinear)
+
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainStarterViewController, animationOption: .transitionFlipFromLeft)
     }
 }

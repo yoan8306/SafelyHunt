@@ -38,7 +38,7 @@ class CarouselViewController: UIViewController {
             index -= 1
             forwardButton.isHidden = false
             backwardButton.isHidden = index - 1 < 0
-            updateView()
+            updateView(animation: .transitionFlipFromLeft)
         }
     }
 
@@ -49,7 +49,7 @@ class CarouselViewController: UIViewController {
             index += 1
             backwardButton.isHidden = false
             forwardButton.isHidden = index + 1 > getImages().count - 1
-            updateView()
+            updateView(animation: .transitionFlipFromRight)
         }
     }
 
@@ -85,12 +85,15 @@ class CarouselViewController: UIViewController {
         pagesControl.numberOfPages = getImages().count
         pagesControl.currentPage = 0
         backwardButton.isHidden = true
-        updateView()
+        updateView(animation: .transitionCrossDissolve)
     }
 
     /// Update imageView and description
-    private func updateView() {
-        imageTuto.image = getImages()[index]
+    private func updateView(animation: UIView.AnimationOptions) {
+        UIView.transition(with: imageTuto, duration: 0.7, options: animation) {
+            self.imageTuto.image = self.getImages()[self.index]
+        }
+
         descriptionLabel.text = getDescription(page: index)
         pagesControl.currentPage = index
     }

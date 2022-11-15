@@ -29,6 +29,7 @@ class MapViewController: UIViewController {
             action: #selector(pencilButtonAction)
         )
     }()
+    let colorTintButton = #colorLiteral(red: 0.6659289002, green: 0.5453534722, blue: 0.3376245499, alpha: 1)
 
     // MARK: - IBOutlet
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -141,8 +142,8 @@ class MapViewController: UIViewController {
     }
 
     private func setTitleSizeNavigationBar() {
-        navigationController?.navigationBar.backgroundColor = .red
-        title = "Draw area with your finger".localized(tableName: "LocalizableMapView")
+        navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0.6659289002, green: 0.5453534722, blue: 0.3376245499, alpha: 1)
+        title = "Draw your area".localized(tableName: "LocalizableMapView")
     }
 
     // Map mode Editing radius
@@ -310,14 +311,13 @@ class MapViewController: UIViewController {
             preferredStyle: .alert
         )
 
-        let dissmiss = UIAlertAction(title: "Dismiss".localized(tableName: "Localizable"), style: .cancel)
-        let dontShowInfoRadius = UIAlertAction(title: "Do not see this message again".localized(tableName: "LocalizableMapView"), style: .default) { _ in
+        let dismiss = UIAlertAction(title: "Dismiss".localized(tableName: "Localizable"), style: .default)
+        let dontShowInfoRadius = UIAlertAction(title: "Do not see this message again".localized(tableName: "LocalizableMapView"), style: .cancel) { _ in
             UserDefaults.standard.set(false, forKey: UserDefaultKeys.Keys.showInfoRadius)
         }
-        dontShowInfoRadius.setValue(UIColor.label, forKey: "titleTextColor")
-        dissmiss.setValue(UIColor.label, forKey: "titleTextColor")
+        dontShowInfoRadius.setValue(colorTintButton, forKey: "titleTextColor")
         alertViewController.addAction(dontShowInfoRadius)
-        alertViewController.addAction(dissmiss)
+        alertViewController.addAction(dismiss)
         present(alertViewController, animated: true, completion: nil)
     }
 
@@ -444,12 +444,12 @@ class MapViewController: UIViewController {
             message: "Enter name for your new area".localized(tableName: "LocalizableMapView"),
             preferredStyle: .alert
         )
-        let cancel = UIAlertAction(title: "Cancel".localized(tableName: "Localizable"), style: .cancel) { _ in
+        let cancel = UIAlertAction(title: "Cancel".localized(tableName: "Localizable"), style: .default) { _ in
             self.turnOffEditingMode()
             self.mapView.removeOverlays(self.mapView.overlays)
         }
 
-        let register = UIAlertAction(title: "Register".localized(tableName: "LocalizableMapView"), style: .default) { _ in
+        let register = UIAlertAction(title: "Register".localized(tableName: "LocalizableMapView"), style: .cancel) { _ in
             if let textfield = alertViewController.textFields?[0], let nameArea = textfield.text, !nameArea.isEmpty {
                 self.createArea(nameArea: nameArea)
                 self.turnOffEditingMode()
@@ -461,8 +461,7 @@ class MapViewController: UIViewController {
         alertViewController.addTextField(configurationHandler: { textfield in
             textfield.placeholder = "Name area...".localized(tableName: "LocalizableMapView")
         })
-        cancel.setValue(UIColor.label, forKey: "titleTextColor")
-        register.setValue(UIColor.label, forKey: "titleTextColor")
+        register.setValue(colorTintButton, forKey: "titleTextColor")
         alertViewController.addAction(cancel)
         alertViewController.addAction(register)
 
@@ -713,17 +712,18 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
 
     /// open setting app if needed
     private func UIApplicationOpenSetting() {
+
         let alertVC = UIAlertController(
             title: "Error".localized(tableName: "Localizable"),
             message: "We need exact position for best monitoring, you can change in your setting".localized(tableName: "LocalizableMapView"),
             preferredStyle: .alert
         )
-        let cancel = UIAlertAction(title: "Cancel".localized(tableName: "Localizable"), style: .cancel) { _ in
+        let cancel = UIAlertAction(title: "Cancel".localized(tableName: "Localizable"), style: .default) { _ in
             if self.mapMode == .monitoring {
                 self.dismiss(animated: true)
             }
         }
-        let openSetting = UIAlertAction(title: "Open setting", style: .default) { _ in
+        let openSetting = UIAlertAction(title: "Open setting", style: .cancel) { _ in
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
                 return
             }
@@ -731,8 +731,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
                 UIApplication.shared.open(settingsUrl, completionHandler: nil)
             }
         }
-        cancel.setValue(UIColor.label, forKey: "titleTextColor")
-        openSetting.setValue(UIColor.label, forKey: "titleTextColor")
+        openSetting.setValue(colorTintButton, forKey: "titleTextColor")
         alertVC.addAction(cancel)
         alertVC.addAction(openSetting)
         present(alertVC, animated: true, completion: nil)
@@ -814,6 +813,7 @@ extension MapViewController: UIPickerViewDelegate {
         label.font = .systemFont(ofSize: 16)
         label.textAlignment = .center
         label.text = MainData.pickerMapType[row]
+        label.textColor = .black
         return label
     }
 }

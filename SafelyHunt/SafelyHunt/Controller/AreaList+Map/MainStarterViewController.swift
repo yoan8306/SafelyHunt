@@ -128,8 +128,9 @@ class MainStarterViewController: UIViewController {
         startMonitoringButton.layer.cornerRadius = startMonitoringButton.frame.height/2
        enableButtonIfPossible()
         guard startMonitoringButton.isEnabled else {
+            let brownColor =  #colorLiteral(red: 0.6659289002, green: 0.5453534722, blue: 0.3376245499, alpha: 1)
             startMonitoringButton.backgroundColor = #colorLiteral(red: 0.2238582075, green: 0.3176955879, blue: 0.2683802545, alpha: 1)
-            startMonitoringButton.setTitleColor(.darkGray, for: .disabled)
+            startMonitoringButton.setTitleColor(brownColor, for: .disabled)
             startMonitoringButton.layer.opacity = 0.75
             return
         }

@@ -261,7 +261,7 @@
                             </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xPK-CH-eVp">
                                 <rect key="frame" x="184.5" y="738" width="45" height="45"/>
-                                <color key="backgroundColor" red="0.30223849419999999" green="0.4197221994" blue="0.30826809999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.66592890019999995" green="0.54535347219999997" blue="0.33762454990000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="AUc-RJ-iMb"/>
                                     <constraint firstAttribute="width" secondItem="xPK-CH-eVp" secondAttribute="height" id="AX4-sN-TXB"/>

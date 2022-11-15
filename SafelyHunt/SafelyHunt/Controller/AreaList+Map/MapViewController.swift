@@ -510,6 +510,7 @@ private extension MapViewController {
         let imageStop = UIImage(systemName: "stop.circle")
         monitoringButton.setImage(imageStop, for: .normal)
         monitoringButton.tintColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+        monitoringButton.backgroundColor = colorTintButton
     }
 
     func animateButtonMonitoring() {

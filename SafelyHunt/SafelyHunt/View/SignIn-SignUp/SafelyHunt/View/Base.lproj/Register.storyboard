@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="F4P-bj-ARQ">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,7 +11,7 @@
             <objects>
                 <viewController storyboardIdentifier="Register" id="F4P-bj-ARQ" customClass="RegisterViewController" customModule="SafelyHunt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="H2w-IT-g58">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="MUe-bN-ktr">
@@ -94,7 +92,7 @@
                         <outlet property="confirmPasswordTextField" destination="C3h-PT-Yev" id="69a-Iq-I9b"/>
                         <outlet property="emailAddressTextField" destination="Yah-Kj-08b" id="P99-AS-suG"/>
                         <outlet property="passwordTextField" destination="nFk-Sa-yso" id="cgw-PM-p8d"/>
-                        <outlet property="pseudonym" destination="T7L-hR-Z0M" id="tHI-hA-b2K"/>
+                        <outlet property="pseudonymTextField" destination="T7L-hR-Z0M" id="tHI-hA-b2K"/>
                         <outlet property="registerButton" destination="i4O-go-aK5" id="6KR-fc-Iiz"/>
                     </connections>
                 </viewController>

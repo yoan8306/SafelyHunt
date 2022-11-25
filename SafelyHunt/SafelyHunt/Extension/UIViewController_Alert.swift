@@ -33,9 +33,9 @@ extension UIViewController {
                present(alertVC, animated: true, completion: nil)
            }
 
-    func presentNativeAlertSuccess(alertTitle title: String = "Success".localized(tableName: "Localizable"), alertMessage message: String) {
+    func presentNativeAlertSuccess(alertTitle title: String = "Success".localized(tableName: "Localizable"), alertMessage message: String, duration: Double = 3) {
         let alertView = SPAlertView(title: title, message: message, preset: .done)
-        alertView.duration = 3
+        alertView.duration = duration
         alertView.present()
     }
 

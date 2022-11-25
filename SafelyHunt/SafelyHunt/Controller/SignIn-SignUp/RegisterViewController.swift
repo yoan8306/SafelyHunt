@@ -13,7 +13,7 @@ class RegisterViewController: UIViewController {
 
 // MARK: - IBOutlet
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var pseudonym: UITextField!
+    @IBOutlet weak var pseudonymTextField: UITextField!
     @IBOutlet weak var emailAddressTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
@@ -30,17 +30,16 @@ class RegisterViewController: UIViewController {
     @IBAction func registerAction() {
         showActivityIndicator(shown: true)
         if checkPassword() {
-            guard let displayName = pseudonym.text,
+            guard let displayName = pseudonymTextField.text,
                   !displayName.isEmpty,
                   let email = emailAddressTextField.text,
                   !email.isEmpty,
                   let password = passwordTextField.text
             else {
                 showActivityIndicator(shown: false)
-                presentAlertError(alertMessage: "Complete all field")
+                presentAlertError(alertMessage: "Complete all fields")
                 return
             }
-
             createUser(email, password, displayName)
         }
     }
@@ -74,7 +73,7 @@ class RegisterViewController: UIViewController {
             switch updateResult {
             case .success(let user):
                 self?.showActivityIndicator(shown: false)
-                self?.presentAlertSuccess(alertMessage: "\(user.displayName ?? "")" + " is created. \nGo in your emailbox for confirm your adress.".localized(tableName: "LocalizableRegisterViewController"))
+                self?.presentNativeAlertSuccess(alertMessage: "\(user.displayName ?? "")" + " is created. \nGo in your emailbox for confirm your adress.".localized(tableName: "LocalizableRegisterViewController"), duration: 5)
                 self?.goToLoginController(user: user)
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
@@ -98,10 +97,8 @@ class RegisterViewController: UIViewController {
             case .failure(let error):
                 self?.presentAlertError(alertMessage: error.localizedDescription)
             case .success(_):
-                break
-            }
+                self?.navigationController?.setViewControllers([loginViewController], animated: true)            }
         }
-        navigationController?.setViewControllers([loginViewController], animated: true)
     }
 
     /// Check fields if the same values
@@ -130,7 +127,7 @@ class RegisterViewController: UIViewController {
 extension RegisterViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
-        case pseudonym:
+        case pseudonymTextField:
             emailAddressTextField.becomeFirstResponder()
         case passwordTextField:
             confirmPasswordTextField.becomeFirstResponder()

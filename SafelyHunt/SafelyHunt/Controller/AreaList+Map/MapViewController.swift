@@ -72,11 +72,12 @@ class MapViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super .viewWillDisappear(animated)
         if mapMode == .monitoring {
+            monitoringServices.insertPoints()
             monitoringServices.insertDistanceTraveled()
         }
     }
 
-    /// When user touch map, create polyline or not
+    /// When user touch map, create polyLine or not
     /// - Parameters:
     ///   - touches: user touch screen
     ///   - event: event touch

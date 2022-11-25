@@ -60,28 +60,28 @@ extension RankingViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RankingCell", for: indexPath)
         let person = rankingPersons[indexPath.row]
 
-        guard let displayname = person.displayName, let totalDistance = person.totalDistance else {
+        guard let displayName = person.displayName, let totalPoints = person.totalPoints else {
             return cell
         }
 
-        let stringTotalDistance = String(format: "%.2f", totalDistance / 1000)
+        let stringTotalPoints = String(format: "%.2f", totalPoints)
 
         if person.email! == FirebaseAuth.Auth.auth().currentUser?.email {
-            yourPositionLabel.text = "Your are in the ".localized(tableName: "LocalizableAccountSetting") + "\(indexPath.row + 1)" + " place of ranking with ".localized(tableName: "LocalizableAccountSetting") + "\(stringTotalDistance) km"
+            yourPositionLabel.text = "Your are in the ".localized(tableName: "LocalizableAccountSetting") + "\(indexPath.row + 1)" + " place of ranking with ".localized(tableName: "LocalizableAccountSetting") + "\(stringTotalPoints)"
             cell.backgroundColor = #colorLiteral(red: 0.6659289002, green: 0.5453534722, blue: 0.3376245499, alpha: 1)
         }
 
         if #available(iOS 14.0, *) {
             var content = cell.defaultContentConfiguration()
-            content.text = "\(indexPath.row + 1)/  \(String(describing: displayname))"
-            content.secondaryText = "\(stringTotalDistance) km"
+            content.text = "\(indexPath.row + 1)/  \(String(describing: displayName))"
+            content.secondaryText = "\(stringTotalPoints)"
 
             content.textProperties.color = .black
             content.secondaryTextProperties.color = .black
             cell.contentConfiguration = content
         } else {
-            cell.textLabel?.text =  "\(indexPath.row + 1) - \(String(describing: displayname))"
-            cell.detailTextLabel?.text =  "\(stringTotalDistance) km"
+            cell.textLabel?.text =  "\(indexPath.row + 1) - \(String(describing: displayName))"
+            cell.detailTextLabel?.text =  "\(stringTotalPoints)"
         }
 
         return cell

@@ -114,7 +114,7 @@ class LoginViewController: UIViewController {
         }
         let sendEmail = UIAlertAction(title: "Send email".localized(tableName: "LocalizableLoginController"), style: .default) { _ in
             guard  FirebaseAuth.Auth.auth().currentUser != nil else {return}
-            UserServices.shared.sendEmailmVerification()
+            UserServices.shared.sendEmailVerification()
             self.presentNativeAlertSuccess(alertMessage: "Email sended".localized(tableName: "LocalizableLoginController"))
         }
         cancel.setValue(UIColor.label, forKey: "titleTextColor")

@@ -65,14 +65,14 @@ class UserServices: UserServicesProtocol {
                     callBack(.failure(error ?? ServicesError.createAccountError))
                     return
                 }
-                self.sendEmailmVerification()
+                self.sendEmailVerification()
                 callBack(.success(user))
             }
         }
     }
 
-    /// Send emai verification
-    func sendEmailmVerification() {
+    /// Send email verification
+func sendEmailVerification() {
         guard let authUser = firebaseAuth.currentUser else {return}
         if !authUser.isEmailVerified {
             authUser.sendEmailVerification()
@@ -108,7 +108,7 @@ class UserServices: UserServicesProtocol {
 
     /// update user data and save in database
     /// - Parameters:
-    ///   - displayName: user's displayname
+    ///   - displayName: user's displayName
     ///   - callBack: result of update
     func updateProfile(displayName: String, callBack: @escaping (Result<User, Error>) -> Void) {
         let user = firebaseAuth.currentUser

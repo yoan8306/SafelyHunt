@@ -71,10 +71,6 @@ class MapViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super .viewWillDisappear(animated)
-        if mapMode == .monitoring {
-            monitoringServices.insertPoints()
-            monitoringServices.insertDistanceTraveled()
-        }
     }
 
     /// When user touch map, create polyLine or not
@@ -196,7 +192,7 @@ class MapViewController: UIViewController {
         radiusAlertLabelStatus.text = switchButtonRadiusAlert.isOn ? "Radius alert is enable".localized(tableName: "LocalizableMapView") : "Radius alert is disable".localized(tableName: "LocalizableMapView")
     }
 
-    /// monitoring user.  action call by tilmer
+    /// monitoring user.  action call by timer
     @objc func updateMonitoring() {
         guard let person = monitoringServices.monitoring.person else {return}
 
@@ -210,7 +206,7 @@ class MapViewController: UIViewController {
         monitoringServices.insertUserPosition()
     }
 
-    /// count timerfor start before start monitoring
+    /// count timer for start before start monitoring
     @objc func timerBeforeStart() {
         if second > 0 {
             monitoringButton.setImage(nil, for: .normal)
@@ -472,7 +468,7 @@ class MapViewController: UIViewController {
 
 // MARK: - MapMode Monitoring
 private extension MapViewController {
-    // Private funcions
+    // Private functions
 
     /// Check if authorization Location is enable
     /// - Returns: return true if location is enabled
@@ -533,7 +529,7 @@ private extension MapViewController {
         removeRadiusOverlay()
         mapView.removeAnnotations(mapView.annotations) // remove hunters
         monitoringButton.layer.removeAllAnimations()
-        dismiss(animated: true)
+        presentTraveledFinal()
     }
 
     /// check if user is always inside area
@@ -637,6 +633,26 @@ private extension MapViewController {
             bannerRadius.show(cornerRadius: 8, shadowBlurRadius: 16)
             notification.sendNotification()
         }
+    }
+
+    func presentTraveledFinal() {
+        let alertViewController = UIAlertController(
+            title: "Congratulations".localized(tableName: "LocalizableMapView"),
+
+            message: "You have travel \(distanceTraveledLabel.text ?? "nil") \nYou win  \(monitoringServices.pointWin).....", // .localized(tableName: "LocalizableMapView"),
+            preferredStyle: .alert
+        )
+
+        let dismiss = UIAlertAction(title: "Ok", style: .default) { _ in
+            self.monitoringServices.insertPoints()
+            self.monitoringServices.insertDistanceTraveled()
+            self.dismiss(animated: true)
+        }
+
+        dismiss.setValue(colorTintButton, forKey: "titleTextColor")
+        alertViewController.addAction(dismiss)
+
+        present(alertViewController, animated: true, completion: nil)
     }
 }
 

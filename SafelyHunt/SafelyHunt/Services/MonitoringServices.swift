@@ -14,6 +14,7 @@ import MapKit
 protocol MonitoringServicesProtocol {
     var monitoring: MonitoringProtocol {get set}
     var startMonitoring: Bool {get set}
+    var pointWin: Double {get}
     func checkUserIsInRadiusAlert(callback: @escaping(Result<[Person], Error>) -> Void)
     func checkUserIsAlwayInArea(positionUser: CLLocationCoordinate2D) -> Bool
     func insertDistanceTraveled()
@@ -26,6 +27,9 @@ protocol MonitoringServicesProtocol {
 class MonitoringServices: MonitoringServicesProtocol {
     var monitoring: MonitoringProtocol
     var startMonitoring: Bool
+    var pointWin: Double {
+        monitoring.currentDistance * 0.0003
+    }
     private let database = Database.database().reference()
     private let firebaseAuth: FirebaseAuth.Auth = .auth()
 
@@ -237,14 +241,14 @@ extension MonitoringServices {
             case .failure(_):
                 break
             case .success(let numberOfPointsTotal):
-                let pointWin = (self?.monitoring.currentDistance ?? 1) * 0.0003
-                print(pointWin)
-                let newTotalPoints = numberOfPointsTotal + pointWin
+
+                let newTotalPoints = numberOfPointsTotal + (self?.pointWin ?? 0)
                 self?.database.child("Database").child("users_list").child(userID).child("number_of_points").setValue(
                     [
                         "points_Total": newTotalPoints
                     ]
                 )
+                self?.monitoring.person?.totalPoints = newTotalPoints
             }
         }
     }

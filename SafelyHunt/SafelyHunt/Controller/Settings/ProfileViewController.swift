@@ -18,32 +18,38 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var totalDistanceLabel: UILabel!
     @IBOutlet weak var mailLabel: UILabel!
     @IBOutlet weak var pseudonymeLabel: UILabel!
+    @IBOutlet weak var pointsLabel: UILabel!
     @IBOutlet weak var stackViewContener: UIStackView!
 
 // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        getTotalDistance()
-        setLabel()
+        getInfoProfile()
+
         stackViewContener.layer.cornerRadius = 8
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+
     // MARK: - Private functions
-    /// Get distance from database
-    private func getTotalDistance() {
-        monitoringServices.getTotalDistanceTraveled { [weak self] result in
+    private func getInfoProfile() {
+        UserServices.shared.getProfileUser { [weak self] result in
             switch result {
+            case .success(let person):
+                self?.setLabel(person: person)
             case .failure(let error):
-                self?.presentAlertError(alertMessage: error.localizedDescription)
-            case .success(let distance):
-                self?.totalDistanceLabel.text = String(format: "%.2f", distance / 1000) + " Km"
+                print(error.localizedDescription)
             }
         }
     }
 
     /// set label user information
-    private func setLabel() {
+    private func setLabel(person: Person) {
         mailLabel.text = FirebaseAuth.Auth.auth().currentUser?.email
         pseudonymeLabel.text = FirebaseAuth.Auth.auth().currentUser?.displayName
+        pointsLabel.text = String(format: "%.2f", person.totalPoints ?? 0)
+        totalDistanceLabel.text = String(format: "%.2f", (person.totalDistance ?? 0) / 1000) + " Km"
     }
 }

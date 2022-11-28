@@ -108,7 +108,7 @@ class MainStarterViewController: UIViewController {
         }
     }
 
-    /// Transferr to MapViewController with monitoring object
+    /// Transfer to MapViewController with monitoring object
     private func presentMapView() {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {return}

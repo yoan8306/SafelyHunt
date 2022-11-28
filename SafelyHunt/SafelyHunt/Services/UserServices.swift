@@ -106,6 +106,34 @@ func sendEmailVerification() {
         }
     }
 
+    func getProfileUser(callBack: @escaping (Result<Person, Error>) -> Void) {
+        guard let userId = firebaseAuth.currentUser?.uid else {return}
+        let database = Database.database().reference().child("Database").child("users_list").child(userId)
+
+        database.getData { error, dataSnapshot in
+            guard error == nil, let dataSnapshot = dataSnapshot else {
+                callBack(.failure(error ?? ServicesError.errorTask))
+                return
+            }
+            let info = dataSnapshot.value as? NSDictionary
+            let totalDistanceFolder = info?["distance_traveled"] as? NSDictionary
+            let numberPointsFolder = info?["number_of_points"] as? NSDictionary
+
+            let totalDistance = totalDistanceFolder?.value(forKey: "Total_distance")
+            let numberPoints = numberPointsFolder?.value(forKey: "points_Total")
+            let person = Person()
+
+            guard let totalDistance = totalDistance as? Double, let totalPoint = numberPoints as? Double else {
+                callBack(.success(person))
+                return
+            }
+
+            person.totalPoints = totalPoint
+            person.totalDistance = totalDistance
+            callBack(.success(person))
+        }
+    }
+
     /// update user data and save in database
     /// - Parameters:
     ///   - displayName: user's displayName
@@ -135,8 +163,6 @@ func sendEmailVerification() {
     /// disconnect the current user
     /// - Parameter callBack: return if disconnected is success or not
     func disconnectCurrentUser(callBack: @escaping (Result<String, Error>) -> Void) {
-//        try? firebaseAuth.signOut()
-
         do {
             try firebaseAuth.signOut()
             callBack(.success("You are disconnected"))

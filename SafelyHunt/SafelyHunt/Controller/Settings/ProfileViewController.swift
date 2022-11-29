@@ -25,7 +25,6 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getInfoProfile()
-
         stackViewContener.layer.cornerRadius = 8
     }
 
@@ -47,8 +46,8 @@ class ProfileViewController: UIViewController {
 
     /// set label user information
     private func setLabel(person: Person) {
-        mailLabel.text = FirebaseAuth.Auth.auth().currentUser?.email
-        pseudonymeLabel.text = FirebaseAuth.Auth.auth().currentUser?.displayName
+        mailLabel.text = person.email
+        pseudonymeLabel.text = person.displayName
         pointsLabel.text = String(format: "%.2f", person.totalPoints ?? 0)
         totalDistanceLabel.text = String(format: "%.2f", (person.totalDistance ?? 0) / 1000) + " Km"
     }

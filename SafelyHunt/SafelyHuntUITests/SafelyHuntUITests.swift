@@ -25,14 +25,14 @@ class SafelyHuntUITests: XCTestCase {
         emailAddressTextField.tap()
         emailAddressTextField.typeText("Im bad email")
         passwordSecureTextField.tap()
-        passwordSecureTextField.typeText("coucu")
+        passwordSecureTextField.typeText("coucou")
 
         app.buttons["Log in"].tap()
 
         XCTAssertTrue(app.alerts["Error"].exists)
     }
 
-    func testGivenInRegisterWithBadAdressMailWhenPressRegisterThenPresentAlert() {
+    func testGivenInRegisterWithBadAddressMailWhenPressRegisterThenPresentAlert() {
         let pseudonymTexField = app.textFields["Pseudonym..."]
         let emailAddressTextField = app.textFields["email adress..."]
         let passwordTextField = app.secureTextFields["Password..."]

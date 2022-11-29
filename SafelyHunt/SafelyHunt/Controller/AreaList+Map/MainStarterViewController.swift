@@ -32,12 +32,11 @@ class MainStarterViewController: UIViewController {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.prefersLargeTitles = true
-//        self.navigationController?.navigationBar.isTranslucent = true
         if person.personMode == .hunter {
             getSelectedArea()
         }
         tableView.reloadData()
-        insertShimeringInButton()
+        insertShimmeringInButton()
     }
 
     /// Show message if no area selected
@@ -78,11 +77,20 @@ class MainStarterViewController: UIViewController {
     // MARK: - Private functions
 
     private func initPerson() {
-        let currentUser = FirebaseAuth.Auth.auth().currentUser
-        person.uId = currentUser?.uid
-        person.displayName = currentUser?.displayName
-        person.email = currentUser?.email
-        person.personMode = PersonMode(rawValue: UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.personMode) ?? "unknown")
+        UserServices.shared.getProfileUser { [weak self] profileUser in
+            switch profileUser {
+            case .failure(_):
+                break
+            case .success(let person):
+                self?.person = person
+                self?.person.personMode = PersonMode(rawValue: UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.personMode) ?? "unknown")
+            }
+        }
+//        let currentUser = FirebaseAuth.Auth.auth().currentUser
+//        person.uId = currentUser?.uid
+//        person.displayName = currentUser?.displayName
+//        person.email = currentUser?.email
+
     }
 
     /// Download area selected
@@ -159,7 +167,7 @@ class MainStarterViewController: UIViewController {
     }
 
     /// if area selected start shimering
-    private func insertShimeringInButton() {
+    private func insertShimmeringInButton() {
         if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" || person.personMode == .walker {
             startMonitoringButton.startShimmering()
         } else {

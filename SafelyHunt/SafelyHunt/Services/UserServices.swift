@@ -123,13 +123,13 @@ func sendEmailVerification() {
             let numberPoints = numberPointsFolder?.value(forKey: "points_Total")
             let person = Person()
 
-            guard let totalDistance = totalDistance as? Double, let totalPoint = numberPoints as? Double else {
-                callBack(.success(person))
-                return
+            if let totalDistance = totalDistance as? Double, let totalPoint = numberPoints as? Double {
+                person.totalPoints = totalPoint
+                person.totalDistance = totalDistance
             }
-
-            person.totalPoints = totalPoint
-            person.totalDistance = totalDistance
+            person.uId = userId
+            person.email = self.firebaseAuth.currentUser?.email
+            person.displayName = self.firebaseAuth.currentUser?.displayName
             callBack(.success(person))
         }
     }

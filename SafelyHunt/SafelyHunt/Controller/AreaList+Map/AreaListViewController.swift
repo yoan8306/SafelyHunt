@@ -40,17 +40,32 @@ class AreaListViewController: UIViewController {
     }
 
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
-        let mapsStoryboard = UIStoryboard(name: "Maps", bundle: nil)
+        var numberAreaAuthorized: Int {
+            Int(person.totalPoints ?? 1)/10 + 1
+        }
+        if numberAreaAuthorized > listArea.count {
+            openMapViewController()
+        } else {
+            let pointNecessary = Double(numberAreaAuthorized*10) - (person.totalPoints ?? 0.0)
+            let point = String(format: "%.2f", pointNecessary)
+            presentAlertError(alertMessage: "You need \(point) points for recorded more area")
+        }
+    }
 
+    // MARK: - Private functions
+
+    private func openMapViewController() {
+        let mapsStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         guard let mapViewController = mapsStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {return}
+
         mapViewController.monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area(), person: person))
         mapViewController.mapMode = .editingArea
+        mapViewController.showPencil = true
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.myNavigationItem.title = "Editing area".localized(tableName: "LocalizableAreaListViewController")
         navigationController?.pushViewController(mapViewController, animated: true)
     }
 
-    // MARK: - Private functions
     /// get all area in database of user
     private func getAreaList() {
         AreaServices.shared.getAreaList() { [weak self] fetchArea in

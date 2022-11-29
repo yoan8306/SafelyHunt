@@ -29,6 +29,7 @@ class MapViewController: UIViewController {
             action: #selector(pencilButtonAction)
         )
     }()
+    var showPencil = false
     let colorTintButton = #colorLiteral(red: 0.6659289002, green: 0.5453534722, blue: 0.3376245499, alpha: 1)
 
     // MARK: - IBOutlet
@@ -244,7 +245,7 @@ class MapViewController: UIViewController {
         mapView.showsCompass = false
         notification.notificationInitialize()
         initializePickerView()
-        initialzeMapModView()
+        initializeMapModView()
     }
 
     /// set mapStyle
@@ -255,10 +256,10 @@ class MapViewController: UIViewController {
     }
 
     /// Initialize View
-    private func initialzeMapModView() {
+    private func initializeMapModView() {
         switch mapMode {
         case .editingArea:
-            initialzeEditingAreaView()
+            initializeEditingAreaView()
 
         case .editingRadius:
             initializeEditingRadiusView()
@@ -270,14 +271,16 @@ class MapViewController: UIViewController {
     }
 
     /// case editing mode set navigationView
-    private func initialzeEditingAreaView() {
+    private func initializeEditingAreaView() {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.isTranslucent = true
-        navigationItem.rightBarButtonItem = pencil
+        if showPencil {
+            navigationItem.rightBarButtonItem = pencil
+        }
         travelInfoUiView.isHidden = true
     }
 
-    /// case editing radius mode showand set  slider
+    /// case editing radius mode show and set  slider
     private func initializeEditingRadiusView() {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.isTranslucent = true
@@ -450,6 +453,7 @@ class MapViewController: UIViewController {
             if let textfield = alertViewController.textFields?[0], let nameArea = textfield.text, !nameArea.isEmpty {
                 self.createArea(nameArea: nameArea)
                 self.turnOffEditingMode()
+                self.navigationItem.rightBarButtonItem = nil
             } else {
                 self.presentPopUpNewNameArea()
             }

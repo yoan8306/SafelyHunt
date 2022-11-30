@@ -13,6 +13,10 @@ class MainData {
     "Select your hunting area".localized(tableName: "LocalizableMainData"),
     "Define your radius alert".localized(tableName: "LocalizableMainData")
    ]
+    static let informations = [
+    "Win points",
+    "Go to FDC (fédération de chasse)"
+    ]
    static let pickerMapType = ["Standard", "Muted standard", "Sattelite"]
    static let mainSettings = [
     "Profile",

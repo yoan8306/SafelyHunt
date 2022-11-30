@@ -16,15 +16,15 @@ class MainStarterViewController: UIViewController {
 
     // MARK: - IBOutlet
     @IBOutlet weak var startMonitoringButton: UIButton!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var huntingTableView: UITableView!
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setButton()
         initPerson()
-        tableView.isScrollEnabled = false
-        tableView.isHidden = person.personMode != .hunter
+        //        huntingTableView.isScrollEnabled = false
+        //        huntingTableView.isHidden = person.personMode != .hunter
     }
 
     /// set interface when view appear
@@ -35,7 +35,7 @@ class MainStarterViewController: UIViewController {
         if person.personMode == .hunter {
             getSelectedArea()
         }
-        tableView.reloadData()
+        huntingTableView.reloadData()
         insertShimmeringInButton()
     }
 
@@ -64,7 +64,7 @@ class MainStarterViewController: UIViewController {
     // MARK: - IBAction
     @IBAction func startMonitoringButton(_ sender: UIButton) {
         if person.personMode == .hunter {
-            if checkIfAreaIsLoaded() {
+            if area != nil {
                 presentMapView()
             } else {
                 presentAlertError(alertMessage: "Your area is not loaded go in your area list and try again".localized(tableName: "LocalizableMainStarter"))
@@ -75,7 +75,6 @@ class MainStarterViewController: UIViewController {
     }
 
     // MARK: - Private functions
-
     private func initPerson() {
         UserServices.shared.getProfileUser { [weak self] profileUser in
             switch profileUser {
@@ -86,11 +85,6 @@ class MainStarterViewController: UIViewController {
                 self?.person.personMode = PersonMode(rawValue: UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.personMode) ?? "unknown")
             }
         }
-//        let currentUser = FirebaseAuth.Auth.auth().currentUser
-//        person.uId = currentUser?.uid
-//        person.displayName = currentUser?.displayName
-//        person.email = currentUser?.email
-
     }
 
     /// Download area selected
@@ -134,7 +128,7 @@ class MainStarterViewController: UIViewController {
     /// Set button design
     private func setButton() {
         startMonitoringButton.layer.cornerRadius = startMonitoringButton.frame.height/2
-       enableButtonIfPossible()
+        enableButtonIfPossible()
         guard startMonitoringButton.isEnabled else {
             let brownColor =  #colorLiteral(red: 0.6659289002, green: 0.5453534722, blue: 0.3376245499, alpha: 1)
             startMonitoringButton.backgroundColor = #colorLiteral(red: 0.2238582075, green: 0.3176955879, blue: 0.2683802545, alpha: 1)
@@ -152,7 +146,6 @@ class MainStarterViewController: UIViewController {
             startMonitoringButton.isEnabled = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != ""
         } else {
             startMonitoringButton.isEnabled = true
-
         }
     }
 
@@ -166,7 +159,7 @@ class MainStarterViewController: UIViewController {
         }
     }
 
-    /// if area selected start shimering
+    /// if area selected start shimmering
     private func insertShimmeringInButton() {
         if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" || person.personMode == .walker {
             startMonitoringButton.startShimmering()
@@ -179,13 +172,9 @@ class MainStarterViewController: UIViewController {
     private func presentTutorielIfNeeded() {
         if person.personMode == .hunter {
             if !UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.tutorialHasBeenSeen) {
-               presentCarousel()
+                presentCarousel()
             }
         }
-    }
-
-    private func checkIfAreaIsLoaded() -> Bool {
-         area != nil
     }
 
     private func presentCarousel() {
@@ -196,26 +185,48 @@ class MainStarterViewController: UIViewController {
         }
         present(carouselVC, animated: true)
     }
-
 }
 
 // MARK: - TableView DataSource
 extension MainStarterViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MainData.mainStarter.count
+        switch section {
+        case 0:
+            if person.personMode == .hunter {
+                return MainData.mainStarter.count
+            } else {
+                return 0
+            }
+
+        case 1:
+            return MainData.informations.count
+        default: return 0
+        }
     }
 
     /// create cell of table view
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellStarter", for: indexPath)
-        let title = MainData.mainStarter[indexPath.row]
 
-        configureCell(cell, title, indexPath)
+        if person.personMode == .hunter {
+            if indexPath.section == 0 {
+                let title = MainData.mainStarter[indexPath.row]
+                configureCellHunter(cell, title, indexPath)
+            }
+        } else {
+            let title = MainData.informations[indexPath.row]
+            configureCellInformation(cell, title)
+        }
+
         return cell
     }
 
     /// configure each cell of table view
-    private func configureCell(_ cell: UITableViewCell, _ title: String, _ indexPath: IndexPath) {
+    private func configureCellHunter(_ cell: UITableViewCell, _ title: String, _ indexPath: IndexPath) {
         let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
         let radiusAlert = UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert)
         if #available(iOS 14.0, *) {
@@ -224,7 +235,6 @@ extension MainStarterViewController: UITableViewDataSource {
             switch indexPath.row {
             case 0:
                 content.secondaryText = areaSelected
-
             case 1:
                 content.secondaryText = "\(radiusAlert) m"
             default:
@@ -245,6 +255,20 @@ extension MainStarterViewController: UITableViewDataSource {
             }
         }
     }
+
+    private func configureCellInformation(_ cell: UITableViewCell, _ title: String) {
+        if #available(iOS 14.0, *) {
+            var content = cell.defaultContentConfiguration()
+            content.text = title
+            content.textProperties.color = .black
+            cell.contentConfiguration = content
+        } else {
+            cell.textLabel?.text = title
+            cell.detailTextLabel?.text = ""
+            cell.textLabel?.textColor = .black
+        }
+    }
+
 }
 
 // MARK: - TableView Delegate

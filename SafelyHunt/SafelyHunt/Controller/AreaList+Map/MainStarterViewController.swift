@@ -271,7 +271,7 @@ extension MainStarterViewController: UITableViewDelegate {
             switch indexPath.row {
             case 0:
                 tableView.deselectRow(at: indexPath, animated: true)
-                presentAlertError(alertTitle: "",alertMessage: "In the next update you can win badge. \nPlease Wait 😉")
+                presentAlertError(alertTitle: "", alertMessage: "In the next update you can win badge. \nPlease Wait 😉")
             case 1:
                 tableView.deselectRow(at: indexPath, animated: true)
                 if let url = URL(string: "https://www.chasseurdefrance.com/pratiquer/dates-de-chasse/") {

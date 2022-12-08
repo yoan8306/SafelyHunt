@@ -15,7 +15,7 @@ class MainData {
    ]
     static let informations = [
     "Win points",
-    "Hunting periods".localized(tableName: "LocalizableMainData")
+    "Hunting date".localized(tableName: "LocalizableMainData")
     ]
    static let pickerMapType = ["Standard", "Muted standard", "Sattelite"]
    static let mainSettings = [

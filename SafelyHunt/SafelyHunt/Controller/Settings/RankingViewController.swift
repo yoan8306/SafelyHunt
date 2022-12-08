@@ -63,7 +63,7 @@ extension RankingViewController: UITableViewDataSource {
         guard let displayName = person.displayName, let totalPoints = person.totalPoints else {
             return cell
         }
-
+        var content = cell.defaultContentConfiguration()
         let stringTotalPoints = String(format: "%.2f", totalPoints)
 
         if person.email! == FirebaseAuth.Auth.auth().currentUser?.email {
@@ -71,18 +71,11 @@ extension RankingViewController: UITableViewDataSource {
             cell.backgroundColor = #colorLiteral(red: 0.6659289002, green: 0.5453534722, blue: 0.3376245499, alpha: 1)
         }
 
-        if #available(iOS 14.0, *) {
-            var content = cell.defaultContentConfiguration()
-            content.text = "\(indexPath.row + 1)/  \(String(describing: displayName))"
-            content.secondaryText = "\(stringTotalPoints)"
-
-            content.textProperties.color = .black
-            content.secondaryTextProperties.color = .black
-            cell.contentConfiguration = content
-        } else {
-            cell.textLabel?.text =  "\(indexPath.row + 1) - \(String(describing: displayName))"
-            cell.detailTextLabel?.text =  "\(stringTotalPoints)"
-        }
+        content.text = "\(indexPath.row + 1)/  \(String(describing: displayName))"
+        content.secondaryText = "\(stringTotalPoints)"
+        content.textProperties.color = .black
+        content.secondaryTextProperties.color = .black
+        cell.contentConfiguration = content
 
         return cell
     }

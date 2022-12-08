@@ -15,7 +15,7 @@ class MainData {
    ]
     static let informations = [
     "Win points",
-    "Go to FDC (fédération de chasse)"
+    "Hunting periods".localized(tableName: "LocalizableMainData")
     ]
    static let pickerMapType = ["Standard", "Muted standard", "Sattelite"]
    static let mainSettings = [

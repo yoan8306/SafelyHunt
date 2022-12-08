@@ -28,16 +28,12 @@ extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let title = MainData.mainSettings[indexPath.row]
+        var content = cell.defaultContentConfiguration()
 
-        if #available(iOS 14.0, *) {
-            var content = cell.defaultContentConfiguration()
-            content.text = title
-            content.textProperties.color = .black
-            cell.contentConfiguration = content
-        } else {
-            cell.textLabel?.textColor = .black
-            cell.textLabel?.text = title
-        }
+        content.text = title
+        content.textProperties.color = .black
+        cell.contentConfiguration = content
+
         return cell
     }
 }

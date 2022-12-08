@@ -212,11 +212,9 @@ extension MainStarterViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellStarter", for: indexPath)
 
-        if person.personMode == .hunter {
-            if indexPath.section == 0 {
-                let title = MainData.mainStarter[indexPath.row]
-                configureCellHunter(cell, title, indexPath)
-            }
+        if person.personMode == .hunter && indexPath.section == 0 {
+            let title = MainData.mainStarter[indexPath.row]
+            configureCellHunter(cell, title, indexPath)
         } else {
             let title = MainData.informations[indexPath.row]
             configureCellInformation(cell, title)
@@ -229,44 +227,27 @@ extension MainStarterViewController: UITableViewDataSource {
     private func configureCellHunter(_ cell: UITableViewCell, _ title: String, _ indexPath: IndexPath) {
         let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
         let radiusAlert = UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert)
-        if #available(iOS 14.0, *) {
-            var content = cell.defaultContentConfiguration()
-            content.text = title
-            switch indexPath.row {
-            case 0:
-                content.secondaryText = areaSelected
-            case 1:
-                content.secondaryText = "\(radiusAlert) m"
-            default:
-                break
-            }
-            content.textProperties.color = .black
-            content.secondaryTextProperties.color = .black
-            cell.contentConfiguration = content
-        } else {
-            cell.textLabel?.text = title
-            switch indexPath.row {
-            case 0:
-                cell.detailTextLabel?.text = areaSelected
-            case 1:
-                cell.detailTextLabel?.text = "\(radiusAlert) m"
-            default:
-                break
-            }
+        var content = cell.defaultContentConfiguration()
+
+        content.text = title
+        switch indexPath.row {
+        case 0:
+            content.secondaryText = areaSelected
+        case 1:
+            content.secondaryText = "\(radiusAlert) m"
+        default:
+            break
         }
+        content.textProperties.color = .black
+        content.secondaryTextProperties.color = .black
+        cell.contentConfiguration = content
     }
 
     private func configureCellInformation(_ cell: UITableViewCell, _ title: String) {
-        if #available(iOS 14.0, *) {
-            var content = cell.defaultContentConfiguration()
-            content.text = title
-            content.textProperties.color = .black
-            cell.contentConfiguration = content
-        } else {
-            cell.textLabel?.text = title
-            cell.detailTextLabel?.text = ""
-            cell.textLabel?.textColor = .black
-        }
+        var content = cell.defaultContentConfiguration()
+        content.text = title
+        content.textProperties.color = .black
+        cell.contentConfiguration = content
     }
 
 }
@@ -275,14 +256,36 @@ extension MainStarterViewController: UITableViewDataSource {
 extension MainStarterViewController: UITableViewDelegate {
     /// action for cell selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
+
+        switch indexPath.section {
         case 0:
-            transferToAreaListViewController()
+            switch indexPath.row {
+            case 0:
+                transferToAreaListViewController()
+            case 1:
+                transferToMapForSetRadiusAlert()
+            default: break
+            }
+
         case 1:
-            transferToMapForSetRadiusAlert()
-        default:
-            break
+            switch indexPath.row {
+            case 0:
+                tableView.deselectRow(at: indexPath, animated: true)
+                presentAlertError(alertTitle: "",alertMessage: "In the next update you can win badge. \nPlease Wait 😉")
+            case 1:
+                tableView.deselectRow(at: indexPath, animated: true)
+                if let url = URL(string: "https://www.chasseurdefrance.com/pratiquer/dates-de-chasse/") {
+                    UIApplication.shared.open(url)
+                }
+
+            default: break
+            }
+        default: break
         }
+    }
+
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+
     }
 
     /// transfert to AreaListViewController

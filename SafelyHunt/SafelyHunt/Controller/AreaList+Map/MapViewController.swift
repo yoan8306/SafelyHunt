@@ -477,16 +477,9 @@ private extension MapViewController {
     /// Check if authorization Location is enable
     /// - Returns: return true if location is enabled
     func statusAuthorizationLocation() -> Bool {
-        if #available(iOS 14.0, *) {
-            if locationManager.accuracyAuthorization != .fullAccuracy {
-                UIApplicationOpenSetting()
-                return false
-            }
-        } else {
-            if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
-                UIApplicationOpenSetting()
-                return false
-            }
+        if locationManager.accuracyAuthorization != .fullAccuracy {
+            UIApplicationOpenSetting()
+            return false
         }
         return true
     }
@@ -652,7 +645,6 @@ private extension MapViewController {
             self.monitoringServices.insertDistanceTraveled()
             self.dismiss(animated: true)
         }
-
         dismiss.setValue(colorTintButton, forKey: "titleTextColor")
         alertViewController.addAction(dismiss)
 
@@ -663,16 +655,7 @@ private extension MapViewController {
 // MARK: - MapView delegate, CLLocationmanager delegate
 extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
 
-    // Location ManagerDelegate
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        if #available(iOS 14.0, *) {
-            handleAuthorizationStatus(status: locationManager.authorizationStatus)
-        } else {
-            handleAuthorizationStatus(status: CLLocationManager.authorizationStatus())
-        }
-    }
-
-    /// update distance and altitude during monioring
+    /// update distance and altitude during monitoring
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         transferDistanceAndAltitudeToLabel(locations)
         getDistanceTraveled(locations)
@@ -703,11 +686,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     private func askAuthorizationsForLocalizationUser() {
         mapView.delegate = self
         locationManager.delegate = self
-        if #available(iOS 14.0, *) {
-            handleAuthorizationStatus(status: locationManager.authorizationStatus)
-        } else {
-            handleAuthorizationStatus(status: CLLocationManager.authorizationStatus())
-        }
+        handleAuthorizationStatus(status: locationManager.authorizationStatus)
     }
 
     /// check if location authorization status change
@@ -715,12 +694,8 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     private func handleAuthorizationStatus(status: CLAuthorizationStatus) {
         switch status {
         case .authorizedWhenInUse, .authorizedAlways:
-            if #available(iOS 14.0, *) {
-                if locationManager.accuracyAuthorization != .fullAccuracy {
-                    UIApplicationOpenSetting()
-                }
-            } else {
-                locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            if locationManager.accuracyAuthorization != .fullAccuracy {
+                UIApplicationOpenSetting()
             }
             mapView.showsUserLocation = true
         case .denied, .restricted:

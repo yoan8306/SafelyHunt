@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Level Profile View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="LevelProfile" id="Y6W-OH-hqX" customClass="LevelProfileViewController" customModule="SafelyHunt" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PfD-yf-Cc3">
+                                <rect key="frame" x="154" y="10" width="67" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="cbr-x1-cX0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <progressView opaque="NO" contentMode="scaleAspectFit" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="c5s-fr-7bQ">
+                                <rect key="frame" x="112.5" y="83" width="150" height="8"/>
+                                <color key="backgroundColor" red="0.22385820749999999" green="0.31769558790000002" blue="0.26838025450000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="8" id="2eO-oe-8Tg"/>
+                                    <constraint firstAttribute="width" constant="150" id="slZ-Dm-sWc"/>
+                                </constraints>
+                                <color key="progressTintColor" red="0.92125511169999996" green="0.90211021899999999" blue="0.79121857880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOZ-LD-nWp">
+                                <rect key="frame" x="272.5" y="76.5" width="42" height="21"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhD-aS-9m5">
+                                <rect key="frame" x="163.5" y="48" width="48" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="lYa-Sx-ftW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" red="0.30223849419999999" green="0.4197221994" blue="0.30826809999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="PfD-yf-Cc3" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="BaJ-wk-KEf"/>
+                            <constraint firstItem="c5s-fr-7bQ" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="M0k-9U-jqO"/>
+                            <constraint firstItem="qOZ-LD-nWp" firstAttribute="centerY" secondItem="c5s-fr-7bQ" secondAttribute="centerY" id="Pca-BT-pRg"/>
+                            <constraint firstItem="dhD-aS-9m5" firstAttribute="top" secondItem="PfD-yf-Cc3" secondAttribute="bottom" constant="3" id="WCP-RA-q4R"/>
+                            <constraint firstItem="dhD-aS-9m5" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="bTF-PS-CGq"/>
+                            <constraint firstItem="c5s-fr-7bQ" firstAttribute="top" secondItem="dhD-aS-9m5" secondAttribute="bottom" constant="15" id="inb-Lv-cng"/>
+                            <constraint firstItem="PfD-yf-Cc3" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="jmW-iZ-eE1"/>
+                            <constraint firstItem="qOZ-LD-nWp" firstAttribute="leading" secondItem="c5s-fr-7bQ" secondAttribute="trailing" constant="10" id="vLp-0j-zmg"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="currentPointsLabel" destination="dhD-aS-9m5" id="RLd-Wq-sBQ"/>
+                        <outlet property="levelLabel" destination="PfD-yf-Cc3" id="L2q-IL-2TV"/>
+                        <outlet property="nextLevelPointsLabel" destination="qOZ-LD-nWp" id="aPi-Jq-K1a"/>
+                        <outlet property="progressLevelView" destination="c5s-fr-7bQ" id="PpP-RU-n5f"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="102" y="-13"/>
+        </scene>
+    </scenes>
+</document>

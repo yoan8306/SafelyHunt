@@ -636,7 +636,7 @@ private extension MapViewController {
         let alertViewController = UIAlertController(
             title: "Congratulations".localized(tableName: "LocalizableMapView"),
 
-            message: "You have travel \(distanceTraveledLabel.text ?? "nil") \nYou win  \(monitoringServices.pointWin).....", // .localized(tableName: "LocalizableMapView"),
+            message: "You have travel \(distanceTraveledLabel.text ?? "nil") \nYou win  \(Float(monitoringServices.pointWin)).....", // .localized(tableName: "LocalizableMapView"),
             preferredStyle: .alert
         )
 

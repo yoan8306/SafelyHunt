@@ -271,7 +271,8 @@ extension MainStarterViewController: UITableViewDelegate {
             switch indexPath.row {
             case 0:
                 tableView.deselectRow(at: indexPath, animated: true)
-                presentAlertError(alertTitle: "", alertMessage: "In the next update you can win badge. \nPlease Wait 😉")
+                transferToLevelProfile()
+//                presentAlertError(alertTitle: "", alertMessage: "In the next update you can win badge. \nPlease Wait 😉")
             case 1:
                 tableView.deselectRow(at: indexPath, animated: true)
                 if let url = URL(string: "https://www.chasseurdefrance.com/pratiquer/dates-de-chasse/") {
@@ -309,4 +310,14 @@ extension MainStarterViewController: UITableViewDelegate {
         mapViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(mapViewController, animated: true)
     }
+
+    private func transferToLevelProfile() {
+        let levelProfileStoryboard = UIStoryboard(name: "LevelProfile", bundle: nil)
+
+        guard let levelProfileViewController = levelProfileStoryboard.instantiateViewController(withIdentifier: "LevelProfile") as? LevelProfileViewController else {return}
+
+        levelProfileViewController.person = person
+        navigationController?.pushViewController(levelProfileViewController, animated: true)
+    }
+
 }

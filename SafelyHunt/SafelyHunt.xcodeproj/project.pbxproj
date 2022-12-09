@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5F0B7316289D96160034CB48 /* MapMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0B7315289D96160034CB48 /* MapMode.swift */; };
+		5F1212AB2942968E005427AD /* LevelProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F1212AA2942968E005427AD /* LevelProfile.storyboard */; };
+		5F1212AD2942994C005427AD /* LevelProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1212AC2942994C005427AD /* LevelProfileViewController.swift */; };
+		5F1212AF2943BEB8005427AD /* CalculationsPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1212AE2943BEB8005427AD /* CalculationsPoints.swift */; };
 		5F14AD1F2878284C0039002A /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14AD1E2878284C0039002A /* UserDefaultKeys.swift */; };
 		5F14AD21287829470039002A /* MainData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F14AD20287829470039002A /* MainData.swift */; };
 		5F1CF301286B1F2900A0429D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1CF300286B1F2900A0429D /* AppDelegate.swift */; };
@@ -121,6 +124,9 @@
 
 /* Begin PBXFileReference section */
 		5F0B7315289D96160034CB48 /* MapMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMode.swift; sourceTree = "<group>"; };
+		5F1212AA2942968E005427AD /* LevelProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LevelProfile.storyboard; sourceTree = "<group>"; };
+		5F1212AC2942994C005427AD /* LevelProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProfileViewController.swift; sourceTree = "<group>"; };
+		5F1212AE2943BEB8005427AD /* CalculationsPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationsPoints.swift; sourceTree = "<group>"; };
 		5F14AD1E2878284C0039002A /* UserDefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
 		5F14AD20287829470039002A /* MainData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainData.swift; sourceTree = "<group>"; };
 		5F1CF2FD286B1F2900A0429D /* SafelyHunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafelyHunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -389,6 +395,7 @@
 				5F98BFBB2902AB630063CCA9 /* AreasList.storyboard */,
 				5F7F698028932C1000562FDA /* AreaCellTableViewCell.swift */,
 				5F98BFBE2902AB6B0063CCA9 /* Maps.storyboard */,
+				5F1212AA2942968E005427AD /* LevelProfile.storyboard */,
 			);
 			path = "AreaList+Map";
 			sourceTree = "<group>";
@@ -399,6 +406,7 @@
 				5F78B6C02876D47A003C58B5 /* MainStarterViewController.swift */,
 				5FFCF682288EB7CF009D9AE8 /* AreaListViewController.swift */,
 				5FC7538F289408E600BC3DB7 /* MapViewController.swift */,
+				5F1212AC2942994C005427AD /* LevelProfileViewController.swift */,
 			);
 			path = "AreaList+Map";
 			sourceTree = "<group>";
@@ -494,6 +502,7 @@
 				5F79FCE8289BF911009F6AE9 /* Person.swift */,
 				5F46BEF4289E9E2400D1E020 /* AnnotationPerson.swift */,
 				5F62872928A522B600AD51E2 /* LocalNotification.swift */,
+				5F1212AE2943BEB8005427AD /* CalculationsPoints.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -690,6 +699,7 @@
 				5FBEF94B2873073A0023E5A5 /* Register.storyboard in Resources */,
 				5F98BFC52902AB7C0063CCA9 /* Ranking.storyboard in Resources */,
 				5F98BFF82903258B0063CCA9 /* LocalizableMainStarter.strings in Resources */,
+				5F1212AB2942968E005427AD /* LevelProfile.storyboard in Resources */,
 				5FA61BB329069BF600FD3B88 /* Scanning-alarm.caf in Resources */,
 				5FCE8FDA2913ED730037BBCC /* morning-clock-alarm.caf in Resources */,
 				5F98C00C290332FB0063CCA9 /* LocalizableAccountSetting.strings in Resources */,
@@ -780,6 +790,7 @@
 				5F79FCE9289BF911009F6AE9 /* Person.swift in Sources */,
 				5FB4BCCB28C681F500C69E8F /* UserServices.swift in Sources */,
 				5F46BEF5289E9E2400D1E020 /* AnnotationPerson.swift in Sources */,
+				5F1212AD2942994C005427AD /* LevelProfileViewController.swift in Sources */,
 				5FBEF94D2873706D0023E5A5 /* AreaServices.swift in Sources */,
 				5F46BEF9289EF23A00D1E020 /* DateExtension.swift in Sources */,
 				5F7F698128932C1000562FDA /* AreaCellTableViewCell.swift in Sources */,
@@ -803,6 +814,7 @@
 				5FBEF94F287375050023E5A5 /* ServicesError.swift in Sources */,
 				5F78B6BF2876D306003C58B5 /* SplashScreenViewController.swift in Sources */,
 				5F78B6C12876D47A003C58B5 /* MainStarterViewController.swift in Sources */,
+				5F1212AF2943BEB8005427AD /* CalculationsPoints.swift in Sources */,
 				5F1CF301286B1F2900A0429D /* AppDelegate.swift in Sources */,
 				5F9390D728F15D8600768C15 /* UIViewExtension.swift in Sources */,
 				5F1CF303286B1F2900A0429D /* SceneDelegate.swift in Sources */,

@@ -52,9 +52,15 @@ class LevelProfileViewController: UIViewController {
     }
 
   @objc func animateLabelCount() {
-      pointsStart += 1/pointsTotalWin
         if pointsStart < pointsTotalWin {
             currentPointsLabel.text = "You have \(pointsStart) points"
+            switch pointsTotalWin > 50 {
+            case true:
+                pointsStart += 1 + pointsStart
+            case false:
+                pointsStart += 1
+            }
+
         } else {
             currentPointsLabel.text = "You have \(pointsTotalWin) points"
             timer?.invalidate()

@@ -44,16 +44,16 @@ class LevelProfileViewController: UIViewController {
         }
     }
 
-    func initLabel() {
-        levelLabel.text = "You are at level \(levelData.actualLevel)"
-        currentPointsLabel.text = "You have \(pointsStart) points"
+  private func initLabel() {
+      levelLabel.text = "Your actual level:".localized(tableName: "Localizable") + " \(levelData.actualLevel)"
+      currentPointsLabel.text = "You have".localized(tableName: "Localizable") + " \(pointsStart) points"
         nextLevelPointsLabel.text = "\(Int(round(levelData.numbersPointsForNextLevel)))"
         progressLevelView.progress = 0
     }
 
   @objc func animateLabelCount() {
         if pointsStart < pointsTotalWin {
-            currentPointsLabel.text = "You have \(pointsStart) points"
+            currentPointsLabel.text = "You have".localized(tableName: "Localizable") + " \(pointsStart) points"
             switch pointsTotalWin > 50 {
             case true:
                 pointsStart += 1 + pointsStart
@@ -62,7 +62,7 @@ class LevelProfileViewController: UIViewController {
             }
 
         } else {
-            currentPointsLabel.text = "You have \(pointsTotalWin) points"
+            currentPointsLabel.text = "You have".localized(tableName: "Localizable") + " \(pointsTotalWin) points"
             timer?.invalidate()
         }
     }

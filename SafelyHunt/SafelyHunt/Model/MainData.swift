@@ -14,10 +14,10 @@ class MainData {
     "Define your radius alert".localized(tableName: "LocalizableMainData")
    ]
     static let informations = [
-    "Win points",
+    "Status of level".localized(tableName: "LocalizableMainData"),
     "Hunting date".localized(tableName: "LocalizableMainData")
     ]
-   static let pickerMapType = ["Standard", "Muted standard", "Sattelite"]
+   static let pickerMapType = ["Standard", "Muted standard", "Satellite"]
    static let mainSettings = [
     "Profile",
     "Hunt / Walker".localized(tableName: "LocalizableMainData"),

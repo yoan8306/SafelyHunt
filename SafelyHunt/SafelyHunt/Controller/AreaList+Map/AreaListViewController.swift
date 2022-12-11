@@ -14,6 +14,7 @@ class AreaListViewController: UIViewController {
     var listArea: [Area] = []
     var refreshControl = UIRefreshControl()
     var person = Person()
+    var levelData = CalculationsPoints()
 
     // MARK: - IBOutlet
     @IBOutlet weak var areaListTableView: UITableView!
@@ -40,15 +41,12 @@ class AreaListViewController: UIViewController {
     }
 
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
-        var numberAreaAuthorized: Int {
-            Int(person.totalPoints ?? 1)/10 + 1
-        }
-        if numberAreaAuthorized > listArea.count {
+        levelData.calculationPointsAndLevel(points: person.totalPoints)
+        if levelData.actualLevel + 1 > listArea.count {
             openMapViewController()
         } else {
-            let pointNecessary = Double(numberAreaAuthorized*10) - (person.totalPoints ?? 0.0)
-            let point = String(format: "%.2f", pointNecessary)
-            presentAlertError(alertMessage: "You need \(point) points for recorded more area")
+            let levelNecessary = levelData.actualLevel + 1
+            presentAlertError(alertMessage: "You need get level \(levelNecessary) for recorded more area")
         }
     }
 

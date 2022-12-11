@@ -633,10 +633,13 @@ private extension MapViewController {
     }
 
     func presentTraveledFinal() {
+        let winPoints = String(format: "%.2f", monitoringServices.pointWin) + " points"
         let alertViewController = UIAlertController(
             title: "Congratulations".localized(tableName: "LocalizableMapView"),
-
-            message: "You have travel \(distanceTraveledLabel.text ?? "nil") \nYou win  \(Float(monitoringServices.pointWin)).....", // .localized(tableName: "LocalizableMapView"),
+            message: "You have travel".localized(tableName: "LocalizableMapView")
+            + (distanceTraveledLabel.text ?? "nil")
+            + "\n" + "You win".localized(tableName: "LocalizableMapView")
+            + " \(winPoints)",
             preferredStyle: .alert
         )
 
@@ -659,7 +662,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         transferDistanceAndAltitudeToLabel(locations)
         getDistanceTraveled(locations)
-        updatePostion(locations)
+        updatePosition(locations)
     }
 
     /// design polygon polyline and circle
@@ -709,7 +712,6 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
 
     /// open setting app if needed
     private func UIApplicationOpenSetting() {
-
         let alertVC = UIAlertController(
             title: "Error".localized(tableName: "Localizable"),
             message: "We need exact position for best monitoring, you can change in your setting".localized(tableName: "LocalizableMapView"),
@@ -748,7 +750,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         mapView.addOverlay(monitoringServices.monitoring.area.createPolyLineTravel())
     }
 
-    private func updatePostion(_ locations: [CLLocation]) {
+    private func updatePosition(_ locations: [CLLocation]) {
         guard let person = monitoringServices.monitoring.person else {
             return
         }

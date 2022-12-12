@@ -204,3 +204,39 @@ func sendEmailVerification() {
         }
     }
 }
+
+// MARK: - Rewards
+extension UserServices {
+    func insertPoints(reward: Int) {
+        guard let userID = firebaseAuth.currentUser?.uid else {return}
+
+        getTotalPoints() { [weak self] result in
+            switch result {
+            case .failure(_):
+                break
+            case .success(let numberOfPointsTotal):
+
+                let newTotalPoints = numberOfPointsTotal + Double(reward)
+                self?.database.child("Database").child("users_list").child(userID).child("number_of_points").setValue(
+                    [
+                        "points_Total": newTotalPoints
+                    ]
+                )
+            }
+        }
+    }
+
+   private func getTotalPoints(callBack: @escaping (Result<Double, Error>) -> Void) {
+        guard let userID = firebaseAuth.currentUser?.uid else {return}
+
+        database.child("Database").child("users_list").child(userID).child("number_of_points").child("points_Total").getData { error, dataSnapshot in
+
+            guard error == nil, let dataSnapshot = dataSnapshot else {
+                callBack(.failure(error ?? ServicesError.errorTask))
+                return
+            }
+            let numbersOfPoints = dataSnapshot.value as? Double
+            callBack(.success(numbersOfPoints ?? 0.0))
+        }
+    }
+}

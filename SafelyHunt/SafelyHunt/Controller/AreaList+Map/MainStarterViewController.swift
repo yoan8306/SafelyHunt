@@ -13,7 +13,6 @@ class MainStarterViewController: UIViewController {
     // MARK: - Properties
     var area: Area?
     var person = Person()
-    
 
     // MARK: - IBOutlet
     @IBOutlet weak var startMonitoringButton: UIButton!
@@ -44,6 +43,7 @@ class MainStarterViewController: UIViewController {
     /// Show message if no area selected
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        initAdMob()
         presentTutorielIfNeeded()
         presentAlertMessage()
         initPerson()
@@ -187,12 +187,12 @@ class MainStarterViewController: UIViewController {
         }
         present(carouselVC, animated: true)
     }
-    
+
     /// init AdMob banner
     private func initAdMob() {
         let bannerIDTest = "ca-app-pub-3940256099942544/2934735716"
         let bannerIDProd = "ca-app-pub-3063172456794459/9677510087"
-        bannerView.adUnitID = bannerIDTest
+        bannerView.adUnitID = bannerIDProd
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
     }
@@ -283,7 +283,6 @@ extension MainStarterViewController: UITableViewDelegate {
             case 0:
                 tableView.deselectRow(at: indexPath, animated: true)
                 transferToLevelProfile()
-//                presentAlertError(alertTitle: "", alertMessage: "In the next update you can win badge. \nPlease Wait 😉")
             case 1:
                 tableView.deselectRow(at: indexPath, animated: true)
                 if let url = URL(string: "https://www.chasseurdefrance.com/pratiquer/dates-de-chasse/") {

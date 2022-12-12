@@ -49,17 +49,40 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Win 2 points show one video" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjK-Zc-ErX">
+                                <rect key="frame" x="78.5" y="606" width="218" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mFl-8W-WrI">
+                                <rect key="frame" x="148" y="627" width="79" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="JTL-cK-kj6"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Show video">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="showVideoAction" destination="Y6W-OH-hqX" eventType="touchUpInside" id="QgI-Hh-3Bd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" red="0.30223849419999999" green="0.4197221994" blue="0.30826809999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="PfD-yf-Cc3" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="BaJ-wk-KEf"/>
+                            <constraint firstItem="FjK-Zc-ErX" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="C1f-q5-yPH"/>
                             <constraint firstItem="c5s-fr-7bQ" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="M0k-9U-jqO"/>
                             <constraint firstItem="qOZ-LD-nWp" firstAttribute="centerY" secondItem="c5s-fr-7bQ" secondAttribute="centerY" id="Pca-BT-pRg"/>
                             <constraint firstItem="dhD-aS-9m5" firstAttribute="top" secondItem="PfD-yf-Cc3" secondAttribute="bottom" constant="3" id="WCP-RA-q4R"/>
                             <constraint firstItem="dhD-aS-9m5" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="bTF-PS-CGq"/>
                             <constraint firstItem="c5s-fr-7bQ" firstAttribute="top" secondItem="dhD-aS-9m5" secondAttribute="bottom" constant="15" id="inb-Lv-cng"/>
                             <constraint firstItem="PfD-yf-Cc3" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="jmW-iZ-eE1"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="mFl-8W-WrI" secondAttribute="bottom" id="maY-cr-DLa"/>
+                            <constraint firstItem="mFl-8W-WrI" firstAttribute="top" secondItem="FjK-Zc-ErX" secondAttribute="bottom" id="rTY-FY-sqF"/>
+                            <constraint firstItem="mFl-8W-WrI" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="vCn-Zc-VjX"/>
                             <constraint firstItem="qOZ-LD-nWp" firstAttribute="leading" secondItem="c5s-fr-7bQ" secondAttribute="trailing" constant="10" id="vLp-0j-zmg"/>
                         </constraints>
                     </view>
@@ -68,6 +91,7 @@
                         <outlet property="levelLabel" destination="PfD-yf-Cc3" id="L2q-IL-2TV"/>
                         <outlet property="nextLevelPointsLabel" destination="qOZ-LD-nWp" id="aPi-Jq-K1a"/>
                         <outlet property="progressLevelView" destination="c5s-fr-7bQ" id="PpP-RU-n5f"/>
+                        <outlet property="showVideoButton" destination="mFl-8W-WrI" id="epG-vJ-I3V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseCore
+import GoogleMobileAds
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaultKeys.Keys.notificationSoundName: "Orchestral-emergency",
             UserDefaultKeys.Keys.savedDate: 1665993610
         ])
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
         return true
     }
 

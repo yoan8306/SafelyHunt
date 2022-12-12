@@ -46,7 +46,7 @@ class AreaListViewController: UIViewController {
             openMapViewController()
         } else {
             let levelNecessary = levelData.actualLevel + 1
-            presentAlertError(alertMessage: "You need get level \(levelNecessary) for recorded more area")
+            presentAlertError(alertMessage: "You need to reach the level".localized(tableName: "LocalizableAreaListViewController") + " \(levelNecessary) " + "for recorded more area".localized(tableName: "LocalizableAreaListViewController"))
         }
     }
 

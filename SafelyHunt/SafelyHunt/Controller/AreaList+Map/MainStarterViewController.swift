@@ -4,7 +4,7 @@
 //
 //  Created by Yoan on 07/07/2022.
 //
-
+import GoogleMobileAds
 import UIKit
 import FirebaseAuth
 import MapKit
@@ -13,18 +13,20 @@ class MainStarterViewController: UIViewController {
     // MARK: - Properties
     var area: Area?
     var person = Person()
+    
 
     // MARK: - IBOutlet
     @IBOutlet weak var startMonitoringButton: UIButton!
     @IBOutlet weak var huntingTableView: UITableView!
+
+    @IBOutlet weak var bannerView: GADBannerView!
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setButton()
         initPerson()
-        //        huntingTableView.isScrollEnabled = false
-        //        huntingTableView.isHidden = person.personMode != .hunter
+        initAdMob()
     }
 
     /// set interface when view appear
@@ -184,6 +186,15 @@ class MainStarterViewController: UIViewController {
             return
         }
         present(carouselVC, animated: true)
+    }
+    
+    /// init AdMob banner
+    private func initAdMob() {
+        let bannerIDTest = "ca-app-pub-3940256099942544/2934735716"
+        let bannerIDProd = "ca-app-pub-3063172456794459/9677510087"
+        bannerView.adUnitID = bannerIDTest
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
     }
 }
 

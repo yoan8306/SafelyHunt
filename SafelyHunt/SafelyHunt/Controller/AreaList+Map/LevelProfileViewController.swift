@@ -47,7 +47,7 @@ class LevelProfileViewController: UIViewController {
   private func initLabel() {
       levelLabel.text = "Your actual level:".localized(tableName: "Localizable") + " \(levelData.actualLevel)"
       currentPointsLabel.text = "You have".localized(tableName: "Localizable") + " \(pointsStart) points"
-        nextLevelPointsLabel.text = "\(Int(round(levelData.numbersPointsForNextLevel)))"
+        nextLevelPointsLabel.text = "/\(Int(round(levelData.numbersPointsForNextLevel)))"
         progressLevelView.progress = 0
     }
 

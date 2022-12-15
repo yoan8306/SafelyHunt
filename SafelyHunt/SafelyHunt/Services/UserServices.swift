@@ -207,7 +207,7 @@ func sendEmailVerification() {
 
 // MARK: - Rewards
 extension UserServices {
-    func insertPoints(reward: Int) {
+    func insertPoints(reward: Double) {
         guard let userID = firebaseAuth.currentUser?.uid else {return}
 
         getTotalPoints() { [weak self] result in
@@ -216,7 +216,7 @@ extension UserServices {
                 break
             case .success(let numberOfPointsTotal):
 
-                let newTotalPoints = numberOfPointsTotal + Double(reward)
+                let newTotalPoints = numberOfPointsTotal + reward
                 self?.database.child("Database").child("users_list").child(userID).child("number_of_points").setValue(
                     [
                         "points_Total": newTotalPoints

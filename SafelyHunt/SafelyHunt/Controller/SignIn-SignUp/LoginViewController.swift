@@ -29,7 +29,7 @@ class LoginViewController: UIViewController {
         emailTextField.delegate = self
         passwordTextField.delegate = self
 
-        #if DEBUG
+        #if Debug
         emailTextField.text = "yoan8306@wanadoo.fr"
         passwordTextField.text = "coucou"
         #endif

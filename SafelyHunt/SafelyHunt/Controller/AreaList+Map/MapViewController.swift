@@ -5,6 +5,7 @@
 //  Created by Yoan on 29/07/2022.
 //
 
+import GoogleMobileAds
 import UIKit
 import MapKit
 import FirebaseAuth
@@ -31,6 +32,8 @@ class MapViewController: UIViewController {
     }()
     var showPencil = false
     let colorTintButton = #colorLiteral(red: 0.6659289002, green: 0.5453534722, blue: 0.3376245499, alpha: 1)
+    private var rewardedAd: GADRewardedAd?
+    var rewardViewed = false
 
     // MARK: - IBOutlet
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -65,8 +68,11 @@ class MapViewController: UIViewController {
         super.viewDidAppear(animated)
         askAuthorizationsForLocalizationUser()
         drawAreaSelected()
-        if mapMode == .monitoring {
+        if mapMode == .monitoring && !rewardViewed {
             monitoringAction()
+            loadRewardedAd()
+        } else {
+            presentAlertAfterReward()
         }
     }
 
@@ -474,6 +480,31 @@ class MapViewController: UIViewController {
 private extension MapViewController {
     // Private functions
 
+    func loadRewardedAd() {
+        let request = GADRequest()
+        GADRewardedAd.load(withAdUnitID: AdMobIdentifier().videoAwardDoubleGainsId(),
+                           request: request,
+                           completionHandler: { [weak self] adReward, error in
+            guard error == nil else {return}
+            self?.rewardedAd = adReward
+        }
+        )
+    }
+
+    func showAward() {
+        if let adReward = rewardedAd {
+            adReward.present(fromRootViewController: self) {
+                let pointsDouble = self.monitoringServices.pointWin * 2
+                UserServices.shared.insertPoints(reward: pointsDouble)
+                self.monitoringServices.insertDistanceTraveled()
+                self.rewardViewed = true
+                self.presentNativeAlertSuccess(alertMessage: "You win \(pointsDouble)")
+            }
+        } else {
+            presentTraveledFinal()
+        }
+    }
+
     /// Check if authorization Location is enable
     /// - Returns: return true if location is enabled
     func statusAuthorizationLocation() -> Bool {
@@ -637,7 +668,7 @@ private extension MapViewController {
         let alertViewController = UIAlertController(
             title: "Congratulations".localized(tableName: "LocalizableMapView"),
             message: "You have travel".localized(tableName: "LocalizableMapView")
-            + (distanceTraveledLabel.text ?? "nil")
+            + ( distanceTraveledLabel.text ?? "nil")
             + "\n" + "You win".localized(tableName: "LocalizableMapView")
             + " \(winPoints)",
             preferredStyle: .alert
@@ -648,11 +679,28 @@ private extension MapViewController {
             self.monitoringServices.insertDistanceTraveled()
             self.dismiss(animated: true)
         }
+        let image = UIImage(systemName: "video.bubble.left.fill")
+        let doublePoints = UIAlertAction(title: "Gains x2", style: .cancel) {_ in
+            self.showAward()
+        }
+
         dismiss.setValue(colorTintButton, forKey: "titleTextColor")
+        doublePoints.setValue(image, forKey: "image")
         alertViewController.addAction(dismiss)
+        alertViewController.addAction(doublePoints)
 
         present(alertViewController, animated: true, completion: nil)
     }
+
+    func presentAlertAfterReward() {
+        let alertViewController = UIAlertController(title: "Congratulations", message: "You have double your gains", preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "Dismiss", style: .default) {_ in
+            self.dismiss(animated: true)
+        }
+        alertViewController.addAction(dismiss)
+        present(alertViewController, animated: true)
+    }
+
 }
 
 // MARK: - MapView delegate, CLLocationmanager delegate

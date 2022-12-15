@@ -34,8 +34,8 @@
                                 </constraints>
                                 <color key="progressTintColor" red="0.92125511169999996" green="0.90211021899999999" blue="0.79121857880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </progressView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOZ-LD-nWp">
-                                <rect key="frame" x="272.5" y="76.5" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOZ-LD-nWp">
+                                <rect key="frame" x="270.5" y="76.5" width="104.5" height="21"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -49,14 +49,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Win 2 points show one video" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjK-Zc-ErX">
-                                <rect key="frame" x="78.5" y="606" width="218" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Win 2 points showing short video" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FjK-Zc-ErX">
+                                <rect key="frame" x="20" y="598.5" width="335" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mFl-8W-WrI">
-                                <rect key="frame" x="148" y="627" width="79" height="40"/>
+                                <rect key="frame" x="80" y="627" width="215" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="JTL-cK-kj6"/>
                                 </constraints>
@@ -75,15 +75,18 @@
                             <constraint firstItem="PfD-yf-Cc3" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="BaJ-wk-KEf"/>
                             <constraint firstItem="FjK-Zc-ErX" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="C1f-q5-yPH"/>
                             <constraint firstItem="c5s-fr-7bQ" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="M0k-9U-jqO"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="qOZ-LD-nWp" secondAttribute="trailing" id="Mcx-DD-KdJ"/>
                             <constraint firstItem="qOZ-LD-nWp" firstAttribute="centerY" secondItem="c5s-fr-7bQ" secondAttribute="centerY" id="Pca-BT-pRg"/>
                             <constraint firstItem="dhD-aS-9m5" firstAttribute="top" secondItem="PfD-yf-Cc3" secondAttribute="bottom" constant="3" id="WCP-RA-q4R"/>
+                            <constraint firstItem="mFl-8W-WrI" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="80" id="Xp8-9W-5Qk"/>
                             <constraint firstItem="dhD-aS-9m5" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="bTF-PS-CGq"/>
                             <constraint firstItem="c5s-fr-7bQ" firstAttribute="top" secondItem="dhD-aS-9m5" secondAttribute="bottom" constant="15" id="inb-Lv-cng"/>
                             <constraint firstItem="PfD-yf-Cc3" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="jmW-iZ-eE1"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="mFl-8W-WrI" secondAttribute="bottom" id="maY-cr-DLa"/>
-                            <constraint firstItem="mFl-8W-WrI" firstAttribute="top" secondItem="FjK-Zc-ErX" secondAttribute="bottom" id="rTY-FY-sqF"/>
+                            <constraint firstItem="mFl-8W-WrI" firstAttribute="top" secondItem="FjK-Zc-ErX" secondAttribute="bottom" constant="8" id="rTY-FY-sqF"/>
+                            <constraint firstItem="FjK-Zc-ErX" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="uGf-Ut-yBi"/>
                             <constraint firstItem="mFl-8W-WrI" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="vCn-Zc-VjX"/>
-                            <constraint firstItem="qOZ-LD-nWp" firstAttribute="leading" secondItem="c5s-fr-7bQ" secondAttribute="trailing" constant="10" id="vLp-0j-zmg"/>
+                            <constraint firstItem="qOZ-LD-nWp" firstAttribute="leading" secondItem="c5s-fr-7bQ" secondAttribute="trailing" constant="8" symbolic="YES" id="vLp-0j-zmg"/>
                         </constraints>
                     </view>
                     <connections>

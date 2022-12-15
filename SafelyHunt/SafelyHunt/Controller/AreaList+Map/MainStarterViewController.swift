@@ -190,9 +190,7 @@ class MainStarterViewController: UIViewController {
 
     /// init AdMob banner
     private func initAdMob() {
-        let bannerIDTest = "ca-app-pub-3940256099942544/2934735716"
-        let bannerIDProd = "ca-app-pub-3063172456794459/9677510087"
-        bannerView.adUnitID = bannerIDProd
+        bannerView.adUnitID = AdMobIdentifier().bannerIdMainStarter()
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
     }

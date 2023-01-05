@@ -8,6 +8,7 @@ import GoogleMobileAds
 import UIKit
 import FirebaseAuth
 import MapKit
+import AppTrackingTransparency
 
 class MainStarterViewController: UIViewController {
     // MARK: - Properties
@@ -25,7 +26,6 @@ class MainStarterViewController: UIViewController {
         super.viewDidLoad()
         setButton()
         initPerson()
-        initAdMob()
     }
 
     /// set interface when view appear
@@ -43,7 +43,7 @@ class MainStarterViewController: UIViewController {
     /// Show message if no area selected
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        initAdMob()
+        askTracking()
         presentTutorielIfNeeded()
         presentAlertMessage()
         initPerson()
@@ -194,6 +194,13 @@ class MainStarterViewController: UIViewController {
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
     }
+
+    private func askTracking() {
+        ATTrackingManager.requestTrackingAuthorization(completionHandler: { [weak self] _ in
+            self?.initAdMob()
+        })
+    }
+
 }
 
 // MARK: - TableView DataSource

@@ -98,6 +98,7 @@
 		5FCE8FE12913ED730037BBCC /* retro-game-emergency-alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5FCE8FD72913ED730037BBCC /* retro-game-emergency-alarm.caf */; };
 		5FD577B728D2529F00F464F6 /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5FD577B628D2529F00F464F6 /* NotificationBannerSwift */; };
 		5FD577BA28D252F100F464F6 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = 5FD577B928D252F100F464F6 /* SPAlert */; };
+		5FE2AB142955211600BA02D4 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE2AB132955211600BA02D4 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		5FE782F4294A7B010063D432 /* AdMobIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE782F3294A7B010063D432 /* AdMobIdentifier.swift */; };
 		5FED75EF28E5EDD2009A68E9 /* TestDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FED75EB28E5EDD1009A68E9 /* TestDateExtension.swift */; };
 		5FED75F028E5EDD2009A68E9 /* TestMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FED75EC28E5EDD2009A68E9 /* TestMonitoring.swift */; };
@@ -236,6 +237,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FE2AB142955211600BA02D4 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				5F10EFAA29474F860038594C /* GoogleMobileAds in Frameworks */,
 				5FC1A7CC28F0D906000C03BD /* FirebaseAnalyticsSwift in Frameworks */,
 				5FC1A7D028F0D906000C03BD /* FirebaseAuth in Frameworks */,
@@ -317,6 +319,7 @@
 				5F1CF316286B1F2C00A0429D /* SafelyHuntTests */,
 				5F7E5F7028E6E92F0035A38C /* SafelyHuntUITests */,
 				5F1CF2FE286B1F2900A0429D /* Products */,
+				5FE2AB122955211600BA02D4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -545,6 +548,13 @@
 			path = sound;
 			sourceTree = "<group>";
 		};
+		5FE2AB122955211600BA02D4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5FED75E928E5EDB9009A68E9 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -586,6 +596,7 @@
 				5FC1A7D728F0D906000C03BD /* FirebaseFirestore */,
 				5FC1A7D928F0D906000C03BD /* FirebaseFunctions */,
 				5F10EFA929474F860038594C /* GoogleMobileAds */,
+				5FE2AB132955211600BA02D4 /* FirebaseAnalyticsWithoutAdIdSupport */,
 			);
 			productName = SafelyHunt;
 			productReference = 5F1CF2FD286B1F2900A0429D /* SafelyHunt.app */;
@@ -1230,7 +1241,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.06;
+				MARKETING_VERSION = 1.09;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yoan.SafelyHunt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1265,7 +1276,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.06;
+				MARKETING_VERSION = 1.09;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yoan.SafelyHunt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1502,6 +1513,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5FD577B828D252F100F464F6 /* XCRemoteSwiftPackageReference "SPAlert" */;
 			productName = SPAlert;
+		};
+		5FE2AB132955211600BA02D4 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5FC1A7C828F0D906000C03BD /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

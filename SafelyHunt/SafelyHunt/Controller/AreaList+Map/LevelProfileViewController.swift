@@ -8,21 +8,25 @@ import GoogleMobileAds
 import UIKit
 
 class LevelProfileViewController: UIViewController {
+    // MARK: - Properties
     var person = Person()
     var levelData = CalculationsPoints()
     var timer: Timer?
     var pointsTotalWin: Float = 0.0
     var pointsStart: Float = 0.0
     var rewardViewed = false
+    var timerLoadReward: Timer?
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     private var rewardedAd: GADRewardedAd?
 
+    // MARK: - IBOutlet
     @IBOutlet weak var levelLabel: UILabel!
     @IBOutlet weak var currentPointsLabel: UILabel!
     @IBOutlet weak var nextLevelPointsLabel: UILabel!
     @IBOutlet weak var progressLevelView: UIProgressView!
-
     @IBOutlet weak var showVideoButton: UIButton!
 
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         getProfile()
@@ -39,6 +43,7 @@ class LevelProfileViewController: UIViewController {
         loadRewardedAd()
     }
 
+    // MARK: - Actions
     @IBAction func showVideoAction() {
         showAward()
     }
@@ -59,6 +64,7 @@ class LevelProfileViewController: UIViewController {
           }
       }
 
+    // MARK: - functions
     func getProfile() {
         UserServices.shared.getProfileUser { [weak self] result in
             switch result {
@@ -88,20 +94,29 @@ class LevelProfileViewController: UIViewController {
     }
 
     private func initButtonVideo() {
+        activityIndicator.layer.cornerRadius = 8
+        activityIndicator.isHidden = false
+        showVideoButton.isEnabled = false
         showVideoButton.setTitleColor(.black, for: .normal)
         showVideoButton.backgroundColor = #colorLiteral(red: 0.6659289002, green: 0.5453534722, blue: 0.3376245499, alpha: 1)
         showVideoButton.layer.cornerRadius = 8
     }
 
-    func loadRewardedAd() {
+ @objc func loadRewardedAd() {
         let request = GADRequest()
         GADRewardedAd.load(withAdUnitID: AdMobIdentifier().videoAwardLevelId(),
                            request: request,
                            completionHandler: { [weak self] adReward, error in
             guard error == nil else {
+                self?.timerLoadReward = Timer.scheduledTimer(timeInterval: 5, target: self!, selector: #selector(self?.loadRewardedAd), userInfo: nil, repeats: false)
                 return
             }
-            self?.rewardedAd = adReward
+            if let adReward = adReward {
+                self?.activityIndicator.isHidden = true
+                self?.showVideoButton.isEnabled = true
+                self?.rewardedAd = adReward
+                self?.timerLoadReward?.invalidate()
+            }
         }
         )
     }

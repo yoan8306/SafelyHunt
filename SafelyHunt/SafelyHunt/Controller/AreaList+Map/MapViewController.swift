@@ -20,6 +20,7 @@ class MapViewController: UIViewController {
     var areaSelected = Area()
     var timer: Timer?
     var timerForStart: Timer?
+    var timerLoadReward: Timer?
     var second = 3
     let notification = LocalNotification()
     lazy var pencil: UIBarButtonItem = {
@@ -70,6 +71,7 @@ class MapViewController: UIViewController {
         drawAreaSelected()
         if mapMode == .monitoring && !rewardViewed {
             monitoringAction()
+
             loadRewardedAd()
         } else {
             presentAlertAfterReward()
@@ -480,13 +482,17 @@ class MapViewController: UIViewController {
 private extension MapViewController {
     // Private functions
 
-    func loadRewardedAd() {
+   @objc func loadRewardedAd() {
         let request = GADRequest()
         GADRewardedAd.load(withAdUnitID: AdMobIdentifier().videoAwardDoubleGainsId(),
                            request: request,
                            completionHandler: { [weak self] adReward, error in
-            guard error == nil else {return}
+            guard error == nil else {
+                self?.timerLoadReward = Timer.scheduledTimer(timeInterval: 5, target: self!, selector: #selector(self?.loadRewardedAd), userInfo: nil, repeats: false)
+                return
+            }
             self?.rewardedAd = adReward
+            self?.timerLoadReward?.invalidate()
         }
         )
     }
@@ -501,6 +507,8 @@ private extension MapViewController {
                 self.presentNativeAlertSuccess(alertMessage: "You win \(pointsDouble)")
             }
         } else {
+            loadRewardedAd()
+            loadRewardedAd()
             presentTraveledFinal()
         }
     }
@@ -679,13 +687,13 @@ private extension MapViewController {
             self.monitoringServices.insertDistanceTraveled()
             self.dismiss(animated: true)
         }
-        let image = UIImage(systemName: "video.bubble.left.fill")
-        let doublePoints = UIAlertAction(title: "Gains x2", style: .cancel) {_ in
+//        let image = UIImage(systemName: "video.bubble.left.fill")
+        let doublePoints = UIAlertAction(title: "Gains x2   🎬", style: .cancel) {_ in
             self.showAward()
         }
 
         dismiss.setValue(colorTintButton, forKey: "titleTextColor")
-        doublePoints.setValue(image, forKey: "image")
+//        doublePoints.setValue(image, forKey: "image")
         alertViewController.addAction(dismiss)
         alertViewController.addAction(doublePoints)
 

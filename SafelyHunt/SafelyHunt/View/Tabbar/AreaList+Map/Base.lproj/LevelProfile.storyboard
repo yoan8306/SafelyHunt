@@ -68,18 +68,27 @@
                                     <action selector="showVideoAction" destination="Y6W-OH-hqX" eventType="touchUpInside" id="QgI-Hh-3Bd"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Y3j-cm-DWs">
+                                <rect key="frame" x="80" y="627" width="215" height="40"/>
+                                <color key="backgroundColor" red="0.66592890019999995" green="0.54535347219999997" blue="0.33762454990000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" red="0.30223849419999999" green="0.4197221994" blue="0.30826809999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="PfD-yf-Cc3" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="BaJ-wk-KEf"/>
                             <constraint firstItem="FjK-Zc-ErX" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="C1f-q5-yPH"/>
+                            <constraint firstItem="Y3j-cm-DWs" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Doz-ht-EiY"/>
                             <constraint firstItem="c5s-fr-7bQ" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="M0k-9U-jqO"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="qOZ-LD-nWp" secondAttribute="trailing" id="Mcx-DD-KdJ"/>
                             <constraint firstItem="qOZ-LD-nWp" firstAttribute="centerY" secondItem="c5s-fr-7bQ" secondAttribute="centerY" id="Pca-BT-pRg"/>
+                            <constraint firstItem="Y3j-cm-DWs" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="80" id="V4D-pP-sdu"/>
                             <constraint firstItem="dhD-aS-9m5" firstAttribute="top" secondItem="PfD-yf-Cc3" secondAttribute="bottom" constant="3" id="WCP-RA-q4R"/>
                             <constraint firstItem="mFl-8W-WrI" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="80" id="Xp8-9W-5Qk"/>
                             <constraint firstItem="dhD-aS-9m5" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="bTF-PS-CGq"/>
+                            <constraint firstItem="mFl-8W-WrI" firstAttribute="top" secondItem="Y3j-cm-DWs" secondAttribute="top" id="bza-m0-ld6"/>
+                            <constraint firstItem="mFl-8W-WrI" firstAttribute="bottom" secondItem="Y3j-cm-DWs" secondAttribute="bottom" id="c8P-nr-7Gw"/>
                             <constraint firstItem="c5s-fr-7bQ" firstAttribute="top" secondItem="dhD-aS-9m5" secondAttribute="bottom" constant="15" id="inb-Lv-cng"/>
                             <constraint firstItem="PfD-yf-Cc3" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="10" id="jmW-iZ-eE1"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="mFl-8W-WrI" secondAttribute="bottom" id="maY-cr-DLa"/>
@@ -90,6 +99,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="Y3j-cm-DWs" id="iY3-dd-csA"/>
                         <outlet property="currentPointsLabel" destination="dhD-aS-9m5" id="RLd-Wq-sBQ"/>
                         <outlet property="levelLabel" destination="PfD-yf-Cc3" id="L2q-IL-2TV"/>
                         <outlet property="nextLevelPointsLabel" destination="qOZ-LD-nWp" id="aPi-Jq-K1a"/>

@@ -29,7 +29,7 @@ class LoginViewController: UIViewController {
         emailTextField.delegate = self
         passwordTextField.delegate = self
 
-        #if DEBUG
+        #if Debug
         emailTextField.text = "yoan8306@wanadoo.fr"
         passwordTextField.text = "coucou"
         #endif
@@ -114,7 +114,7 @@ class LoginViewController: UIViewController {
         }
         let sendEmail = UIAlertAction(title: "Send email".localized(tableName: "LocalizableLoginController"), style: .default) { _ in
             guard  FirebaseAuth.Auth.auth().currentUser != nil else {return}
-            UserServices.shared.sendEmailmVerification()
+            UserServices.shared.sendEmailVerification()
             self.presentNativeAlertSuccess(alertMessage: "Email sended".localized(tableName: "LocalizableLoginController"))
         }
         cancel.setValue(UIColor.label, forKey: "titleTextColor")
@@ -168,5 +168,4 @@ extension LoginViewController: UITextFieldDelegate {
         }
         return true
     }
-
 }

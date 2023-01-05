@@ -103,27 +103,22 @@ class AreaServices: AreaServicesProtocol {
                 callBack(.failure(error ?? ServicesError.noAreaRecordedFound))
                 return
             }
-            //            guard let data = dataSnapshot.children.allObjects as? [DataSnapshot], data.count > 0 else {
-            //                callBack(.failure(ServicesError.noAreaRecordedFound))
-            //                return
-            //            }
 
             for (index, dataArea) in data.enumerated() {
                 let list = dataArea.value as? NSDictionary
                 let name = list?["name"]
                 let date = list?["date"]
                 let city = list?["city"]
-                let foldercoordinate = dataArea.childSnapshot(forPath: "coordinate").children.allObjects as? [DataSnapshot]
+                let folderCoordinate = dataArea.childSnapshot(forPath: "coordinate").children.allObjects as? [DataSnapshot]
 
-                guard let foldercoordinate = foldercoordinate else {return}
-                //                let coordinateArea = self.createCoordinate(data: foldercoordinate)
+                guard let folderCoordinate = folderCoordinate else {return}
                 guard let name = name as? String, let date = date as? String else {return}
 
                 let area = Area()
                 area.name = name
                 area.date = date
                 area.city = city as? String
-                area.coordinatesPoints = self.createCoordinate(data: foldercoordinate)
+                area.coordinatesPoints = self.createCoordinate(data: folderCoordinate)
                 areaList.append(area)
 
                 if index == data.count-1 {

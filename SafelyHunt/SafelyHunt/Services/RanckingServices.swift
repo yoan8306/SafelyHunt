@@ -32,15 +32,15 @@ class RankingService {
             }
 
             for (index, personID) in data.enumerated() {
-                let pathDistanceHunter = personID.childSnapshot(forPath: "distance_traveled")
-                let folderDistance = pathDistanceHunter.value as? NSDictionary
-                let distance = folderDistance?["Total_distance"]
+                let pathTotalPoints = personID.childSnapshot(forPath: "number_of_points")
+                let folderPoints = pathTotalPoints.value as? NSDictionary
+                let points = folderPoints?["points_Total"]
                 let pathUserInfo = personID.childSnapshot(forPath: "info_user")
                 let folderInfoUser = pathUserInfo.value as? NSDictionary
                 let displayName = folderInfoUser?["name"]
                 let email = folderInfoUser?["email"]
 
-                guard let distance = distance as? Double,
+                guard let points = points as? Double,
                       let displayName = displayName as? String,
                       let email = email as? String else {
                     // if last index
@@ -52,16 +52,15 @@ class RankingService {
                 }
 
                 let person = Person()
-                person.totalDistance = distance
+                person.totalPoints = points
                 person.displayName = displayName
                 person.email = email
                 persons.append(person)
 
                 if index == data.count-1 {
-                    callBack(.success(persons.sorted( by: { $0.totalDistance ?? 0 > $1.totalDistance ?? 0})))
+                    callBack(.success(persons.sorted( by: { $0.totalPoints ?? 0 > $1.totalPoints ?? 0})))
                 }
             }
         }
     }
-
 }

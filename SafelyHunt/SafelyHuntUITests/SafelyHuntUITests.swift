@@ -17,24 +17,24 @@ class SafelyHuntUITests: XCTestCase {
     }
 
     /// Test if bad email in SignIn present alert
-    func testGivenBadAdressMailWhenPressLogInButtonThenAlertMessageExist() {
-        let emailAdressTextField = app.textFields["email adress..."]
+    func testGivenBadAddressMailWhenPressLogInButtonThenAlertMessageExist() {
+        let emailAddressTextField = app.textFields["email adress..."]
         let passwordSecureTextField = app.secureTextFields["Password..."]
 
         signOut()
-        emailAdressTextField.tap()
-        emailAdressTextField.typeText("Im bad email")
+        emailAddressTextField.tap()
+        emailAddressTextField.typeText("Im bad email")
         passwordSecureTextField.tap()
-        passwordSecureTextField.typeText("coucu")
+        passwordSecureTextField.typeText("coucou")
 
         app.buttons["Log in"].tap()
 
         XCTAssertTrue(app.alerts["Error"].exists)
     }
 
-    func testGivenInRegisterWithBadAdressMailWhenPressRegisterThenPresentAlert() {
+    func testGivenInRegisterWithBadAddressMailWhenPressRegisterThenPresentAlert() {
         let pseudonymTexField = app.textFields["Pseudonym..."]
-        let emailAdressTextField = app.textFields["email adress..."]
+        let emailAddressTextField = app.textFields["email adress..."]
         let passwordTextField = app.secureTextFields["Password..."]
         let confirmPassword = app.secureTextFields["Confirm password..."]
         signOut()
@@ -42,8 +42,8 @@ class SafelyHuntUITests: XCTestCase {
 
         pseudonymTexField.tap()
         pseudonymTexField.typeText("ImUser test")
-        emailAdressTextField.tap()
-        emailAdressTextField.typeText("Im bad adress")
+        emailAddressTextField.tap()
+        emailAddressTextField.typeText("Im bad adress")
         passwordTextField.tap()
         passwordTextField.typeText("password")
         confirmPassword.tap()
@@ -56,7 +56,7 @@ class SafelyHuntUITests: XCTestCase {
     /// Draw area with more info inside area list
     func testGivenListAreasWhenTapOnAccessoriesButtonThenDrawAreaSelected() {
         let tablesQuery = app.tables
-        let appleAreaCellsQuery = tablesQuery.cells.containing(.staticText, identifier:"Large zone apple")
+        let appleAreaCellsQuery = tablesQuery.cells.containing(.staticText, identifier:"Apple")
         signOut()
         signIn()
         tablesQuery.staticTexts["Select your hunting area"].tap()
@@ -68,10 +68,12 @@ class SafelyHuntUITests: XCTestCase {
     /// Draw a new area
     func testGivenNewAreaWhenPressMapForDrawAreaThenPolygonAreCreated() {
         signIn()
+        let app = XCUIApplication()
+
         app.tables.staticTexts["Select your hunting area"].tap()
         app.navigationBars["Areas List"].buttons["Add"].tap()
         app.navigationBars["Editing area"].buttons["compose"].tap()
-        XCTAssertTrue(app.navigationBars["Draw area with your finger"].exists)
+        XCTAssertTrue(app.navigationBars["Draw your area"].exists)
     }
 
     /// Draw radius Alert
@@ -88,7 +90,7 @@ class SafelyHuntUITests: XCTestCase {
         signIn()
         let tablesQuery = app.tables
         tablesQuery.staticTexts["Select your hunting area"].tap()
-        tablesQuery.cells.containing(.staticText, identifier: "Large zone apple").element.tap()
+        tablesQuery.cells.containing(.staticText, identifier: "Apple").element.tap()
         app.navigationBars["Areas List"].buttons["Menu"].tap()
         app.buttons["Start monitoring"].tap()
         XCTAssertTrue(app.maps.element.exists)
@@ -105,19 +107,21 @@ class SafelyHuntUITests: XCTestCase {
     }
 
     private func signIn() {
-        let emailAdressTextField = app.textFields["email adress..."]
+        let emailAddressTextField = app.textFields["email adress..."]
         let passwordSecureTextField = app.secureTextFields["Password..."]
 
         if app.textFields["email adress..."].exists {
-            emailAdressTextField.tap()
-            emailAdressTextField.typeText("yoan8306@wanadoo.fr")
+            emailAddressTextField.tap()
+            emailAddressTextField.typeText("yoan8306@wanadoo.fr")
             passwordSecureTextField.tap()
             passwordSecureTextField.typeText("coucou")
         } else {
             return
         }
-    
+        
+        
         app.buttons["Log in"].tap()
+        app.buttons["Hunt"].tap()
         app.swipeLeft(velocity: XCUIGestureVelocity.fast)
         app.swipeDown(velocity: XCUIGestureVelocity.fast)
         

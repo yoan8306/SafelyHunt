@@ -14,6 +14,7 @@ class AreaListViewController: UIViewController {
     var listArea: [Area] = []
     var refreshControl = UIRefreshControl()
     var person = Person()
+    var levelData = CalculationsPoints()
 
     // MARK: - IBOutlet
     @IBOutlet weak var areaListTableView: UITableView!
@@ -40,17 +41,29 @@ class AreaListViewController: UIViewController {
     }
 
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
-        let mapsStoryboard = UIStoryboard(name: "Maps", bundle: nil)
+        levelData.calculationPointsAndLevel(points: person.totalPoints)
+        if levelData.actualLevel + 1 > listArea.count {
+            openMapViewController()
+        } else {
+            let levelNecessary = levelData.actualLevel + 1
+            presentAlertError(alertMessage: "You need to reach the level".localized(tableName: "LocalizableAreaListViewController") + " \(levelNecessary) " + "for recorded more area".localized(tableName: "LocalizableAreaListViewController"))
+        }
+    }
 
+    // MARK: - Private functions
+
+    private func openMapViewController() {
+        let mapsStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         guard let mapViewController = mapsStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {return}
+
         mapViewController.monitoringServices = MonitoringServices(monitoring: Monitoring(area: Area(), person: person))
         mapViewController.mapMode = .editingArea
+        mapViewController.showPencil = true
         mapViewController.modalPresentationStyle = .fullScreen
         mapViewController.myNavigationItem.title = "Editing area".localized(tableName: "LocalizableAreaListViewController")
         navigationController?.pushViewController(mapViewController, animated: true)
     }
 
-    // MARK: - Private functions
     /// get all area in database of user
     private func getAreaList() {
         AreaServices.shared.getAreaList() { [weak self] fetchArea in

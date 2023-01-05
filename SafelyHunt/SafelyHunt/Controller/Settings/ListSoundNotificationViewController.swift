@@ -42,15 +42,11 @@ extension ListSoundNotificationViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "soundsCell", for: indexPath)
         let nameSound = sounds[indexPath.row]
+        var content = cell.defaultContentConfiguration()
 
-        if #available(iOS 14.0, *) {
-            var content = cell.defaultContentConfiguration()
-            content.text = nameSound
-            content.textProperties.color = .black
-            cell.contentConfiguration = content
-        } else {
-            cell.textLabel?.text = nameSound
-        }
+        content.text = nameSound
+        content.textProperties.color = .black
+        cell.contentConfiguration = content
 
         if nameSound == UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.notificationSoundName) {
             cell.accessoryType = .checkmark

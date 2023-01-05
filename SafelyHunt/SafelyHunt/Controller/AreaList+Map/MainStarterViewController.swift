@@ -4,10 +4,11 @@
 //
 //  Created by Yoan on 07/07/2022.
 //
-
+import GoogleMobileAds
 import UIKit
 import FirebaseAuth
 import MapKit
+import AppTrackingTransparency
 
 class MainStarterViewController: UIViewController {
     // MARK: - Properties
@@ -16,15 +17,15 @@ class MainStarterViewController: UIViewController {
 
     // MARK: - IBOutlet
     @IBOutlet weak var startMonitoringButton: UIButton!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var huntingTableView: UITableView!
+
+    @IBOutlet weak var bannerView: GADBannerView!
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setButton()
         initPerson()
-        tableView.isScrollEnabled = false
-        tableView.isHidden = person.personMode != .hunter
     }
 
     /// set interface when view appear
@@ -32,17 +33,17 @@ class MainStarterViewController: UIViewController {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.prefersLargeTitles = true
-//        self.navigationController?.navigationBar.isTranslucent = true
         if person.personMode == .hunter {
             getSelectedArea()
         }
-        tableView.reloadData()
-        insertShimeringInButton()
+        huntingTableView.reloadData()
+        insertShimmeringInButton()
     }
 
     /// Show message if no area selected
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        askTracking()
         presentTutorielIfNeeded()
         presentAlertMessage()
         initPerson()
@@ -65,7 +66,7 @@ class MainStarterViewController: UIViewController {
     // MARK: - IBAction
     @IBAction func startMonitoringButton(_ sender: UIButton) {
         if person.personMode == .hunter {
-            if checkIfAreaIsLoaded() {
+            if area != nil {
                 presentMapView()
             } else {
                 presentAlertError(alertMessage: "Your area is not loaded go in your area list and try again".localized(tableName: "LocalizableMainStarter"))
@@ -76,13 +77,16 @@ class MainStarterViewController: UIViewController {
     }
 
     // MARK: - Private functions
-
     private func initPerson() {
-        let currentUser = FirebaseAuth.Auth.auth().currentUser
-        person.uId = currentUser?.uid
-        person.displayName = currentUser?.displayName
-        person.email = currentUser?.email
-        person.personMode = PersonMode(rawValue: UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.personMode) ?? "unknown")
+        UserServices.shared.getProfileUser { [weak self] profileUser in
+            switch profileUser {
+            case .failure(_):
+                break
+            case .success(let person):
+                self?.person = person
+                self?.person.personMode = PersonMode(rawValue: UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.personMode) ?? "unknown")
+            }
+        }
     }
 
     /// Download area selected
@@ -108,7 +112,7 @@ class MainStarterViewController: UIViewController {
         }
     }
 
-    /// Transferr to MapViewController with monitoring object
+    /// Transfer to MapViewController with monitoring object
     private func presentMapView() {
         let mapViewStoryboard = UIStoryboard(name: "Maps", bundle: nil)
         guard let mapViewController = mapViewStoryboard.instantiateViewController(withIdentifier: "MapView") as? MapViewController else {return}
@@ -126,7 +130,7 @@ class MainStarterViewController: UIViewController {
     /// Set button design
     private func setButton() {
         startMonitoringButton.layer.cornerRadius = startMonitoringButton.frame.height/2
-       enableButtonIfPossible()
+        enableButtonIfPossible()
         guard startMonitoringButton.isEnabled else {
             let brownColor =  #colorLiteral(red: 0.6659289002, green: 0.5453534722, blue: 0.3376245499, alpha: 1)
             startMonitoringButton.backgroundColor = #colorLiteral(red: 0.2238582075, green: 0.3176955879, blue: 0.2683802545, alpha: 1)
@@ -144,7 +148,6 @@ class MainStarterViewController: UIViewController {
             startMonitoringButton.isEnabled = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != ""
         } else {
             startMonitoringButton.isEnabled = true
-
         }
     }
 
@@ -158,8 +161,8 @@ class MainStarterViewController: UIViewController {
         }
     }
 
-    /// if area selected start shimering
-    private func insertShimeringInButton() {
+    /// if area selected start shimmering
+    private func insertShimmeringInButton() {
         if UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected) != "" || person.personMode == .walker {
             startMonitoringButton.startShimmering()
         } else {
@@ -171,13 +174,9 @@ class MainStarterViewController: UIViewController {
     private func presentTutorielIfNeeded() {
         if person.personMode == .hunter {
             if !UserDefaults.standard.bool(forKey: UserDefaultKeys.Keys.tutorialHasBeenSeen) {
-               presentCarousel()
+                presentCarousel()
             }
         }
-    }
-
-    private func checkIfAreaIsLoaded() -> Bool {
-         area != nil
     }
 
     private func presentCarousel() {
@@ -189,68 +188,120 @@ class MainStarterViewController: UIViewController {
         present(carouselVC, animated: true)
     }
 
+    /// init AdMob banner
+    private func initAdMob() {
+        bannerView.adUnitID = AdMobIdentifier().bannerIdMainStarter()
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+    }
+
+    private func askTracking() {
+        ATTrackingManager.requestTrackingAuthorization(completionHandler: { [weak self] _ in
+            self?.initAdMob()
+        })
+    }
+
 }
 
 // MARK: - TableView DataSource
 extension MainStarterViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MainData.mainStarter.count
+        switch section {
+        case 0:
+            if person.personMode == .hunter {
+                return MainData.mainStarter.count
+            } else {
+                return 0
+            }
+
+        case 1:
+            return MainData.informations.count
+        default: return 0
+        }
     }
 
     /// create cell of table view
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellStarter", for: indexPath)
-        let title = MainData.mainStarter[indexPath.row]
 
-        configureCell(cell, title, indexPath)
+        if person.personMode == .hunter && indexPath.section == 0 {
+            let title = MainData.mainStarter[indexPath.row]
+            configureCellHunter(cell, title, indexPath)
+        } else {
+            let title = MainData.informations[indexPath.row]
+            configureCellInformation(cell, title)
+        }
+
         return cell
     }
 
     /// configure each cell of table view
-    private func configureCell(_ cell: UITableViewCell, _ title: String, _ indexPath: IndexPath) {
+    private func configureCellHunter(_ cell: UITableViewCell, _ title: String, _ indexPath: IndexPath) {
         let areaSelected = UserDefaults.standard.string(forKey: UserDefaultKeys.Keys.areaSelected)
         let radiusAlert = UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert)
-        if #available(iOS 14.0, *) {
-            var content = cell.defaultContentConfiguration()
-            content.text = title
-            switch indexPath.row {
-            case 0:
-                content.secondaryText = areaSelected
+        var content = cell.defaultContentConfiguration()
 
-            case 1:
-                content.secondaryText = "\(radiusAlert) m"
-            default:
-                break
-            }
-            content.textProperties.color = .black
-            content.secondaryTextProperties.color = .black
-            cell.contentConfiguration = content
-        } else {
-            cell.textLabel?.text = title
-            switch indexPath.row {
-            case 0:
-                cell.detailTextLabel?.text = areaSelected
-            case 1:
-                cell.detailTextLabel?.text = "\(radiusAlert) m"
-            default:
-                break
-            }
+        content.text = title
+        switch indexPath.row {
+        case 0:
+            content.secondaryText = areaSelected
+        case 1:
+            content.secondaryText = "\(radiusAlert) m"
+        default:
+            break
         }
+        content.textProperties.color = .black
+        content.secondaryTextProperties.color = .black
+        cell.contentConfiguration = content
     }
+
+    private func configureCellInformation(_ cell: UITableViewCell, _ title: String) {
+        var content = cell.defaultContentConfiguration()
+        content.text = title
+        content.textProperties.color = .black
+        cell.contentConfiguration = content
+    }
+
 }
 
 // MARK: - TableView Delegate
 extension MainStarterViewController: UITableViewDelegate {
     /// action for cell selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
+
+        switch indexPath.section {
         case 0:
-            transferToAreaListViewController()
+            switch indexPath.row {
+            case 0:
+                transferToAreaListViewController()
+            case 1:
+                transferToMapForSetRadiusAlert()
+            default: break
+            }
+
         case 1:
-            transferToMapForSetRadiusAlert()
-        default:
-            break
+            switch indexPath.row {
+            case 0:
+                tableView.deselectRow(at: indexPath, animated: true)
+                transferToLevelProfile()
+            case 1:
+                tableView.deselectRow(at: indexPath, animated: true)
+                if let url = URL(string: "https://www.chasseurdefrance.com/pratiquer/dates-de-chasse/") {
+                    UIApplication.shared.open(url)
+                }
+
+            default: break
+            }
+        default: break
         }
+    }
+
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+
     }
 
     /// transfert to AreaListViewController
@@ -274,4 +325,14 @@ extension MainStarterViewController: UITableViewDelegate {
         mapViewController.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(mapViewController, animated: true)
     }
+
+    private func transferToLevelProfile() {
+        let levelProfileStoryboard = UIStoryboard(name: "LevelProfile", bundle: nil)
+
+        guard let levelProfileViewController = levelProfileStoryboard.instantiateViewController(withIdentifier: "LevelProfile") as? LevelProfileViewController else {return}
+
+        levelProfileViewController.person = person
+        navigationController?.pushViewController(levelProfileViewController, animated: true)
+    }
+
 }

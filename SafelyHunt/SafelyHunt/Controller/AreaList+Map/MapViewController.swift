@@ -5,6 +5,7 @@
 //  Created by Yoan on 29/07/2022.
 //
 
+import GoogleMobileAds
 import UIKit
 import MapKit
 import FirebaseAuth
@@ -19,6 +20,7 @@ class MapViewController: UIViewController {
     var areaSelected = Area()
     var timer: Timer?
     var timerForStart: Timer?
+    var timerLoadReward: Timer?
     var second = 3
     let notification = LocalNotification()
     lazy var pencil: UIBarButtonItem = {
@@ -29,7 +31,10 @@ class MapViewController: UIViewController {
             action: #selector(pencilButtonAction)
         )
     }()
+    var showPencil = false
     let colorTintButton = #colorLiteral(red: 0.6659289002, green: 0.5453534722, blue: 0.3376245499, alpha: 1)
+    private var rewardedAd: GADRewardedAd?
+    var rewardViewed = false
 
     // MARK: - IBOutlet
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -64,19 +69,20 @@ class MapViewController: UIViewController {
         super.viewDidAppear(animated)
         askAuthorizationsForLocalizationUser()
         drawAreaSelected()
-        if mapMode == .monitoring {
+        if mapMode == .monitoring && !rewardViewed {
             monitoringAction()
+
+            loadRewardedAd()
+        } else {
+            presentAlertAfterReward()
         }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super .viewWillDisappear(animated)
-        if mapMode == .monitoring {
-            monitoringServices.insertDistanceTraveled()
-        }
     }
 
-    /// When user touch map, create polyline or not
+    /// When user touch map, create polyLine or not
     /// - Parameters:
     ///   - touches: user touch screen
     ///   - event: event touch
@@ -195,7 +201,7 @@ class MapViewController: UIViewController {
         radiusAlertLabelStatus.text = switchButtonRadiusAlert.isOn ? "Radius alert is enable".localized(tableName: "LocalizableMapView") : "Radius alert is disable".localized(tableName: "LocalizableMapView")
     }
 
-    /// monitoring user.  action call by tilmer
+    /// monitoring user.  action call by timer
     @objc func updateMonitoring() {
         guard let person = monitoringServices.monitoring.person else {return}
 
@@ -209,7 +215,7 @@ class MapViewController: UIViewController {
         monitoringServices.insertUserPosition()
     }
 
-    /// count timerfor start before start monitoring
+    /// count timer for start before start monitoring
     @objc func timerBeforeStart() {
         if second > 0 {
             monitoringButton.setImage(nil, for: .normal)
@@ -247,7 +253,7 @@ class MapViewController: UIViewController {
         mapView.showsCompass = false
         notification.notificationInitialize()
         initializePickerView()
-        initialzeMapModView()
+        initializeMapModView()
     }
 
     /// set mapStyle
@@ -258,10 +264,10 @@ class MapViewController: UIViewController {
     }
 
     /// Initialize View
-    private func initialzeMapModView() {
+    private func initializeMapModView() {
         switch mapMode {
         case .editingArea:
-            initialzeEditingAreaView()
+            initializeEditingAreaView()
 
         case .editingRadius:
             initializeEditingRadiusView()
@@ -273,14 +279,16 @@ class MapViewController: UIViewController {
     }
 
     /// case editing mode set navigationView
-    private func initialzeEditingAreaView() {
+    private func initializeEditingAreaView() {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.isTranslucent = true
-        navigationItem.rightBarButtonItem = pencil
+        if showPencil {
+            navigationItem.rightBarButtonItem = pencil
+        }
         travelInfoUiView.isHidden = true
     }
 
-    /// case editing radius mode showand set  slider
+    /// case editing radius mode show and set  slider
     private func initializeEditingRadiusView() {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationController?.navigationBar.isTranslucent = true
@@ -453,6 +461,7 @@ class MapViewController: UIViewController {
             if let textfield = alertViewController.textFields?[0], let nameArea = textfield.text, !nameArea.isEmpty {
                 self.createArea(nameArea: nameArea)
                 self.turnOffEditingMode()
+                self.navigationItem.rightBarButtonItem = nil
             } else {
                 self.presentPopUpNewNameArea()
             }
@@ -471,21 +480,45 @@ class MapViewController: UIViewController {
 
 // MARK: - MapMode Monitoring
 private extension MapViewController {
-    // Private funcions
+    // Private functions
+
+   @objc func loadRewardedAd() {
+        let request = GADRequest()
+        GADRewardedAd.load(withAdUnitID: AdMobIdentifier().videoAwardDoubleGainsId(),
+                           request: request,
+                           completionHandler: { [weak self] adReward, error in
+            guard error == nil else {
+                self?.timerLoadReward = Timer.scheduledTimer(timeInterval: 5, target: self!, selector: #selector(self?.loadRewardedAd), userInfo: nil, repeats: false)
+                return
+            }
+            self?.rewardedAd = adReward
+            self?.timerLoadReward?.invalidate()
+        }
+        )
+    }
+
+    func showAward() {
+        if let adReward = rewardedAd {
+            adReward.present(fromRootViewController: self) {
+                let pointsDouble = self.monitoringServices.pointWin * 2
+                UserServices.shared.insertPoints(reward: pointsDouble)
+                self.monitoringServices.insertDistanceTraveled()
+                self.rewardViewed = true
+                self.presentNativeAlertSuccess(alertMessage: "You win \(pointsDouble)")
+            }
+        } else {
+            loadRewardedAd()
+            loadRewardedAd()
+            presentTraveledFinal()
+        }
+    }
 
     /// Check if authorization Location is enable
     /// - Returns: return true if location is enabled
     func statusAuthorizationLocation() -> Bool {
-        if #available(iOS 14.0, *) {
-            if locationManager.accuracyAuthorization != .fullAccuracy {
-                UIApplicationOpenSetting()
-                return false
-            }
-        } else {
-            if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
-                UIApplicationOpenSetting()
-                return false
-            }
+        if locationManager.accuracyAuthorization != .fullAccuracy {
+            UIApplicationOpenSetting()
+            return false
         }
         return true
     }
@@ -532,7 +565,7 @@ private extension MapViewController {
         removeRadiusOverlay()
         mapView.removeAnnotations(mapView.annotations) // remove hunters
         monitoringButton.layer.removeAllAnimations()
-        dismiss(animated: true)
+        presentTraveledFinal()
     }
 
     /// check if user is always inside area
@@ -637,25 +670,55 @@ private extension MapViewController {
             notification.sendNotification()
         }
     }
+
+    func presentTraveledFinal() {
+        let winPoints = String(format: "%.2f", monitoringServices.pointWin) + " points"
+        let alertViewController = UIAlertController(
+            title: "Congratulations".localized(tableName: "LocalizableMapView"),
+            message: "You have travel".localized(tableName: "LocalizableMapView")
+            + ( distanceTraveledLabel.text ?? "nil")
+            + "\n" + "You win".localized(tableName: "LocalizableMapView")
+            + " \(winPoints)",
+            preferredStyle: .alert
+        )
+
+        let dismiss = UIAlertAction(title: "Ok", style: .default) { _ in
+            self.monitoringServices.insertPoints()
+            self.monitoringServices.insertDistanceTraveled()
+            self.dismiss(animated: true)
+        }
+//        let image = UIImage(systemName: "video.bubble.left.fill")
+        let doublePoints = UIAlertAction(title: "Gains x2   🎬", style: .cancel) {_ in
+            self.showAward()
+        }
+
+        dismiss.setValue(colorTintButton, forKey: "titleTextColor")
+//        doublePoints.setValue(image, forKey: "image")
+        alertViewController.addAction(dismiss)
+        alertViewController.addAction(doublePoints)
+
+        present(alertViewController, animated: true, completion: nil)
+    }
+
+    func presentAlertAfterReward() {
+        let alertViewController = UIAlertController(title: "Congratulations", message: "You have double your gains", preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "Dismiss", style: .default) {_ in
+            self.dismiss(animated: true)
+        }
+        alertViewController.addAction(dismiss)
+        present(alertViewController, animated: true)
+    }
+
 }
 
 // MARK: - MapView delegate, CLLocationmanager delegate
 extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
 
-    // Location ManagerDelegate
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        if #available(iOS 14.0, *) {
-            handleAuthorizationStatus(status: locationManager.authorizationStatus)
-        } else {
-            handleAuthorizationStatus(status: CLLocationManager.authorizationStatus())
-        }
-    }
-
-    /// update distance and altitude during monioring
+    /// update distance and altitude during monitoring
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         transferDistanceAndAltitudeToLabel(locations)
         getDistanceTraveled(locations)
-        updatePostion(locations)
+        updatePosition(locations)
     }
 
     /// design polygon polyline and circle
@@ -682,11 +745,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     private func askAuthorizationsForLocalizationUser() {
         mapView.delegate = self
         locationManager.delegate = self
-        if #available(iOS 14.0, *) {
-            handleAuthorizationStatus(status: locationManager.authorizationStatus)
-        } else {
-            handleAuthorizationStatus(status: CLLocationManager.authorizationStatus())
-        }
+        handleAuthorizationStatus(status: locationManager.authorizationStatus)
     }
 
     /// check if location authorization status change
@@ -694,12 +753,8 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     private func handleAuthorizationStatus(status: CLAuthorizationStatus) {
         switch status {
         case .authorizedWhenInUse, .authorizedAlways:
-            if #available(iOS 14.0, *) {
-                if locationManager.accuracyAuthorization != .fullAccuracy {
-                    UIApplicationOpenSetting()
-                }
-            } else {
-                locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            if locationManager.accuracyAuthorization != .fullAccuracy {
+                UIApplicationOpenSetting()
             }
             mapView.showsUserLocation = true
         case .denied, .restricted:
@@ -713,7 +768,6 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
 
     /// open setting app if needed
     private func UIApplicationOpenSetting() {
-
         let alertVC = UIAlertController(
             title: "Error".localized(tableName: "Localizable"),
             message: "We need exact position for best monitoring, you can change in your setting".localized(tableName: "LocalizableMapView"),
@@ -752,7 +806,7 @@ extension MapViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         mapView.addOverlay(monitoringServices.monitoring.area.createPolyLineTravel())
     }
 
-    private func updatePostion(_ locations: [CLLocation]) {
+    private func updatePosition(_ locations: [CLLocation]) {
         guard let person = monitoringServices.monitoring.person else {
             return
         }

@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "Win 2 points show one video"; ObjectID = "FjK-Zc-ErX"; */
+"FjK-Zc-ErX.text" = "Gagnez deux points en regardant une courte vidéo";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "PfD-yf-Cc3"; */
+"PfD-yf-Cc3.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "dhD-aS-9m5"; */
+"dhD-aS-9m5.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Show video"; ObjectID = "mFl-8W-WrI"; */
+"mFl-8W-WrI.normalTitle" = "Voir la vidéo";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "qOZ-LD-nWp"; */
+"qOZ-LD-nWp.text" = "Label";

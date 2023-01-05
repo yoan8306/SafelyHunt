@@ -14,16 +14,22 @@ import MapKit
 protocol MonitoringServicesProtocol {
     var monitoring: MonitoringProtocol {get set}
     var startMonitoring: Bool {get set}
+    var pointWin: Double {get}
     func checkUserIsInRadiusAlert(callback: @escaping(Result<[Person], Error>) -> Void)
     func checkUserIsAlwayInArea(positionUser: CLLocationCoordinate2D) -> Bool
     func insertDistanceTraveled()
     func getTotalDistanceTraveled(callBack: @escaping(Result<Double, Error>) -> Void)
     func insertUserPosition()
+    func insertPoints()
+    func getTotalPoints(callBack: @escaping (Result<Double, Error>) -> Void)
 }
 
 class MonitoringServices: MonitoringServicesProtocol {
     var monitoring: MonitoringProtocol
     var startMonitoring: Bool
+    var pointWin: Double {
+        monitoring.currentDistance * 0.0003
+    }
     private let database = Database.database().reference()
     private let firebaseAuth: FirebaseAuth.Auth = .auth()
 
@@ -40,7 +46,7 @@ class MonitoringServices: MonitoringServicesProtocol {
             return
         }
 
-        guard let actualPosition = person.actualPostion else {
+        guard let actualPosition = person.actualPosition else {
             return
         }
 
@@ -49,7 +55,7 @@ class MonitoringServices: MonitoringServicesProtocol {
             case .success(let persons):
                 callback(.success( self.addPersonsIntoList(
                     persons: persons,
-                    actualPostion: actualPosition,
+                    actualPosition: actualPosition,
                     radiusAlert: UserDefaults.standard.integer(forKey: UserDefaultKeys.Keys.radiusAlert)
                 )
                 ))
@@ -100,7 +106,7 @@ class MonitoringServices: MonitoringServicesProtocol {
         }
     }
 
-    /// get the totatl distance traveled
+    /// get the total distance traveled
     /// - Parameters:
     ///   - user: current user
     ///   - callBack: send the total distance traveled
@@ -171,8 +177,8 @@ class MonitoringServices: MonitoringServicesProtocol {
     /// insert hunters if they were seen less than 20 minutes ago
     /// If person are walker they are inside list if are less 1500 meter of hunter
     /// - Parameter huntersList: all hunters in database
-    func addPersonsIntoList(persons: [Person], actualPostion: CLLocation, radiusAlert: Int) -> [Person] {
-        var personInradiusAlert: [Person] = []
+    func addPersonsIntoList(persons: [Person], actualPosition: CLLocation, radiusAlert: Int) -> [Person] {
+        var personInRadiusAlert: [Person] = []
 
         for person in persons {
             guard let dateTimeStamp = person.date else {
@@ -184,21 +190,21 @@ class MonitoringServices: MonitoringServicesProtocol {
                 let latitude = person.latitude ?? 0
                 let longitude = person.longitude ?? 0
                 let personPositionFind = CLLocation(latitude: latitude, longitude: longitude)
-                let distance = actualPostion.distance(from: personPositionFind)
+                let distance = actualPosition.distance(from: personPositionFind)
 
                 switch monitoring.person?.personMode {
                 case .hunter:
                     if Int(distance) < radiusAlert || (Int(distance) < (1000) && person.personMode == .walker) {
-                        personInradiusAlert.append(person)
+                        personInRadiusAlert.append(person)
                     }
                 default:
                     if Int(distance) < (1000) && person.personMode != .walker {
-                        personInradiusAlert.append(person)
+                        personInRadiusAlert.append(person)
                     }
                 }
             }
         }
-        return personInradiusAlert
+        return personInRadiusAlert
     }
 
     /// insert position of current user in database
@@ -222,5 +228,42 @@ class MonitoringServices: MonitoringServicesProtocol {
                 "person_Mode": personMode
             ]
         )
+    }
+}
+
+// MARK: - number of points
+extension MonitoringServices {
+    func insertPoints() {
+        guard let userID = firebaseAuth.currentUser?.uid else {return}
+
+        getTotalPoints() { [weak self] result in
+            switch result {
+            case .failure(_):
+                break
+            case .success(let numberOfPointsTotal):
+
+                let newTotalPoints = numberOfPointsTotal + (self?.pointWin ?? 0)
+                self?.database.child("Database").child("users_list").child(userID).child("number_of_points").setValue(
+                    [
+                        "points_Total": newTotalPoints
+                    ]
+                )
+                self?.monitoring.person?.totalPoints = newTotalPoints
+            }
+        }
+    }
+
+    func getTotalPoints(callBack: @escaping (Result<Double, Error>) -> Void) {
+        guard let userID = firebaseAuth.currentUser?.uid else {return}
+
+        database.child("Database").child("users_list").child(userID).child("number_of_points").child("points_Total").getData { error, dataSnapshot in
+
+            guard error == nil, let dataSnapshot = dataSnapshot else {
+                callBack(.failure(error ?? ServicesError.errorTask))
+                return
+            }
+            let numbersOfPoints = dataSnapshot.value as? Double
+            callBack(.success(numbersOfPoints ?? 0.0))
+        }
     }
 }

@@ -65,14 +65,14 @@ class UserServices: UserServicesProtocol {
                     callBack(.failure(error ?? ServicesError.createAccountError))
                     return
                 }
-                self.sendEmailmVerification()
+                self.sendEmailVerification()
                 callBack(.success(user))
             }
         }
     }
 
-    /// Send emai verification
-    func sendEmailmVerification() {
+    /// Send email verification
+func sendEmailVerification() {
         guard let authUser = firebaseAuth.currentUser else {return}
         if !authUser.isEmailVerified {
             authUser.sendEmailVerification()
@@ -106,9 +106,37 @@ class UserServices: UserServicesProtocol {
         }
     }
 
+    func getProfileUser(callBack: @escaping (Result<Person, Error>) -> Void) {
+        guard let userId = firebaseAuth.currentUser?.uid else {return}
+        let database = Database.database().reference().child("Database").child("users_list").child(userId)
+
+        database.getData { error, dataSnapshot in
+            guard error == nil, let dataSnapshot = dataSnapshot else {
+                callBack(.failure(error ?? ServicesError.errorTask))
+                return
+            }
+            let info = dataSnapshot.value as? NSDictionary
+            let totalDistanceFolder = info?["distance_traveled"] as? NSDictionary
+            let numberPointsFolder = info?["number_of_points"] as? NSDictionary
+
+            let totalDistance = totalDistanceFolder?.value(forKey: "Total_distance")
+            let numberPoints = numberPointsFolder?.value(forKey: "points_Total")
+            let person = Person()
+
+            if let totalDistance = totalDistance as? Double, let totalPoint = numberPoints as? Double {
+                person.totalPoints = totalPoint
+                person.totalDistance = totalDistance
+            }
+            person.uId = userId
+            person.email = self.firebaseAuth.currentUser?.email
+            person.displayName = self.firebaseAuth.currentUser?.displayName
+            callBack(.success(person))
+        }
+    }
+
     /// update user data and save in database
     /// - Parameters:
-    ///   - displayName: user's displayname
+    ///   - displayName: user's displayName
     ///   - callBack: result of update
     func updateProfile(displayName: String, callBack: @escaping (Result<User, Error>) -> Void) {
         let user = firebaseAuth.currentUser
@@ -135,8 +163,6 @@ class UserServices: UserServicesProtocol {
     /// disconnect the current user
     /// - Parameter callBack: return if disconnected is success or not
     func disconnectCurrentUser(callBack: @escaping (Result<String, Error>) -> Void) {
-//        try? firebaseAuth.signOut()
-
         do {
             try firebaseAuth.signOut()
             callBack(.success("You are disconnected"))
@@ -175,6 +201,42 @@ class UserServices: UserServicesProtocol {
                     callBack(.success("Delete Success"))
                 }
             }
+        }
+    }
+}
+
+// MARK: - Rewards
+extension UserServices {
+    func insertPoints(reward: Double) {
+        guard let userID = firebaseAuth.currentUser?.uid else {return}
+
+        getTotalPoints() { [weak self] result in
+            switch result {
+            case .failure(_):
+                break
+            case .success(let numberOfPointsTotal):
+
+                let newTotalPoints = numberOfPointsTotal + reward
+                self?.database.child("Database").child("users_list").child(userID).child("number_of_points").setValue(
+                    [
+                        "points_Total": newTotalPoints
+                    ]
+                )
+            }
+        }
+    }
+
+   private func getTotalPoints(callBack: @escaping (Result<Double, Error>) -> Void) {
+        guard let userID = firebaseAuth.currentUser?.uid else {return}
+
+        database.child("Database").child("users_list").child(userID).child("number_of_points").child("points_Total").getData { error, dataSnapshot in
+
+            guard error == nil, let dataSnapshot = dataSnapshot else {
+                callBack(.failure(error ?? ServicesError.errorTask))
+                return
+            }
+            let numbersOfPoints = dataSnapshot.value as? Double
+            callBack(.success(numbersOfPoints ?? 0.0))
         }
     }
 }

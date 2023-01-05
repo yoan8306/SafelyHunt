@@ -1,10 +1,9 @@
 /* 
   Localizable.strings
   SafelyHunt
-
   Created by Yoan on 21/10/2022.
-  
 */
+
 "Delete" = "Supprimer";
 "Cancel" = "Annuler";
 "Error" = "Erreur";
@@ -12,4 +11,7 @@
 "Success" = "Succès";
 "hunter" = "chasseur";
 "walker" = "promeneur";
-"Select a choice" = "Selectionnez un choix";
+"Select a choice" = "Sélectionner un choix";
+"Your actual level:" = "Votre niveau actuel:";
+"You have" = "Vous avez";
+"No video available" = "Pas de vidéo disponible";

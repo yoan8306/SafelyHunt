@@ -48,13 +48,13 @@ final class TestMonitoringServices: XCTestCase {
         monitoringServices.monitoring.person?.latitude = latitudeUser
         monitoringServices.monitoring.person?.longitude = longitude
 
-        guard let actualPostion = monitoringServices.monitoring.person?.actualPostion else {
+        guard let actualPostion = monitoringServices.monitoring.person?.actualPosition else {
             fatalError()
         }
 
         let huntersInRadiusAlert = monitoringServices.addPersonsIntoList(
             persons: hunters,
-            actualPostion: actualPostion,
+            actualPosition: actualPostion,
             radiusAlert: 300
         )
 
@@ -90,13 +90,13 @@ final class TestMonitoringServices: XCTestCase {
         monitoringServices.monitoring.person?.latitude = latitudeUser
         monitoringServices.monitoring.person?.longitude = longitudeUser
         
-        guard let actualPosition = monitoringServices.monitoring.person?.actualPostion else {
+        guard let actualPosition = monitoringServices.monitoring.person?.actualPosition else {
             fatalError()
         }
         
         let huntersInRadiusAlert = monitoringServices.addPersonsIntoList(
             persons: hunters,
-            actualPostion: actualPosition,
+            actualPosition: actualPosition,
             radiusAlert: 300
         )
         
@@ -139,13 +139,13 @@ final class TestMonitoringServices: XCTestCase {
         monitoringServices.monitoring.person?.latitude = latitudeUser
         monitoringServices.monitoring.person?.longitude = longitude
 
-        guard let actualPostion = monitoringServices.monitoring.person?.actualPostion else {
+        guard let actualPostion = monitoringServices.monitoring.person?.actualPosition else {
             fatalError()
         }
 
         let huntersInRadiusAlert = monitoringServices.addPersonsIntoList(
             persons: hunters,
-            actualPostion: actualPostion,
+            actualPosition: actualPostion,
             radiusAlert: 300
         )
 
@@ -165,13 +165,13 @@ final class TestMonitoringServices: XCTestCase {
         monitoringServices.monitoring.person?.latitude = latitudeUser
         monitoringServices.monitoring.person?.longitude = longitude
 
-        guard let actualPostion = monitoringServices.monitoring.person?.actualPostion else {
+        guard let actualPostion = monitoringServices.monitoring.person?.actualPosition else {
             fatalError()
         }
 
         let huntersInRadiusAlert = monitoringServices.addPersonsIntoList(
             persons: hunters,
-            actualPostion: actualPostion,
+            actualPosition: actualPostion,
             radiusAlert: 300
         )
 
@@ -186,7 +186,7 @@ final class TestMonitoringServices: XCTestCase {
         monitoringServices.monitoring.person?.longitude = longitude
         monitoringServices.monitoring.area = createArea()
 
-        guard let actualPostion = monitoringServices.monitoring.person?.actualPostion else {
+        guard let actualPostion = monitoringServices.monitoring.person?.actualPosition else {
             fatalError()
         }
 
@@ -201,7 +201,7 @@ final class TestMonitoringServices: XCTestCase {
         monitoringServices.monitoring.person?.longitude = longitude
         monitoringServices.monitoring.area = createArea()
 
-        guard let actualPostion = monitoringServices.monitoring.person?.actualPostion else {
+        guard let actualPostion = monitoringServices.monitoring.person?.actualPosition else {
             fatalError()
         }
         XCTAssertFalse(monitoringServices.checkUserIsAlwayInArea(positionUser: actualPostion.coordinate))

@@ -71,9 +71,8 @@ class MapViewController: UIViewController {
         drawAreaSelected()
         if mapMode == .monitoring && !rewardViewed {
             monitoringAction()
-
             loadRewardedAd()
-        } else {
+        } else if mapMode == .monitoring && rewardViewed {
             presentAlertAfterReward()
         }
     }
